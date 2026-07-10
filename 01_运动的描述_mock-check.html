@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 运动学的描述 · 运动的描述 · 基础检测</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8; --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961; --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC; --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73;
+    --bg-primary: #ffffff; --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px; --radius-sm: 14px; --radius-btn: 16px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  .v021-banner {
+    background: var(--gold-050);
+    border-left: 3px solid var(--gold-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px 18px 56px;
+    margin-bottom: 28px;
+    font-size: 0.86rem;
+    color: var(--gold-900);
+    line-height: 1.75;
+    position: relative;
+  }
+  .v021-banner::before {
+    content: "i"; position: absolute; left: 16px; top: 18px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gold-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .v021-banner strong { color: var(--gold-900); }
+  .v021-banner-title { font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+
+  .header {
+    text-align: center; padding: 56px 32px 48px;
+    background: #fff; color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 36px;
+    position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%;
+    transform: translateX(-50%); width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--blue-500), var(--blue-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.45rem; margin-bottom: 12px;
+    color: var(--blue-700); font-weight: 700;
+    line-height: 1.5; position: relative; z-index: 1;
+  }
+  .header .h1-sub {
+    display: inline-block; font-size: 0.82rem; font-weight: 500;
+    color: var(--silver-700); margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--silver-500);
+  }
+  .header .subtitle {
+    font-size: 0.9rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  .screen {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    border-top: 3px solid var(--blue-700);
+  }
+  .screen.hidden { display: none; }
+
+  .entry-title { font-size: 1.15rem; font-weight: 700; color: var(--blue-700); margin-bottom: 18px; }
+  .entry-info { font-size: 0.9rem; color: var(--text-primary); line-height: 1.85; margin-bottom: 22px; padding-left: 22px; list-style: disc; }
+  .entry-info li { margin-bottom: 6px; }
+  .entry-info strong { color: var(--blue-700); }
+  .name-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    font-family: inherit; font-size: 0.95rem;
+    margin: 14px 0 8px; background: #fff;
+    transition: var(--transition);
+  }
+  .name-input:focus { outline: none; border-color: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .last-attempt-note {
+    background: var(--blue-050); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 16px; font-size: 0.85rem; color: var(--blue-700);
+    margin: 10px 0 18px;
+  }
+  .last-attempt-note.honor { background: var(--gold-050); border-left-color: var(--gold-700); color: var(--gold-900); }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--blue-700); color: #fff;
+    padding: 14px 32px;
+    border-radius: var(--radius-btn);
+    border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    transition: var(--transition);
+  }
+  .btn-primary:hover { background: var(--blue-900); }
+  .btn-secondary {
+    display: inline-block;
+    background: var(--silver-050); color: var(--silver-900);
+    padding: 14px 24px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--border-color); cursor: pointer;
+    font-family: inherit; font-size: 0.9rem; font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  .btn-secondary:hover { background: var(--silver-100); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+
+  .progress-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem; color: var(--silver-700);
+  }
+  .progress-name { font-weight: 600; color: var(--blue-700); }
+
+  .questions-list { }
+
+  .question {
+    --q-rich: var(--blue-900);
+    --q-mid:  var(--blue-700);
+    --q-bg:   var(--blue-050);
+    --q-tint: var(--blue-100);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--q-mid);
+  }
+  .questions-list > .question:nth-of-type(3n+2) {
+    --q-rich: var(--gold-900); --q-mid: var(--gold-700);
+    --q-bg: var(--gold-050); --q-tint: var(--gold-100);
+  }
+  .questions-list > .question:nth-of-type(3n) {
+    --q-rich: var(--silver-900); --q-mid: var(--silver-700);
+    --q-bg: var(--silver-050); --q-tint: var(--silver-100);
+  }
+
+  .q-header-circle {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--q-bg);
+    border: 2px solid var(--q-mid);
+    margin: 0 auto 32px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 22px;
+    box-sizing: border-box;
+  }
+  .q-h-num { font-size: 0.74rem; font-weight: 700; color: var(--q-rich); letter-spacing: 0.22em; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1.5px solid var(--q-mid); }
+  .q-h-type { font-size: 0.95rem; font-weight: 700; color: var(--q-rich); line-height: 1.5; }
+  .q-h-diff { font-size: 0.78rem; color: var(--q-mid); margin-top: 6px; }
+  .q-h-id { font-size: 0.75rem; color: var(--silver-700); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .q-stem { font-size: 0.95rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-primary); }
+  .q-stem strong { color: var(--q-rich); }
+
+  .q-options { margin: 14px 0 18px; }
+  .q-options label {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 0.92rem; line-height: 1.75;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .q-options label:hover { background: var(--q-bg); border-color: var(--q-mid); }
+  .q-options input { margin-top: 5px; flex-shrink: 0; accent-color: var(--q-mid); }
+  .opt-letter { font-weight: 700; color: var(--q-rich); flex-shrink: 0; }
+
+  .q-fillin {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+  }
+  .q-fillin:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-short-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+    min-height: 110px; resize: vertical;
+    line-height: 1.75;
+  }
+  .q-short-input:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-calc { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 12px; align-items: center; }
+  .q-calc-num, .q-calc-unit {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem; background: #fff;
+  }
+  .q-calc-num { flex: 1; min-width: 120px; }
+  .q-calc-unit { width: 140px; }
+  .q-calc-num:focus, .q-calc-unit:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-feedback {
+    margin-top: 18px; padding: 22px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--q-bg);
+    border-left: 3px solid var(--q-mid);
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.wrong { background: var(--gold-050); border-left-color: var(--gold-700); }
+  .q-result { font-weight: 700; color: var(--q-rich); font-size: 0.95rem; margin-bottom: 10px; }
+  .q-feedback.wrong .q-result { color: var(--gold-900); }
+  .q-fb-row { margin: 12px 0; padding: 10px 14px; border-radius: var(--radius-sm); background: #fff; border-left: 3px solid var(--q-mid); }
+  .q-fb-row strong { display: block; color: var(--q-rich); font-size: 0.86rem; margin-bottom: 4px; }
+  .q-feedback.wrong .q-fb-row strong { color: var(--gold-900); }
+  .q-fb-row p, .q-fb-row div { font-size: 0.88rem; line-height: 1.8; }
+  .q-export-label {
+    display: inline-block;
+    padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--q-tint); color: var(--q-rich);
+    border-radius: 999px; font-size: 0.78rem;
+    border: 1px solid var(--q-mid);
+  }
+  .q-anchor { margin-top: 14px; font-size: 0.86rem; color: var(--text-primary); line-height: 1.75; }
+  .q-anchor a { color: var(--blue-700); text-decoration: none; font-weight: 600; }
+  .q-anchor a:hover { text-decoration: underline; }
+
+  .result-summary { text-align: center; padding: 28px 0; }
+  .result-score { font-size: 3rem; font-weight: 800; color: var(--blue-700); line-height: 1.1; }
+  .result-score .total { font-size: 1.2rem; color: var(--silver-700); font-weight: 500; }
+  .result-pass {
+    margin-top: 12px; padding: 10px 18px; border-radius: 999px;
+    display: inline-block; font-size: 0.9rem; font-weight: 600;
+  }
+  .result-pass.pass { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-700); }
+  .result-pass.honor { background: var(--gold-050); color: var(--gold-900); border: 1px solid var(--gold-700); }
+  .result-pass.fail { background: var(--silver-050); color: var(--silver-900); border: 1px solid var(--silver-500); }
+  .result-message { font-size: 0.9rem; color: var(--text-primary); margin-top: 14px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  .weak-points-block { background: var(--blue-050); border-left: 3px solid var(--blue-700); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 22px 26px; margin: 24px 0; }
+  .weak-points-block h4 { color: var(--blue-700); font-size: 0.95rem; margin-bottom: 12px; }
+  .weak-points-block ul { padding-left: 22px; font-size: 0.88rem; line-height: 1.85; }
+
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px; text-align: center;
+    padding: 16px 18px; border-radius: 999px;
+    background: var(--silver-050); color: var(--silver-500);
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 40px 22px 36px; }
+    .header h1 { font-size: 1.18rem; }
+    .screen { padding: 24px 20px; }
+    .question { padding: 24px 22px; }
+    .q-header-circle { width: 200px; height: 200px; padding: 18px; }
+    .q-h-type { font-size: 0.85rem; }
+    .v021-banner { padding-left: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>运动学的描述</span>
+    <span class="sep">&gt;</span>
+    <span>运动的描述 · 基础检测</span>
+  </nav>
+
+  <div class="v021-banner">
+    <div class="v021-banner-title">关于本页的练习形态 · v0.1.21</div>
+    本页是<strong>HTML 模拟练习</strong>——用于学完《运动的描述》任务卡之后快速自测核心概念是否到位。<strong>真实的纸笔检测</strong>由学科导师线下组织、由教师批改，不在本页面内完成。本页给出自动判分仅作即时反馈用，建议每打开一次重新抽题以扩大覆盖。
+  </div>
+
+  <div class="header">
+    <h1>运动的描述 · 基础检测<br><span class="h1-sub">题库版 · 每考点 4 变体随机抽 1 · 总分 100 · 推荐 30-40 分钟</span></h1>
+    <div class="subtitle">70% 通过 · 90% 荣誉 · 不强制限时</div>
+  </div>
+
+  <div class="screen" id="entry-screen">
+    <div class="entry-title">开始练习</div>
+    <p style="font-size: 0.9rem; margin-bottom: 10px;">请先填写你的姓名（仅本地保存，用于显示与你的提交记录）：</p>
+    <input id="student-name" class="name-input" type="text" placeholder="请输入你的姓名" maxlength="20">
+    <div id="last-attempt-slot"></div>
+    <ul class="entry-info">
+      <li>每个考点从 4 个变体中随机抽 1 道，共抽若干题</li>
+      <li>通过：<strong>70 分</strong> · 荣誉：<strong>90 分</strong></li>
+      <li>建议用时：<strong>30-40 分钟</strong>（不强制限时）</li>
+      <li>多选题严格相等判分；填空自动去空格 / 全半角归一</li>
+      <li>提交后展示 5 字段反馈（原理 / 逻辑 / 系统连接 / 常见误区 / 扩展）</li>
+      <li>不查资料、不翻任务卡——看清自己掌握到哪一档</li>
+      <li>通过 / 荣誉一次达成永不撤销</li>
+    </ul>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="startTest()">开始练习</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="test-screen">
+    <div class="progress-bar">
+      <div>👤 <span class="progress-name" id="progress-name">—</span> · 本次抽题 <span id="picked-ids">—</span></div>
+      <div>已答 <span id="answered-count">0</span> / <span id="total-count">0</span></div>
+    </div>
+    <div class="questions-list" id="questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-primary" onclick="submitTest()">提交本次抽题</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="result-screen">
+    <div class="result-summary">
+      <div class="result-score"><span id="result-total">0</span><span class="total"> / 100</span></div>
+      <div id="result-pass-pill" class="result-pass">—</div>
+      <div class="result-message" id="result-message">—</div>
+    </div>
+    <div class="weak-points-block" id="weak-points-block" style="display:none;">
+      <h4>本次错题考点聚类（建议优先复习）</h4>
+      <ul id="weak-points-list"></ul>
+    </div>
+    <div id="result-questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-secondary" onclick="reshuffleAndStart()">🎲 重新抽题再练</button>
+      <a class="btn-secondary" href="01_运动的描述.html">⬅ 返回任务卡复习</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="01_运动的描述.html">📘 返回任务卡</a>
+    <a href="01_运动的描述_fluency.html">📈 熟练度检测</a>
+    <a href="A_基础口试_运动描述_极限_幂函数微积分-oral-exam.html">🎤 深度口试</a>
+    <span>📝 纸笔检测请联系导师</span>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 运动学的描述 · 运动的描述 · 基础检测 · mock-check Skill v0.1.11
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+// ===== MOCK_DATA INJECTION POINT =====
+const MOCK_DATA = {
+  EXPORT_NAMES: {
+    'YDMS-REF-FRAME':  '参考系：运动是相对的',
+    'YDMS-POINT-MASS': '质点：可抽象与否取决于问题',
+    'YDMS-DISP-PATH':  '位移（矢量）与路程（标量）的区分',
+    'YDMS-VEL-SPEED':  '速度（矢量）与速率（标量）+ 瞬时 vs 平均',
+    'YDMS-ACC-DEF':    '加速度：速度变化率，矢量，方向与 Δv 同向'
+  },
+  QUESTION_BANK: {
+    T1: [
+      {
+        id: 'T1-1', type: 'choice', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-REF-FRAME'],
+        stem: '关于「参考系」, 下列说法<strong>正确</strong>的是:',
+        options: {
+          A: '参考系必须是地面或地球, 不能是别的物体',
+          B: '参考系是「假定不动」的物体, 配上坐标系与计时起点',
+          C: '同一物体在所有参考系下的运动状态必定相同',
+          D: '参考系是真实「静止」的, 不是假定的'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '参考系是用来描述其他物体位置与运动的「假定不动」的物体（或物体系统）+ 固定在其上的坐标轴 + 计时起点。「假定不动」四字是核心——参考系本身的运动状态不进入对所研究物体的描述。',
+          logic: 'A 错: 参考系可以选地面、车厢、太阳、空间站、桌面……自由度极大; B 对: 精确对应了 task-cards Card 1 STEP 2 的定义; C 错: 运动是「物体 + 参考系」这对关系决定的, 参考系不同结论可以不同（例如车里乘客在车厢系下静止、在地面系下运动）; D 错: 「假定」是参考系本身的设定, 不是「真实静止」的物理事实——并不存在「绝对静止」的参考系。',
+          connection: '本题锚的是整个运动学语言的入口——参考系。没有这条认识, 后面位移 / 速度 / 加速度的方向规定都没法立。<br>这一认识在 02 课「极限的物理引入」再次用到（要在某个参考系里讨论 Δt → 0 时 Δx/Δt 的极限）。'
+        },
+        mistakes: '常见误区: 把「参考系」与「绝对静止」画等号; 以为「地面才是正确参考系」。物理上没有「绝对参考系」, 只有「方便参考系」。',
+        extension: '在工程实践中「飞机自动驾驶」会用三套坐标系（地心系 / 地面系 / 机体系）做不同任务——参考系的自由选择是工程必需。',
+        cardAnchor: 'Card 1 STEP 2 · 参考系定义<br>Card 1 STEP 2 · 思考点 1（两个参考系下的两种描述）'
+      },
+      {
+        id: 'T1-2', type: 'multi', score: 20, difficulty: '中等',
+        exportIds: ['YDMS-REF-FRAME'],
+        stem: '一辆汽车沿公路向东匀速行驶, 车内乘客坐在座位上没有动作。下列描述<strong>正确</strong>的有（多选）:',
+        options: {
+          A: '以地面为参考系, 乘客向东运动',
+          B: '以汽车车厢为参考系, 乘客静止',
+          C: '以乘客自身为参考系, 汽车静止',
+          D: '以前方树木为参考系, 乘客静止'
+        },
+        answer: ['A','B','C'],
+        explanation: {
+          principle: '物体的运动状态由「物体 + 参考系」这对关系决定。同一物体在不同参考系下结论可以不同; 每条结论都需要明确「以什么作为假定不动」。',
+          logic: 'A 对: 地面系下乘客随车一起向东动; B 对: 车厢系下乘客与车厢相对静止; C 对: 把乘客本人当假定不动时汽车（连同车厢）就是「动」的——这是 task-cards Card 1 STEP 2 思考点 2 提及的极端选法; D 错: 树木相对地面静止, 等价于地面系, 乘客在该系下应该向东运动, 不是静止。',
+          connection: '本题考查「运动的相对性」在多个参考系下能否同时正确——这是 task-cards Card 1 STEP 2 思考点 1 的进阶版。'
+        },
+        mistakes: '常见误区: 以为「乘客没动作」就在所有参考系下都静止; 忘记问「以谁为参考系」。',
+        extension: 'GPS 定位依赖的「卫星参考系」与地面参考系的换算正是这一思想的工程化产物。',
+        cardAnchor: 'Card 1 STEP 2 · 思考点 1<br>Card 1 STEP 2 · 思考点 2'
+      },
+      {
+        id: 'T1-3', type: 'fill', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-REF-FRAME'],
+        stem: '请填空: 研究汽车在公路上的运动时, 通常以 ____ 为参考系; 研究地球绕太阳的运动时, 通常以 ____ 为参考系。',
+        blanks: ['地面', '太阳'],
+        answer: ['地面', '太阳'],
+        explanation: {
+          principle: '参考系的选择「理论自由 + 实用讲究」——选得巧能让定义式简洁。研究地表附近物体取地面（或建筑物）, 研究行星运动取太阳。',
+          logic: '「地面 / 太阳」是题干情境最自然的选择; 若硬选其他参考系（如把「汽车自己」作为研究汽车运动的参考系）, 描述会退化为「汽车永远在原点不动」, 没研究价值。',
+          connection: '本题对应 task-cards Card 1 STEP 2 骨架第 2 条「参考系的选择是自由但有讲究的」。'
+        },
+        mistakes: '常见误区: 填「地球 / 地心」等不够日常的术语; 本题为基础题, 填「地面」即可。',
+        extension: '相对论中「惯性参考系」的概念把「哪些参考系适合物理研究」做了进一步精细化——但那是后续。',
+        cardAnchor: 'Card 1 STEP 2 · 参考系的选择'
+      },
+      {
+        id: 'T1-4', type: 'choice', score: 20, difficulty: '较难',
+        exportIds: ['YDMS-REF-FRAME'],
+        stem: '一只苍蝇在一辆向东匀速行驶的高铁车厢里, 沿车厢内空中相对车厢向<strong>西</strong>飞, 速度（相对车厢）为 5 m/s; 车厢相对地面向东匀速 \\(30\\) m/s。<strong>以地面为参考系</strong>, 苍蝇的速度（沿东西方向）是:',
+        options: {
+          A: '向东 35 m/s',
+          B: '向东 25 m/s',
+          C: '向西 5 m/s',
+          D: '向西 25 m/s'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '速度的相对性: 物体相对地面的速度 = 物体相对车厢的速度 + 车厢相对地面的速度（矢量加法）。在直线情境下转化为带正负号的代数加法。',
+          logic: '规定向东为正: 车厢相对地面 \\(+30\\) m/s; 苍蝇相对车厢 \\(-5\\) m/s（向西）; 地面看苍蝇 = \\(+30 + (-5) = +25\\) m/s → 向东 25 m/s。A 错（把符号弄反了）; C/D 错（把车厢速度忘了 / 当成 0）。',
+          connection: '本题把 Card 1 的「参考系自由选 + 速度依赖参考系」具体落到一道代数计算<br>——为 03 课「幂函数微积分 · 直线运动公式」里的相对运动追及问题铺路。'
+        },
+        mistakes: '常见误区: 忘记规定正方向就直接做减法; 以为「苍蝇向西飞」就在地面系下也向西。',
+        extension: '此即「伽利略速度变换」的最简形式——经典力学相对性原理的起点。',
+        cardAnchor: 'Card 1 STEP 2 · 结论 1（运动的相对性）'
+      }
+    ],
+    T2: [
+      {
+        id: 'T2-1', type: 'choice', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-POINT-MASS'],
+        stem: '关于「质点」, 下列说法<strong>正确</strong>的是:',
+        options: {
+          A: '只有体积非常小的物体才能视为质点',
+          B: '质点是「具有质量、没有大小和形状」的理想物理模型',
+          C: '地球太大, 永远不能视为质点',
+          D: '只要研究运动, 就一定要把物体视为质点'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '质点是「具有质量、没有大小和形状」的理想物理模型; 把真实物体抽象为质点 = 忽略形状/大小/内部结构/转动, 只关心位置随时间的变化。',
+          logic: 'A 错: 质点不是「小物体」的代名词, 地球这样大的物体也可以是质点（研究公转时）; B 对: 定义本身; C 错: 研究地球公转时, 地球半径 \\(6400\\) km 相对公转轨道半径 \\(1.5 \\times 10^8\\) km 太小, 完全可以视为质点; D 错: 研究物体转动 / 形变 / 姿态时不能视为质点。',
+          connection: '本题锚 task-cards Card 1 STEP 3 关键认识「质点是问题决定的、不是物体决定的」<br>——这是整个力学建模的入门思想。'
+        },
+        mistakes: '常见误区: 把「质点」等同于「小物体」; 忘记「问题决定」的原则。',
+        extension: '在天体力学中行星可视为质点; 在固体力学中同一物体的转动 / 形变研究就不能再视为质点——同一物体不同问题不同模型。',
+        cardAnchor: 'Card 1 STEP 3 · 质点定义<br>Card 1 STEP 3 · 两条判断准则'
+      },
+      {
+        id: 'T2-2', type: 'multi', score: 20, difficulty: '中等',
+        exportIds: ['YDMS-POINT-MASS'],
+        stem: '下列情境中, 物体<strong>可以</strong>视为质点的有（多选）:',
+        options: {
+          A: '研究地球绕太阳一年的周期',
+          B: '研究地球上不同纬度白昼时长差异',
+          C: '研究一艘船在长江上从上游到下游的总位移',
+          D: '研究滑冰运动员在原地旋转的姿态'
+        },
+        answer: ['A','C'],
+        explanation: {
+          principle: '判断准则: ① 尺度准则（物体尺寸 ≪ 运动经过的距离时可视为质点）; ② 关注准则（不关心形状/大小/内部时可视为质点）。',
+          logic: 'A 对（地球半径 ≪ 公转轨道半径）; B 错（「白昼时长差异」本身依赖纬度——需要考虑地球的<strong>球形与转动</strong>, 不能视为质点）; C 对（船的几十米尺寸 ≪ 长江几千公里航程, 且只关心位移）; D 错（滑冰员原地旋转的姿态本就是关于其形状与转动的描述, 不能视为质点）。',
+          connection: '本题对应 task-cards Card 1 STEP 3 derivation-block 中「判断准则 1 / 2」的对照应用。<br>两条准则联合决定质点抽象是否成立。'
+        },
+        mistakes: '常见误区: 以「物体大就不能视为质点」误判 A; 以「船比汽车大就不能视为质点」误判 C。',
+        extension: '工程上「轨道刚体动力学」对刚体的研究始终带着「姿态/转动」——不是质点; 火箭推进段把火箭看质点求轨道, 看刚体求姿态控制, 是同时存在的两套模型。',
+        cardAnchor: 'Card 1 STEP 3 · 判断准则 1（尺度）/ 准则 2（关注）'
+      },
+      {
+        id: 'T2-3', type: 'fill', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-POINT-MASS'],
+        stem: '判断一个物体能否视为质点, 主要看两条准则: ① ____ 准则（物体自身尺寸与运动距离的比）; ② ____ 准则（研究的问题是否涉及形状、大小、内部）。',
+        blanks: ['尺度', '关注'],
+        answer: ['尺度', '关注'],
+        explanation: {
+          principle: '把真实物体抽象为质点的两条互补准则: 尺度准则（看几何）与关注准则（看研究问题）。',
+          logic: '「尺度 / 关注」是 task-cards Card 1 STEP 3 derivation-block 写下的标准名字。任一准则单独成立即可视为质点; 都不成立则不可视为质点。',
+          connection: '两条准则共同构成「质点抽象决策树」的入口判断。'
+        },
+        mistakes: '常见误区: 只写「尺度」忘记「关注」, 或反之。两条都要。',
+        extension: '更精细的工程建模会引入「准刚体 / 弹性体 / 流体」等不同抽象层级——质点是这条层级谱里最简的一档。',
+        cardAnchor: 'Card 1 STEP 3 · 判断准则 1<br>Card 1 STEP 3 · 判断准则 2'
+      },
+      {
+        id: 'T2-4', type: 'choice', score: 20, difficulty: '较难',
+        exportIds: ['YDMS-POINT-MASS'],
+        stem: '同一辆汽车, 在以下两类研究中能否视为质点?<br>① 研究该车从北京开到上海全程的<strong>位移与平均速度</strong>;<br>② 研究该车<strong>车轮一圈滚动</strong>过程中车轮上某点的轨迹。<br>正确判断是:',
+        options: {
+          A: '① 可以视为质点, ② 也可以视为质点',
+          B: '① 不可以视为质点, ② 也不可以视为质点',
+          C: '① 可以视为质点, ② 不可以视为质点',
+          D: '① 不可以视为质点, ② 可以视为质点'
+        },
+        answer: 'C',
+        explanation: {
+          principle: '同一物体不同问题不同模型。研究整体平移用质点模型; 研究内部某点的轨迹（含转动）则需要保留形状/转动的更丰富模型。',
+          logic: '① 北京到上海约 1200 km, 汽车自身几米——尺度准则成立; 研究「位移与平均速度」也不涉及车的形状/转动——关注准则成立 → 可视为质点。② 研究车轮上某点轨迹时必须保留车轮的圆形+转动——关注准则不成立 → 不可视为质点。',
+          connection: '本题直接呼应 task-cards Card 1 STEP 3 关键认识: 「质点是问题决定的、不是物体决定的」。<br>同一物体不同问题不同模型的具体化。'
+        },
+        mistakes: '常见误区: 以为「同一辆车」只能给一个答案, 没有意识到「问题」才是建模的决定因素。',
+        extension: '工程中常对汽车采用「多刚体动力学模型」——车身 + 4 车轮 + 转向系统 + 悬挂——同一辆车被分解成多个刚体, 质点模型再向后退一档。',
+        cardAnchor: 'Card 1 STEP 3 · 关键认识<br>Card 1 STEP 3 · 两条判断准则的联合使用'
+      }
+    ],
+    T3: [
+      {
+        id: 'T3-1', type: 'choice', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-DISP-PATH'],
+        stem: '一个学生从家走到学校（直线距离 1.2 km）, 又沿原路走回家。<strong>整个过程</strong>的位移和路程分别是:',
+        options: {
+          A: '位移 = 0, 路程 = 0',
+          B: '位移 = 1.2 km, 路程 = 1.2 km',
+          C: '位移 = 0, 路程 = 2.4 km',
+          D: '位移 = 2.4 km, 路程 = 0'
+        },
+        answer: 'C',
+        explanation: {
+          principle: '位移是「起点 → 终点」有向线段（矢量）, 只看起点终点; 路程是实际走过轨迹的总长（标量）, 只能 \\(\\geq 0\\)。',
+          logic: '起点 = 终点（家）→ 位移大小 = 0; 总路程 = 来回两段直线长 = \\(1.2 + 1.2 = 2.4\\) km。',
+          connection: '本题锚 task-cards Card 2 STEP 3 derivation-block 「回到起点: 位移 = 0, 但路程 = 全程总长」。'
+        },
+        mistakes: '常见误区: 以为「位移 = 路程的相反数」得出 \\(-2.4\\); 位移可以为 0, 路程永远 ≥ 0。',
+        extension: '完整一圈的圆周运动同理: 位移 = 0, 路程 = 圆周长——这一思想在 04 课「圆周运动」会再次用到。',
+        cardAnchor: 'Card 2 STEP 3 · 与位移关系的「③ 回到起点」段'
+      },
+      {
+        id: 'T3-2', type: 'multi', score: 20, difficulty: '中等',
+        exportIds: ['YDMS-DISP-PATH'],
+        stem: '关于直线运动中的位移 \\(\\Delta x\\) 与路程 \\(s\\), 下列说法<strong>正确</strong>的有（多选）:',
+        options: {
+          A: '位移是矢量, 路程是标量',
+          B: '位移大小总等于路程',
+          C: '在单向直线运动（不掉头）中, 位移大小 = 路程',
+          D: '位移可正可负可为 0, 路程只能 ≥ 0'
+        },
+        answer: ['A','C','D'],
+        explanation: {
+          principle: '位移与路程的差别在「是否看路径」: 位移只看起点终点（矢量）, 路程看实际轨迹累加（标量）。',
+          logic: 'A 对（基本属性）; B 错（只有「单向直线无掉头」时才相等, 含掉头时路程严格大于位移大小）; C 对（B 的正确版本——加了「单向不掉头」条件）; D 对（位移可正可负可 0, 路程只累加非负值）。',
+          connection: '本题对应 task-cards Card 2 STEP 3 derivation-block 中「与位移的关系」三种情况。'
+        },
+        mistakes: '常见误区: 以为「位移和路程都是长度」所以「大小总相等」——忽视了掉头的情形。',
+        extension: '本结论是后续「位移-时间图像 vs 路程-时间图像」区分的基础——v-t 图下方「代数面积」算位移、「绝对值面积」算路程。',
+        cardAnchor: 'Card 2 STEP 3 · 与位移的关系 ① 单向<br>Card 2 STEP 3 · 与位移的关系 ② 掉头<br>Card 2 STEP 3 · 与位移的关系 ③ 回起点'
+      },
+      {
+        id: 'T3-3', type: 'calc', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-DISP-PATH'],
+        stem: '某物体沿直线运动, 规定向东为正方向。第一段向东走 9 m, 第二段向西走 6 m。整个过程的位移 \\(\\Delta x\\) = ____ m（含正负号）。',
+        answer: { value: 3, unit: 'm', tolerance: 0.01 },
+        explanation: {
+          principle: '直线运动中位移 \\(\\Delta x = x_{\\text{终}} - x_{\\text{始}}\\)（带正负号）, 与实际走过轨迹长度的路程不同。',
+          logic: '从 \\(x=0\\) 走到 \\(x = +9\\) 再到 \\(x = +9 - 6 = +3\\) → \\(\\Delta x = +3 - 0 = +3\\) m。对照: 路程 = \\(9 + 6 = 15\\) m（两段长度按正值累加）。',
+          connection: '这正是 task-cards Card 2 STEP 3 配图（位移路程对比 SVG）中的具体数字。'
+        },
+        mistakes: '常见误区: 位移漏正号（写 3 而不写 \\(+3\\), 本题数字答对, 但要养成写正号的习惯）; 位移算成 \\(9 - 6\\) 之外还要区分方向。',
+        extension: '把第二段换成「向西走 12 m」, 位移 = \\(+9 - 12 = -3\\) m（向西）, 路程 = \\(9 + 12 = 21\\) m——你可以自己换数字练几次。',
+        cardAnchor: 'Card 2 STEP 3 · 配图（位移 vs 路程示意 SVG）'
+      },
+      {
+        id: 'T3-4', type: 'choice', score: 20, difficulty: '较难',
+        exportIds: ['YDMS-DISP-PATH','YDMS-REF-FRAME'],
+        stem: '一辆车在一段闭合环形跑道上以恒定的速率绕行一整圈回到起点。<strong>整个一圈过程</strong>中, 关于位移大小和路程, 下列说法<strong>正确</strong>的是:',
+        options: {
+          A: '位移大小等于路程',
+          B: '位移大小为 0, 路程等于跑道周长',
+          C: '位移大小等于跑道直径（如果跑道是圆形）',
+          D: '位移大小和路程都为 0（因为回到起点）'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '位移只看起点和终点: 起点 = 终点 → 位移大小 = 0; 路程是实际走过轨迹的总长 → 一圈 = 圆周长。',
+          logic: 'A 错（位移大小 = 0, 路程 = 周长, 两者不等）; B 对; C 错（「直径」在曲线运动里没有特殊地位, 关键是起点 = 终点 → 位移 = 0）; D 错（路程不为 0——绕了一圈走了一周长的长度）。',
+          connection: '把 Card 2 STEP 3 「回到起点」的结论从一维直线推广到二维闭合曲线——同一原理不同场景。'
+        },
+        mistakes: '常见误区: 把「位移 = 0」延伸成「路程 = 0」; 分不清「起点终点重合」与「没有运动」的差别。',
+        extension: '这一结论在「匀速圆周运动 · 04 课」会再次用到——一圈的位移 = 0, 路程 = \\(2\\pi r\\), 平均速度 = 0、平均速率 \\(\\neq 0\\)。',
+        cardAnchor: 'Card 2 STEP 3 · ③ 回到起点<br>Card 3 STEP 2 · 平均速度 vs 平均速率'
+      }
+    ],
+    T4: [
+      {
+        id: 'T4-1', type: 'choice', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-VEL-SPEED'],
+        stem: '关于速度与速率的描述, 下列说法<strong>正确</strong>的是:',
+        options: {
+          A: '速度是标量, 速率是矢量',
+          B: '速度是矢量, 速率是标量',
+          C: '速度等于速率的相反数',
+          D: '平均速度的大小总等于平均速率'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '速度（velocity）= 位移 / 时间, 有方向 → 矢量; 速率（speed）= 路程 / 时间或瞬时速度的大小, 没有方向 → 标量。',
+          logic: 'A 错（颠倒了）; B 对; C 错（速率只取非负值, 不等于「速度的相反数」）; D 错（只有「单向不掉头」运动才相等; 含掉头时平均速率 > 平均速度大小）。',
+          connection: 'task-cards Card 3 STEP 2 derivation-block 「平均速度 vs 平均速率」, 本题是其简化判断版。'
+        },
+        mistakes: '常见误区: 把速度与速率混用; 以为「平均速率永远等于平均速度大小」。',
+        extension: '这条区分会延伸到 04 课「圆周运动」的「角速度」与「线速度」——同样需要明确矢量与标量。',
+        cardAnchor: 'Card 3 STEP 2 · 平均速度 vs 平均速率'
+      },
+      {
+        id: 'T4-2', type: 'calc', score: 20, difficulty: '中等',
+        exportIds: ['YDMS-VEL-SPEED','YDMS-DISP-PATH'],
+        stem: '一名同学在直线跑道上 25 秒内往返一次, 总路程 100 m, 且最终回到起点。求该同学的<strong>平均速率</strong> = ____ m/s。',
+        answer: { value: 4, unit: 'm/s', tolerance: 0.01 },
+        explanation: {
+          principle: '平均速率 = 路程 / 时间（标量）; 对照平均速度 \\(\\bar{v} = \\Delta x / \\Delta t\\)（位移 / 时间, 矢量）。',
+          logic: '路程 \\(s = 100\\) m, 时间 \\(\\Delta t = 25\\) s → 平均速率 = \\(100/25 = 4\\) m/s。对照: 回到起点 → 位移 \\(\\Delta x = 0\\) → 平均速度大小 = 0。',
+          connection: '这正是 task-cards Card 3 STEP 2 思考点 5 的延伸场景——同样的数据结构, 更直接的代入。'
+        },
+        mistakes: '常见误区: 把「平均速度」算成 \\(100/25 = 4\\) m/s（错把路程当位移）; 忽略「回到起点 → 位移 = 0」。',
+        extension: '本题为你建立「平均速度 = 0 ≠ 没运动」的直觉——平均速度衡量的是「净位移效率」, 运动节奏的细节它看不见。',
+        cardAnchor: 'Card 3 STEP 2 · 思考点 5'
+      },
+      {
+        id: 'T4-3', type: 'choice', score: 20, difficulty: '中等',
+        exportIds: ['YDMS-VEL-SPEED'],
+        stem: '关于<strong>瞬时速度</strong>, 下列说法<strong>正确</strong>的是:',
+        options: {
+          A: '瞬时速度是某一时间段内位移与时间的比',
+          B: '瞬时速度可以用 \\(\\bar{v} = \\Delta x / \\Delta t\\) 中令 \\(\\Delta t = 0\\) 直接得到',
+          C: '瞬时速度是平均速度在 \\(\\Delta t \\to 0\\) 时趋近的值',
+          D: '瞬时速度的方向与位移的方向永远相反'
+        },
+        answer: 'C',
+        explanation: {
+          principle: '瞬时速度的直觉定义: 把 \\(\\Delta t\\) 取得越来越小（同时 \\(\\Delta x\\) 也变小）, \\(\\Delta x / \\Delta t\\) 趋近的那个确定的数。严格定义涉及「极限」概念, 留给 02 课。',
+          logic: 'A 错（「某一时间段」是平均速度的描述）; B 错（\\(\\Delta t = 0\\) 时分母为 0, 没意义; 需要「趋近」而不是「等于」）; C 对（这正是 task-cards Card 3 STEP 3 给出的直觉版定义）; D 错（方向与位移同向——因为 \\(\\Delta t > 0\\) 永远成立）。',
+          connection: '本题锚 Card 3 STEP 3 derivation-block 与跨主题前置 warning——为 02 课「极限的物理引入」做铺垫。'
+        },
+        mistakes: '常见误区: 直接令 \\(\\Delta t = 0\\) 得到 \\(0/0\\) 当作「瞬时速度」——这是没把「极限」思想立起来的标志。',
+        extension: '02 课会从「\\(\\Delta t\\) 一连串变小、比值越来越稳」这一具体计算切入, 把「趋近」翻译成数学上的「极限」。',
+        cardAnchor: 'Card 3 STEP 3 · 瞬时速度直觉<br>Card 3 STEP 3 · cross-topic-warning'
+      },
+      {
+        id: 'T4-4', type: 'choice', score: 20, difficulty: '较难',
+        exportIds: ['YDMS-VEL-SPEED'],
+        stem: '某物体做直线运动, 位移与时间关系为 \\(x(t) = 5 t^2\\)（\\(x\\) 单位 m, \\(t\\) 单位 s）。下列说法<strong>正确</strong>的是:',
+        options: {
+          A: '该物体的瞬时速度恒定为 5 m/s',
+          B: '在 \\(t = 2\\) s 附近, 取 \\(\\Delta t = 1, 0.1, 0.01\\) 算得的平均速度近似都接近 20 m/s',
+          C: '该物体做匀速直线运动',
+          D: '该物体的瞬时速度等于路程的一半'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '当 \\(x(t) = 5 t^2\\) 时, \\(t\\) 附近的平均速度 \\(\\bar{v} = [x(t+\\Delta t) - x(t)]/\\Delta t = 10 t + 5 \\Delta t\\)。当 \\(\\Delta t \\to 0\\) 时趋近 \\(10 t\\)。',
+          logic: '在 \\(t=2\\): \\(\\Delta t = 1\\) → \\(\\bar{v} = 25\\); \\(\\Delta t = 0.1\\) → \\(\\bar{v} = 20.5\\); \\(\\Delta t = 0.01\\) → \\(\\bar{v} = 20.05\\)。三个数字越来越接近 20。A 错（\\(\\bar{v}\\) 随时间变化）; C 错（位移与 \\(t^2\\) 成正比, 不是匀速）; D 错（毫无依据）。',
+          connection: '本题正是 task-cards Card 3 STEP 3 思考点 6 给学生的「自己动手算 3 个数」练习——你应该在草稿上验证过它们。这个具体数字是 02 课「极限的物理引入」切入点的源头。'
+        },
+        mistakes: '常见误区: 没有算具体数字直接猜; 分不清「位移系数 5」与「瞬时速度 5」的差别。',
+        extension: '本结论的严格证明用 02 课「极限」知识; 03 课「幂函数微积分」会把它一次性证清楚（导数 \\(dx/dt = 10t\\)）。',
+        cardAnchor: 'Card 3 STEP 3 · 思考点 6'
+      }
+    ],
+    T5: [
+      {
+        id: 'T5-1', type: 'choice', score: 20, difficulty: '基础',
+        exportIds: ['YDMS-ACC-DEF'],
+        stem: '关于加速度的描述, 下列说法<strong>正确</strong>的是:',
+        options: {
+          A: '加速度描述的是运动的快慢',
+          B: '加速度描述的是速度变化的快慢',
+          C: '速度大, 加速度一定大',
+          D: '加速度为零, 速度一定为零'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '加速度 \\(\\bar{a} = \\Delta v / \\Delta t\\) 描述的是「速度（包括大小和方向）变化的快慢」。它不是「运动快慢」——「运动快慢」由速度本身描述。',
+          logic: 'A 错（运动快慢由速度描述）; B 对; C 错（匀速 100 km/h 的车速度大但 \\(a = 0\\), 刚启动 0→5 m/s 的电梯 \\(a \\neq 0\\)）; D 错（\\(a = 0\\) 表示速度不变, 但速度可以是任意非零常数 —— 匀速直线运动）。',
+          connection: '本题锚 task-cards Card 4 STEP 2 关键认识 1 + 2<br>是辨析「快慢」与「变化快慢」两个语言层面的入门题。'
+        },
+        mistakes: '常见误区: 「加速度大 = 跑得快」——把「变化快慢」误为「运动快慢」。',
+        extension: '高铁巡航时加速度 \\(\\approx 0\\) 但速度 \\(\\approx 300\\) km/h; 启动段速度从 0 增长但加速度反而很大——这是日常生活中「加速度 vs 速度」分离的典型情境。',
+        cardAnchor: 'Card 4 STEP 2 · 关键认识 1<br>Card 4 STEP 2 · 关键认识 2'
+      },
+      {
+        id: 'T5-2', type: 'calc', score: 20, difficulty: '中等',
+        exportIds: ['YDMS-ACC-DEF'],
+        stem: '一辆汽车在 6 s 内速度由 4 m/s 增加到 16 m/s（方向不变）。求其平均加速度大小 = ____ m/s²。',
+        answer: { value: 2, unit: 'm/s²', tolerance: 0.01 },
+        explanation: {
+          principle: '平均加速度定义式: \\(\\bar{a} = \\dfrac{\\Delta v}{\\Delta t} = \\dfrac{v_{\\text{终}} - v_{\\text{始}}}{\\Delta t}\\)。单位 m/s²。',
+          logic: '\\(\\Delta v = 16 - 4 = 12\\) m/s; \\(\\Delta t = 6\\) s; \\(\\bar{a} = 12 / 6 = 2\\) m/s²。方向与 \\(\\Delta v\\) 同向（与速度方向同向, 所以是加速过程）。',
+          connection: '本题为下一题（同号 / 异号判加速减速）做数字铺垫<br>——加速过程中 \\(a\\) 与 \\(v\\) 同号。'
+        },
+        mistakes: '常见误区: 忘记减初速度, 直接 \\(16/6\\) 得 \\(\\approx 2.67\\); 忽略单位 m/s²。',
+        extension: '汽车 0-100 km/h 加速时间是日常评测指标——它正是 \\(\\Delta v / \\Delta t\\) 的一个具体数字。',
+        cardAnchor: 'Card 4 STEP 2 · 定义式'
+      },
+      {
+        id: 'T5-3', type: 'choice', score: 20, difficulty: '中等',
+        exportIds: ['YDMS-ACC-DEF'],
+        stem: '直线运动中规定「向东为正」。物体在某时刻 \\(v = -5\\) m/s, 加速度 \\(a = -2\\) m/s²。<strong>下一瞬</strong>物体处于:',
+        options: {
+          A: '减速（速度大小变小）',
+          B: '加速（速度大小变大）',
+          C: '即将反向（速度方向将变化）',
+          D: '匀速（速度大小不变）'
+        },
+        answer: 'B',
+        explanation: {
+          principle: '在直线运动中, 「加速 / 减速」看 \\(v\\) 与 \\(a\\) 的<strong>正负号</strong>是否同号: 同号 → 加速（速度大小变大）; 异号 → 减速（速度大小变小）。<strong>不能</strong>仅看 \\(a\\) 的正负号。',
+          logic: '\\(v = -5\\)（负）、\\(a = -2\\)（负）→ 同号 → 加速 → 速度大小由 5 变大; 方向仍向西（\\(v\\) 仍为负）。',
+          connection: '本题是 task-cards Card 4 STEP 2 思考点 7 的标准型——专门为破除「加速度负 = 减速」的常见误区设计。'
+        },
+        mistakes: '常见误区: 「\\(a < 0\\) 一定减速」——忽视了 \\(v\\) 也可能为负。',
+        extension: '在 05 课「链式法则」涉及曲线运动时, 这一「同号 / 异号」判断会扩展到「切向加速度 vs 法向加速度」的拆分。',
+        cardAnchor: 'Card 4 STEP 2 · 思考点 7'
+      },
+      {
+        id: 'T5-4', type: 'multi', score: 20, difficulty: '较难',
+        exportIds: ['YDMS-ACC-DEF','YDMS-VEL-SPEED'],
+        stem: '一辆车做直线运动, 下列情形中<strong>加速度方向与速度方向相反</strong>的有（多选）:',
+        options: {
+          A: '汽车在水平路面上匀速直线行驶',
+          B: '汽车在水平路面上刹车减速直至停止',
+          C: '汽车刚启动从静止加速到 30 km/h',
+          D: '高铁向东行驶但司机踩了制动闸（速度仍向东但越来越小）'
+        },
+        answer: ['B','D'],
+        explanation: {
+          principle: '加速度方向与速度方向<strong>相反</strong> = 速度大小变小 = 减速过程。',
+          logic: 'A 错（匀速 → \\(a = 0\\), 无方向可言）; B 对（刹车减速 → \\(a\\) 与 \\(v\\) 反向）; C 错（启动加速 → \\(a\\) 与 \\(v\\) 同向）; D 对（向东减速 → \\(v > 0\\)、\\(a < 0\\) → 反向）。',
+          connection: '本题把「加速 / 减速」判据落到 4 个具体情境<br>——是 Card 4 STEP 2 思考点 7 的多场景应用。'
+        },
+        mistakes: '常见误区: 以为「加速度向后」等于「车向后跑」——加速度方向只描述速度变化的方向, 与物体的运动方向无关。',
+        extension: '在曲线运动里, 加速度的「切向分量」决定加 / 减速, 「法向分量」决定改方向——这一拆分在 04 课「圆周运动」里会专门讲。',
+        cardAnchor: 'Card 4 STEP 2 · 思考点 7<br>Card 4 STEP 2 · 关键认识 2'
+      }
+    ]
+  }
+};
+
+// ===== 常量 =====
+const ATOMIC_SLUG = "motion_description";
+const KEY_STATE   = "mockcheck_" + ATOMIC_SLUG + "_state";
+const KEY_NAME    = "mockcheck_student_name";
+const PASS_SCORE  = 70;
+const HONOR_SCORE = 90;
+
+const EXPORT_NAMES  = MOCK_DATA.EXPORT_NAMES  || {};
+const QUESTION_BANK = MOCK_DATA.QUESTION_BANK || {};
+
+// 单位归一 (calc 题)
+const UNIT_TO_SI = {
+  "m": 1, "km": 1000, "cm": 0.01, "mm": 0.001,
+  "s": 1, "min": 60, "h": 3600,
+  "m/s": 1, "km/h": 1/3.6,
+  "m/s²": 1, "m/s^2": 1,
+  "kg": 1, "g": 0.001,
+  "J": 1, "kJ": 1000,
+  "J/mol": 1, "kJ/mol": 1000, "kcal/mol": 4184,
+  "mol": 1, "L": 1, "mL": 0.001,
+  "": 1
+};
+
+// ===== 状态 =====
+let pickedQuestions = [];
+let results = [];
+
+// ===== 抽题 =====
+function pickQuestions() {
+  pickedQuestions = [];
+  Object.keys(QUESTION_BANK).sort().forEach(function(tKey) {
+    const pool = QUESTION_BANK[tKey];
+    if (!Array.isArray(pool) || pool.length === 0) return;
+    pickedQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+  });
+}
+
+// ===== 归一化 (fill / short 用) =====
+function normalizeText(s) {
+  return (s || "")
+    .replace(/[\s　]+/g, "")
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+    .replace(/[₀-₉]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2080]; })
+    .replace(/[⁰-⁹]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2070]; })
+    .toLowerCase();
+}
+
+// ===== 5 题型判分 =====
+function gradeQuestion(q, ua) {
+  if (q.type === "choice") return gradeChoice(q, ua);
+  if (q.type === "multi")  return gradeMulti(q, ua);
+  if (q.type === "fill")   return gradeFill(q, ua);
+  if (q.type === "short")  return gradeShort(q, ua);
+  if (q.type === "calc")   return gradeCalc(q, ua);
+  return { score: 0, isCorrect: false, userAnswer: ua };
+}
+
+function gradeChoice(q, ua) {
+  const isCorrect = ua === q.answer;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+function gradeMulti(q, ua) {
+  if (!Array.isArray(ua)) ua = [];
+  const ans = q.answer || [];
+  const same = ua.length === ans.length && ua.every(function(x) { return ans.indexOf(x) !== -1; });
+  return { score: same ? q.score : 0, isCorrect: same, userAnswer: ua };
+}
+
+function gradeFill(q, ua) {
+  const blanks = q.blanks || [];
+  const answers = q.answer || blanks;
+  if (!Array.isArray(ua)) ua = [];
+  let hit = 0;
+  const detail = [];
+  answers.forEach(function(a, i) {
+    const acceptable = Array.isArray(a) ? a : [a];
+    const u = normalizeText(ua[i] || "");
+    const ok = acceptable.some(function(x) { return normalizeText(x) === u; });
+    detail.push({ user: ua[i] || "", ok: ok, expect: acceptable[0] });
+    if (ok) hit++;
+  });
+  const per = q.score / Math.max(answers.length, 1);
+  const score = Math.round(hit * per);
+  return { score: score, isCorrect: hit === answers.length, userAnswer: ua, detail: detail };
+}
+
+function gradeShort(q, ua) {
+  const text = normalizeText(ua || "");
+  const kws = q.keywords || [];
+  const hits = kws.filter(function(k) { return text.indexOf(normalizeText(k)) !== -1; });
+  const ratio = kws.length > 0 ? hits.length / kws.length : 0;
+  let score = 0;
+  if (ratio >= 1.0)      score = q.score;
+  else if (ratio >= 0.5) score = Math.round(q.score * 0.5);
+  else                   score = 0;
+  return { score: score, isCorrect: ratio >= 1.0, userAnswer: ua, hits: hits, ratio: ratio };
+}
+
+function gradeCalc(q, ua) {
+  if (!ua || typeof ua.value !== "number" || isNaN(ua.value)) {
+    return { score: 0, isCorrect: false, userAnswer: ua };
+  }
+  const uSI = ua.value * (UNIT_TO_SI[ua.unit] || 1);
+  const aSI = q.answer.value * (UNIT_TO_SI[q.answer.unit] || 1);
+  const tol = typeof q.answer.tolerance === "number" ? q.answer.tolerance : 0.01;
+  const rel = Math.abs(uSI - aSI) / Math.abs(aSI || 1);
+  const isCorrect = rel <= tol;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+// ===== 题目渲染 (Nova 契约: data-q-id / data-q-type / .q-feedback) =====
+function renderQuestions() {
+  const list = document.getElementById("questions-list");
+  list.innerHTML = pickedQuestions.map(function(q, idx) {
+    const num = idx + 1;
+    return `
+      <div class="question" data-q-id="q${num}" data-q-type="${q.type}" data-q-original="${q.id}" id="q-${num}">
+        <div class="q-header-circle">
+          <div class="q-h-num">第 ${num} 题</div>
+          <div class="q-h-type">${typeLabel(q.type)}</div>
+          <div class="q-h-diff">${q.difficulty || ""}</div>
+          <div class="q-h-id">${q.id} · ${q.score} 分</div>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        ${renderInput(q, num)}
+        <div class="q-feedback" data-q-id="q${num}"></div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("total-count").textContent = pickedQuestions.length;
+  document.getElementById("picked-ids").textContent = pickedQuestions.map(function(q) { return q.id; }).join(" / ");
+  attachAnswerListeners();
+  renderKatex(list);
+}
+
+function typeLabel(t) {
+  return { choice: "单选题", multi: "多选题", fill: "填空题", short: "简答题", calc: "计算题" }[t] || t;
+}
+
+function renderInput(q, num) {
+  if (q.type === "choice") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="radio" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "multi") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="checkbox" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "fill") {
+    const blanks = q.blanks || (q.answer || []);
+    return blanks.map(function(_, i) {
+      return `<input class="q-fillin" data-q-id="q${num}" data-blank="${i}" type="text" placeholder="第 ${i+1} 空">`;
+    }).join("");
+  }
+  if (q.type === "short") {
+    return `<textarea class="q-short-input" data-q-id="q${num}" placeholder="用 2-4 句话作答, 涵盖关键概念"></textarea>`;
+  }
+  if (q.type === "calc") {
+    return `<div class="q-calc">
+      <input class="q-calc-num" data-q-id="q${num}" type="number" step="any" placeholder="数值">
+      <input class="q-calc-unit" data-q-id="q${num}" type="text" placeholder="单位, 如 m/s" value="${(q.answer && q.answer.unit) || ""}">
+    </div>`;
+  }
+  return "";
+}
+
+function attachAnswerListeners() {
+  document.querySelectorAll(".question input, .question textarea").forEach(function(el) {
+    el.addEventListener("input", updateAnsweredCount);
+    el.addEventListener("change", updateAnsweredCount);
+  });
+}
+
+function updateAnsweredCount() {
+  let n = 0;
+  pickedQuestions.forEach(function(q, idx) {
+    if (readUserAnswer(q, idx + 1) != null) n++;
+  });
+  document.getElementById("answered-count").textContent = n;
+}
+
+function readUserAnswer(q, num) {
+  if (q.type === "choice") {
+    const el = document.querySelector('input[name="q' + num + '"]:checked');
+    return el ? el.value : null;
+  }
+  if (q.type === "multi") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('input[name="q' + num + '"]:checked')).map(function(e) { return e.value; });
+    return arr.length ? arr : null;
+  }
+  if (q.type === "fill") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('.q-fillin[data-q-id="q' + num + '"]')).map(function(e) { return e.value; });
+    return arr.some(function(x) { return x && x.length > 0; }) ? arr : null;
+  }
+  if (q.type === "short") {
+    const el = document.querySelector('.q-short-input[data-q-id="q' + num + '"]');
+    return el && el.value.trim().length > 0 ? el.value : null;
+  }
+  if (q.type === "calc") {
+    const numEl  = document.querySelector('.q-calc-num[data-q-id="q' + num + '"]');
+    const unitEl = document.querySelector('.q-calc-unit[data-q-id="q' + num + '"]');
+    if (!numEl || numEl.value === "") return null;
+    return { value: parseFloat(numEl.value), unit: unitEl ? unitEl.value.trim() : "" };
+  }
+  return null;
+}
+
+// ===== 反馈渲染 =====
+function renderFeedback(q, r, num) {
+  const el = document.querySelector('.q-feedback[data-q-id="q' + num + '"]');
+  if (!el) return;
+  el.classList.add("show");
+  el.classList.toggle("wrong", !r.isCorrect);
+
+  const stdAns = formatStdAnswer(q, r);
+  const exp = q.explanation || {};
+  const isObj = exp && typeof exp === "object";
+  const principle  = isObj ? (exp.principle  || "") : String(exp || "");
+  const logic      = isObj ? (exp.logic      || "") : "";
+  const connection = isObj ? (exp.connection || "") : "";
+
+  const exportHtml = (q.exportIds || []).map(function(id) {
+    const cn = EXPORT_NAMES[id];
+    return cn ? `<span class="q-export-label">${cn}</span>` : `<code>${id}</code>`;
+  }).join(" ");
+
+  el.innerHTML = `
+    <div class="q-result">${r.isCorrect ? "✓ 答对" : "✗ 答错"} · 得 ${r.score} / ${q.score} 分</div>
+    <div class="q-fb-row"><strong>📌 标准答案</strong><div>${stdAns}</div></div>
+    <div class="q-fb-row"><strong>🔬 涉及的核心原理</strong><div>${principle}</div></div>
+    ${logic ? `<div class="q-fb-row"><strong>🧩 逻辑分析</strong><div>${logic}</div></div>` : ""}
+    ${connection ? `<div class="q-fb-row"><strong>🌐 知识系统中的位置</strong><div>${connection}</div></div>` : ""}
+    ${q.mistakes ? `<div class="q-fb-row"><strong>⚠️ 常见误区</strong><div>${q.mistakes}</div></div>` : ""}
+    ${q.extension ? `<div class="q-fb-row"><strong>📚 扩展</strong><div>${q.extension}</div></div>` : ""}
+    <div class="q-anchor">📖 锚结论: ${exportHtml} · 回 <a href="01_运动的描述.html">学习任务卡 · ${q.cardAnchor || ""}</a> 复习。</div>
+  `;
+  renderKatex(el);
+}
+
+function formatStdAnswer(q, r) {
+  if (q.type === "choice") return q.answer;
+  if (q.type === "multi")  return (q.answer || []).join(" · ");
+  if (q.type === "fill") {
+    const ans = q.answer || q.blanks || [];
+    return ans.map(function(a, i) {
+      const s = Array.isArray(a) ? a[0] : a;
+      return "第 " + (i+1) + " 空: " + s;
+    }).join(" · ");
+  }
+  if (q.type === "short") {
+    const kws = (q.keywords || []).join(" / ");
+    const hits = r && r.hits ? r.hits.length : 0;
+    const total = (q.keywords || []).length;
+    return "关键词: " + kws + " (命中 " + hits + " / " + total + ")";
+  }
+  if (q.type === "calc") return q.answer.value + " " + q.answer.unit;
+  return "";
+}
+
+// ===== 提交 / 结果 =====
+function submitTest() {
+  results = pickedQuestions.map(function(q, idx) {
+    const ua = readUserAnswer(q, idx + 1);
+    const r = gradeQuestion(q, ua);
+    r.q = q; r.idx = idx;
+    renderFeedback(q, r, idx + 1);
+    return r;
+  });
+  const total = results.reduce(function(s, r) { return s + r.score; }, 0);
+  const passed  = total >= PASS_SCORE;
+  const honored = total >= HONOR_SCORE;
+  showResult(total, passed, honored);
+  saveState(total, passed, honored);
+}
+
+function showResult(total, passed, honored) {
+  // v0.1.12: 不藏 test-screen — 每题反馈在 test-screen 内每题下方渲染, 藏了用户看不到
+  document.getElementById("result-screen").classList.remove("hidden");
+  document.getElementById("result-screen").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("result-total").textContent = total;
+  const pill = document.getElementById("result-pass-pill");
+  const msg  = document.getElementById("result-message");
+  if (honored) {
+    pill.className = "result-pass honor"; pill.textContent = "⭐ 荣誉 (90+)";
+    msg.textContent = "掌握充分 (90%+) — 推荐进入教师组织的真实纸笔检测。";
+  } else if (passed) {
+    pill.className = "result-pass pass"; pill.textContent = "✓ 已通过 (70+)";
+    msg.textContent = "已具备纸笔检测基础水平 (70%+) — 可继续巩固或去星图 /student/requests 预约。";
+  } else {
+    pill.className = "result-pass fail"; pill.textContent = "✗ 未通过";
+    msg.textContent = "距通过还差 " + (PASS_SCORE - total) + " 分 — 建议针对错题回 task-cards 复习再练。";
+  }
+  const wrong = results.filter(function(r) { return !r.isCorrect; });
+  const counts = {};
+  wrong.forEach(function(r) {
+    (r.q.exportIds || []).forEach(function(eid) { counts[eid] = (counts[eid] || 0) + 1; });
+  });
+  const sorted = Object.keys(counts).sort(function(a, b) { return counts[b] - counts[a]; }).slice(0, 3);
+  const block = document.getElementById("weak-points-block");
+  const ul = document.getElementById("weak-points-list");
+  if (sorted.length > 0) {
+    block.style.display = "";
+    ul.innerHTML = sorted.map(function(eid) {
+      const cn = EXPORT_NAMES[eid] || eid;
+      return "<li><strong>" + cn + "</strong> (错 " + counts[eid] + " 题)</li>";
+    }).join("");
+  } else {
+    block.style.display = "none";
+  }
+}
+
+// ===== localStorage =====
+function saveState(total, passed, honored) {
+  try {
+    const prev = JSON.parse(localStorage.getItem(KEY_STATE) || "{}");
+    const state = {
+      studentName: document.getElementById("student-name").value.trim(),
+      submittedAt: Date.now(),
+      totalScore: total,
+      passed: passed || prev.passed || false,
+      honored: honored || prev.honored || false,
+      pickedIds: pickedQuestions.map(function(q) { return q.id; }),
+      attemptCount: (prev.attemptCount || 0) + 1
+    };
+    localStorage.setItem(KEY_STATE, JSON.stringify(state));
+    localStorage.setItem(KEY_NAME, state.studentName);
+  } catch (e) { /* localStorage 不可用 */ }
+}
+
+function loadState() {
+  try {
+    const nameEl = document.getElementById("student-name");
+    const savedName = localStorage.getItem(KEY_NAME);
+    if (savedName) nameEl.value = savedName;
+    const raw = localStorage.getItem(KEY_STATE);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    const slot = document.getElementById("last-attempt-slot");
+    const cls = s.honored ? "last-attempt-note honor" : "last-attempt-note";
+    const badge = s.honored ? "⭐ 荣誉" : (s.passed ? "✓ 已通过" : "✗ 未通过");
+    slot.innerHTML = `<div class="${cls}">上次提交: ${s.totalScore} 分 · ${badge} · 累计 ${s.attemptCount} 次</div>`;
+  } catch (e) { /* ignore */ }
+}
+
+// ===== 流程 =====
+function startTest() {
+  const name = document.getElementById("student-name").value.trim();
+  if (!name) { alert("请先填写你的姓名"); return; }
+  document.getElementById("progress-name").textContent = name;
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("entry-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
+  window.scrollTo(0, 0);
+}
+
+function reshuffleAndStart() {
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("result-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function renderKatex(root) {
+  if (typeof renderMathInElement !== "function") return;
+  try {
+    renderMathInElement(root || document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$",  right: "$",  display: false }
+      ],
+      throwOnError: false
+    });
+  } catch (e) { /* ignore */ }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  loadState();
+});
+window.addEventListener("load", function() {
+  renderKatex(document.body);
+});
+</script>
+
+</body>
+</html>

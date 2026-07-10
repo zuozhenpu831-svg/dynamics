@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 牛顿-莱布尼茨公式 · 牛顿-莱布尼茨公式 · 基础检测</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8; --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961; --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC; --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73;
+    --bg-primary: #ffffff; --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px; --radius-sm: 14px; --radius-btn: 16px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  .v021-banner {
+    background: var(--gold-050);
+    border-left: 3px solid var(--gold-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px 18px 56px;
+    margin-bottom: 28px;
+    font-size: 0.86rem;
+    color: var(--gold-900);
+    line-height: 1.75;
+    position: relative;
+  }
+  .v021-banner::before {
+    content: "i"; position: absolute; left: 16px; top: 18px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gold-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .v021-banner strong { color: var(--gold-900); }
+  .v021-banner-title { font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+
+  .header {
+    text-align: center; padding: 56px 32px 48px;
+    background: #fff; color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 36px;
+    position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%;
+    transform: translateX(-50%); width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--blue-500), var(--blue-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.45rem; margin-bottom: 12px;
+    color: var(--blue-700); font-weight: 700;
+    line-height: 1.5; position: relative; z-index: 1;
+  }
+  .header .h1-sub {
+    display: inline-block; font-size: 0.82rem; font-weight: 500;
+    color: var(--silver-700); margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--silver-500);
+  }
+  .header .subtitle {
+    font-size: 0.9rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  .screen {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    border-top: 3px solid var(--blue-700);
+  }
+  .screen.hidden { display: none; }
+
+  .entry-title { font-size: 1.15rem; font-weight: 700; color: var(--blue-700); margin-bottom: 18px; }
+  .entry-info { font-size: 0.9rem; color: var(--text-primary); line-height: 1.85; margin-bottom: 22px; padding-left: 22px; list-style: disc; }
+  .entry-info li { margin-bottom: 6px; }
+  .entry-info strong { color: var(--blue-700); }
+  .name-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    font-family: inherit; font-size: 0.95rem;
+    margin: 14px 0 8px; background: #fff;
+    transition: var(--transition);
+  }
+  .name-input:focus { outline: none; border-color: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .last-attempt-note {
+    background: var(--blue-050); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 16px; font-size: 0.85rem; color: var(--blue-700);
+    margin: 10px 0 18px;
+  }
+  .last-attempt-note.honor { background: var(--gold-050); border-left-color: var(--gold-700); color: var(--gold-900); }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--blue-700); color: #fff;
+    padding: 14px 32px;
+    border-radius: var(--radius-btn);
+    border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    transition: var(--transition);
+  }
+  .btn-primary:hover { background: var(--blue-900); }
+  .btn-secondary {
+    display: inline-block;
+    background: var(--silver-050); color: var(--silver-900);
+    padding: 14px 24px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--border-color); cursor: pointer;
+    font-family: inherit; font-size: 0.9rem; font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  .btn-secondary:hover { background: var(--silver-100); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+
+  .progress-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem; color: var(--silver-700);
+  }
+  .progress-name { font-weight: 600; color: var(--blue-700); }
+
+  .questions-list { }
+
+  .question {
+    --q-rich: var(--blue-900);
+    --q-mid:  var(--blue-700);
+    --q-bg:   var(--blue-050);
+    --q-tint: var(--blue-100);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--q-mid);
+  }
+  .questions-list > .question:nth-of-type(3n+2) {
+    --q-rich: var(--gold-900); --q-mid: var(--gold-700);
+    --q-bg: var(--gold-050); --q-tint: var(--gold-100);
+  }
+  .questions-list > .question:nth-of-type(3n) {
+    --q-rich: var(--silver-900); --q-mid: var(--silver-700);
+    --q-bg: var(--silver-050); --q-tint: var(--silver-100);
+  }
+
+  .q-header-circle {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--q-bg);
+    border: 2px solid var(--q-mid);
+    margin: 0 auto 32px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 22px;
+    box-sizing: border-box;
+  }
+  .q-h-num { font-size: 0.74rem; font-weight: 700; color: var(--q-rich); letter-spacing: 0.22em; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1.5px solid var(--q-mid); }
+  .q-h-type { font-size: 0.95rem; font-weight: 700; color: var(--q-rich); line-height: 1.5; }
+  .q-h-diff { font-size: 0.78rem; color: var(--q-mid); margin-top: 6px; }
+  .q-h-id { font-size: 0.75rem; color: var(--silver-700); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .q-stem { font-size: 0.95rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-primary); }
+  .q-stem strong { color: var(--q-rich); }
+
+  .q-options { margin: 14px 0 18px; }
+  .q-options label {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 0.92rem; line-height: 1.75;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .q-options label:hover { background: var(--q-bg); border-color: var(--q-mid); }
+  .q-options input { margin-top: 5px; flex-shrink: 0; accent-color: var(--q-mid); }
+  .opt-letter { font-weight: 700; color: var(--q-rich); flex-shrink: 0; }
+
+  .q-fillin {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+  }
+  .q-fillin:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-short-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+    min-height: 110px; resize: vertical;
+    line-height: 1.75;
+  }
+  .q-short-input:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-calc { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 12px; align-items: center; }
+  .q-calc-num, .q-calc-unit {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem; background: #fff;
+  }
+  .q-calc-num { flex: 1; min-width: 120px; }
+  .q-calc-unit { width: 140px; }
+  .q-calc-num:focus, .q-calc-unit:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-feedback {
+    margin-top: 18px; padding: 22px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--q-bg);
+    border-left: 3px solid var(--q-mid);
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.wrong { background: var(--gold-050); border-left-color: var(--gold-700); }
+  .q-result { font-weight: 700; color: var(--q-rich); font-size: 0.95rem; margin-bottom: 10px; }
+  .q-feedback.wrong .q-result { color: var(--gold-900); }
+  .q-fb-row { margin: 12px 0; padding: 10px 14px; border-radius: var(--radius-sm); background: #fff; border-left: 3px solid var(--q-mid); }
+  .q-fb-row strong { display: block; color: var(--q-rich); font-size: 0.86rem; margin-bottom: 4px; }
+  .q-feedback.wrong .q-fb-row strong { color: var(--gold-900); }
+  .q-fb-row p, .q-fb-row div { font-size: 0.88rem; line-height: 1.8; }
+  .q-export-label {
+    display: inline-block;
+    padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--q-tint); color: var(--q-rich);
+    border-radius: 999px; font-size: 0.78rem;
+    border: 1px solid var(--q-mid);
+  }
+  .q-anchor { margin-top: 14px; font-size: 0.86rem; color: var(--text-primary); line-height: 1.75; }
+  .q-anchor a { color: var(--blue-700); text-decoration: none; font-weight: 600; }
+  .q-anchor a:hover { text-decoration: underline; }
+
+  .result-summary { text-align: center; padding: 28px 0; }
+  .result-score { font-size: 3rem; font-weight: 800; color: var(--blue-700); line-height: 1.1; }
+  .result-score .total { font-size: 1.2rem; color: var(--silver-700); font-weight: 500; }
+  .result-pass {
+    margin-top: 12px; padding: 10px 18px; border-radius: 999px;
+    display: inline-block; font-size: 0.9rem; font-weight: 600;
+  }
+  .result-pass.pass { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-700); }
+  .result-pass.honor { background: var(--gold-050); color: var(--gold-900); border: 1px solid var(--gold-700); }
+  .result-pass.fail { background: var(--silver-050); color: var(--silver-900); border: 1px solid var(--silver-500); }
+  .result-message { font-size: 0.9rem; color: var(--text-primary); margin-top: 14px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  .weak-points-block { background: var(--blue-050); border-left: 3px solid var(--blue-700); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 22px 26px; margin: 24px 0; }
+  .weak-points-block h4 { color: var(--blue-700); font-size: 0.95rem; margin-bottom: 12px; }
+  .weak-points-block ul { padding-left: 22px; font-size: 0.88rem; line-height: 1.85; }
+
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px; text-align: center;
+    padding: 16px 18px; border-radius: 999px;
+    background: var(--silver-050); color: var(--silver-500);
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 40px 22px 36px; }
+    .header h1 { font-size: 1.18rem; }
+    .screen { padding: 24px 20px; }
+    .question { padding: 24px 22px; }
+    .q-header-circle { width: 200px; height: 200px; padding: 18px; }
+    .q-h-type { font-size: 0.85rem; }
+    .v021-banner { padding-left: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>牛顿-莱布尼茨公式</span>
+    <span class="sep">&gt;</span>
+    <span>牛顿-莱布尼茨公式 · 基础检测</span>
+  </nav>
+
+  <div class="v021-banner">
+    <div class="v021-banner-title">关于本页的练习形态 · v0.1.21</div>
+    本页是<strong>HTML 模拟练习</strong>——用于学完《牛顿-莱布尼茨公式》任务卡之后快速自测核心概念是否到位。<strong>真实的纸笔检测</strong>由学科导师线下组织、由教师批改，不在本页面内完成。本页给出自动判分仅作即时反馈用，建议每打开一次重新抽题以扩大覆盖。
+  </div>
+
+  <div class="header">
+    <h1>牛顿-莱布尼茨公式 · 基础检测<br><span class="h1-sub">题库版 · 每考点 4 变体随机抽 1 · 总分 100 · 推荐 30-40 分钟</span></h1>
+    <div class="subtitle">70% 通过 · 90% 荣誉 · 不强制限时</div>
+  </div>
+
+  <div class="screen" id="entry-screen">
+    <div class="entry-title">开始练习</div>
+    <p style="font-size: 0.9rem; margin-bottom: 10px;">请先填写你的姓名（仅本地保存，用于显示与你的提交记录）：</p>
+    <input id="student-name" class="name-input" type="text" placeholder="请输入你的姓名" maxlength="20">
+    <div id="last-attempt-slot"></div>
+    <ul class="entry-info">
+      <li>每个考点从 4 个变体中随机抽 1 道，共抽若干题</li>
+      <li>通过：<strong>70 分</strong> · 荣誉：<strong>90 分</strong></li>
+      <li>建议用时：<strong>30-40 分钟</strong>（不强制限时）</li>
+      <li>多选题严格相等判分；填空自动去空格 / 全半角归一</li>
+      <li>提交后展示 5 字段反馈（原理 / 逻辑 / 系统连接 / 常见误区 / 扩展）</li>
+      <li>不查资料、不翻任务卡——看清自己掌握到哪一档</li>
+      <li>通过 / 荣誉一次达成永不撤销</li>
+    </ul>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="startTest()">开始练习</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="test-screen">
+    <div class="progress-bar">
+      <div>👤 <span class="progress-name" id="progress-name">—</span> · 本次抽题 <span id="picked-ids">—</span></div>
+      <div>已答 <span id="answered-count">0</span> / <span id="total-count">0</span></div>
+    </div>
+    <div class="questions-list" id="questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-primary" onclick="submitTest()">提交本次抽题</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="result-screen">
+    <div class="result-summary">
+      <div class="result-score"><span id="result-total">0</span><span class="total"> / 100</span></div>
+      <div id="result-pass-pill" class="result-pass">—</div>
+      <div class="result-message" id="result-message">—</div>
+    </div>
+    <div class="weak-points-block" id="weak-points-block" style="display:none;">
+      <h4>本次错题考点聚类（建议优先复习）</h4>
+      <ul id="weak-points-list"></ul>
+    </div>
+    <div id="result-questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-secondary" onclick="reshuffleAndStart()">🎲 重新抽题再练</button>
+      <a class="btn-secondary" href="04_牛莱公式.html">⬅ 返回任务卡复习</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="04_牛莱公式.html">📘 返回任务卡</a>
+    <a href="#">📈 熟练度检测</a>
+    <a href="newton-leibniz-chain-rule-oral-exam.html">🎤 深度口试</a>
+    <span>📝 纸笔检测请联系导师</span>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 牛顿-莱布尼茨公式 · 牛顿-莱布尼茨公式 · 基础检测 · mock-check Skill v0.1.10
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+// ===== MOCK_DATA INJECTION POINT =====
+// agent 在下一行注入: const MOCK_DATA = { EXPORT_NAMES: {...}, QUESTION_BANK: {...} };
+// 数据 schema 见文件顶部 HTML 注释。
+const MOCK_DATA = { EXPORT_NAMES: {
+  'NL-FORMULA-STATEMENT':           '牛莱公式陈述 \\(\\int_a^b f\\,dx = F(b) - F(a)\\)',
+  'NL-PRECONDITIONS':               '成立条件（f 连续 + F 是任意原函数）',
+  'VARIABLE-UPPER-INTEGRAL':        '变上限积分函数 \\(S(x) = \\int_a^x f(t)\\,dt\\) 的定义',
+  'DUMMY-VARIABLE-RENAME':          '被积变量必须改名（哑变量 vs 上限）',
+  'S-BOUNDARY-VALUES':              '边界值 \\(S(a) = 0\\)、\\(S(b) = \\int_a^b f\\,dx\\)',
+  'INTEGRAL-ADDITIVITY':            '定积分的区间可加性（推导第 1 段所用）',
+  'MEAN-VALUE-THEOREM':             '积分中值定理（存在 ξ 使 \\(\\int = f(\\xi)\\,\\Delta x\\)）',
+  'XI-IN-INTERVAL':                 'ξ 被夹在 [x, x+Δx] 内（极限取 ξ → x 的依据）',
+  'S-PRIME-EQUALS-F':                '核心中间结论 \\(S\'(x) = f(x)\\)',
+  'CONTINUITY-OF-F':                'f 的连续性是 \\(f(\\xi) \\to f(x)\\) 的关键',
+  'TWO-DERIVATIVES-EQUAL':          '两函数导数处处相等 → 差一常数',
+  'CONSTANT-DETERMINATION':         '由 \\(S(a) = 0\\) 定 \\(C = -F(a)\\)',
+  'ANY-ANTIDERIVATIVE-OK':          'F 取任意原函数都行（常数消掉）',
+  'AREA-METHOD-VS-ANTIDERIVATIVE':  '面积法（03 课）vs 原函数差法（本课）对比',
+  'NL-APPLY-V-EQUAL-V0-AT':         '用牛莱公式重算 \\(v = v_0+at\\)',
+  'NL-APPLY-DISPLACEMENT':          '用牛莱公式重算 \\(x = v_0 t+\\frac{1}{2}at^2\\)',
+  'NL-APPLY-V-SQUARE':              '用牛莱公式重算 \\(v^2 = v_0^2+2ax\\)',
+  'POWER-FUNCTION-ANTIDERIVATIVE':  '幂函数原函数 \\(\\int x^n\\,dx = \\frac{x^{n+1}}{n+1}\\)',
+  'NL-FORMULA-FAILS-DISCONTINUITY': '公式失效情形 1：被积函数不连续',
+  'NL-FORMULA-FAILS-NO-ELEMENTARY': '公式失效情形 2：原函数无初等表达',
+  'BRACKET-NOTATION':               '方括号速写 \\([F(x)]_a^b = F(b) - F(a)\\)',
+  'CALC-INVERSE-OPERATIONS':        '微分与积分互为逆运算的直觉'
+}, QUESTION_BANK: {
+  T1: [
+    { id:"T1-1", type:"choice", score:12, difficulty:"基础",
+      exportIds:["VARIABLE-UPPER-INTEGRAL","DUMMY-VARIABLE-RENAME"],
+      stem:"关于变上限积分函数 \\(S(x) = \\int_a^x f(t)\\,dt\\)，下列理解 <strong>正确</strong> 的是：",
+      options:{
+        A:"\\(S(x)\\) 是关于上限 \\(x\\) 的函数；被积变量改名为 \\(t\\) 是为了避免与上限 \\(x\\) 撞符号",
+        B:"\\(S(x)\\) 是一个固定的数值，等于 \\(f(x)\\) 在 \\([a, b]\\) 上的积分",
+        C:"被积变量可以保留为 \\(x\\)，写成 \\(\\int_a^x f(x)\\,dx\\) 含义完全相同",
+        D:"\\(S(x)\\) 的几何意义是 \\(f(x)\\) 在 \\(x\\) 处的瞬时值"
+      },
+      answer:"A",
+      explanation:{
+        principle:'变上限积分函数把<strong>积分上限</strong>作为自变量，把<strong>"从 a 到 x 的累计积分值"</strong>作为函数值。它是"数值 → 函数"的升级：原本定积分 \\(\\int_a^b f\\,dx\\) 是个数，把上限留成变量 \\(x\\) 之后就成了 \\(S(x)\\)。',
+        logic:'各选项分析：<br>· <strong>A 正确</strong>：上限做自变量 → \\(S\\) 是函数；被积变量是<strong>哑变量</strong>（只在求和过程中临时存在），改名为 \\(t\\) 才能与上限 \\(x\\) 区分；<br>· <strong>B 错</strong>：\\(S(x)\\) 是关于 \\(x\\) 的函数，不是单个数值；\\(S(b)\\) 才是定积分数值；<br>· <strong>C 错</strong>：保留 \\(x\\) 会让"哑变量"与"函数自变量"撞符号，\\(\\int_a^x f(x)\\,dx\\) 中的 \\(x\\) 角色含糊，是数学上的坏写法；<br>· <strong>D 错</strong>：\\(S(x)\\) 是累计面积（累积量），不是瞬时值；瞬时值是 \\(f(x)\\) 本身。',
+        connection:'<strong>上游</strong>：来自 03 课"定积分作为黎曼和极限"的概念；本课把它升级为函数。<strong>下游</strong>：变上限积分函数承担"累积量"与"原函数"两种身份，是牛莱公式推导的桥梁（Card 2 证 \\(S\'(x) = f(x)\\)、Card 3 定 \\(C\\)）。'
+      },
+      mistakes:'· 把 \\(S(x)\\) 当成定积分数值；<br>· 不改被积变量名导致符号混淆；<br>· 把"累计面积"误读为"瞬时函数值"。',
+      extension:'升级"数 → 函数"是数学的常用动作：定积分变成 \\(S(x)\\)、定值变成参数族、单点变成轨迹——把"快照"升级为"函数"通常能让局部结构（导数）和整体性质（边界值）同时浮现。',
+      cardAnchor:"Card 1 STEP 2" },
+    { id:"T1-2", type:"choice", score:12, difficulty:"基础",
+      exportIds:["VARIABLE-UPPER-INTEGRAL","DUMMY-VARIABLE-RENAME"],
+      stem:"下列 4 个关于变上限积分函数的写法中，<strong>规范</strong>的是：",
+      options:{
+        A:"\\(S(x) = \\int_a^x f(t)\\,dt\\)",
+        B:"\\(S(x) = \\int_a^x f(x)\\,dx\\)",
+        C:"\\(S(t) = \\int_a^t f(x)\\,dx\\)",
+        D:"A 与 C 都规范，B 不规范"
+      },
+      answer:"D",
+      explanation:{
+        principle:'变上限积分函数必须让"被积变量"与"积分上限变量"互不撞名。哑变量可以用 \\(t\\)、\\(u\\)、\\(s\\) 等任意字母，只要不与上限重名即可。',
+        logic:'· <strong>A 规范</strong>：被积变量 \\(t\\)、上限 \\(x\\)，互不撞名；<br>· <strong>B 不规范</strong>：被积变量与上限都是 \\(x\\)，符号歧义；<br>· <strong>C 规范</strong>：被积变量 \\(x\\)（哑）、上限 \\(t\\)（函数自变量），同样无歧义；<br>· <strong>D 正确</strong>：A 与 C 都通过"互不撞名"标准，B 不通过。',
+        connection:'<strong>哑变量</strong>是数学符号习惯中很重要的一环：积分<br>求和<br>极限<br>都涉及「中间存在的临时符号」，约定它们独立于外部上下文。下游推导 \\(S\'(x) = f(x)\\) 必须依赖这种符号干净。'
+      },
+      mistakes:'· 误认为只有用 \\(t\\) 才规范（其实任何不撞名的字母都可以）；<br>· 把哑变量改名当作约定俗成，不理解其逻辑必要性。',
+      extension:'哑变量与"绑定变量"在数学逻辑里是同一类对象（如 \\(\\sum_{k=1}^n a_k\\) 中的 \\(k\\)、\\(\\forall x\\,P(x)\\) 中的 \\(x\\)）。它们的本质是"只在表达式内部有意义"。',
+      cardAnchor:"Card 1 STEP 2 思考点 2" },
+    { id:"T1-3", type:"choice", score:12, difficulty:"中等",
+      exportIds:["VARIABLE-UPPER-INTEGRAL","S-BOUNDARY-VALUES"],
+      stem:"设 \\(f(t) = t\\)，\\(a = 0\\)，则变上限积分函数 \\(S(x) = \\int_0^x t\\,dt\\) 的具体表达式是：",
+      options:{
+        A:"\\(S(x) = \\dfrac{x^2}{2}\\)",
+        B:"\\(S(x) = x\\)",
+        C:"\\(S(x) = \\dfrac{x^2}{2}+C\\)（C 任意）",
+        D:"\\(S(x) = 2x\\)"
+      },
+      answer:"A",
+      explanation:{
+        principle:'\\(S(x) = \\int_0^x t\\,dt\\) 是一个<strong>定积分</strong>（即使上限是 \\(x\\)），结果不带任意常数 \\(C\\)。用幂函数原函数 \\(\\int t\\,dt = \\frac{t^2}{2}\\) 与牛莱公式：\\(S(x) = [\\frac{t^2}{2}]_0^x = \\frac{x^2}{2} - 0 = \\frac{x^2}{2}\\)。',
+        logic:'· <strong>A 正确</strong>：直接代入幂函数原函数 + 代上下限；<br>· <strong>B 错</strong>：把被积函数 \\(f(t) = t\\) 与积分结果混淆；<br>· <strong>C 错</strong>：变上限积分是定积分（带上下限），<strong>不带任意常数 \\(C\\)</strong>；带 \\(C\\) 的是不定积分；<br>· <strong>D 错</strong>：\\(2x\\) 是 \\(x^2\\) 的导数，不是积分。',
+        connection:'<strong>上游</strong>：03 课不定积分公式 \\(\\int t\\,dt = \\frac{t^2}{2}+C\\)；本课的定积分把任意常数消掉。<strong>下游</strong>：对这个 \\(S(x) = \\frac{x^2}{2}\\) 求导得 \\(S\'(x) = x = f(x)\\)，验证了核心结论。'
+      },
+      mistakes:'· 把变上限积分当成不定积分而保留 \\(C\\)；<br>· 漏代下限 0；<br>· 把"积"和"导"方向反了。',
+      extension:'这个简单例子是检验 Card 2 核心结论的"试金石"：随手挑一个 \\(f\\)，算出 \\(S\\)，对 \\(S\\) 求导，看是否回到 \\(f\\)。验证多了，对牛莱公式的信任就稳了。',
+      cardAnchor:"Card 1 STEP 4<br>Card 2 STEP 4" },
+    { id:"T1-4", type:"choice", score:12, difficulty:"中等",
+      exportIds:["VARIABLE-UPPER-INTEGRAL","CALC-INVERSE-OPERATIONS"],
+      stem:"变上限积分函数 \\(S(x) = \\int_a^x f(t)\\,dt\\) 在牛莱公式推导中扮演的角色是：",
+      options:{
+        A:"它把「求逆运算」（找原函数）与「极限运算」（黎曼和）两条不同的运算路线连接起来",
+        B:"它本身就是被积函数 \\(f(x)\\) 的全部原函数",
+        C:"它只是一个记号，没有实质性作用",
+        D:"它专门用于物理学中的位移计算，与数学定理推导无关"
+      },
+      answer:"A",
+      explanation:{
+        principle:'\\(S(x)\\) 的"魔法身份"在于它<strong>同时是累积量</strong>（定积分的几何 / 极限定义）<strong>又是原函数</strong>（Card 2 证明 \\(S\'(x) = f(x)\\)）。这两种身份在它身上汇合，桥接了原本看似无关的"求逆运算"与"极限运算"。',
+        logic:'· <strong>A 正确</strong>：它是桥梁，让"\\(\\int_a^b f\\,dx\\)（极限）= \\(F(b) - F(a)\\)（求逆 + 减法）"这条公式成立；<br>· <strong>B 错</strong>：\\(S\\) 只是<strong>一个</strong>原函数（其他差常数的 \\(F\\) 也是原函数）；<br>· <strong>C 错</strong>：它不是记号，是有定义的函数；<br>· <strong>D 错</strong>：变上限积分函数是数学概念，跨学科应用是延伸。',
+        connection:'<strong>这是本课的核心直觉</strong>：牛莱公式的"魔法"不在公式本身，而在 \\(S(x)\\) 承担的双身份。任何想把"两种运算等价"的数学定理，通常都会构造类似的桥梁对象。'
+      },
+      mistakes:'· 只看公式不看 \\(S\\) 的桥梁角色；<br>· 把"是一个原函数"误读为"是全部原函数"。',
+      extension:'数学里有许多类似桥梁对象：傅里叶级数中的部分和、复变函数中的解析延拓、概率论中的特征函数——它们都把两套看似无关的运算结构串起来。',
+      cardAnchor:"Card 0 骨架 3<br>Card 3 STEP 2 思考点 2" }
+  ],
+
+  T2: [
+    { id:"T2-1", type:"choice", score:14, difficulty:"基础",
+      exportIds:["S-BOUNDARY-VALUES"],
+      stem:"对于变上限积分函数 \\(S(x) = \\int_a^x f(t)\\,dt\\)，\\(S(a)\\) 的值是：",
+      options:{
+        A:"\\(S(a) = 0\\)",
+        B:"\\(S(a) = f(a)\\)",
+        C:"\\(S(a) = F(a)\\)（\\(F\\) 是 \\(f\\) 的原函数）",
+        D:"\\(S(a)\\) 没有定义"
+      },
+      answer:"A",
+      explanation:{
+        principle:'当积分上下限相等时，\\(\\int_a^a f(t)\\,dt = 0\\)（积分区间长度为零）。直觉：从 \\(a\\) 到 \\(a\\) 之间还没有任何"宽度"，曲线下面积就是零。',
+        logic:'· <strong>A 正确</strong>：\\(\\int_a^a f(t)\\,dt = 0\\) 是定积分的基本性质；<br>· <strong>B 错</strong>：\\(f(a)\\) 是瞬时函数值，不是面积；<br>· <strong>C 错</strong>：\\(S(a) = F(a)+C\\)，未确定常数前不能直接等于 \\(F(a)\\)；<br>· <strong>D 错</strong>：\\(S\\) 在闭区间 \\([a, b]\\) 上处处有定义，端点也包括。',
+        connection:'<strong>下游关键</strong>：本结论是 Card 3 STEP 2 定常数 \\(C\\) 的依据 ——由 \\(0 = S(a) = F(a)+C\\)，得 \\(C = -F(a)\\)，再令 \\(x = b\\) 就得牛莱公式。'
+      },
+      mistakes:'· 漏掉"上下限相等积分为零"这条性质；<br>· 把 \\(S(a)\\) 与 \\(F(a)\\) 直接画等号。',
+      extension:'"上下限相等 → 积分为零"在物理里对应"零时间窗内累积位移为零"——任何累积量在零区间上都退化为零。',
+      cardAnchor:"Card 1 STEP 4" },
+    { id:"T2-2", type:"choice", score:14, difficulty:"基础",
+      exportIds:["S-BOUNDARY-VALUES","NL-FORMULA-STATEMENT"],
+      stem:"对于变上限积分函数 \\(S(x) = \\int_a^x f(t)\\,dt\\)，\\(S(b)\\) 的值是：",
+      options:{
+        A:"\\(S(b) = \\int_a^b f(t)\\,dt\\)，即本课要计算的那个定积分",
+        B:"\\(S(b) = f(b)\\)",
+        C:"\\(S(b) = b - a\\)",
+        D:"\\(S(b) = F(b)\\)（\\(F\\) 是任意原函数）"
+      },
+      answer:"A",
+      explanation:{
+        principle:'变上限积分函数的定义就是 \\(S(x) = \\int_a^x f(t)\\,dt\\)，把 \\(x = b\\) 代入直接得 \\(S(b) = \\int_a^b f(t)\\,dt\\)。这就是本课要算的"那个定积分"。',
+        logic:'· <strong>A 正确</strong>：直接代入定义；<br>· <strong>B 错</strong>：瞬时值与累积值混淆；<br>· <strong>C 错</strong>：\\(b - a\\) 是区间长度，不是积分；<br>· <strong>D 错</strong>：要等推到 \\(S(x) = F(x) - F(a)\\) 才能令 \\(x = b\\) 得 \\(F(b) - F(a)\\)，本题问的是 \\(S(b)\\) 的<strong>定义层面值</strong>。',
+        connection:'<strong>下游推论</strong>：\\(\\int_a^b f\\,dx = S(b)\\) 让 Card 3 STEP 2 把"算定积分"等价为"算 \\(S(b)\\)"，再通过 \\(S(b) = F(b) - F(a)\\) 完成证明。'
+      },
+      mistakes:'· 把 \\(S(b)\\) 与原函数差 \\(F(b) - F(a)\\) 在<strong>未完成推导前</strong>就画等号；<br>· 区间长度与积分值混淆。',
+      extension:'\\(S(a) = 0\\) 与 \\(S(b) = \\int_a^b f\\,dx\\) 是 \\(S\\) 的两个"锚点"——前者用来定常数 \\(C\\)，后者承载我们要算的目标。',
+      cardAnchor:"Card 1 STEP 4<br>Card 3 STEP 2" },
+    { id:"T2-3", type:"fill", score:14, difficulty:"中等",
+      exportIds:["S-BOUNDARY-VALUES","VARIABLE-UPPER-INTEGRAL"],
+      stem:"设 \\(f(t) = 3t^2\\)，\\(a = 0\\)，请填空：\\(S(x) = \\int_0^x 3t^2\\,dt = \\)__________；\\(S(0) = \\)__________；\\(S(2) = \\)__________。",
+      blanks:["x^3","0","8"],
+      answer:["x^3","0","8"],
+      explanation:{
+        principle:'由幂函数原函数 \\(\\int t^2\\,dt = \\frac{t^3}{3}\\) + 积分线性性，得 \\(\\int 3t^2\\,dt = t^3+C\\)。代入定积分 + 牛莱公式：\\(S(x) = [t^3]_0^x = x^3 - 0 = x^3\\)。',
+        logic:'· \\(S(x) = x^3\\)；<br>· \\(S(0) = 0^3 = 0\\)（验证了"上下限相等积分为零"）；<br>· \\(S(2) = 2^3 = 8\\)（这就是 \\(\\int_0^2 3t^2\\,dt\\) 的值）。<br>顺便验证：\\(S\'(x) = 3x^2 = f(x)\\) ✓ —— 这是 Card 2 核心结论的实例。',
+        connection:'同一个 \\(\\int_0^2 3t^2\\,dt = 8\\) 在 03 课你用"曲边梯形面积"估算过；本课用牛莱公式 2 步搞定。两种方法结果一致。'
+      },
+      mistakes:'· 漏代积分线性性导致 \\(S(x) = \\frac{x^3}{3}\\)（漏了 3 倍）；<br>· 把 \\(S(0)\\) 写成 \\(f(0) = 0\\) 而<strong>误以为</strong>这是同一回事（数值巧合但含义不同）。',
+      extension:'随手挑 \\(f\\) 算 \\(S\\) 验证 \\(S\' = f\\)，是建立对牛莱公式的"信任感"最直接的练习。',
+      cardAnchor:"Card 4 STEP 1 工具速复习" },
+    { id:"T2-4", type:"short", score:14, difficulty:"中等",
+      exportIds:["S-BOUNDARY-VALUES","CONSTANT-DETERMINATION"],
+      stem:"请用 2-3 句话说明：为什么 \\(S(a) = 0\\) 这个边界值在牛莱公式的推导中「不可省略」？",
+      keywords:["定 C","常数","F(a)","推导收尾","边界条件"],
+      answer:"作为定常数 C 的边界条件不可省。",
+      explanation:{
+        principle:'牛莱公式推导第 4 步得到 \\(S(x) = F(x)+C\\)，其中 \\(C\\) 是未定常数。要把它定下来，必须有一个<strong>已知的边界值</strong>——这就是 \\(S(a) = 0\\)。',
+        logic:'代入：\\(0 = S(a) = F(a)+C \\Rightarrow C = -F(a)\\)。所以 \\(S(x) = F(x) - F(a)\\)，令 \\(x = b\\) 才能得到牛莱公式 \\(\\int_a^b f\\,dx = F(b) - F(a)\\)。如果没有 \\(S(a) = 0\\)，常数 \\(C\\) 就停在抽象状态，公式凑不成。',
+        connection:'<strong>边界条件定常数</strong>是物理与数学共通的方法：03 课你用"\\(t = 0\\) 时位置为 0"定不定积分常数；本课用"\\(S(a) = 0\\)"定推导常数。机制完全同构。'
+      },
+      mistakes:'· 只说"边界值"而不点出"用来定常数 \\(C\\)"；<br>· 把 \\(S(a) = 0\\) 与 \\(f(a) = 0\\) 搞混。',
+      extension:'微分方程求解中，"初始条件 / 边界条件定积分常数"是标准动作；本课的 \\(S(a) = 0\\) 是这一通用思想的具体实例。',
+      cardAnchor:"Card 3 STEP 2" }
+  ],
+
+  T3: [
+    { id:"T3-1", type:"choice", score:14, difficulty:"基础",
+      exportIds:["MEAN-VALUE-THEOREM","XI-IN-INTERVAL"],
+      stem:"积分中值定理在牛莱公式推导中的作用是：",
+      options:{
+        A:"把 \\(\\int_x^{x+\\Delta x} f(t)\\,dt\\) 化简为 \\(f(\\xi) \\cdot \\Delta x\\)，其中 \\(\\xi \\in [x, x+\\Delta x]\\)",
+        B:"直接给出 \\(S\'(x) = f(x)\\) 的结论",
+        C:"证明 \\(f\\) 在 \\([a, b]\\) 上连续",
+        D:"消去原函数 \\(F\\) 中的常数项"
+      },
+      answer:"A",
+      explanation:{
+        principle:'积分中值定理：若 \\(f\\) 在 \\([\\alpha, \\beta]\\) 上连续，则<strong>存在</strong> \\(\\xi \\in [\\alpha, \\beta]\\)，使得 \\(\\int_\\alpha^\\beta f(t)\\,dt = f(\\xi) \\cdot (\\beta - \\alpha)\\)。在本课语境里 \\(\\alpha = x\\), \\(\\beta = x+\\Delta x\\)，正好把一段定积分化简成 "f(\\xi) 乘以区间长度"。',
+        logic:'· <strong>A 正确</strong>：精准描述中值定理的应用；<br>· <strong>B 错</strong>：\\(S\' = f\\) 是推导的<strong>最终</strong>结论，不是中值定理直接给的；<br>· <strong>C 错</strong>：连续性是中值定理<strong>使用的前提</strong>，不是中值定理证明的对象；<br>· <strong>D 错</strong>：中值定理与"消常数"无关。',
+        connection:'<strong>桥梁</strong>：中值定理把"一段积分"换成"中间某点值 × 区间长度"，让后续<strong>除以 \\(\\Delta x\\) + 取极限</strong>这一步顺理成章。'
+      },
+      mistakes:'· 把中值定理误认为是"证 \\(S\' = f\\) 的全部"；<br>· 漏掉它对 \\(f\\) 连续性的依赖。',
+      extension:'积分中值定理是<strong>"平均值定理"</strong>的一种说法：一段连续函数在区间上的平均值等于它在某个内部点取得的值。这条思想在物理"平均速度 = 某瞬时速度"里有直接对应。',
+      cardAnchor:"Card 2 STEP 3" },
+    { id:"T3-2", type:"choice", score:14, difficulty:"中等",
+      exportIds:["MEAN-VALUE-THEOREM","CONTINUITY-OF-F"],
+      stem:"积分中值定理 \\(\\int_\\alpha^\\beta f(t)\\,dt = f(\\xi)(\\beta - \\alpha)\\) 成立的<strong>前提</strong>是：",
+      options:{
+        A:"\\(f\\) 在 \\([\\alpha, \\beta]\\) 上连续",
+        B:"\\(f\\) 在 \\([\\alpha, \\beta]\\) 上有界",
+        C:"\\(f\\) 在 \\([\\alpha, \\beta]\\) 上单调递增",
+        D:"\\(f\\) 在 \\([\\alpha, \\beta]\\) 上可微"
+      },
+      answer:"A",
+      explanation:{
+        principle:'积分中值定理的标准条件是<strong>连续</strong>。连续保证 \\(f\\) 在闭区间 \\([\\alpha, \\beta]\\) 上能取到任意中间值（介值定理），所以必然有 \\(\\xi\\) 使得 \\(f(\\xi)\\) 等于积分的平均值。',
+        logic:'· <strong>A 正确</strong>：连续是标准前提；<br>· <strong>B 错</strong>：仅有界不够（有界函数可能不连续，例如有跳跃，找不到 \\(\\xi\\) 取到平均值）；<br>· <strong>C 错</strong>：单调不是必要条件；<br>· <strong>D 错</strong>：可微比连续更强，不是中值定理的标准前提（连续就够了）。',
+        connection:'<strong>本课假设链</strong>：牛莱公式假设"\\(f\\) 在 \\([a, b]\\) 上连续"——这条假设在 Card 2 推导中通过<strong>中值定理</strong>和<strong>极限取值 \\(f(\\xi) \\to f(x)\\)</strong> 两处都用到。如果丢掉连续性，整条推导链断在中间。'
+      },
+      mistakes:'· 误把"可微"当"连续"（可微更强）；<br>· 误以为"有界"就够（有界不能保证介值取到）。',
+      extension:'中值定理是数学分析的基础工具家族：拉格朗日中值定理、柯西中值定理、积分中值定理——它们共同特点是"用一个 \\(\\xi\\) 把整体性质化简为局部"。',
+      cardAnchor:"Card 2 STEP 1 工具速复习<br>STEP 3" },
+    { id:"T3-3", type:"choice", score:14, difficulty:"中等",
+      exportIds:["XI-IN-INTERVAL","CONTINUITY-OF-F"],
+      stem:"推导 \\(S\'(x) = f(x)\\) 的最后一步取极限时，用了「当 \\(\\Delta x \\to 0\\) 时 \\(\\xi \\to x\\)」。这一结论的根据是：",
+      options:{
+        A:"\\(\\xi\\) 被夹在区间 \\([x, x+\\Delta x]\\) 中，区间长度趋于零时 \\(\\xi\\) 必然趋于 \\(x\\)",
+        B:"\\(\\xi\\) 是 \\(f\\) 的极值点",
+        C:"\\(\\xi\\) 等于区间中点 \\(x+\\Delta x/2\\)",
+        D:"中值定理直接给出 \\(\\xi = x\\)"
+      },
+      answer:"A",
+      explanation:{
+        principle:'中值定理只断言 \\(\\xi\\) 的<strong>存在</strong>，并不给出 \\(\\xi\\) 的精确表达式。但它告诉我们 \\(\\xi \\in [x, x+\\Delta x]\\)。当 \\(\\Delta x \\to 0\\) 时，整段区间收缩到点 \\(x\\)，\\(\\xi\\) 也必然被压到 \\(x\\)。这就是"夹逼"的几何直觉。',
+        logic:'· <strong>A 正确</strong>：夹逼是 \\(\\xi \\to x\\) 的真实依据；<br>· <strong>B 错</strong>：中值定理的 \\(\\xi\\) 并非极值点；<br>· <strong>C 错</strong>：\\(\\xi\\) 不必是中点（不同的 \\(f\\) 给出不同位置的 \\(\\xi\\)）；<br>· <strong>D 错</strong>：中值定理只说 \\(\\xi\\) 存在，不直接给 \\(\\xi = x\\)。',
+        connection:'<strong>"夹逼 + 连续性"双轨</strong>：① \\(\\xi \\to x\\)（夹逼）；② \\(f(\\xi) \\to f(x)\\)（连续性）。这两件事缺一不可才能完成最后取极限。'
+      },
+      mistakes:'· 误以为 \\(\\xi\\) 是中点或极值点；<br>· 想精确求出 \\(\\xi\\) 的值（其实不需要也不能）。',
+      extension:'"存在但不知道具体值"在数学里很常见。许多存在性定理（中值定理 / 不动点定理 / 介值定理）都属此类——你不需要知道东西在哪，只需要知道它一定在。',
+      cardAnchor:"Card 2 STEP 3 思考点 2<br>STEP 4 思考点 3" },
+    { id:"T3-4", type:"short", score:14, difficulty:"较难",
+      exportIds:["MEAN-VALUE-THEOREM","XI-IN-INTERVAL","CONTINUITY-OF-F"],
+      stem:"请简述：在推导 \\(S\'(x) = f(x)\\) 时，「中值定理 + \\(\\xi\\) 被夹住 + \\(f\\) 连续」三件事各起什么作用？（2-3 句话）",
+      keywords:["中值定理","存在","ξ","夹住","区间","连续","极限"],
+      answer:"中值定理保证 ξ 存在，区间夹住让 ξ → x，连续性让 f(ξ) → f(x)。",
+      explanation:{
+        principle:'三件事在最后取极限时形成<strong>串联依赖</strong>：① 中值定理让"一段积分"化简为"f(\\xi) × \\Delta x"；② 区间 \\([x, x+\\Delta x]\\) 把 \\(\\xi\\) 夹住，区间收缩到点时 \\(\\xi \\to x\\)；③ 连续性让 \\(f(\\xi)\\) 也跟着趋向 \\(f(x)\\)。',
+        logic:'链条：\\(S\'(x) = \\lim_{\\Delta x \\to 0} \\frac{S(x+\\Delta x)-S(x)}{\\Delta x} \\stackrel{\\text{中值}}{=} \\lim_{\\Delta x \\to 0} f(\\xi) \\stackrel{\\xi \\to x}{=} \\lim_{\\xi \\to x} f(\\xi) \\stackrel{\\text{连续}}{=} f(x)\\)。每个等号都对应一件事；缺任何一件链条就断。',
+        connection:'这是<strong>多个工具串联完成一个结论</strong>的典型——它告诉学生"数学定理的推导往往不是单工具"。'
+      },
+      mistakes:'· 只提其中一件而漏掉其他；<br>· 错把"连续性"与"中值定理"当成同一件事。',
+      extension:'数学分析许多核心定理（如有界闭区间上连续函数的最值定理、一致连续定理）都用到这种"夹逼 + 连续性"的组合拳。',
+      cardAnchor:"Card 2 STEP 4 思考点 3" }
+  ],
+
+  T4: [
+    { id:"T4-1", type:"choice", score:14, difficulty:"基础",
+      exportIds:["S-PRIME-EQUALS-F"],
+      stem:"\\(\\dfrac{d}{dx} \\int_a^x f(t)\\,dt = ?\\)（其中 \\(f\\) 在 \\([a, b]\\) 上连续）",
+      options:{
+        A:"\\(f(x)\\)",
+        B:"\\(f(a)\\)",
+        C:"\\(\\int_a^x f\'(t)\\,dt\\)",
+        D:"\\(F(x) - F(a)\\)"
+      },
+      answer:"A",
+      explanation:{
+        principle:'这是<strong>变上限积分对上限求导</strong>的标准结论——"先积后微等于原函数"，即 \\(\\frac{d}{dx}\\int_a^x f(t)\\,dt = f(x)\\)。它是 Card 2 整段推导的产出。',
+        logic:'· <strong>A 正确</strong>：把上限 \\(x\\) 直接代回被积函数；<br>· <strong>B 错</strong>：\\(f(a)\\) 是下限处函数值，与上限求导无关；<br>· <strong>C 错</strong>：把微分作用在被积函数 \\(f\\) 内部，是错的链式应用；<br>· <strong>D 错</strong>：这是积分本身（\\(S(x) = F(x) - F(a)\\)），不是它的导数。',
+        connection:'<strong>这是牛莱公式的"半边"</strong>——它说明 \\(S\\) 是 \\(f\\) 的原函数，与 Card 3 的"任意原函数差常数"组合后得出完整公式。'
+      },
+      mistakes:'· 把 \\(\\frac{d}{dx}\\int_a^x f(t)\\,dt\\) 的上限位置 \\(x\\) 与被积函数内部混淆；<br>· 误以为"先积后微"返回原函数加常数（积分常数在<strong>变上限</strong>积分里是 0）。',
+      extension:'更一般的"变限积分求导"：若上限是 \\(g(x)\\)，则 \\(\\frac{d}{dx}\\int_a^{g(x)} f(t)\\,dt = f(g(x)) \\cdot g\'(x)\\)（链式法则）——本课只讨论 \\(g(x) = x\\) 的最简形式。',
+      cardAnchor:"Card 2 STEP 4" },
+    { id:"T4-2", type:"choice", score:14, difficulty:"中等",
+      exportIds:["S-PRIME-EQUALS-F","CONTINUITY-OF-F"],
+      stem:"\\(\\dfrac{d}{dx}\\int_a^x f(t)\\,dt = f(x)\\) 这条结论<strong>失效</strong>的情形是：",
+      options:{
+        A:"\\(f\\) 在 \\(x\\) 处<strong>不连续</strong>（如跳跃间断）",
+        B:"\\(f\\) 是常数函数",
+        C:"\\(f\\) 是负值函数",
+        D:"积分下限 \\(a\\) 不是 0"
+      },
+      answer:"A",
+      explanation:{
+        principle:'结论 \\(S\'(x) = f(x)\\) 在 \\(x\\) 点成立要求 \\(f\\) 在 \\(x\\) <strong>连续</strong>。如果 \\(f\\) 在 \\(x\\) 处跳跃，\\(f(\\xi)\\) 当 \\(\\xi \\to x\\) 时的左右极限不一致，\\(f(\\xi) \\to f(x)\\) 这步会失败。',
+        logic:'· <strong>A 正确</strong>：连续是核心假设；<br>· <strong>B 错</strong>：常数函数处处连续，结论照样成立；<br>· <strong>C 错</strong>：函数值正负与连续性无关；<br>· <strong>D 错</strong>：下限取什么值不影响结论（差一常数）。',
+        connection:'<strong>边界声明</strong>：本课所有结论都建立在"\\(f\\) 连续"前提上。学完牛莱后遇到不连续情形（分段函数、含跳跃信号）必须先分段再做。'
+      },
+      mistakes:'· 误以为"光滑"和"连续"同义（其实可微更强）；<br>· 不区分"几乎处处连续"与"处处连续"。',
+      extension:'对"不连续"的更一般处理留给勒贝格积分理论——它允许"几乎处处连续"的函数依然可积，但中学到本科初阶的微积分一般要求连续。',
+      cardAnchor:"Card 2 STEP 4 思考点 3" },
+    { id:"T4-3", type:"fill", score:14, difficulty:"中等",
+      exportIds:["S-PRIME-EQUALS-F","POWER-FUNCTION-ANTIDERIVATIVE"],
+      stem:"设 \\(G(x) = \\int_0^x (t^2+1)\\,dt\\)，请填空：\\(G\'(x) = \\)__________；\\(G\'(2) = \\)__________。",
+      blanks:["x^2+1","5"],
+      answer:["x^2+1","5"],
+      explanation:{
+        principle:'由 \\(\\frac{d}{dx}\\int_0^x f(t)\\,dt = f(x)\\)，直接把上限 \\(x\\) 代回被积函数：\\(G\'(x) = x^2+1\\)。然后 \\(G\'(2) = 4+1 = 5\\)。',
+        logic:'· \\(G\'(x) = x^2+1\\)：直接把上限代回被积函数 \\(t^2+1\\)；<br>· \\(G\'(2) = 5\\)：代入 \\(x = 2\\)。<br>不需要先把 \\(G(x)\\) 算出来再求导——这正是变限积分求导<strong>省时</strong>的地方。',
+        connection:'<strong>验证</strong>：你也可以先算 \\(G(x) = \\frac{x^3}{3}+x\\)，再求导得 \\(\\frac{d}{dx}(\\frac{x^3}{3}+x) = x^2+1\\) ✓。两种方法结果一致。'
+      },
+      mistakes:'· 把 "对上限求导" 误当成 "对被积变量 \\(t\\) 求导"（写出 \\(2t\\) 之类的错误）；<br>· 漏代上限值 \\(x = 2\\)。',
+      extension:'在物理中，\\(x(t) = \\int_0^t v(\\tau)\\,d\\tau\\) 表达"累计位移随时间变化"，对 \\(t\\) 求导直接得 \\(x\'(t) = v(t)\\)——这正是本结论的物理对应。',
+      cardAnchor:"Card 2 STEP 4<br>Card 4 STEP 1" },
+    { id:"T4-4", type:"short", score:14, difficulty:"较难",
+      exportIds:["S-PRIME-EQUALS-F","CONTINUITY-OF-F"],
+      stem:"请用 2-3 句话说明：为什么 Card 2 最关键的那一步推导<strong>必须</strong>用到 \\(f\\) 在 \\(x\\) 处连续？（不必复述全过程，重点说「连续在哪里起作用」）",
+      keywords:["连续","f(ξ)","f(x)","极限","趋向","ξ → x"],
+      answer:"连续性让 f(ξ) 在 ξ → x 时趋向 f(x)，最后一步极限取值依赖这件事。",
+      explanation:{
+        principle:'最后一步用极限定义算 \\(S\'(x) = \\lim_{\\Delta x \\to 0} f(\\xi)\\)。要让这个极限等于 \\(f(x)\\)，必须 \\(\\lim_{\\xi \\to x} f(\\xi) = f(x)\\) ——这正是"\\(f\\) 在 \\(x\\) 处连续"的<strong>定义</strong>。',
+        logic:'链条：\\(\\xi \\to x\\)（夹逼）→ 想让 \\(f(\\xi) \\to f(x)\\) → 必须 \\(f\\) 连续。如果 \\(f\\) 在 \\(x\\) 处跳跃，\\(f(\\xi)\\) 极限值取决于 \\(\\xi\\) 从哪一侧逼近，可能不等于 \\(f(x)\\)。',
+        connection:'<strong>"连续性"在本课的角色</strong>不是装饰条件，而是<strong>桥梁条件</strong>——没有它，"\\(\\xi \\to x\\)"传不到"\\(f(\\xi) \\to f(x)\\)"。'
+      },
+      mistakes:'· 只说"f 连续是前提"而不指出"在最后一步取极限处用到"；<br>· 把"f 连续"与"中值定理"等价（其实是两件事，连续是中值定理的前提，又是最后取极限的前提）。',
+      extension:'连续性是<strong>"极限值 = 函数值"</strong>这件事的精确表述。理解连续性的精髓 = 理解牛莱公式为什么能成立的一半。',
+      cardAnchor:"Card 2 STEP 4 思考点 3" }
+  ],
+
+  T5: [
+    { id:"T5-1", type:"choice", score:14, difficulty:"基础",
+      exportIds:["AREA-METHOD-VS-ANTIDERIVATIVE"],
+      stem:"03 课的「面积法」与本课的「原函数差法」在计算 \\(\\int_0^t (v_0+a\\tau)\\,d\\tau\\) 时：",
+      options:{
+        A:"过程完全不同，但结果完全一致",
+        B:"过程相同，结果可能差一个常数",
+        C:"只有面积法可用，原函数差法对此题不适用",
+        D:"原函数差法精度更高，面积法是粗略近似"
+      },
+      answer:"A",
+      explanation:{
+        principle:'两种方法是<strong>同一定积分的两个等价计算路径</strong>。面积法把积分看成"梯形面积"（几何）；原函数差法把积分看成"原函数差值"（代数）。牛莱公式保证两条路径数值相同。',
+        logic:'· <strong>A 正确</strong>：面积法得 \\(\\frac{1}{2}(v_0+(v_0+at)) \\cdot t = v_0 t+\\frac{1}{2}at^2\\)；原函数差法用 \\(F(\\tau) = v_0 \\tau+\\frac{1}{2}a\\tau^2\\) 代得 \\(v_0 t+\\frac{1}{2}at^2\\)。结果一致；<br>· <strong>B 错</strong>：定积分结果是唯一确定的数（不含任意常数）；<br>· <strong>C 错</strong>：两种方法都可用；<br>· <strong>D 错</strong>：在精确成立的解析情形下两者完全等价，不分粗细。',
+        connection:'<strong>三方法共存</strong>：面积法（几何）<br>不定积分加初值（半代数）<br>牛莱公式（纯代数，用原函数）——本课让你看到"同一物理结果三种推法"。'
+      },
+      mistakes:'· 误以为不同方法精度不同（其实在精确条件下完全等价）；<br>· 把面积法限定为"只适用于简单图形"（实际上任何可积函数都可以用积分定义）。',
+      extension:'同一结果的多种推法是数学训练的重要一环——它让你区分"工具"与"目标"：目标是定积分的值，工具是任选的。',
+      cardAnchor:"Card 4 STEP 1<br>STEP 3 思考点 1" },
+    { id:"T5-2", type:"choice", score:14, difficulty:"中等",
+      exportIds:["AREA-METHOD-VS-ANTIDERIVATIVE","NL-FORMULA-FAILS-NO-ELEMENTARY"],
+      stem:"下列哪种情形，「面积法」比「牛莱公式法」更顺手？",
+      options:{
+        A:"已知 \\(v - t\\) 图形是几个简单梯形 / 矩形 / 三角形拼起来，但被积函数没有闭式表达",
+        B:"被积函数是 \\(t^3\\) 这种简单幂函数",
+        C:"被积函数是常数",
+        D:"以上三种情形牛莱公式都更顺手"
+      },
+      answer:"A",
+      explanation:{
+        principle:'两种方法的"舒适圈"不同：<br>· <strong>面积法</strong>适合 \\(v - t\\) 图形已知 + 几何形状简单（梯形 / 三角形）；甚至被积函数没有闭式表达也能算（只要图形可读）；<br>· <strong>牛莱公式法</strong>适合被积函数有解析式 + 原函数好找。',
+        logic:'· <strong>A 正确</strong>：图形给定但函数表达式缺失时，几何面积法直接可用；<br>· <strong>B 错</strong>：\\(t^3\\) 的原函数 \\(\\frac{t^4}{4}\\) 极易求，牛莱公式更快；<br>· <strong>C 错</strong>：常数函数原函数线性，牛莱公式两步出；<br>· <strong>D 错</strong>：A 反例已经存在。',
+        connection:'<strong>方法选择思维</strong>：拿到题先评估"被积函数表达式 / 几何图形 / 原函数"哪个最容易得到，再选工具。'
+      },
+      mistakes:'· 误以为牛莱公式"万能"——其实原函数找不到时它就用不了；<br>· 在图形清晰但函数复杂时忘记面积法。',
+      extension:'实际工程问题中常用<strong>数值积分</strong>（如辛普森法 / 梯形法）作为面积法的延伸——当原函数找不到时数值积分上场。',
+      cardAnchor:"Card 4 STEP 5 三方法对比表" },
+    { id:"T5-3", type:"multi", score:14, difficulty:"中等",
+      exportIds:["AREA-METHOD-VS-ANTIDERIVATIVE","NL-APPLY-DISPLACEMENT","NL-APPLY-V-SQUARE"],
+      stem:"以下关于匀变速直线运动公式推导方法的说法，<strong>正确</strong>的有（多选）：",
+      options:{
+        A:"位移公式 \\(x = v_0 t+\\frac{1}{2}a t^2\\) 既能由 \\(v - t\\) 梯形面积推出，也能由牛莱公式对 \\(\\int_0^t (v_0+a\\tau)\\,d\\tau\\) 直接算出",
+        B:"速度公式 \\(v^2 = v_0^2+2ax\\) 可以由对 \\(\\int_0^x a\\,dx\' = \\int_{v_0}^v v\'\\,dv\'\\) 两侧分别用牛莱公式得出",
+        C:"03 课「消去时间 \\(t\\)」推 \\(v^2 = v_0^2+2ax\\) 与本课「两侧定积分」推同一公式，本质上是不同的物理事实",
+        D:"用牛莱公式推匀变速公式时不需要找原函数"
+      },
+      answer:["A","B"],
+      explanation:{
+        principle:'匀变速三大公式是同一物理情境的三种描述，可以由多条路径推得；牛莱公式给出最"代数化"的路径之一。',
+        logic:'· <strong>A 正确</strong>：两条路径都通往 \\(v_0 t+\\frac{1}{2}a t^2\\)；<br>· <strong>B 正确</strong>：左侧 \\(\\int_0^x a\\,dx\' = ax\\)，右侧 \\(\\int_{v_0}^v v\'\\,dv\' = \\frac{v^2 - v_0^2}{2}\\)，得 \\(v^2 = v_0^2+2ax\\)；<br>· <strong>C 错</strong>：物理事实是同一个，方法不同；<br>· <strong>D 错</strong>：牛莱公式核心动作就是"找原函数 + 代上下限"，没有原函数公式用不了。',
+        connection:'<strong>方法多样性</strong>正是物理学习的好处——同一结果多角度看，理解更扎实。'
+      },
+      mistakes:'· 把"方法不同"误读为"物理事实不同"；<br>· 忽略了牛莱公式对"原函数"的依赖。',
+      extension:'多种推法共存意味着任意一种被遗忘时还有备份——同时也说明数学和物理的多通道连接。',
+      cardAnchor:"Card 4 STEP 2-4" },
+    { id:"T5-4", type:"short", score:14, difficulty:"中等",
+      exportIds:["AREA-METHOD-VS-ANTIDERIVATIVE"],
+      stem:"请用 3-4 句话对比「面积法」与「原函数差法」：各自的<strong>舒适圈</strong>是什么？各自的<strong>风险点</strong>是什么？",
+      keywords:["梯形","几何","原函数","代数","舒适圈","风险","图形","原函数不存在","漏代","面积","下限"],
+      answer:"面积法直观但靠图形；原函数差法代数但靠原函数好找。",
+      explanation:{
+        principle:'<strong>面积法</strong>：舒适圈 = \\(v - t\\) 图简单（梯形 / 三角形）+ 几何直观需要；风险 = 图形复杂时算不动 / 函数没有闭式。<strong>原函数差法</strong>：舒适圈 = 被积函数有解析表达 + 原函数好找；风险 = 原函数无初等表达（如 \\(\\int e^{-x^2}\\,dx\\)）+ 漏代下限。',
+        logic:'两种方法各有"用不了"的情形，互补存在。',
+        connection:'三方法对比表（Card 4 STEP 5）总结了三种方法的舒适圈与风险，是本课最有"工程感"的一段。'
+      },
+      mistakes:'· 只说"舒适圈"不说"风险点"；<br>· 把两种方法的舒适圈对调；<br>· 漏掉"原函数无初等表达"这条核心风险。',
+      extension:'每一种解题工具都有"舒适圈 + 风险点"的双面——能识别两者的学生比只会一种方法的学生稳健得多。',
+      cardAnchor:"Card 4 STEP 5 三方法对比表" }
+  ],
+
+  T6: [
+    { id:"T6-1", type:"calc", score:16, difficulty:"基础",
+      exportIds:["POWER-FUNCTION-ANTIDERIVATIVE","NL-FORMULA-STATEMENT","BRACKET-NOTATION"],
+      stem:"用牛莱公式计算定积分 \\(\\int_0^3 t^2\\,dt = ?\\)（单位：无）。请填一个数值。",
+      answer:{value:9,unit:"",tolerance:0.01},
+      explanation:{
+        principle:'被积函数 \\(t^2\\) 的原函数是 \\(F(t) = \\frac{t^3}{3}\\)。用牛莱公式：\\(\\int_0^3 t^2\\,dt = [\\frac{t^3}{3}]_0^3 = \\frac{27}{3} - \\frac{0}{3} = 9\\)。',
+        logic:'三步：① 识别原函数（\\(t^2 \\to \\frac{t^3}{3}\\)）；② 代入上限 3 得 9；③ 代入下限 0 得 0；相减 = 9。',
+        connection:'这是 Card 1 STEP 1 你尝试想的那个具体例子的精确版本：\\(\\int_0^3 t^2\\,dt\\) 在 03 课用"面积法"近似估算为 9（曲边梯形面积），本课用牛莱公式精确得 9。'
+      },
+      mistakes:'· 漏除以 3（错答 27）；<br>· 漏代下限（少检验 0 那一步）；<br>· 把 \\(t^2\\) 的原函数误写成 \\(2t\\)。',
+      extension:'幂函数定积分的通用公式：\\(\\int_a^b t^n\\,dt = \\frac{b^{n+1} - a^{n+1}}{n+1}\\)（\\(n \\neq -1\\)）。本题是 \\(a = 0\\), \\(b = 3\\), \\(n = 2\\) 的特例。',
+      cardAnchor:"Card 4 STEP 1<br>工具 B" },
+    { id:"T6-2", type:"calc", score:16, difficulty:"中等",
+      exportIds:["NL-APPLY-DISPLACEMENT","POWER-FUNCTION-ANTIDERIVATIVE"],
+      stem:"某质点做匀加速直线运动，\\(v_0 = 2\\) m/s，\\(a = 3\\) m/s²。请用牛莱公式算从 \\(\\tau = 0\\) 到 \\(\\tau = 4\\) s 这段时间的位移 \\(\\int_0^4 (2+3\\tau)\\,d\\tau = ?\\)（单位：m）。",
+      answer:{value:32,unit:"m",tolerance:0.5},
+      explanation:{
+        principle:'被积函数 \\(v(\\tau) = 2+3\\tau\\)。由积分线性性 + 幂函数原函数，原函数是 \\(F(\\tau) = 2\\tau+\\frac{3}{2}\\tau^2\\)。用牛莱公式：\\(\\int_0^4 (2+3\\tau)\\,d\\tau = [2\\tau+\\frac{3}{2}\\tau^2]_0^4 = (8+24) - 0 = 32\\)。',
+        logic:'代入 \\(v_0 = 2\\), \\(a = 3\\), \\(t = 4\\) 到位移公式：\\(x = v_0 t+\\frac{1}{2}a t^2 = 2 \\cdot 4+\\frac{1}{2} \\cdot 3 \\cdot 16 = 8+24 = 32\\) m。两种方法（牛莱 / 直接代公式）结果一致。',
+        connection:'<strong>验证</strong>：你也可以用 \\(v - \\tau\\) 梯形面积验证：起 \\(v = 2\\) m/s，终 \\(v = 2+3 \\cdot 4 = 14\\) m/s，梯形面积 = \\(\\frac{1}{2}(2+14) \\cdot 4 = 32\\) m。三种方法都给 32 m。'
+      },
+      mistakes:'· 算 \\(\\frac{3}{2} \\cdot 16\\) 时算错（不是 12，是 24）；<br>· 漏代下限 0；<br>· 把 \\(3\\tau\\) 的原函数误写成 \\(3\\tau\\)（应是 \\(\\frac{3}{2}\\tau^2\\)）。',
+      extension:'匀变速直线运动的位移公式 \\(x = v_0 t+\\frac{1}{2} a t^2\\) 不再需要死记——它就是 \\(\\int_0^t (v_0+a\\tau)\\,d\\tau\\) 的牛莱公式结果。',
+      cardAnchor:"Card 4 STEP 3 应用 2" },
+    { id:"T6-3", type:"calc", score:16, difficulty:"中等",
+      exportIds:["NL-APPLY-V-SQUARE","POWER-FUNCTION-ANTIDERIVATIVE"],
+      stem:"已知 \\(a = 4\\) m/s²、\\(v_0 = 6\\) m/s，请用牛莱公式分别算 \\(\\int_0^x a\\,dx\' = ax\\) 与 \\(\\int_{v_0}^v v\'\\,dv\' = \\frac{v^2 - v_0^2}{2}\\)。当 \\(x = 5\\) m 时，求末速度 \\(v\\)（取正值，单位 m/s）。",
+      answer:{value:8.485,unit:"m/s",tolerance:0.5},
+      explanation:{
+        principle:'用 \\(v^2 = v_0^2+2ax\\)（本质是两侧定积分 + 牛莱公式得来的）。代入：\\(v^2 = 36+2 \\cdot 4 \\cdot 5 = 36+40 = 76\\)；\\(v = \\sqrt{76} \\approx 8.72\\) m/s。',
+        logic:'· 左侧 \\(\\int_0^5 4\\,dx\' = [4x\']_0^5 = 20\\)；<br>· 右侧 \\(\\int_6^v v\'\\,dv\' = [\\frac{(v\')^2}{2}]_6^v = \\frac{v^2 - 36}{2}\\)；<br>· 等式 \\(20 = \\frac{v^2 - 36}{2} \\Rightarrow v^2 = 76 \\Rightarrow v \\approx 8.72\\) m/s（取正值）。<br>容差 ±0.5 是为开方近似预留的（精确值 \\(\\sqrt{76}\\)）。',
+        connection:'这条公式的推导链：链式法则 \\(a = v \\frac{dv}{dx}\\) → \\(a\\,dx = v\\,dv\\) → 两侧定积分 → 牛莱公式分别算。两步走，干净。'
+      },
+      mistakes:'· 把 \\(\\frac{v^2 - 36}{2}\\) 与 \\(20\\) 等式后算错；<br>· 忘开方（写出 \\(v = 76\\) m/s 之类错误数量级）；<br>· 漏代下限 \\(v_0 = 6\\) 而非 0。',
+      extension:'\\(v^2 = v_0^2+2ax\\) 在物理问题里常用：知道两端速度求位移、或知道位移求末速度，都不需要时间 \\(t\\) 这个中介。',
+      cardAnchor:"Card 4 STEP 4 应用 3" },
+    { id:"T6-4", type:"calc", score:16, difficulty:"较难",
+      exportIds:["NL-FORMULA-STATEMENT","POWER-FUNCTION-ANTIDERIVATIVE"],
+      stem:"计算 \\(\\int_1^2 (3t^2 - 2t+1)\\,dt\\)。请填一个数值。",
+      answer:{value:5,unit:"",tolerance:0.1},
+      explanation:{
+        principle:'由积分线性性 + 幂函数原函数：原函数 \\(F(t) = t^3 - t^2+t\\)（验算：\\(F\'(t) = 3t^2 - 2t+1\\) ✓）。',
+        logic:'用牛莱公式：\\(\\int_1^2 (3t^2 - 2t+1)\\,dt = [t^3 - t^2+t]_1^2 = (8 - 4+2) - (1 - 1+1) = 6 - 1 = 5\\)。',
+        connection:'这道题示范了"多项式被积函数 + 牛莱公式"的标准动作——熟练后任何<strong>多项式定积分</strong>都能 30 秒内完成。'
+      },
+      mistakes:'· 原函数项漏一项（如漏 \\(+t\\) 或 \\(-t^2\\)）；<br>· 代上下限时减法符号错；<br>· 把 \\(2t\\) 的原函数误写成 \\(t\\) 而不是 \\(t^2\\)。',
+      extension:'多项式定积分是练习牛莱公式机械手的最好对象——把"找原函数 + 代上下限"练成肌肉记忆，再遇到稍复杂情形（三角 / 指数）才不会卡在结构上。',
+      cardAnchor:"Card 4 STEP 1 工具 B<br>C" }
+  ],
+
+  T7: [
+    { id:"T7-1", type:"choice", score:16, difficulty:"基础",
+      exportIds:["NL-PRECONDITIONS","NL-FORMULA-FAILS-DISCONTINUITY"],
+      stem:"牛顿-莱布尼茨公式 \\(\\int_a^b f(x)\\,dx = F(b) - F(a)\\) 成立的前提是：",
+      options:{
+        A:"\\(f\\) 在 \\([a, b]\\) 上连续，且 \\(F\\) 是 \\(f\\) 的任意原函数（\\(F\' = f\\)）",
+        B:"\\(f\\) 在 \\([a, b]\\) 上单调",
+        C:"\\(F\\) 是初等函数",
+        D:"积分区间长度 \\(b - a\\) 为有理数"
+      },
+      answer:"A",
+      explanation:{
+        principle:'牛莱公式标准前提两条：① \\(f\\) 在 \\([a, b]\\) 上<strong>连续</strong>；② 存在 \\(F\\) 使 \\(F\'(x) = f(x)\\)（即 \\(f\\) 有原函数）。\\(F\\) 可以是任意原函数（差常数被消掉）。',
+        logic:'· <strong>A 正确</strong>：精确描述两条核心前提；<br>· <strong>B 错</strong>：单调不是必要条件；<br>· <strong>C 错</strong>：\\(F\\) 不必是初等函数，但本课讨论的多是初等情形；<br>· <strong>D 错</strong>：区间长度与公式成立无关。',
+        connection:'<strong>下游推论</strong>：违反第 ① 条的情形（\\(f\\) 不连续）牛莱公式不能直接套——必须分段或用更强的积分理论；违反第 ② 条的情形（如 \\(\\int e^{-x^2}\\,dx\\)）需要用数值积分。'
+      },
+      mistakes:'· 漏掉"\\(f\\) 连续"前提；<br>· 误以为 \\(F\\) 必须是<strong>特定</strong>原函数。',
+      extension:'更广义的积分理论（勒贝格积分）允许 \\(f\\) 在零测集上不连续；这超出本课范围，留给数学分析专门讨论。',
+      cardAnchor:"Card 0 骨架 1<br>Card 5 反思 C" },
+    { id:"T7-2", type:"multi", score:16, difficulty:"中等",
+      exportIds:["NL-FORMULA-FAILS-DISCONTINUITY","NL-FORMULA-FAILS-NO-ELEMENTARY"],
+      stem:"下列哪些情形<strong>不能</strong>直接套用牛莱公式 \\(\\int_a^b f\\,dx = F(b) - F(a)\\)（多选）？",
+      options:{
+        A:"\\(f(x) = \\frac{1}{x^2}\\) 在区间 \\([-1, 1]\\) 上（\\(f\\) 在 \\(x = 0\\) 处无定义）",
+        B:"\\(f(x) = e^{-x^2}\\) 在区间 \\([0, 1]\\) 上（\\(F\\) 无初等表达式）",
+        C:"\\(f(x) = x^3\\) 在区间 \\([0, 2]\\) 上",
+        D:"\\(f(x)\\) 是某个分段函数，在 \\(x = 0.5\\) 处发生跳跃，区间 \\([0, 1]\\)"
+      },
+      answer:["A","B","D"],
+      explanation:{
+        principle:'牛莱公式直接套用需要：① \\(f\\) 在整个区间<strong>连续</strong>；② 原函数 \\(F\\) <strong>可表达 / 可算</strong>。任一条不满足则不能直接套。',
+        logic:'· <strong>A 不能</strong>：\\(\\frac{1}{x^2}\\) 在 \\(x = 0\\) 处无定义（更别说连续），违反 ①；需做反常积分；<br>· <strong>B 不能</strong>：\\(e^{-x^2}\\) 连续但原函数无初等表达，违反 ②；需用数值积分（如辛普森法）；<br>· <strong>C 能</strong>：\\(x^3\\) 处处连续 + 原函数 \\(\\frac{x^4}{4}\\)，标准情形；<br>· <strong>D 不能</strong>：跳跃不连续违反 ①，需分段 \\([0, 0.5]+[0.5, 1]\\) 分别处理。',
+        connection:'<strong>边界意识</strong>：知道"什么时候公式不能用"和知道"公式怎么用"一样重要。'
+      },
+      mistakes:'· 把"原函数没有初等表达"与"原函数不存在"混淆（\\(e^{-x^2}\\) 有原函数，只是不能用初等函数表达）；<br>· 漏掉 D（分段跳跃情形需分段处理）。',
+      extension:'反常积分（A 类情形）和数值积分（B 类情形）是微积分教学的下游话题；分段处理（D 类情形）是初阶常见技巧。',
+      cardAnchor:"Card 5 反思 C" },
+    { id:"T7-3", type:"short", score:16, difficulty:"中等",
+      exportIds:["NL-FORMULA-FAILS-NO-ELEMENTARY","CALC-INVERSE-OPERATIONS"],
+      stem:"\\(\\int_0^1 e^{-x^2}\\,dx\\) 的值无法用牛莱公式直接给出「闭式表达」。请用 2-3 句话说明：① 这是因为什么？② 物理 / 工程上遇到这种积分一般怎么办？",
+      keywords:["原函数","初等","无初等表达","数值积分","辛普森","梯形","近似","数值"],
+      answer:"原函数无初等表达，工程上用数值积分（辛普森 / 梯形法）近似。",
+      explanation:{
+        principle:'① \\(e^{-x^2}\\) 是连续函数（满足牛莱公式第 ① 条），但它的原函数<strong>无初等表达式</strong>（只能用 erf 这种特殊函数表示）——所以"找出 \\(F\\) 再代上下限"这条路走不通。<br>② 实践中用<strong>数值积分</strong>近似：把区间 \\([0, 1]\\) 分成 n 等份，用梯形 / 辛普森公式累加；n 越大越精确。',
+        logic:'<strong>"连续但原函数无初等表达"</strong>是常见情形（高斯积分 / Fresnel 积分 / 椭圆积分都属此类）。这类积分让牛莱公式"半失效"——它<strong>存在</strong>但<strong>不可写</strong>。',
+        connection:'这条经验告诉学生：<strong>不要</strong>把牛莱公式当成万能秘籍，要建立"公式失效时还有数值方法"的弹性。'
+      },
+      mistakes:'· 把"原函数无初等表达"误读为"原函数不存在"（其实存在但写不出闭式）；<br>· 不知道"数值积分"作为兜底方案。',
+      extension:'数值积分（梯形法 / 辛普森法 / 高斯求积）是工程界常用计算工具——大多数实际工程积分都用数值方法算，闭式只在理论分析中常见。',
+      cardAnchor:"Card 4 STEP 4 思考点 2<br>Card 5 反思 C" },
+    { id:"T7-4", type:"short", score:16, difficulty:"较难",
+      exportIds:["NL-PRECONDITIONS","CALC-INVERSE-OPERATIONS","S-PRIME-EQUALS-F"],
+      stem:"请用 3-5 句话回答：牛顿-莱布尼茨公式为什么能把「定积分（黎曼和极限）」和「原函数差（求逆运算）」这两件原本看起来无关的事联系起来？请重点说桥梁是什么。",
+      keywords:["变上限积分","S(x)","原函数","累积量","桥梁","互为逆运算","S'(x) = f(x)","导数相等差常数"],
+      answer:"桥梁是变上限积分函数 S(x)，它同时是累积量和原函数。",
+      explanation:{
+        principle:'<strong>桥梁是变上限积分函数 \\(S(x) = \\int_a^x f(t)\\,dt\\)</strong>。它有两种身份：① 它的定义就是定积分（"累积量"，与黎曼和极限等价）；② Card 2 证明了 \\(S\'(x) = f(x)\\)，所以它<strong>也是 \\(f\\) 的原函数</strong>。',
+        logic:'两种身份汇合在 \\(S\\) 身上：身份 ① 让 \\(S(b) = \\int_a^b f\\,dx\\)；身份 ② 让 \\(S\\) 和任何原函数 \\(F\\) 只差一个常数，再用 \\(S(a) = 0\\) 定常数为 \\(-F(a)\\)，得 \\(S(b) = F(b) - F(a)\\)。两式合一即牛莱公式。<strong>本质</strong>：微分与积分互为逆运算（"先积后微等于原函数"），这是公式背后的几何 / 代数结构。',
+        connection:'这是<strong>本课最深的直觉</strong>。理解这一点比记住公式重要 10 倍——它把"魔法"还原成"\\(S\\) 的双身份 + 两条已知性质（导数相等差常数 / \\(S(a) = 0\\)）的组合"。'
+      },
+      mistakes:'· 不点出"桥梁"是 \\(S(x)\\)；<br>· 只说"互为逆运算"而不解释为什么这两件事能连起来；<br>· 把桥梁说成"牛莱公式"本身（公式是结论不是桥梁）。',
+      extension:'"双身份对象"在数学里很常见：复数（同时是平面向量与代数对象）、傅里叶变换（同时是频域与时域）、变分原理中的作用量（同时是变分目标与运动方程的解）——它们都通过"同一对象的两种解读"打通两套结构。',
+      cardAnchor:"Card 0 骨架 2<br>Card 3 STEP 2 思考点 2<br>Card 5 反思 B" }
+  ]
+} };
+
+// ===== 常量 =====
+const ATOMIC_SLUG = "newton_leibniz";
+const KEY_STATE   = "mockcheck_" + ATOMIC_SLUG + "_state";
+const KEY_NAME    = "mockcheck_student_name";
+const PASS_SCORE  = 70;
+const HONOR_SCORE = 90;
+
+const EXPORT_NAMES  = MOCK_DATA.EXPORT_NAMES  || {};
+const QUESTION_BANK = MOCK_DATA.QUESTION_BANK || {};
+
+// 单位归一 (calc 题)
+const UNIT_TO_SI = {
+  "m": 1, "km": 1000, "cm": 0.01, "mm": 0.001,
+  "s": 1, "min": 60, "h": 3600,
+  "m/s": 1, "km/h": 1/3.6,
+  "m/s²": 1, "m/s^2": 1,
+  "kg": 1, "g": 0.001,
+  "J": 1, "kJ": 1000,
+  "J/mol": 1, "kJ/mol": 1000, "kcal/mol": 4184,
+  "mol": 1, "L": 1, "mL": 0.001,
+  "": 1
+};
+
+// ===== 状态 =====
+let pickedQuestions = [];
+let results = [];
+
+// ===== 抽题 =====
+function pickQuestions() {
+  pickedQuestions = [];
+  Object.keys(QUESTION_BANK).sort().forEach(function(tKey) {
+    const pool = QUESTION_BANK[tKey];
+    if (!Array.isArray(pool) || pool.length === 0) return;
+    pickedQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+  });
+}
+
+// ===== 归一化 (fill / short 用) =====
+function normalizeText(s) {
+  return (s || "")
+    .replace(/[\s　]+/g, "")
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+    .replace(/[₀-₉]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2080]; })
+    .replace(/[⁰-⁹]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2070]; })
+    .toLowerCase();
+}
+
+// ===== 5 题型判分 =====
+function gradeQuestion(q, ua) {
+  if (q.type === "choice") return gradeChoice(q, ua);
+  if (q.type === "multi")  return gradeMulti(q, ua);
+  if (q.type === "fill")   return gradeFill(q, ua);
+  if (q.type === "short")  return gradeShort(q, ua);
+  if (q.type === "calc")   return gradeCalc(q, ua);
+  return { score: 0, isCorrect: false, userAnswer: ua };
+}
+
+function gradeChoice(q, ua) {
+  const isCorrect = ua === q.answer;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+function gradeMulti(q, ua) {
+  if (!Array.isArray(ua)) ua = [];
+  const ans = q.answer || [];
+  const same = ua.length === ans.length && ua.every(function(x) { return ans.indexOf(x) !== -1; });
+  return { score: same ? q.score : 0, isCorrect: same, userAnswer: ua };
+}
+
+function gradeFill(q, ua) {
+  const blanks = q.blanks || [];
+  const answers = q.answer || blanks;
+  if (!Array.isArray(ua)) ua = [];
+  let hit = 0;
+  const detail = [];
+  answers.forEach(function(a, i) {
+    const acceptable = Array.isArray(a) ? a : [a];
+    const u = normalizeText(ua[i] || "");
+    const ok = acceptable.some(function(x) { return normalizeText(x) === u; });
+    detail.push({ user: ua[i] || "", ok: ok, expect: acceptable[0] });
+    if (ok) hit++;
+  });
+  const per = q.score / Math.max(answers.length, 1);
+  const score = Math.round(hit * per);
+  return { score: score, isCorrect: hit === answers.length, userAnswer: ua, detail: detail };
+}
+
+function gradeShort(q, ua) {
+  const text = normalizeText(ua || "");
+  const kws = q.keywords || [];
+  const hits = kws.filter(function(k) { return text.indexOf(normalizeText(k)) !== -1; });
+  const ratio = kws.length > 0 ? hits.length / kws.length : 0;
+  let score = 0;
+  if (ratio >= 1.0)      score = q.score;
+  else if (ratio >= 0.5) score = Math.round(q.score * 0.5);
+  else                   score = 0;
+  return { score: score, isCorrect: ratio >= 1.0, userAnswer: ua, hits: hits, ratio: ratio };
+}
+
+function gradeCalc(q, ua) {
+  if (!ua || typeof ua.value !== "number" || isNaN(ua.value)) {
+    return { score: 0, isCorrect: false, userAnswer: ua };
+  }
+  const uSI = ua.value * (UNIT_TO_SI[ua.unit] || 1);
+  const aSI = q.answer.value * (UNIT_TO_SI[q.answer.unit] || 1);
+  const tol = typeof q.answer.tolerance === "number" ? q.answer.tolerance : 0.01;
+  const rel = Math.abs(uSI - aSI) / Math.abs(aSI || 1);
+  const isCorrect = rel <= tol;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+// ===== 题目渲染 (Nova 契约: data-q-id / data-q-type / .q-feedback) =====
+function renderQuestions() {
+  const list = document.getElementById("questions-list");
+  list.innerHTML = pickedQuestions.map(function(q, idx) {
+    const num = idx + 1;
+    return `
+      <div class="question" data-q-id="q${num}" data-q-type="${q.type}" data-q-original="${q.id}" id="q-${num}">
+        <div class="q-header-circle">
+          <div class="q-h-num">第 ${num} 题</div>
+          <div class="q-h-type">${typeLabel(q.type)}</div>
+          <div class="q-h-diff">${q.difficulty || ""}</div>
+          <div class="q-h-id">${q.id} · ${q.score} 分</div>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        ${renderInput(q, num)}
+        <div class="q-feedback" data-q-id="q${num}"></div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("total-count").textContent = pickedQuestions.length;
+  document.getElementById("picked-ids").textContent = pickedQuestions.map(function(q) { return q.id; }).join(" / ");
+  attachAnswerListeners();
+  renderKatex(list);
+}
+
+function typeLabel(t) {
+  return { choice: "单选题", multi: "多选题", fill: "填空题", short: "简答题", calc: "计算题" }[t] || t;
+}
+
+function renderInput(q, num) {
+  if (q.type === "choice") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="radio" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "multi") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="checkbox" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "fill") {
+    const blanks = q.blanks || (q.answer || []);
+    return blanks.map(function(_, i) {
+      return `<input class="q-fillin" data-q-id="q${num}" data-blank="${i}" type="text" placeholder="第 ${i+1} 空">`;
+    }).join("");
+  }
+  if (q.type === "short") {
+    return `<textarea class="q-short-input" data-q-id="q${num}" placeholder="用 2-4 句话作答, 涵盖关键概念"></textarea>`;
+  }
+  if (q.type === "calc") {
+    return `<div class="q-calc">
+      <input class="q-calc-num" data-q-id="q${num}" type="number" step="any" placeholder="数值">
+      <input class="q-calc-unit" data-q-id="q${num}" type="text" placeholder="单位, 如 m/s" value="${(q.answer && q.answer.unit) || ""}">
+    </div>`;
+  }
+  return "";
+}
+
+function attachAnswerListeners() {
+  document.querySelectorAll(".question input, .question textarea").forEach(function(el) {
+    el.addEventListener("input", updateAnsweredCount);
+    el.addEventListener("change", updateAnsweredCount);
+  });
+}
+
+function updateAnsweredCount() {
+  let n = 0;
+  pickedQuestions.forEach(function(q, idx) {
+    if (readUserAnswer(q, idx + 1) != null) n++;
+  });
+  document.getElementById("answered-count").textContent = n;
+}
+
+function readUserAnswer(q, num) {
+  if (q.type === "choice") {
+    const el = document.querySelector('input[name="q' + num + '"]:checked');
+    return el ? el.value : null;
+  }
+  if (q.type === "multi") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('input[name="q' + num + '"]:checked')).map(function(e) { return e.value; });
+    return arr.length ? arr : null;
+  }
+  if (q.type === "fill") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('.q-fillin[data-q-id="q' + num + '"]')).map(function(e) { return e.value; });
+    return arr.some(function(x) { return x && x.length > 0; }) ? arr : null;
+  }
+  if (q.type === "short") {
+    const el = document.querySelector('.q-short-input[data-q-id="q' + num + '"]');
+    return el && el.value.trim().length > 0 ? el.value : null;
+  }
+  if (q.type === "calc") {
+    const numEl  = document.querySelector('.q-calc-num[data-q-id="q' + num + '"]');
+    const unitEl = document.querySelector('.q-calc-unit[data-q-id="q' + num + '"]');
+    if (!numEl || numEl.value === "") return null;
+    return { value: parseFloat(numEl.value), unit: unitEl ? unitEl.value.trim() : "" };
+  }
+  return null;
+}
+
+// ===== 反馈渲染 =====
+function renderFeedback(q, r, num) {
+  const el = document.querySelector('.q-feedback[data-q-id="q' + num + '"]');
+  if (!el) return;
+  el.classList.add("show");
+  el.classList.toggle("wrong", !r.isCorrect);
+
+  const stdAns = formatStdAnswer(q, r);
+  const exp = q.explanation || {};
+  const isObj = exp && typeof exp === "object";
+  const principle  = isObj ? (exp.principle  || "") : String(exp || "");
+  const logic      = isObj ? (exp.logic      || "") : "";
+  const connection = isObj ? (exp.connection || "") : "";
+
+  const exportHtml = (q.exportIds || []).map(function(id) {
+    const cn = EXPORT_NAMES[id];
+    return cn ? `<span class="q-export-label">${cn}</span>` : `<code>${id}</code>`;
+  }).join(" ");
+
+  el.innerHTML = `
+    <div class="q-result">${r.isCorrect ? "✓ 答对" : "✗ 答错"} · 得 ${r.score} / ${q.score} 分</div>
+    <div class="q-fb-row"><strong>📌 标准答案</strong><div>${stdAns}</div></div>
+    <div class="q-fb-row"><strong>🔬 涉及的核心原理</strong><div>${principle}</div></div>
+    ${logic ? `<div class="q-fb-row"><strong>🧩 逻辑分析</strong><div>${logic}</div></div>` : ""}
+    ${connection ? `<div class="q-fb-row"><strong>🌐 知识系统中的位置</strong><div>${connection}</div></div>` : ""}
+    ${q.mistakes ? `<div class="q-fb-row"><strong>⚠️ 常见误区</strong><div>${q.mistakes}</div></div>` : ""}
+    ${q.extension ? `<div class="q-fb-row"><strong>📚 扩展</strong><div>${q.extension}</div></div>` : ""}
+    <div class="q-anchor">📖 锚结论: ${exportHtml} · 回 <a href="04_牛莱公式.html">学习任务卡 · ${q.cardAnchor || ""}</a> 复习。</div>
+  `;
+  renderKatex(el);
+}
+
+function formatStdAnswer(q, r) {
+  if (q.type === "choice") return q.answer;
+  if (q.type === "multi")  return (q.answer || []).join(" · ");
+  if (q.type === "fill") {
+    const ans = q.answer || q.blanks || [];
+    return ans.map(function(a, i) {
+      const s = Array.isArray(a) ? a[0] : a;
+      return "第 " + (i+1) + " 空: " + s;
+    }).join(" · ");
+  }
+  if (q.type === "short") {
+    const kws = (q.keywords || []).join(" / ");
+    const hits = r && r.hits ? r.hits.length : 0;
+    const total = (q.keywords || []).length;
+    return "关键词: " + kws + " (命中 " + hits + " / " + total + ")";
+  }
+  if (q.type === "calc") return q.answer.value + " " + q.answer.unit;
+  return "";
+}
+
+// ===== 提交 / 结果 =====
+function submitTest() {
+  results = pickedQuestions.map(function(q, idx) {
+    const ua = readUserAnswer(q, idx + 1);
+    const r = gradeQuestion(q, ua);
+    r.q = q; r.idx = idx;
+    renderFeedback(q, r, idx + 1);
+    return r;
+  });
+  const total = results.reduce(function(s, r) { return s + r.score; }, 0);
+  const passed  = total >= PASS_SCORE;
+  const honored = total >= HONOR_SCORE;
+  showResult(total, passed, honored);
+  saveState(total, passed, honored);
+}
+
+function showResult(total, passed, honored) {
+  // v0.1.12: 不藏 test-screen — 每题反馈在 test-screen 内每题下方渲染, 藏了用户看不到
+  document.getElementById("result-screen").classList.remove("hidden");
+  document.getElementById("result-screen").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("result-total").textContent = total;
+  const pill = document.getElementById("result-pass-pill");
+  const msg  = document.getElementById("result-message");
+  if (honored) {
+    pill.className = "result-pass honor"; pill.textContent = "⭐ 荣誉 (90+)";
+    msg.textContent = "掌握充分 (90%+) — 推荐进入教师组织的真实纸笔检测。";
+  } else if (passed) {
+    pill.className = "result-pass pass"; pill.textContent = "✓ 已通过 (70+)";
+    msg.textContent = "已具备纸笔检测基础水平 (70%+) — 可继续巩固或去星图 /student/requests 预约。";
+  } else {
+    pill.className = "result-pass fail"; pill.textContent = "✗ 未通过";
+    msg.textContent = "距通过还差 " + (PASS_SCORE - total) + " 分 — 建议针对错题回 task-cards 复习再练。";
+  }
+  const wrong = results.filter(function(r) { return !r.isCorrect; });
+  const counts = {};
+  wrong.forEach(function(r) {
+    (r.q.exportIds || []).forEach(function(eid) { counts[eid] = (counts[eid] || 0) + 1; });
+  });
+  const sorted = Object.keys(counts).sort(function(a, b) { return counts[b] - counts[a]; }).slice(0, 3);
+  const block = document.getElementById("weak-points-block");
+  const ul = document.getElementById("weak-points-list");
+  if (sorted.length > 0) {
+    block.style.display = "";
+    ul.innerHTML = sorted.map(function(eid) {
+      const cn = EXPORT_NAMES[eid] || eid;
+      return "<li><strong>" + cn + "</strong> (错 " + counts[eid] + " 题)</li>";
+    }).join("");
+  } else {
+    block.style.display = "none";
+  }
+}
+
+// ===== localStorage =====
+function saveState(total, passed, honored) {
+  try {
+    const prev = JSON.parse(localStorage.getItem(KEY_STATE) || "{}");
+    const state = {
+      studentName: document.getElementById("student-name").value.trim(),
+      submittedAt: Date.now(),
+      totalScore: total,
+      passed: passed || prev.passed || false,
+      honored: honored || prev.honored || false,
+      pickedIds: pickedQuestions.map(function(q) { return q.id; }),
+      attemptCount: (prev.attemptCount || 0) + 1
+    };
+    localStorage.setItem(KEY_STATE, JSON.stringify(state));
+    localStorage.setItem(KEY_NAME, state.studentName);
+  } catch (e) { /* localStorage 不可用 */ }
+}
+
+function loadState() {
+  try {
+    const nameEl = document.getElementById("student-name");
+    const savedName = localStorage.getItem(KEY_NAME);
+    if (savedName) nameEl.value = savedName;
+    const raw = localStorage.getItem(KEY_STATE);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    const slot = document.getElementById("last-attempt-slot");
+    const cls = s.honored ? "last-attempt-note honor" : "last-attempt-note";
+    const badge = s.honored ? "⭐ 荣誉" : (s.passed ? "✓ 已通过" : "✗ 未通过");
+    slot.innerHTML = `<div class="${cls}">上次提交: ${s.totalScore} 分 · ${badge} · 累计 ${s.attemptCount} 次</div>`;
+  } catch (e) { /* ignore */ }
+}
+
+// ===== 流程 =====
+function startTest() {
+  const name = document.getElementById("student-name").value.trim();
+  if (!name) { alert("请先填写你的姓名"); return; }
+  document.getElementById("progress-name").textContent = name;
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("entry-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
+  window.scrollTo(0, 0);
+}
+
+function reshuffleAndStart() {
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("result-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function renderKatex(root) {
+  if (typeof renderMathInElement !== "function") return;
+  try {
+    renderMathInElement(root || document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$",  right: "$",  display: false }
+      ],
+      throwOnError: false
+    });
+  } catch (e) { /* ignore */ }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  loadState();
+});
+window.addEventListener("load", function() {
+  renderKatex(document.body);
+});
+</script>
+
+</body>
+</html>

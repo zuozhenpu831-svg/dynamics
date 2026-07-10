@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蓝色诺瓦学院 · 星图物理 · 直线运动 · 主题索引</title>
+<style>
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8;
+    --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961;
+    --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC;
+    --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-light: #7B8290;
+    --bg-primary: #ffffff;
+    --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px;
+    --radius-sm: 14px;
+    --radius-btn: 16px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md: 0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    padding: 40px 36px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  /* breadcrumb */
+  .breadcrumb { font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 20px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* header · 蓝 gradient */
+  header.page-header {
+    background: linear-gradient(135deg, var(--blue-900), var(--blue-700), var(--blue-500));
+    color: #fff;
+    padding: 48px 36px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 28px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+  header.page-header .brand-line {
+    font-family: "Inter", "Helvetica Neue", -apple-system, sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1.3;
+    color: #fff;
+  }
+  header.page-header .brand-en {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-bottom: 4px;
+  }
+  header.page-header .brand-en-sub {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.75;
+    margin-bottom: 14px;
+  }
+  header.page-header h1 { margin: 0 0 6px 0; font-size: 34px; font-weight: 600; letter-spacing: -0.3px; }
+  header.page-header .meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 18px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    font-size: 13px;
+    color: #fff;
+    backdrop-filter: blur(6px);
+  }
+
+  /* about-card · 蓝 */
+  .about-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    padding: 22px 26px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid var(--blue-700);
+  }
+  .about-card h2 { color: var(--blue-900); font-size: 17px; margin: 0 0 10px 0; }
+  .about-card p { color: var(--text-primary); font-size: 13.8px; margin: 0 0 8px 0; line-height: 1.85; }
+
+  /* legend */
+  .legend-card {
+    background: var(--silver-050);
+    border-radius: var(--radius-sm);
+    padding: 18px 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid var(--silver-700);
+  }
+  .legend-card h3 { color: var(--silver-900); font-size: 15px; margin: 0 0 12px 0; }
+  .legend-items { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+  .legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-primary); }
+  .legend-tag {
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .tag-basic { background: var(--blue-100); color: var(--blue-900); }
+  .tag-advanced { background: var(--gold-100); color: var(--gold-900); }
+  .tag-capstone { background: var(--silver-100); color: var(--silver-900); }
+  .tag-oral { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-100); }
+
+  /* Section headings */
+  section.group { margin-bottom: 36px; }
+  section.group h2 {
+    font-size: 20px;
+    margin: 0 0 18px 0;
+    color: var(--blue-900);
+    font-weight: 600;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  section.group.advanced h2 { color: var(--gold-900); }
+  section.group.capstone h2 { color: var(--silver-900); }
+  section.group.oral h2 { color: var(--blue-900); }
+  section.group h2 small {
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 400;
+  }
+
+  /* module card · 白底 + 左边框色 */
+  .module {
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid var(--blue-700);
+    padding: 22px 26px;
+    margin-bottom: 16px;
+    transition: var(--transition);
+  }
+  .module:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  section.group.advanced .module { border-left-color: var(--gold-700); }
+  section.group.capstone .module { border-left-color: var(--silver-700); }
+  section.group.oral .module { border-left-color: var(--blue-500); }
+
+  .module-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .module-num {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--blue-700);
+    line-height: 1;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
+    min-width: 44px;
+  }
+  section.group.advanced .module-num { color: var(--gold-700); }
+  section.group.capstone .module-num { color: var(--silver-900); }
+  section.group.oral .module-num { color: var(--blue-700); }
+  .module-title {
+    flex: 1;
+  }
+  .module-title h3 {
+    margin: 0 0 2px 0;
+    font-size: 17px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .module-title p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+  .module-tag {
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  /* prereq rows · 银 */
+  .prereq-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    background: var(--silver-050);
+    border-radius: 10px;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .prereq-row.rec { background: var(--gold-050); }
+  .prereq-label {
+    flex-shrink: 0;
+    min-width: 78px;
+    color: var(--silver-900);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding-top: 3px;
+    letter-spacing: 0.3px;
+  }
+  .prereq-row.rec .prereq-label { color: var(--gold-900); }
+  .prereq-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .prereq-tag {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    background: var(--bg-primary);
+    color: var(--silver-900);
+    border: 1px solid var(--silver-100);
+    font-weight: 500;
+  }
+  .prereq-tag.rec {
+    background: var(--bg-primary);
+    color: var(--gold-900);
+    border-color: var(--gold-100);
+  }
+  .prereq-tag.none {
+    background: transparent;
+    color: var(--text-light);
+    border: 1px dashed var(--silver-100);
+    font-style: italic;
+  }
+
+  /* file link buttons */
+  .file-links {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .file-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--blue-050);
+    color: var(--blue-900);
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 13px;
+    border: 1px solid var(--blue-100);
+    transition: var(--transition);
+    font-weight: 500;
+  }
+  .file-link:hover {
+    background: var(--blue-100);
+    border-color: var(--blue-500);
+  }
+  .file-link.primary {
+    background: var(--blue-700);
+    color: #fff;
+    border-color: var(--blue-700);
+  }
+  .file-link.primary:hover {
+    background: var(--blue-900);
+    color: #fff;
+  }
+  section.group.advanced .file-link {
+    background: var(--gold-050);
+    color: var(--gold-900);
+    border-color: var(--gold-100);
+  }
+  section.group.advanced .file-link:hover {
+    background: var(--gold-100);
+    border-color: var(--gold-500);
+  }
+  section.group.advanced .file-link.primary {
+    background: var(--gold-700);
+    color: #fff;
+    border-color: var(--gold-700);
+  }
+  section.group.advanced .file-link.primary:hover {
+    background: var(--gold-900);
+  }
+  section.group.capstone .file-link {
+    background: var(--silver-050);
+    color: var(--silver-900);
+    border-color: var(--silver-100);
+  }
+  section.group.capstone .file-link:hover {
+    background: var(--silver-100);
+    border-color: var(--silver-500);
+  }
+  section.group.capstone .file-link.primary {
+    background: var(--silver-700);
+    color: #fff;
+    border-color: var(--silver-700);
+  }
+  section.group.capstone .file-link.primary:hover {
+    background: var(--silver-900);
+  }
+  .file-link .icon { font-size: 14px; }
+
+  /* footer */
+  footer {
+    text-align: center;
+    padding: 30px 20px 0;
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+  }
+  footer .brand { color: var(--silver-900); }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px; }
+    header.page-header h1 { font-size: 24px; }
+    header.page-header { padding: 28px 22px; }
+    .module-header {
+      flex-wrap: wrap;
+    }
+    .prereq-row {
+      flex-direction: column;
+      gap: 6px;
+    }
+    .module-tag { align-self: flex-start; margin-top: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <span>星图物理</span>
+    <span> › </span>
+    <span>直线运动</span>
+  </div>
+
+  <header class="page-header">
+    <div class="brand-line brand-en">Blue Nova Academy</div>
+    <div class="brand-line brand-en-sub">Starmap Physics</div>
+    <h1>直线运动</h1>
+    <div class="meta">
+      <span>📚 3 基础</span>
+      <span>·</span>
+      <span>🔭 2 进阶</span>
+      <span>·</span>
+      <span>🎯 1 综合</span>
+      <span>·</span>
+      <span>🎤 2 跨模块口试</span>
+    </div>
+  </header>
+
+  <div class="about-card">
+    <h2>学习路径</h2>
+    <p><strong>基础板块</strong>（01/02/03）是必修主线；<strong>进阶板块</strong>（04/05）为学有余力者提供数学严谨性深化；<strong>综合应用</strong>（06）面向标化考试题型，解析工具限定于三大公式 · v-t 图几何等基础板块知识；<strong>跨模块口试</strong>由学科导师线下组织，检验概念的可推导性与迁移能力。</p>
+  </div>
+
+  <div class="legend-card">
+    <h3>图例说明</h3>
+    <div class="legend-items">
+      <span class="legend-item"><span class="legend-tag tag-basic">基础</span> 学生必修</span>
+      <span class="legend-item"><span class="legend-tag tag-advanced">进阶</span> 学有余力可选</span>
+      <span class="legend-item"><span class="legend-tag tag-capstone">综合</span> 面向标化考试</span>
+      <span class="legend-item"><span class="legend-tag tag-oral">口试</span> 跨模块深度检验</span>
+      <span class="legend-item"><span class="prereq-tag" style="padding: 2px 8px;">前置模块</span> 学习本板块前必读</span>
+      <span class="legend-item"><span class="prereq-tag rec" style="padding: 2px 8px;">推荐深化</span> 学有余力可选</span>
+    </div>
+  </div>
+
+  <!-- 基础板块 -->
+  <section class="group basic">
+    <h2>基础板块 <small>· 学生必修 · 按顺序学习</small></h2>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">01</div>
+        <div class="module-title">
+          <h3>运动的描述</h3>
+          <p>参考系 · 质点 · 位移 · 速度 · 加速度</p>
+        </div>
+        <span class="legend-tag tag-basic module-tag">基础</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag none">无（起点板块）</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="运动学的描述/01_运动的描述.html"><span class="icon">📘</span>任务卡</a>
+        <a class="file-link" href="运动学的描述/01_运动的描述_mock-check.html"><span class="icon">📝</span>基础检测</a>
+        <a class="file-link" href="运动学的描述/01_运动的描述_fluency.html"><span class="icon">🎯</span>熟练度检测</a>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">02</div>
+        <div class="module-title">
+          <h3>极限（物理引入）</h3>
+          <p>Δt → 0 的过程 · 割线 → 切线 · 瞬时速度的极限定义</p>
+        </div>
+        <span class="legend-tag tag-basic module-tag">基础</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag">01 · 运动的描述</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="极限/02_极限_物理引入.html"><span class="icon">📘</span>任务卡</a>
+        <a class="file-link" href="极限/02_极限_物理引入_mock-check.html"><span class="icon">📝</span>基础检测</a>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">03</div>
+        <div class="module-title">
+          <h3>幂函数微积分与直线运动公式</h3>
+          <p>幂函数求导 · ∫xⁿdx 反求导 · 匀变速三大公式的积分推导</p>
+        </div>
+        <span class="legend-tag tag-basic module-tag">基础</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag">01 · 运动的描述</span>
+          <span class="prereq-tag">02 · 极限</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="幂函数的微积分/03_幂函数微积分_直线运动公式.html"><span class="icon">📘</span>任务卡</a>
+        <a class="file-link" href="幂函数的微积分/03_幂函数微积分_直线运动公式_mock-check.html"><span class="icon">📝</span>基础检测</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 进阶板块 -->
+  <section class="group advanced">
+    <h2>进阶板块 <small>· 学有余力可选 · 非标化考试必修</small></h2>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">04</div>
+        <div class="module-title">
+          <h3>牛顿-莱布尼茨公式</h3>
+          <p>变上限积分 · 微积分基本定理 · 面积法 → 反导数</p>
+        </div>
+        <span class="legend-tag tag-advanced module-tag">进阶</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag">01 · 运动的描述</span>
+          <span class="prereq-tag">02 · 极限</span>
+          <span class="prereq-tag">03 · 幂函数微积分</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="牛顿-莱布尼茨公式/04_牛莱公式.html"><span class="icon">📘</span>任务卡</a>
+        <a class="file-link" href="牛顿-莱布尼茨公式/04_牛莱公式_mock-check.html"><span class="icon">📝</span>基础检测</a>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">05</div>
+        <div class="module-title">
+          <h3>导数的链式法则</h3>
+          <p>复合函数求导 · 变化率沿链相乘 · 传动比类比</p>
+        </div>
+        <span class="legend-tag tag-advanced module-tag">进阶</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag">01 · 运动的描述</span>
+          <span class="prereq-tag">02 · 极限</span>
+          <span class="prereq-tag">03 · 幂函数微积分</span>
+        </div>
+      </div>
+      <div class="prereq-row rec">
+        <div class="prereq-label">推荐深化</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag rec">04 · 牛顿-莱布尼茨公式</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="导数的链式法则/05_链式法则.html"><span class="icon">📘</span>任务卡</a>
+        <a class="file-link" href="导数的链式法则/05_链式法则_mock-check.html"><span class="icon">📝</span>基础检测</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 综合应用 -->
+  <section class="group capstone">
+    <h2>综合应用 <small>· 面向标化考试 · 8 大题型例题集</small></h2>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">06</div>
+        <div class="module-title">
+          <h3>直线运动综合</h3>
+          <p>v-t 图像 · 三大公式 · 追及相遇 · 多阶段 · 几何+运动学 · 自由落体 · 综合压轴</p>
+        </div>
+        <span class="legend-tag tag-capstone module-tag">综合</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag">01 · 运动的描述</span>
+          <span class="prereq-tag">02 · 极限</span>
+          <span class="prereq-tag">03 · 幂函数微积分</span>
+        </div>
+      </div>
+      <div class="prereq-row rec">
+        <div class="prereq-label">推荐深化</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag rec">04 · 牛顿-莱布尼茨公式</span>
+          <span class="prereq-tag rec">05 · 导数的链式法则</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="直线运动综合/06_直线运动综合-example-cards.html"><span class="icon">📗</span>例题卡（8 例题）</a>
+        <a class="file-link" href="直线运动综合/06_直线运动综合_fluency.html"><span class="icon">🎯</span>熟练度检测</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 跨模块口试 -->
+  <section class="group oral">
+    <h2>跨模块深度口试 <small>· 联系导师预约 · 教师批改</small></h2>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">🎤</div>
+        <div class="module-title">
+          <h3>基础组口试 · 01 + 02 + 03</h3>
+          <p>运动的描述 + 极限 + 幂函数微积分 · 跨模块综合诊断</p>
+        </div>
+        <span class="legend-tag tag-oral module-tag">口试</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag">01 · 运动的描述</span>
+          <span class="prereq-tag">02 · 极限</span>
+          <span class="prereq-tag">03 · 幂函数微积分</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="_oral-exam/A_基础口试_运动描述_极限_幂函数微积分-oral-exam.html"><span class="icon">🎤</span>学生页</a>
+        <a class="file-link" href="_oral-exam/teacher-oral-exam-A_基础组_运动的描述_极限_幂函数微积分.html"><span class="icon">👨‍🏫</span>教师工具页</a>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="module-header">
+        <div class="module-num">🎤</div>
+        <div class="module-title">
+          <h3>进阶组口试 · 04 + 05</h3>
+          <p>牛顿-莱布尼茨公式 + 导数的链式法则 · 跨模块综合诊断</p>
+        </div>
+        <span class="legend-tag tag-oral module-tag">口试</span>
+      </div>
+      <div class="prereq-row">
+        <div class="prereq-label">前置模块</div>
+        <div class="prereq-tags">
+          <span class="prereq-tag">04 · 牛顿-莱布尼茨公式</span>
+          <span class="prereq-tag">05 · 导数的链式法则</span>
+        </div>
+      </div>
+      <div class="file-links">
+        <a class="file-link primary" href="_oral-exam/newton-leibniz-chain-rule-oral-exam.html"><span class="icon">🎤</span>学生页</a>
+        <a class="file-link" href="_oral-exam/teacher-oral-exam-newton-leibniz-chain-rule.html"><span class="icon">👨‍🏫</span>教师工具页</a>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <span class="brand">蓝色诺瓦学院 · 星图物理</span> · 直线运动 · 主题索引
+  </footer>
+
+</div>
+
+</body>
+</html>

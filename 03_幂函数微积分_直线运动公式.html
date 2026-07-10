@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 幂函数的微积分 · 幂函数的微积分与直线运动公式 · 学习任务卡</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* ===== 蓝色诺瓦 · 三色制（蓝 / 金 / 银）· 圆形锚点 · 大留白 v0.1.29 ===== */
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8; --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961; --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC; --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73; --text-light: #86868b;
+    --bg-primary: #ffffff; --bg-secondary: #FAFAFB; --border-color: #ECEDF0;
+    --radius: 24px; --radius-sm: 14px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md: 0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --primary-blue: var(--blue-700); --secondary-blue: var(--blue-500); --bright-blue: var(--blue-500);
+    --light-blue: var(--blue-100); --bg-light: var(--bg-secondary);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary); color: var(--text-primary); line-height: 1.85; min-height: 100vh;
+    font-feature-settings: "kern" 1, "liga" 1; -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* 面包屑 */
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  /* 头部 */
+  .header {
+    text-align: center; padding: 64px 32px 56px; background: #fff; color: var(--text-primary);
+    border-radius: var(--radius); margin-bottom: 48px; position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 180px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700)); opacity: 0.12; z-index: 0;
+  }
+  .header::after {
+    content: ""; position: absolute; bottom: -40px; right: -40px; width: 140px; height: 140px;
+    border-radius: 50%; border: 1px solid var(--silver-500); opacity: 0.35; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.55rem; margin-bottom: 14px; font-weight: 700; color: var(--blue-700);
+    letter-spacing: -0.01em; line-height: 1.5; position: relative; z-index: 1;
+  }
+  .header h1 .h1-sub {
+    display: inline-block; font-size: 0.85rem; font-weight: 500; color: var(--silver-700);
+    letter-spacing: 0.04em; margin-top: 8px; padding-top: 10px;
+    border-top: 1px solid var(--silver-500); opacity: 0.9;
+  }
+  .header .subtitle { font-size: 0.92rem; color: var(--silver-700); line-height: 1.7; position: relative; z-index: 1; }
+
+  /* 跨主题前置 · 蓝色 */
+  .cross-topic-warning {
+    background: var(--blue-050); border: 1px solid var(--blue-700); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 22px 26px 22px 64px; margin: 28px 0; font-size: 0.88rem; color: var(--text-primary);
+    line-height: 1.8; position: relative;
+  }
+  .cross-topic-warning::before {
+    content: "!"; position: absolute; left: 18px; top: 22px;
+    width: 32px; height: 32px; border-radius: 50%; background: var(--blue-700); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .cross-topic-warning .ctw-title { font-weight: 700; color: var(--blue-700); margin-bottom: 10px; font-size: 0.95rem; }
+  .cross-topic-warning strong { color: var(--blue-700); }
+
+  /* 进阶推荐块 · 金色 · 用于"本课够用，严谨推导在进阶展开"这类前指式提示 */
+  .deepening-recommendation {
+    background: var(--gold-050); border: 1px solid var(--gold-700); border-left: 3px solid var(--gold-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 22px 26px 22px 64px; margin: 28px 0; font-size: 0.88rem; color: var(--text-primary);
+    line-height: 1.8; position: relative;
+  }
+  .deepening-recommendation::before {
+    content: "⚡"; position: absolute; left: 18px; top: 20px;
+    width: 32px; height: 32px; border-radius: 50%; background: var(--gold-700); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700;
+  }
+  .deepening-recommendation .dr-title { font-weight: 700; color: var(--gold-900); margin-bottom: 10px; font-size: 0.95rem; }
+  .deepening-recommendation strong { color: var(--gold-900); }
+  .deepening-recommendation ol { margin: 12px 0; padding-left: 24px; }
+  .deepening-recommendation ol li { margin: 8px 0; }
+
+  /* 主卡片 */
+  .card {
+    background: var(--bg-primary); border-radius: var(--radius); padding: 40px 36px; margin-bottom: 40px;
+    box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-top: 3px solid var(--blue-700);
+  }
+  .info-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .info-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-color); vertical-align: top; line-height: 1.75; }
+  .info-table td:first-child { font-weight: 600; color: var(--blue-700); white-space: nowrap; width: 130px; }
+  .info-table tr:last-child td { border-bottom: none; }
+
+  /* 章节标题 */
+  .section-title {
+    font-size: 1.2rem; font-weight: 700; color: var(--blue-700); margin-bottom: 28px;
+    padding-bottom: 18px; border-bottom: 1px solid var(--silver-100);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-title::before {
+    content: ""; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--blue-700); flex-shrink: 0; box-shadow: 0 0 0 4px var(--blue-100);
+  }
+  .objectives-list { padding-left: 24px; font-size: 0.94rem; }
+  .objectives-list li { margin-bottom: 14px; line-height: 1.85; }
+  .objectives-list li::marker { color: var(--blue-700); font-weight: 700; }
+  .card .objectives-list li strong { color: var(--blue-700); }
+
+  /* 驱动问题 */
+  .driving-question {
+    background: var(--blue-050); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 32px 32px 32px 72px; margin-bottom: 40px; position: relative;
+  }
+  .driving-question::before {
+    content: "?"; position: absolute; left: 22px; top: 30px;
+    width: 36px; height: 36px; border-radius: 50%; background: var(--blue-700); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .driving-question .dq-title { font-size: 1.1rem; font-weight: 700; color: var(--blue-700); margin-bottom: 16px; }
+  .driving-question p { font-size: 0.94rem; margin-bottom: 12px; line-height: 1.85; }
+  .driving-question p:last-child { margin-bottom: 0; }
+  .driving-question .hint { font-size: 0.85rem; color: var(--silver-700); margin-top: 10px; }
+
+  /* 任务卡 */
+  .task-card {
+    background: var(--bg-primary); border-radius: var(--radius); margin-bottom: 48px;
+    box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); overflow: hidden;
+  }
+  .task-card-header {
+    background: #fff; color: var(--text-primary); padding: 28px 32px;
+    display: flex; align-items: center; gap: 20px; cursor: pointer; user-select: none;
+    border-bottom: 1px solid var(--border-color); transition: var(--transition);
+  }
+  .task-card-header:hover { background: var(--blue-050); }
+  .task-card-number {
+    background: var(--blue-700); color: #fff; width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700; flex-shrink: 0; box-shadow: 0 0 0 6px var(--blue-100);
+  }
+  .task-card-header h3 { font-size: 1.1rem; font-weight: 600; flex-grow: 1; color: var(--text-primary); line-height: 1.6; }
+  .task-card-chevron { font-size: 1.1rem; transition: transform 0.3s; opacity: 0.5; color: var(--silver-700); }
+  .task-card-header.collapsed .task-card-chevron { transform: rotate(-90deg); }
+  .task-card-body { padding: 40px 36px; }
+  .task-card-body.collapsed { display: none; }
+
+  .task-objective {
+    background: var(--blue-050); border-radius: var(--radius-sm); padding: 20px 24px;
+    font-size: 0.9rem; color: var(--blue-700); line-height: 1.85; margin-bottom: 36px;
+    border-left: 3px solid var(--blue-700);
+  }
+
+  /* STEP 圆头 260×260 */
+  .step { margin-bottom: 40px; }
+  .step:last-of-type { margin-bottom: 16px; }
+  .step-header {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: var(--blue-050); border: 2px solid var(--blue-700);
+    box-shadow: 0 4px 18px rgba(20,30,60,0.06); box-sizing: border-box;
+    padding: 32px 28px; margin: 0 auto 36px; text-align: center; gap: 0;
+  }
+  .step-header .step-badge {
+    background: transparent; color: var(--blue-700); width: auto; height: auto; border-radius: 0;
+    font-size: 0.74rem; font-weight: 700; padding: 0 0 8px; margin: 0 0 14px;
+    letter-spacing: 0.22em; line-height: 1.2; display: inline-block;
+    border-bottom: 1.5px solid var(--blue-700); flex-shrink: 1;
+  }
+  .step-header .step-title {
+    font-size: 1rem; font-weight: 700; color: var(--step-rich); line-height: 1.55;
+    max-width: 100%; word-break: break-word; overflow-wrap: anywhere; text-align: center;
+  }
+  .step-header .step-title .step-sub {
+    display: inline-block; font-size: 0.78rem; font-weight: 500; color: var(--step-mid);
+    opacity: 0.8; margin-top: 6px; letter-spacing: 0.02em; line-height: 1.5;
+  }
+
+  /* STEP 节奏色 */
+  .step {
+    --step-rich: var(--blue-900); --step-mid: var(--blue-700);
+    --step-bg: var(--blue-050); --step-tint: var(--blue-100);
+  }
+  .task-card-body > .step:nth-child(3n+2 of .step) {
+    --step-rich: var(--gold-900); --step-mid: var(--gold-700);
+    --step-bg: var(--gold-050); --step-tint: var(--gold-100);
+  }
+  .task-card-body > .step:nth-child(3n of .step) {
+    --step-rich: var(--silver-900); --step-mid: var(--silver-700);
+    --step-bg: var(--silver-050); --step-tint: var(--silver-100);
+  }
+  .step {
+    --primary-blue: var(--step-rich); --secondary-blue: var(--step-mid);
+    --bright-blue: var(--step-mid); --light-blue: var(--step-bg);
+  }
+  .step .step-header { background: var(--step-bg); border-color: var(--step-mid); }
+  .step .step-header .step-badge { color: var(--step-rich); border-bottom-color: var(--step-mid); }
+
+  .step-content { font-size: 0.92rem; padding-left: 0; }
+  .step-content p { margin-bottom: 12px; }
+  .step-content ul, .step-content ol { padding-left: 22px; margin-bottom: 12px; }
+  .step-content li { margin-bottom: 8px; }
+
+  /* 引用块 */
+  .quote-block {
+    background: var(--step-bg); border-left: 3px solid var(--step-mid);
+    padding: 22px 26px; margin: 18px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem; color: var(--text-primary); line-height: 1.85;
+  }
+
+  /* 前置回顾 */
+  .prereq-recap {
+    background: #fff; border: 1px solid var(--silver-100); border-left: 3px solid var(--step-mid);
+    padding: 22px 26px; margin: 20px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem; color: var(--text-primary); line-height: 1.8;
+  }
+  .prereq-recap strong { color: var(--step-rich); }
+
+  /* 推导块 */
+  .derivation-block {
+    background: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    padding: 28px 30px; margin: 22px 0; font-size: 0.92rem; position: relative;
+  }
+  .derivation-block::before {
+    content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px;
+    width: 4px; background: var(--step-mid); border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  }
+  .derivation-block .derivation-title {
+    font-size: 0.95rem; font-weight: 700; color: var(--step-rich); margin-bottom: 18px;
+    letter-spacing: 0.01em; display: flex; align-items: center; gap: 12px;
+  }
+  .derivation-block .derivation-title::before {
+    content: ""; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--step-mid); box-shadow: 0 0 0 3px var(--step-tint); flex-shrink: 0;
+  }
+  .derivation-block .step-line {
+    margin: 12px 0; padding-left: 18px; border-left: 1px solid var(--silver-100); line-height: 1.85;
+  }
+  .derivation-block .step-line strong { color: var(--step-rich); }
+
+  /* STEP 0 骨架 derivation-block 循环色 */
+  .card > .derivation-block::before { background: var(--blue-700); }
+  .card > .derivation-block .derivation-title { color: var(--blue-700); }
+  .card > .derivation-block .derivation-title::before { background: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .card > .derivation-block .step-line strong { color: var(--blue-700); }
+  .card > .derivation-block:nth-of-type(3n+2)::before { background: var(--gold-700); }
+  .card > .derivation-block:nth-of-type(3n+2) .derivation-title { color: var(--gold-900); }
+  .card > .derivation-block:nth-of-type(3n+2) .derivation-title::before { background: var(--gold-700); box-shadow: 0 0 0 3px var(--gold-100); }
+  .card > .derivation-block:nth-of-type(3n+2) .step-line strong { color: var(--gold-900); }
+  .card > .derivation-block:nth-of-type(3n)::before { background: var(--silver-700); }
+  .card > .derivation-block:nth-of-type(3n) .derivation-title { color: var(--silver-900); }
+  .card > .derivation-block:nth-of-type(3n) .derivation-title::before { background: var(--silver-700); box-shadow: 0 0 0 3px var(--silver-100); }
+  .card > .derivation-block:nth-of-type(3n) .step-line strong { color: var(--silver-900); }
+
+  /* 思考停顿 */
+  .thinking-point {
+    background: var(--step-bg); border-left: 3px solid var(--step-mid);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 24px 28px 24px 64px; margin: 24px 0; position: relative;
+  }
+  .thinking-point::before {
+    content: "💭"; position: absolute; left: 16px; top: 22px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #fff; border: 1px solid var(--step-mid);
+    display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+  }
+  .thinking-point .tp-title { font-weight: 700; color: var(--step-rich); font-size: 0.98rem; margin-bottom: 14px; }
+  .thinking-point .tp-pause { background: #fff; padding: 12px 16px; border-radius: var(--radius-sm); margin: 10px 0; font-size: 0.88rem; border: 1px solid var(--step-tint); }
+  .thinking-point .tp-pause::before { content: '🤔 '; margin-right: 4px; }
+  .thinking-point .tp-ask { background: #fff; border-left: 3px solid var(--step-mid); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 10px 0; font-size: 0.88rem; color: var(--step-rich); }
+  .thinking-point .tp-ask::before { content: '💬 问 AI：'; font-weight: 700; color: var(--step-rich); margin-right: 4px; }
+  .thinking-point .tp-write { background: #fff; border-left: 3px solid var(--step-mid); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 10px 0; font-size: 0.88rem; color: var(--step-rich); }
+  .thinking-point .tp-write::before { content: '✍️ 自己写：'; font-weight: 700; color: var(--step-rich); margin-right: 4px; }
+  .thinking-point .tp-hint { font-size: 0.82rem; color: var(--silver-700); font-style: italic; margin: 6px 0 2px 0; }
+
+  /* 图示块 */
+  .diagram-block { margin: 32px 0; text-align: center; }
+  .diagram-block svg {
+    max-width: 100%; height: auto; background: #fff; border-radius: var(--radius-sm);
+    padding: 20px 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+  }
+  .diagram-caption { font-size: 0.83rem; color: var(--silver-700); margin-top: 12px; font-style: italic; line-height: 1.7; }
+
+  /* 自查 / 检查点 */
+  .checkpoint {
+    background: var(--step-bg); border: 1px solid var(--step-tint); border-radius: var(--radius-sm);
+    padding: 24px 26px 22px 26px; margin-top: 28px; position: relative;
+  }
+  .checkpoint-title {
+    font-size: 0.92rem; font-weight: 700; color: var(--step-rich); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .checkpoint-title::before {
+    content: "✓"; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--step-mid); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; font-weight: 700; flex-shrink: 0;
+  }
+  .checkpoint label { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; margin-bottom: 12px; cursor: pointer; line-height: 1.7; }
+  .checkpoint label:last-child { margin-bottom: 0; }
+  .checkpoint input[type="checkbox"] { margin-top: 5px; flex-shrink: 0; accent-color: var(--step-mid); width: 16px; height: 16px; }
+  .checkpoint label.checked span { text-decoration: line-through; color: var(--silver-700); }
+
+  /* 素养标签 */
+  .literacy-tag { font-size: 0.82rem; color: var(--silver-700); margin-top: 20px; padding-top: 14px; border-top: 1px dashed var(--silver-100); }
+
+  /* 底部导航 */
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px; text-align: center; padding: 16px 18px; border-radius: 999px;
+    background: var(--silver-050); color: var(--silver-500); text-decoration: none;
+    font-size: 14px; font-weight: 500; transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 48px 24px 40px; } .header h1 { font-size: 1.3rem; }
+    .card { padding: 28px 22px; }
+    .task-card-header { padding: 20px 22px; gap: 14px; }
+    .task-card-number { width: 44px; height: 44px; font-size: 1.15rem; box-shadow: 0 0 0 4px var(--blue-100); }
+    .task-card-body { padding: 28px 22px; }
+    .step-header { width: 220px; height: 220px; padding: 22px 20px; }
+    .step-header .step-title { font-size: 0.88rem; }
+    .step-header .step-badge { font-size: 0.65rem; letter-spacing: 0.18em; }
+    .driving-question { padding: 24px 22px 24px 64px; }
+    .cross-topic-warning { padding-left: 56px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>幂函数的微积分</span>
+    <span class="sep">&gt;</span>
+    <span>幂函数的微积分与直线运动公式</span>
+  </nav>
+
+  <div class="header">
+    <h1>幂函数的微积分<br>与直线运动公式<br><span class="h1-sub">第 3 课 · 经典力学 · 直线运动</span></h1>
+    <div class="subtitle">从极限直接推 (x<sup>n</sup>)′ · 用面积法理解定积分 · 独立推出 v、x、v² 三公式</div>
+  </div>
+
+  <div class="card">
+    <table class="info-table">
+      <tr><td>板块名称</td><td>幂函数的微积分与直线运动公式（经典力学 1 · 幂函数的微积分 · 第 3 课）</td></tr>
+      <tr><td>所属大主题</td><td>经典力学 1 · 幂函数的微积分</td></tr>
+      <tr><td>预计学习时间</td><td>3.5-4.5 小时（卡 1 约 50 min · 卡 2 约 50 min · 卡 3-5 各 35-40 min · 综合反思 25 min）</td></tr>
+      <tr><td>前置板块</td>
+        <td>
+          <strong>01 · 运动的描述</strong>（位移 x、速度 v、加速度 a 的定义；平均与瞬时的区别）<br>
+          <strong>02 · 极限（物理引入）</strong>（Δt → 0 的过程、极限运算法则、瞬时速度作为极限的语义）
+        </td>
+      </tr>
+      <tr><td>所需工具</td><td>AI 工具、纸笔（建议 3-4 张 A4，专门画 v-t 图与推导稿）、直尺</td></tr>
+    </table>
+  </div>
+
+  <div class="cross-topic-warning">
+    <div class="ctw-title">本课定位：直线运动公式的"出生证"</div>
+    本课是直线运动板块的<strong>数学工具课</strong>，但更是<strong>三公式的诞生现场</strong>。前两课你已经能用极限定义瞬时速度，本课要把"极限"升级为<strong>导数与定积分</strong>这两件可重复使用的工具，并用它们把匀变速直线运动的三条公式（<strong>v = v₀ + at</strong> / <strong>x = v₀t + ½at²</strong> / <strong>v² = v₀² + 2ax</strong>）<strong>从加速度定义里一行一行推出来</strong>。三公式不是要背的"结论"，是要会"推"的工具。
+  </div>
+
+  <div class="card">
+    <h2 class="section-title">学习目标</h2>
+    <ol class="objectives-list">
+      <li><strong>掌握</strong>幂函数求导：用极限定义直接推出 \((x^n)' = n x^{n-1}\)，至少能从 \(n=2\) 起步亲手推一遍</li>
+      <li><strong>理解</strong>定积分的<strong>面积语义</strong>：\(\int_a^b f(x)\,dx\) 就是函数曲线下从 \(a\) 到 \(b\) 的面积，由"割条求和→极限"得到</li>
+      <li><strong>掌握</strong>幂函数的不定积分：\(\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C\)（\(n \neq -1\)），通过反求导直觉接受这一公式</li>
+      <li><strong>独立推导</strong> v = v₀ + at：由加速度定义 \(a = \dfrac{dv}{dt}\) 对时间积分得到</li>
+      <li><strong>独立推导</strong> x = v₀t + ½at²：由速度定义 \(v = \dfrac{dx}{dt}\) 与上一公式联立积分得到</li>
+      <li><strong>独立推导</strong> v² = v₀² + 2ax：由代数消去 t、或由 \(a\,dx = v\,dv\) 直接积分两条路径完成</li>
+      <li><strong>能解释</strong>三公式各自的物理含义、适用条件（匀加速直线运动）和几何来源（v-t 图面积）</li>
+    </ol>
+  </div>
+
+  <div class="driving-question">
+    <div class="dq-title">驱动问题</div>
+    <p>第 1 课你写下了加速度的定义 \(a = \dfrac{\Delta v}{\Delta t}\)；第 2 课你接受了"\(\Delta t \to 0\) 时比值会趋近一个稳定数"。现在反过来问：<strong>如果加速度 \(a\) 是一个常数（匀变速直线运动），那么速度 \(v(t)\) 是关于时间的什么函数？位移 \(x(t)\) 又是什么？</strong>仅靠"定义 + 直觉"答不出来——需要一对新的数学工具。</p>
+    <p style="margin-top: 6px;"><strong>本课的目标</strong>：用<strong>幂函数的导数与定积分</strong>这对新工具，把"加速度 = 速度对时间的变化率"这一句直觉<strong>反向</strong>展开，推出 \(v(t)\) 与 \(x(t)\) 的精确表达式——也就是匀变速直线运动的两条基础公式 \(v = v_0 + at\) 与 \(x = v_0 t + \dfrac{1}{2} a t^2\)；第三条 \(v^2 = v_0^2 + 2 a x\) 会作为推论自然得到。本课结束时，你<strong>不是"记"三公式，而是"推"三公式</strong>。</p>
+    <p class="hint">（剧透一句：\(\dfrac{1}{2}\) 这个系数不是记忆，而会自然<strong>冒</strong>出来——它来自 v-t 图里的一个三角形面积，而三角形面积你已经会算。本课就是把"三角形面积 = 位移"这件事讲清楚，并把它推广到任意常数 \(a\)。）</p>
+  </div>
+
+  <!-- ==================== STEP 0 · 骨架 ==================== -->
+  <div class="card">
+    <h2 class="section-title">STEP 0 · 本课骨架（3 分钟读完）</h2>
+
+    <p style="font-size: 0.92rem; margin-bottom: 12px;">读题前先把全图刻进脑子，免得做卡 1 时迷失在公式细节里。</p>
+
+    <div class="derivation-block">
+      <div class="derivation-title">骨架 1 · 两个新工具：导数与定积分</div>
+      <div class="step-line"><strong>导数</strong>是"瞬时变化率"——前一课的瞬时速度 \(v = \lim\limits_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\) 改个名字就是 \(v = \dfrac{dx}{dt}\)。同理 \(a = \dfrac{dv}{dt}\)。</div>
+      <div class="step-line"><strong>定积分</strong>是"累积量"——把 v-t 图按时间割成无数细条，每条面积 \(v(t)\,dt\) 是一小段位移，<strong>所有细条面积加起来</strong>就是总位移：\(x = \int_0^t v\,dt\)。</div>
+      <div class="step-line">本课只学幂函数 \(x^n\) 这一类的导数与定积分（线性运动里出现的都是它）。其他函数（三角、指数）留给后续。</div>
+    </div>
+
+    <div class="derivation-block">
+      <div class="derivation-title">骨架 2 · 两件关键公式（要"推"不要"背"）</div>
+      <div class="step-line"><strong>幂函数求导</strong>：\((x^n)' = n x^{n-1}\)。卡 1 用极限定义亲手推。</div>
+      <div class="step-line"><strong>幂函数不定积分</strong>：\(\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C\)（\(n \neq -1\)）。卡 2 用反求导直觉理解 + 面积法验证。</div>
+      <div class="step-line">注意："求导→求一阶变化率"是"<strong>降幂</strong>"（\(t^2 \to 2t\)），"积分→求累积"是"<strong>升幂</strong>"（\(t \to \tfrac{1}{2} t^2\)）。两步刚好互逆——这正是后面要学的<strong>牛顿-莱布尼茨公式</strong>的直觉，<strong>下一课正式证明，本课只当工具用</strong>。</div>
+    </div>
+
+    <div class="derivation-block">
+      <div class="derivation-title">骨架 3 · 三公式的"出生路线图"</div>
+      <div class="step-line">起点是一条事实：<strong>匀加速直线运动里，加速度 a 是常数</strong>。</div>
+      <div class="step-line"><strong>路线 A</strong>（卡 3）：\(a = \dfrac{dv}{dt}\) 对时间积分 → \(v = v_0 + at\)</div>
+      <div class="step-line"><strong>路线 B</strong>（卡 4）：\(v = \dfrac{dx}{dt}\) 代入路线 A 再积分 → \(x = v_0 t + \tfrac{1}{2} a t^2\)</div>
+      <div class="step-line"><strong>路线 C</strong>（卡 5）：消去 t（代数法）或 \(a\,dx = v\,dv\) 直接积分 → \(v^2 = v_0^2 + 2 a x\)</div>
+      <div class="step-line">读完合上页面，在草稿纸上把这条路线图画出来——画得出，再往下进卡 1；画不出，回到本段再读一遍。</div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="checkpoint-title">STEP 0 自查</div>
+      <label data-key="s0-c1"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能用一句话说出"导数"和"定积分"分别代表什么物理量</span></label>
+      <label data-key="s0-c2"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能在脑子里把 v-t 图割成细条，并解释"细条面积"为什么是"小位移"</span></label>
+      <label data-key="s0-c3"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能不看课本画出三公式的出生路线图（A / B / C 三条线）</span></label>
+    </div>
+  </div>
+
+  <!-- ==================== 卡 1 · (x^n)' = n x^(n-1) ==================== -->
+  <div class="task-card" id="card1">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">1</div>
+      <h3>卡 1 · 幂函数求导：用极限定义直接推 (x<sup>n</sup>)′ = n·x<sup>n-1</sup></h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：从极限定义出发，亲手推出 \((x^n)' = n x^{n-1}\)，并把它运用到 \(x^2, x^3\) 等具体情形。<br>
+        <strong>建议时长</strong>：50 分钟（前置回顾 5 + 自推 20 + 对照 + 推广 25）
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">前置回顾<br><span class="step-sub">5 分钟</span></span></div>
+        <div class="step-content">
+          <div class="prereq-recap">
+            <p><strong>来自第 2 课 · 极限</strong>：</p>
+            <p>当 \(\Delta t \to 0\)（或 \(\Delta x \to 0\)）时，分母变量永远 <strong>不等于 0、只是趋近 0</strong>，所以可以先约分再代值。例如：
+            \[
+              \lim_{\Delta x \to 0} \frac{2x\,\Delta x + \Delta x^2}{\Delta x} = \lim_{\Delta x \to 0} (2x + \Delta x) = 2x.
+            \]
+            </p>
+            <p>本卡用到的全部极限技巧只有<strong>"先约分，再代 0"</strong>这一条。</p>
+          </div>
+
+          <div class="prereq-recap">
+            <p><strong>来自第 1 课 · 运动的描述</strong>：</p>
+            <p>瞬时速度 \(v(t) = \lim\limits_{\Delta t \to 0} \dfrac{x(t+\Delta t) - x(t)}{\Delta t}\)。本卡把 \(x(t)\) 换成抽象的 \(f(x)\)，把时间换成自变量 \(x\)，结构完全相同——这就是"导数"。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">导数的定义<br><span class="step-sub">把瞬时速度推广</span></span></div>
+        <div class="step-content">
+          <p>对任意函数 \(f(x)\)，<strong>它在点 \(x\) 处的导数</strong>定义为：</p>
+          <div class="derivation-block">
+            <div class="derivation-title">导数 · 极限形式定义</div>
+            <div class="step-line">
+              \[
+                f'(x) = \lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}.
+              \]
+            </div>
+            <div class="step-line">读作 "<strong>f prime of x</strong>"；也可以写成 \(\dfrac{df}{dx}\)（莱布尼茨记号）。</div>
+            <div class="step-line"><strong>物理意义</strong>：\(f'(x)\) 是 \(f\) 关于 \(x\) 的<strong>瞬时变化率</strong>。若 \(f\) 是位移、\(x\) 是时间，则 \(f' = v\)；若 \(f\) 是速度、\(x\) 是时间，则 \(f' = a\)。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 把"瞬时速度"翻译成"导数"</div>
+            <div class="tp-pause">把第 1 课的瞬时速度公式 \(v(t) = \lim\limits_{\Delta t \to 0} \dfrac{x(t+\Delta t) - x(t)}{\Delta t}\) 和上面的导数定义对照看——它们除了字母不同，结构是否完全一样？</div>
+            <div class="tp-ask">我看到 v(t) 的极限定义和 f'(x) 的极限定义结构一致，但不太确定两者是不是同一件事。请你<strong>不要直接给答案</strong>，反过来问我：你能不能指出两个式子里"被求差的量"和"分母的变量"各自是谁？</div>
+            <div class="tp-write">用一句话写出："瞬时速度就是位移函数 \(x(t)\) 对时间 \(t\) 的______。"</div>
+            <div class="tp-hint">填空答案是"导数"。如果你能写出来，就完全打通了第 1-2 课与本课。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 3</span><span class="step-title">动手推 (x²)′<br><span class="step-sub">15 分钟</span></span></div>
+        <div class="step-content">
+          <p>合上页面，在草稿上独立完成下面的推导。目标：导出 \((x^2)' = 2x\)。</p>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · 亲手推 (x²)′</div>
+            <div class="tp-pause">先写出 \(f(x) = x^2\) 时的导数定义；下一步把 \((x + \Delta x)^2\) 展开；再化简分子，最后令 \(\Delta x \to 0\)。每一步在草稿上单独写一行。</div>
+            <div class="tp-ask">我推到第 ___ 步卡住了。请<strong>不要给完整答案</strong>，只指出我的式子是不是已经可以约分；以及"约掉的那个量在分母里是不是真的非零"。</div>
+            <div class="tp-write">把你的 4 行推导抄到正式纸上：① 套定义；② 展开平方；③ 化简（注意约分理由）；④ 代极限。</div>
+            <div class="tp-hint">展开公式：\((x + \Delta x)^2 = x^2 + 2x\,\Delta x + (\Delta x)^2\)。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">对照答案 · (x²)′ 的极限推导</div>
+            <div class="step-line"><strong>① 套定义</strong>：\(\displaystyle (x^2)' = \lim_{\Delta x \to 0} \frac{(x+\Delta x)^2 - x^2}{\Delta x}\)</div>
+            <div class="step-line"><strong>② 展开平方</strong>：\(\displaystyle = \lim_{\Delta x \to 0} \frac{x^2 + 2x\,\Delta x + (\Delta x)^2 - x^2}{\Delta x} = \lim_{\Delta x \to 0} \frac{2x\,\Delta x + (\Delta x)^2}{\Delta x}\)</div>
+            <div class="step-line"><strong>③ 化简</strong>：因为 \(\Delta x \to 0\) 但 \(\Delta x \ne 0\)，可以把分子分母的 \(\Delta x\) 一起约掉：\(\displaystyle = \lim_{\Delta x \to 0} (2x + \Delta x)\)</div>
+            <div class="step-line"><strong>④ 代极限</strong>：\(\displaystyle = 2x + 0 = 2x\)</div>
+            <div class="step-line"><strong>结论</strong>：\((x^2)' = 2x\)。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 4</span><span class="step-title">推广到 x<sup>n</sup><br><span class="step-sub">用二项式直觉</span></span></div>
+        <div class="step-content">
+          <p>从 \((x^2)' = 2x\) 出发，下一步是看 \((x^3)' = ?\)，并由此推广到一般的 \(n\)。</p>
+
+          <div class="derivation-block">
+            <div class="derivation-title">(x³)′ 推导（按相同方法）</div>
+            <div class="step-line">套定义：\(\displaystyle (x^3)' = \lim_{\Delta x \to 0} \frac{(x+\Delta x)^3 - x^3}{\Delta x}\)</div>
+            <div class="step-line">展开立方：\((x+\Delta x)^3 = x^3 + 3 x^2 \Delta x + 3 x (\Delta x)^2 + (\Delta x)^3\)</div>
+            <div class="step-line">分子去掉 \(x^3\)、与分母约 \(\Delta x\)：\(\displaystyle = \lim_{\Delta x \to 0} \left[ 3 x^2 + 3 x \Delta x + (\Delta x)^2 \right]\)</div>
+            <div class="step-line">代极限：\(\displaystyle = 3 x^2\)。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 3 · 从具体 n 到一般 n · 下一步该做什么</div>
+            <div class="tp-pause">现在 \((x^2)' = 2x\) 和 \((x^3)' = 3x^2\) 都用极限定义推出来了。但要说"对任意整数 \(n\) 都成立"，一个一个验证永远验证不完。<strong>下一步该做什么？</strong>是继续代 \(n=4, 5, 6\)，还是找一种能一次覆盖所有 \(n\) 的方法？</div>
+            <div class="tp-ask">"不要直接告诉我答案。请引导我探究：我推 \((x^3)'\) 时用到了 \((x+\Delta x)^3 = x^3 + 3x^2\Delta x + 3x(\Delta x)^2 + (\Delta x)^3\) 这个展开。如果 \(n\) 是任意整数，\((x+\Delta x)^n\) 也能展开吗？展开后有没有可能有<strong>类似的结构</strong>——一个不含 \(\Delta x\) 的首项（会消去）+ 一个含 \(\Delta x\) 但不含更高次的线性项 + 一堆含 \((\Delta x)^{\geq 2}\) 的高阶项？"</div>
+            <div class="tp-hint">卡住的话：回顾中学学过的"二项式定理" \((a+b)^n = \sum \binom{n}{k} a^{n-k} b^k\)。把 \(a=x, b=\Delta x\) 代进去，你能不能只写出<strong>前两项</strong>就够判断结论？</div>
+            <div class="tp-write">在草稿上写下"覆盖所有 \(n\) 的策略"：________（提示：不是"猜"，是"用一个能容纳所有 \(n\) 的展开工具"）。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">用二项式定理推导 \((x^n)'\) · 每一步该做什么 + 为什么这么做</div>
+
+            <div class="step-line"><strong>目标</strong>：对任意正整数 \(n\)，推出 \((x^n)'\) 的严格表达式。<strong>唯一严格出发点</strong>是导数的极限定义（这一点在极限一课里立起来了，此处直接调用）。</div>
+
+            <div class="step-line"><strong>第 1 步 · 套定义</strong>：把 \(f(x) = x^n\) 代入导数定义式，得
+              \[
+                (x^n)' \;=\; \lim_{\Delta x \to 0} \frac{(x+\Delta x)^n - x^n}{\Delta x}.
+              \]
+              <em>为什么这么做</em>：从"导数是什么"出发，一切幂函数求导都必须先经过这一步——这是<strong>不可绕过的定义关</strong>。</div>
+
+            <div class="step-line"><strong>第 2 步 · 展开 \((x+\Delta x)^n\)</strong>：用二项式定理
+              \[
+                (x+\Delta x)^n \;=\; x^n \;+\; \binom{n}{1}\,x^{n-1}\,\Delta x \;+\; \binom{n}{2}\,x^{n-2}\,(\Delta x)^2 \;+\;\cdots\;+\;(\Delta x)^n.
+              \]
+              利用 \(\binom{n}{1} = n\)，改写为
+              \[
+                (x+\Delta x)^n \;=\; x^n \;+\; n\,x^{n-1}\,\Delta x \;+\;\underbrace{\binom{n}{2}x^{n-2}(\Delta x)^2 + \cdots + (\Delta x)^n}_{\text{每项都含 }(\Delta x)^{\geq 2}}.
+              \]
+              <em>为什么这么做</em>：分子里的 \((x+\Delta x)^n - x^n\) 是"未知的一大坨"。展开的目的是让 \(x^n\) 出现在展开式首项——为下一步与分子里的 \(-x^n\) <strong>相消</strong>做准备。</div>
+
+            <div class="step-line"><strong>第 3 步 · 分子相消 \(x^n\)</strong>：代入分子
+              \[
+                (x+\Delta x)^n - x^n \;=\; n\,x^{n-1}\,\Delta x \;+\; \binom{n}{2}x^{n-2}(\Delta x)^2 + \cdots + (\Delta x)^n.
+              \]
+              <em>为什么这么做</em>：\(x^n\) 是分子里的"不含 \(\Delta x\) 的死项"。不消掉它，分母 \(\Delta x \to 0\) 时分子不趋于 0——极限根本不存在。这一步是让"\(\frac{0}{0}\) 型式子"露出可计算的结构。</div>
+
+            <div class="step-line"><strong>第 4 步 · 分子分母同除 \(\Delta x\)</strong>：每一项都含 \(\Delta x\) 因子，同除得
+              \[
+                \frac{(x+\Delta x)^n - x^n}{\Delta x} \;=\; n\,x^{n-1} \;+\; \binom{n}{2}x^{n-2}\,\Delta x \;+\;\cdots\;+\;(\Delta x)^{n-1}.
+              \]
+              <em>为什么这么做</em>：极限过程是 \(\Delta x \to 0\) 但 \(\Delta x \neq 0\)——所以可以约分。这是<strong>极限定义里"趋近但不到达"</strong>这一特殊规则允许我们做的事，中学代数里 \(\frac{0}{0}\) 不允许，但极限允许。</div>
+
+            <div class="step-line"><strong>第 5 步 · 取极限</strong>：让 \(\Delta x \to 0\)。等式右边有一项 \(n\,x^{n-1}\) <strong>不含 \(\Delta x\)</strong>——它保持不动；其余每一项都含 \(\Delta x^k\)（\(k \geq 1\)），全部趋于 0。因此
+              \[
+                (x^n)' \;=\; \lim_{\Delta x \to 0} \left[ n\,x^{n-1} \;+\; \binom{n}{2}x^{n-2}\,\Delta x \;+\;\cdots\;+\;(\Delta x)^{n-1}\right] \;=\; n\,x^{n-1}.
+              \]
+              <em>为什么这么做</em>：这一步不是"忽略高阶项"——是<strong>严格的极限运算</strong>：任何含 \(\Delta x\) 因子的项在 \(\Delta x \to 0\) 时都精确地趋于 0，不是近似为 0。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 3.5 · 为什么恰好是 \(n\,x^{n-1}\) 这一项"幸存"</div>
+            <div class="tp-pause">在第 5 步里，为什么<strong>只有 \(n\,x^{n-1}\)</strong> 这一项在取极限后不消失？它有什么"结构上的特殊性"？</div>
+            <div class="tp-ask">"不要直接告诉我答案。请引导我探究：在二项式展开里，我关心哪一项在'除以 \(\Delta x\) + 取极限' 后能留下不为 0 的东西。这一项在展开中含 \(\Delta x\) 的<strong>次数</strong>是多少？除以 \(\Delta x\) 后剩下几次 \(\Delta x\)？取极限后为什么它是唯一保留下来的？"</div>
+            <div class="tp-hint">对比"高阶项 \(\binom{n}{2} x^{n-2}(\Delta x)^2\)"——它含 \((\Delta x)^2\)，除以 \(\Delta x\) 后剩 \(\Delta x\)，取极限归零。<strong>唯一在展开里含 \(\Delta x\) 恰好一次的项</strong>——它除以 \(\Delta x\) 后不含 \(\Delta x\)、系数是 \(\binom{n}{1} = n\)、幂是 \(x^{n-1}\)——所以只有它能"幸存"。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">幂函数求导的通用结论（可迁移使用）</div>
+            <div class="step-line">
+              \[
+                \boxed{\,(x^n)' = n\, x^{n-1}\,}
+              \]
+            </div>
+            <div class="step-line"><strong>这是一条通用结论</strong>：由二项式展开 + 极限定义严格推得，不是"猜到的规律"。对所有整数 \(n\) 都成立（对全体实数 \(n\) 也成立，本课只用整数 \(n\)）。</div>
+            <div class="step-line"><strong>可迁移的使用场景</strong>：本课下面的匀变速三大公式（\(v\)、\(x\)、\(v^2\)）、卡 3 加速度对时间求导、卡 4 变量替换后的求导，都会直接调用这一结论——不需要每次都重跑二项式展开。<strong>把它记进结论清单里，用时直接调用；但要理解"这条结论的来源是第 1-5 步的严格推导，不是记忆速记"</strong>。</div>
+            <div class="step-line"><strong>结论要"能推"而不是"能背"</strong>：如果哪天你怀疑这条结论——比如遇到 \(n\) 是分数或负数的情形——回到第 1-5 步的推导，你会发现每一步的逻辑对分数 / 负数也成立（需要广义二项式定理，进阶时展开）。这就是"推导 vs 记忆"的分野：推导能延伸，记忆只能覆盖背过的场景。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">常用导数表（直接用）</div>
+            <div class="step-line">\((C)' = 0\)（常数函数的导数为 0）</div>
+            <div class="step-line">\((x)' = 1\)（一次函数导数为 1，因 \(n = 1\) 时 \((x^1)' = 1 \cdot x^0 = 1\)）</div>
+            <div class="step-line">\((x^2)' = 2x\) · \((x^3)' = 3 x^2\) · \((x^n)' = n x^{n-1}\)</div>
+            <div class="step-line"><strong>线性法则</strong>：\((a f + b g)' = a f' + b g'\)（常数提前、加法分配）。例：\((3 x^2 + 5 x)' = 6 x + 5\)。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">卡 1 自查</div>
+            <label data-key="c1-1"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能写出导数的极限定义式</span></label>
+            <label data-key="c1-2"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能亲手推出 \((x^2)' = 2x\) 的 4 行过程</span></label>
+            <label data-key="c1-3"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能用二项式展开推导 \((x^n)' = n x^{n-1}\)，并能说明为什么高阶 \(\Delta x\) 项在取极限后全部消失、只有 \(n x^{n-1}\) 幸存</span></label>
+            <label data-key="c1-4"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能用线性法则求 \((3 x^2 + 5 x - 2)'\)（答案：\(6x + 5\)）</span></label>
+          </div>
+          <div class="literacy-tag">📚 科学思维 · 模型推广（具体 \(n\) → 一般 \(n\)）+ 严密推理（约分前确认非零）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 卡 2 · 定积分 + ∫ x^n dx ==================== -->
+  <div class="task-card" id="card2">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">2</div>
+      <h3>卡 2 · 定积分 = 曲线下面积：用 v-t 图割条求和推 ∫ x<sup>n</sup> dx</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：从 v-t 图的几何直觉出发，理解"定积分 = 曲线下面积"；并用反求导直觉接受 \(\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C\)（\(n \neq -1\)）。<br>
+        <strong>建议时长</strong>：50 分钟（割条求和 20 + 反求导 15 + 不定积分练手 15）
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">几何动机<br><span class="step-sub">v-t 图的位移</span></span></div>
+        <div class="step-content">
+          <p>先回到一个具体问题：<strong>已知速度 \(v(t) = 2 t\)（即从静止开始的匀加速运动，\(a = 2\) m/s²）。求 \(t = 0\) 到 \(t = 3\) s 的位移。</strong></p>
+
+          <div class="quote-block">
+            匀速时，位移 = 速度 × 时间——这等于 v-t 图上"<strong>矩形</strong>"的面积。<br>
+            变速时，速度每秒都变——v-t 图不再是矩形，<strong>"位移 = 面积"这一直觉还成立吗？</strong>
+          </div>
+
+          <p>下面的图把时间轴 \([0, 3]\) 切成 6 个等宽小段，每段宽 \(\Delta t = 0.5\) s，每段内<strong>把速度当作常数</strong>（取段末速度近似），算出 6 个小矩形面积之和，作为<strong>对真实位移的近似值</strong>。</p>
+
+          <div class="diagram-block">
+            <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="ax-arr-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d1d1f"/>
+                </marker>
+                <marker id="ax-arr-u" viewBox="0 0 10 10" refX="5" refY="1" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M 0 10 L 5 0 L 10 10 z" fill="#1d1d1f"/>
+                </marker>
+              </defs>
+              <!-- 矩形先画在底层（最底色） -->
+              <rect x="60" y="240" width="50" height="20" fill="#E8EEF9" stroke="#0055B8" stroke-width="1"/>
+              <rect x="110" y="220" width="50" height="40" fill="#E8EEF9" stroke="#0055B8" stroke-width="1"/>
+              <rect x="160" y="200" width="50" height="60" fill="#E8EEF9" stroke="#0055B8" stroke-width="1"/>
+              <rect x="210" y="180" width="50" height="80" fill="#E8EEF9" stroke="#0055B8" stroke-width="1"/>
+              <rect x="260" y="160" width="50" height="100" fill="#E8EEF9" stroke="#0055B8" stroke-width="1"/>
+              <rect x="310" y="140" width="50" height="120" fill="#E8EEF9" stroke="#0055B8" stroke-width="1"/>
+              <!-- v(t)=2t 直线（从 (0,0) 到 (3,6)） -->
+              <line x1="60" y1="260" x2="360" y2="140" stroke="#00409A" stroke-width="2.2"/>
+              <!-- 坐标轴（最后画，盖在上面） -->
+              <line x1="60" y1="260" x2="450" y2="260" stroke="#1d1d1f" stroke-width="1.6" marker-end="url(#ax-arr-r)"/>
+              <line x1="60" y1="260" x2="60" y2="60" stroke="#1d1d1f" stroke-width="1.6" marker-end="url(#ax-arr-u)"/>
+              <!-- 刻度 + 标签 -->
+              <text x="60" y="278" font-size="11" fill="#5C6370" text-anchor="middle">0</text>
+              <line x1="110" y1="260" x2="110" y2="264" stroke="#5C6370"/>
+              <line x1="160" y1="260" x2="160" y2="264" stroke="#5C6370"/>
+              <text x="160" y="278" font-size="11" fill="#5C6370" text-anchor="middle">1</text>
+              <line x1="210" y1="260" x2="210" y2="264" stroke="#5C6370"/>
+              <line x1="260" y1="260" x2="260" y2="264" stroke="#5C6370"/>
+              <text x="260" y="278" font-size="11" fill="#5C6370" text-anchor="middle">2</text>
+              <line x1="310" y1="260" x2="310" y2="264" stroke="#5C6370"/>
+              <line x1="360" y1="260" x2="360" y2="264" stroke="#5C6370"/>
+              <text x="360" y="278" font-size="11" fill="#5C6370" text-anchor="middle">3</text>
+              <!-- y 刻度 -->
+              <text x="48" y="263" font-size="11" fill="#5C6370" text-anchor="end">0</text>
+              <line x1="56" y1="220" x2="60" y2="220" stroke="#5C6370"/>
+              <text x="48" y="223" font-size="11" fill="#5C6370" text-anchor="end">2</text>
+              <line x1="56" y1="180" x2="60" y2="180" stroke="#5C6370"/>
+              <text x="48" y="183" font-size="11" fill="#5C6370" text-anchor="end">4</text>
+              <line x1="56" y1="140" x2="60" y2="140" stroke="#5C6370"/>
+              <text x="48" y="143" font-size="11" fill="#5C6370" text-anchor="end">6</text>
+              <!-- 轴名 -->
+              <text x="470" y="263" font-size="12" fill="#1d1d1f">t / s</text>
+              <text x="60" y="50" font-size="12" fill="#1d1d1f" text-anchor="middle">v / (m·s⁻¹)</text>
+              <!-- 函数标签（外置 + dashed 引线） -->
+              <text x="395" y="120" font-size="13" fill="#00409A" font-weight="700">v(t) = 2t</text>
+              <line x1="360" y1="140" x2="392" y2="125" stroke="#00409A" stroke-width="0.8" stroke-dasharray="3,3"/>
+              <!-- 小矩形说明（外置） -->
+              <text x="200" y="80" font-size="11" fill="#1d1d1f" text-anchor="middle">每条宽 Δt = 0.5 s，高 ≈ v(段末)</text>
+              <text x="200" y="96" font-size="11" fill="#1d1d1f" text-anchor="middle">6 条小矩形总面积 ≈ 真实位移</text>
+            </svg>
+            <div class="diagram-caption">SVG 1 · v(t) = 2t 的 v-t 图，时间区间 [0, 3] s 被切成 6 段；蓝色直线是真实速度，6 个浅蓝矩形是右端点近似（每条高度取该段右端速度）。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">用 6 条矩形求位移近似值</div>
+            <div class="step-line">第 i 段（i = 1, 2, …, 6）的右端时间是 \(t_i = 0.5 i\)，速度近似为 \(v(t_i) = 2 \cdot 0.5 i = i\) m/s。</div>
+            <div class="step-line">第 i 段位移近似 \(\approx v(t_i) \cdot \Delta t = i \times 0.5\) m。</div>
+            <div class="step-line">6 段相加：\(\sum_{i=1}^{6} i \times 0.5 = 0.5 \times (1+2+3+4+5+6) = 0.5 \times 21 = 10.5\) m（<strong>偏大</strong>，因为每段取了右端最大速度）。</div>
+            <div class="step-line">如果改用左端近似：\(0.5 \times (0+1+2+3+4+5) = 7.5\) m（<strong>偏小</strong>）。真实位移介于二者之间。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">把细条变得无穷细<br><span class="step-sub">取极限</span></span></div>
+        <div class="step-content">
+          <p>左端近似 7.5、右端近似 10.5——真实值在哪里？让条数 n 越来越多、每条 \(\Delta t\) 越来越小，看近似值收敛到多少。</p>
+
+          <div class="derivation-block">
+            <div class="derivation-title">细分到 n 条 · 取极限</div>
+            <div class="step-line">把 \([0, 3]\) 分成 n 等份，每条 \(\Delta t = 3/n\)。第 i 段右端 \(t_i = 3 i / n\)，速度 \(v(t_i) = 2 \cdot 3 i / n = 6 i / n\)。</div>
+            <div class="step-line">总和 \(S_n = \displaystyle\sum_{i=1}^{n} \frac{6 i}{n} \cdot \frac{3}{n} = \frac{18}{n^2} \sum_{i=1}^{n} i = \frac{18}{n^2} \cdot \frac{n(n+1)}{2} = \frac{9 (n+1)}{n} = 9 + \frac{9}{n}\)。</div>
+            <div class="step-line"><em>（用到等差数列求和公式 \(1 + 2 + \cdots + n = n(n+1)/2\)；如未学过此公式，可先接受这一中间结果，本课重点是"取极限 \(n \to \infty\)"这一步。）</em></div>
+            <div class="step-line">当 \(n \to \infty\)：\(\displaystyle \lim_{n \to \infty} S_n = 9 + 0 = 9\) m。</div>
+            <div class="step-line"><strong>结论</strong>：v(t) = 2t 从 0 到 3 s 的真实位移就是 <strong>9 m</strong>。</div>
+            <div class="step-line"><strong>几何对照</strong>：v-t 图里 \([0, 3]\) 下方是一个底 = 3、高 = 6 的直角三角形，面积 \(= \tfrac{1}{2} \times 3 \times 6 = 9\) m。完全一致！</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · "位移 = 面积"为什么是普遍真理</div>
+            <div class="tp-pause">上面这段算的是 v(t) = 2t 的具体情形。但割条求和→取极限这一思路<strong>不依赖速度公式的具体形式</strong>——任何 v(t) 都能这样切。请你尝试用一句话说出："为什么 v-t 图下方的面积一定等于位移？"</div>
+            <div class="tp-ask">我感觉是因为"每个小矩形的面积就是一小段位移"。请<strong>不要直接评判我的回答对不对</strong>，反过来问我：那"小矩形的面积"具体写出来是哪两个量的乘积？它和"位移"又是哪两个量的乘积？两者为什么一定相等？</div>
+            <div class="tp-write">在草稿上写："小矩形面积 = ___ × ___；小段位移 = ___ × ___；两者相等是因为___。"</div>
+            <div class="tp-hint">关键词：宽 = Δt、高 = v、小段位移 = v · Δt。在 Δt → 0 的极限下，"速度不变"的近似变成精确。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">定积分的正式定义</div>
+            <div class="step-line">把上述"分割 → 近似 → 求和 → 取极限"这一过程<strong>取个名字</strong>，就得到定积分：</div>
+            <div class="step-line">
+              \[
+                \int_a^b f(x)\,dx \;\stackrel{\text{def}}{=}\; \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i)\,\Delta x
+              \]
+            </div>
+            <div class="step-line"><strong>符号读法</strong>：\(\int\) 是拉长的 S（Sum 求和的首字母）；\(a, b\) 是积分下限和上限；\(f(x)\) 是被积函数；\(dx\) 是无穷小宽度。</div>
+            <div class="step-line"><strong>几何意义</strong>：\(\int_a^b f(x)\,dx\) 就是 \(y = f(x)\) 与 x 轴在 \([a, b]\) 围成的<strong>有向面积</strong>（\(f(x) &gt; 0\) 处面积为正，\(f(x) &lt; 0\) 处为负）。</div>
+            <div class="step-line"><strong>物理意义</strong>（本课最关心的版本）：\(\displaystyle x = \int_0^T v(t)\,dt\)——v-t 图下方面积就是位移。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 3</span><span class="step-title">∫ x<sup>n</sup> dx 的公式<br><span class="step-sub">反求导直觉</span></span></div>
+        <div class="step-content">
+          <p>有了"定积分 = 面积"的语义后，下一个问题是：<strong>具体怎么算？</strong> 总不能每道题都重新割条求和。这里要引入<strong>不定积分（原函数）</strong>。</p>
+
+          <div class="derivation-block">
+            <div class="derivation-title">原函数与不定积分</div>
+            <div class="step-line"><strong>原函数</strong>：若 \(F'(x) = f(x)\)，称 \(F(x)\) 是 \(f(x)\) 的一个原函数（antiderivative）。</div>
+            <div class="step-line">由卡 1 知 \((x^2)' = 2x\)，所以 \(x^2\) 是 \(2x\) 的一个原函数；\(x^2 + 5\) 也是（常数导数 = 0）。</div>
+            <div class="step-line"><strong>不定积分</strong>：把 \(f(x)\) 的所有原函数写成 \(F(x) + C\)（\(C\) 为任意常数），记作 \(\displaystyle \int f(x)\,dx = F(x) + C\)。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · 反过来找 \(\int x^n\,dx\) · 用求导反推是否够严格</div>
+            <div class="tp-pause">问题：要找一个函数 \(F(x)\)，让 \(F'(x) = x^n\)。卡 1 已推得 \((x^n)' = n\,x^{n-1}\)——如果我把这个结论"反过来看"：什么样的函数 \(F(x)\)，求一次导后能凑出 \(x^n\)？<strong>这一步是"猜 + 验证"还是"严格证明"？</strong></div>
+            <div class="tp-ask">"不要直接告诉我答案。请引导我探究：我猜 \(F(x) = \dfrac{x^{n+1}}{n+1}\)——但'猜' 本身不构成证明。我能做的<strong>最强的验证</strong>是什么？如果我对 \(\dfrac{x^{n+1}}{n+1}\) 求一次导，得到 \(x^n\)，这算不算证明了 \(\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C\)？"</div>
+            <div class="tp-hint">对回卡 1 结论 \((x^k)' = k\,x^{k-1}\)，代 \(k = n+1\)，看看 \(\left(\dfrac{x^{n+1}}{n+1}\right)' = ?\)</div>
+            <div class="tp-write">在草稿上验证：\(\displaystyle\left( \frac{x^{n+1}}{n+1} \right)' = \frac{(n+1)\,x^{n}}{n+1} = x^n\)。✓ ——但这只证明了 <strong>"我这个猜测的 \(F\) 确实是原函数之一"</strong>，还不构成"\(\int x^n\,dx\) 的严谨推导"。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">幂函数不定积分 · 反求导得到的通用结论</div>
+            <div class="step-line">
+              \[
+                \boxed{\,\int x^n\,dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1)\,}
+              \]
+            </div>
+            <div class="step-line"><strong>这是一条通用结论</strong>：来自"对 \(\dfrac{x^{n+1}}{n+1}\) 求导恰好得到 \(x^n\)"这一反求导直觉的验证。可迁移到任何幂函数积分，是下面公式推导的<strong>直接工具</strong>——用时直接调用，不需要每次都重新反求导。</div>
+            <div class="step-line"><strong>为什么 \(n = -1\) 例外</strong>？若 \(n = -1\)，公式要除以 \(n + 1 = 0\)，分母为零。\(\int x^{-1}\,dx\) 的答案是 \(\ln |x| + C\)——本课不展开，记住"\(n = -1\) 除外"即可。</div>
+            <div class="step-line"><strong>常数为什么不能丢</strong>？因为 \((x^{n+1}/(n+1) + 7)' = x^n\)、\((x^{n+1}/(n+1) - 100)' = x^n\)，加任何常数都满足。故必须写 \(+ C\)——这是"原函数不唯一"的自然反映。</div>
+          </div>
+
+          <div class="deepening-recommendation">
+            <div class="dr-title">严谨推导的进阶提示</div>
+            <p>上面的思路——<strong>反求导直觉 + 求导验证</strong>——本课够用，学生能理解并使用这条结论。但要把它称为"严谨推导"还差两步：</p>
+            <ol>
+              <li><strong>"面积法的极限证明"</strong>：直接从定积分定义 \(\int_a^b x^n\,dx = \lim_{n \to \infty} \sum f(x_i)\Delta x\) 出发，通过 <strong>Riemann 和的极限</strong>严格算出 \(\dfrac{b^{n+1} - a^{n+1}}{n+1}\)。这需要处理"\(\sum_{i=1}^{n} i^k\)"的封闭形式（\(k = 1\) 时用等差数列、\(k = 2\) 时用二次求和公式、更高 \(k\) 需要 <strong>Bernoulli 数</strong>）。</li>
+              <li><strong>"牛顿-莱布尼茨定理"</strong>：证明"求导"和"积分"是一对严格的<strong>逆运算</strong>——即 \(F'(x) = f(x) \Rightarrow \int_a^b f\,dx = F(b) - F(a)\)。这一步把"反求导直觉"变成严密定理。定理的完整证明在下一课（<strong>牛顿-莱布尼茨公式 · 进阶</strong>）展开。</li>
+            </ol>
+            <p>本课的"反求导直觉 + 求导验证"是<strong>够用且合理</strong>的教学路径——先接受结论、学会使用，然后进阶时再回来把每一步严谨补齐。<strong>知道这条结论有更严谨的推导路径在等着你，本身也是一种严谨</strong>。</p>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">把"工具"与"几何"接上 · 牛莱公式（仅做工具一句话）</div>
+            <div class="step-line">把不定积分用到定积分上，可以用一条公式直接算出曲线下面积：\(\displaystyle \int_a^b f(x)\,dx = F(b) - F(a)\)，其中 \(F\) 是 \(f\) 的任一原函数。</div>
+            <div class="step-line">这条公式叫<strong>牛顿-莱布尼茨公式</strong>，是微积分的"基本定理"。<strong>它的证明留到第 4 课，本课只把它当工具用一次：\(\displaystyle \int_0^3 2t\,dt = [t^2]_0^3 = 9 - 0 = 9\) m</strong>，与 STEP 2 割条极限的结果一致。</div>
+            <div class="step-line">本课承诺：你不需要知道它为什么对，下一课会从积分上限函数 \(S(x) = \int_a^x f(t)\,dt\) 出发严格证明。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">卡 2 自查</div>
+            <label data-key="c2-1"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能说出"定积分 = 曲线下面积"的几何含义</span></label>
+            <label data-key="c2-2"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能写出 \(\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C\) 并说出 \(n \neq -1\) 的原因</span></label>
+            <label data-key="c2-3"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能验证：对 \(\dfrac{x^{n+1}}{n+1}\) 求导，确实得到 \(x^n\)</span></label>
+            <label data-key="c2-4"><input type="checkbox" onchange="persistCheckbox(this)"><span>我清楚牛莱公式只是本课临时借用的工具，下一课会完整证明</span></label>
+            <label data-key="c2-5"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能算 \(\int_0^2 3 x^2\,dx\) 与 \(\int_0^3 2 t\,dt\)（分别是 8 和 9）</span></label>
+          </div>
+          <div class="literacy-tag">📚 科学思维 · 几何直观与代数公式互译 · 模型化（分割→近似→求和→极限）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 卡 3 · v = v₀ + at ==================== -->
+  <div class="task-card" id="card3">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">3</div>
+      <h3>卡 3 · 推导公式 ① · v = v₀ + at（速度-时间关系）</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：从加速度的定义 \(a = \dfrac{dv}{dt}\) 出发，用积分一步推出 \(v = v_0 + at\)。<br>
+        <strong>建议时长</strong>：35-40 分钟（前置 5 + 推导 15 + 物理含义 + checkpoint 20）
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">前置回顾<br><span class="step-sub">a 的定义</span></span></div>
+        <div class="step-content">
+          <div class="prereq-recap">
+            <p><strong>来自第 1 课 · 运动的描述</strong>：</p>
+            <p>加速度是速度对时间的瞬时变化率：\(\displaystyle a(t) = \lim_{\Delta t \to 0} \frac{\Delta v}{\Delta t} = \frac{dv}{dt}\)。</p>
+            <p><strong>匀加速直线运动</strong>的前提：\(a\) 是<strong>常数</strong>。</p>
+          </div>
+
+          <div class="prereq-recap">
+            <p><strong>来自卡 1-2</strong>：</p>
+            <p>已知 \((C)' = 0\) 与 \((x^n)' = n x^{n-1}\)；已知 \(\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C\)。</p>
+            <p><strong>把 a 当成 0 次幂</strong>：\(a = a \cdot t^0\)，于是 \(\int a\,dt = a t + C\)（常数提到积分外）。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">两步推导<br><span class="step-sub">先自己写</span></span></div>
+        <div class="step-content">
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 自己推 v(t)</div>
+            <div class="tp-pause">起点：\(a = \dfrac{dv}{dt}\)。要得到 \(v\) 对 \(t\) 的函数。提示：把 \(dt\) 移到等式右边、两边各算一个不定积分。注意"初始条件"：\(t = 0\) 时 \(v = v_0\)。</div>
+            <div class="tp-ask">我推到 \(v = a t + C\) 这一步卡住了，不知道 C 怎么定。请<strong>不要直接给答案</strong>，反过来问我：t = 0 时方程两边各是什么？由此能不能解出 C？</div>
+            <div class="tp-write">在草稿上写出 3 行：① 由定义；② 两边积分；③ 用初始条件 \(v(0) = v_0\) 解 C。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">推导 · v = v₀ + at</div>
+            <div class="step-line"><strong>① 由加速度定义</strong>：\(\dfrac{dv}{dt} = a\)（a 是常数）</div>
+            <div class="step-line"><strong>② 两边对 t 不定积分</strong>：\(\displaystyle \int \frac{dv}{dt}\,dt = \int a\,dt \;\Rightarrow\; v = a t + C\)</div>
+            <div class="step-line"><strong>③ 用初始条件定 C</strong>：当 \(t = 0\)，\(v = v_0\)，代入得 \(v_0 = a \cdot 0 + C\)，即 \(C = v_0\)。</div>
+            <div class="step-line"><strong>结论</strong>：\(\displaystyle \boxed{\,v = v_0 + a t\,}\)。</div>
+            <div class="step-line"><strong>等价的定积分形式</strong>（从 0 到 t）：\(\displaystyle \int_{v_0}^{v} dv' = \int_0^t a\,dt' \;\Rightarrow\; v - v_0 = a t\)，结果相同。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 3</span><span class="step-title">物理含义<br><span class="step-sub">读公式</span></span></div>
+        <div class="step-content">
+          <ul>
+            <li><strong>\(v_0\)</strong> 是 \(t = 0\) 时刻的速度——"起跑线上的速度"。</li>
+            <li><strong>\(a t\)</strong> 是<strong>速度的增量</strong>——每秒增 \(a\) m/s，过了 \(t\) 秒共增 \(a t\) m/s。</li>
+            <li>等号成立的<strong>前提</strong>：\(a\) 是常数（匀加速）。若 \(a\) 随时间变化，需要重新积分 \(v = v_0 + \int_0^t a(t')\,dt'\)。</li>
+            <li><strong>方向</strong>：\(v, v_0, a\) 都是有方向的量。一维直线运动里，先定一个"正方向"（如向右），其余量按正负代入即可——刹车时 \(a &lt; 0\)、自由下落时取下为正则 \(a = +g\)。</li>
+          </ul>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">卡 3 自查</div>
+            <label data-key="c3-1"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能从 \(a = dv/dt\) 出发独立推出 \(v = v_0 + at\)</span></label>
+            <label data-key="c3-2"><input type="checkbox" onchange="persistCheckbox(this)"><span>我知道 C 是怎么由"初始条件 \(v(0) = v_0\)"定下来的</span></label>
+            <label data-key="c3-3"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能说出公式成立的前提（匀加速 / a 为常数）</span></label>
+            <label data-key="c3-4"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能用此公式算：从 \(v_0 = 3\) m/s、\(a = 2\) m/s² 出发，5 秒后的速度（答案：13 m/s）</span></label>
+          </div>
+          <div class="literacy-tag">📚 物理观念 · 运动观点 · 科学思维 · 公式的可推导性（不依赖记忆）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 卡 4 · x = v₀ t + ½ a t² ==================== -->
+  <div class="task-card" id="card4">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">4</div>
+      <h3>卡 4 · 推导公式 ② · x = v₀ t + ½ a t²（位移-时间关系）</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：用 \(v = \dfrac{dx}{dt}\) 与卡 3 的结论 \(v = v_0 + a t\) 联立，对时间积分推出位移公式；并理解 \(\dfrac{1}{2}\) 的几何来源。<br>
+        <strong>建议时长</strong>：35-40 分钟（推导 15 + 几何意义 + checkpoint 20）
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">推导 · 代数路径<br><span class="step-sub">v = dx/dt → 积分</span></span></div>
+        <div class="step-content">
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 自己推 x(t)</div>
+            <div class="tp-pause">起点：\(v = \dfrac{dx}{dt}\)。把卡 3 的 \(v = v_0 + a t\) 代入，对 t 不定积分。初始条件：\(t = 0\) 时 \(x = 0\)（位移从起点算起）。</div>
+            <div class="tp-ask">我得到 \(x = v_0 t + ? \cdot t^2 + C\)，但不确定 t² 前面的系数。请<strong>不要给答案</strong>，反过来问我："\(\int a t\,dt\) 应该套幂函数积分公式中的哪一条？n 是几？"</div>
+            <div class="tp-write">在草稿写 4 行：① \(v = dx/dt\)；② 代入卡 3 结论；③ 两边对 t 积分；④ 用初始条件定 C。</div>
+            <div class="tp-hint">关键：\(\int a t\,dt = a \int t^1\,dt = a \cdot \dfrac{t^2}{2} = \dfrac{1}{2} a t^2\)。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">推导 · x = v₀ t + ½ a t²</div>
+            <div class="step-line"><strong>① 由速度定义</strong>：\(\dfrac{dx}{dt} = v\)</div>
+            <div class="step-line"><strong>② 代入卡 3 结论</strong>：\(\dfrac{dx}{dt} = v_0 + a t\)</div>
+            <div class="step-line"><strong>③ 两边对 t 不定积分</strong>：\(\displaystyle x = \int (v_0 + a t)\,dt = v_0 \int dt + a \int t\,dt = v_0 t + \tfrac{1}{2} a t^2 + C\)</div>
+            <div class="step-line"><strong>④ 用初始条件定 C，认出它的物理含义</strong>：当 \(t = 0\) 时，物体所在的位置就是<strong>起始位置</strong>，记为 \(x_0\)。代入上式：\(x_0 = v_0 \cdot 0 + \tfrac{1}{2} a \cdot 0^2 + C\)，得 \(\boxed{C = x_0}\)——<strong>积分常数 \(C\) 就是起始位置</strong>。这是数学结构里 \(C\) 的物理身份。</div>
+            <div class="step-line"><strong>⑤ 通式 + 约定</strong>：通式是 \(\displaystyle x = x_0 + v_0 t + \tfrac{1}{2} a t^2\)。在本课与后续大多数直线运动问题里我们<strong>约定坐标原点取在物体的起始位置</strong>（也就是 \(x_0 = 0\)）——此时通式塌缩为：</div>
+            <div class="step-line"><strong>结论</strong>：\(\displaystyle \boxed{\,x = v_0 t + \tfrac{1}{2} a t^2\,}\)（\(x_0 = 0\) 的约定下）。如果题目把原点放在别处，就要换回带 \(x_0\) 的通式。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 · 几何路径 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">推导 · 几何路径<br><span class="step-sub">v-t 图梯形面积</span></span></div>
+        <div class="step-content">
+          <p>同一个公式也可以从 v-t 图直接读出来——这是<strong>"½ 从哪来"的几何答案</strong>。</p>
+
+          <div class="diagram-block">
+            <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="ar2-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d1d1f"/>
+                </marker>
+                <marker id="ar2-u" viewBox="0 0 10 10" refX="5" refY="1" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M 0 10 L 5 0 L 10 10 z" fill="#1d1d1f"/>
+                </marker>
+              </defs>
+              <!-- 梯形阴影 · 上底 v0、下底 v0+at、底宽 t -->
+              <polygon points="80,200 80,260 360,260 360,120" fill="#E8EEF9" stroke="none"/>
+              <!-- 矩形（下半 v0 t）与三角形（上半 ½ a t²）的分界横线 -->
+              <line x1="80" y1="200" x2="360" y2="200" stroke="#B8924A" stroke-width="1.4" stroke-dasharray="4,3"/>
+              <!-- 速度直线 v = v0 + at -->
+              <line x1="80" y1="200" x2="360" y2="120" stroke="#00409A" stroke-width="2.2"/>
+              <!-- 坐标轴 -->
+              <line x1="80" y1="260" x2="450" y2="260" stroke="#1d1d1f" stroke-width="1.6" marker-end="url(#ar2-r)"/>
+              <line x1="80" y1="260" x2="80" y2="60" stroke="#1d1d1f" stroke-width="1.6" marker-end="url(#ar2-u)"/>
+              <!-- 关键点（端点圆） -->
+              <circle cx="80" cy="200" r="4" fill="#00409A"/>
+              <circle cx="360" cy="120" r="4" fill="#00409A"/>
+              <!-- 刻度标签（外置） -->
+              <text x="80" y="278" font-size="12" fill="#5C6370" text-anchor="middle">0</text>
+              <text x="360" y="278" font-size="12" fill="#5C6370" text-anchor="middle">t</text>
+              <text x="68" y="204" font-size="12" fill="#5C6370" text-anchor="end">v₀</text>
+              <text x="68" y="124" font-size="12" fill="#5C6370" text-anchor="end">v</text>
+              <!-- 轴名 -->
+              <text x="470" y="263" font-size="12" fill="#1d1d1f">t</text>
+              <text x="80" y="50" font-size="12" fill="#1d1d1f" text-anchor="middle">v</text>
+              <!-- 区域标注 · 外置 + dashed 引线 -->
+              <text x="220" y="240" font-size="13" fill="#00409A" font-weight="700" text-anchor="middle">矩形 = v₀ · t</text>
+              <text x="395" y="170" font-size="13" fill="#8E6E2E" font-weight="700">三角形 = ½ · at · t = ½ a t²</text>
+              <line x1="392" y1="172" x2="320" y2="160" stroke="#8E6E2E" stroke-width="0.8" stroke-dasharray="3,3"/>
+              <!-- 函数标签 -->
+              <text x="390" y="100" font-size="13" fill="#00409A" font-weight="700">v = v₀ + at</text>
+              <line x1="360" y1="120" x2="387" y2="105" stroke="#00409A" stroke-width="0.8" stroke-dasharray="3,3"/>
+              <!-- 三角形高度标记 at -->
+              <line x1="370" y1="200" x2="370" y2="120" stroke="#8E6E2E" stroke-width="1"/>
+              <line x1="367" y1="200" x2="373" y2="200" stroke="#8E6E2E" stroke-width="1"/>
+              <line x1="367" y1="120" x2="373" y2="120" stroke="#8E6E2E" stroke-width="1"/>
+              <text x="385" y="164" font-size="12" fill="#8E6E2E" text-anchor="start">at</text>
+            </svg>
+            <div class="diagram-caption">SVG 2 · 匀加速 v-t 图：蓝色直线 v = v₀ + at；下方梯形面积 = 位移。梯形被一条金色虚线分成"下矩形 v₀·t"和"上三角形 ½·at·t = ½ a t²"。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">几何解释 · "½" 是三角形面积的来源</div>
+            <div class="step-line">v-t 图下方在 \([0, t]\) 区间是一个<strong>梯形</strong>，上底 \(v_0\)、下底 \(v_0 + a t\)、高 = t。</div>
+            <div class="step-line">把梯形切成"下矩形 + 上三角形"两块：</div>
+            <div class="step-line">　• 下矩形：宽 \(t\) × 高 \(v_0\) = \(v_0 t\)（"如果一直以 \(v_0\) 走"贡献的位移）</div>
+            <div class="step-line">　• 上三角形：底 \(t\) × 高 \(a t\) × \(\tfrac{1}{2}\) = \(\tfrac{1}{2} a t^2\)（"加速带来的额外位移"）</div>
+            <div class="step-line"><strong>两块相加</strong>就是 \(x = v_0 t + \tfrac{1}{2} a t^2\)——和代数推导完全一致。</div>
+            <div class="step-line"><strong>"½" 的物理意义</strong>：它不是从天上掉下来的，是三角形面积公式里的 ½。换言之，<strong>幂函数 \(t\) 的积分公式 \(\int t\,dt = \tfrac{1}{2} t^2\) 和"三角形面积 = ½ × 底 × 高"是同一件事</strong>。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">卡 4 自查</div>
+            <label data-key="c4-1"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能从 \(v = dx/dt\) 与 \(v = v_0 + at\) 出发推出 \(x = v_0 t + \tfrac{1}{2} a t^2\)</span></label>
+            <label data-key="c4-2"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能解释 ½ 的两种来源：① 幂函数积分公式 \(\int t\,dt = \tfrac{1}{2} t^2\)；② 三角形面积公式</span></label>
+            <label data-key="c4-3"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能用此公式算：\(v_0 = 0\)、\(a = 2\) m/s²、\(t = 3\) s 的位移（答案：9 m，与卡 2 的割条求和一致）</span></label>
+            <label data-key="c4-4"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能解释"如果 \(v_0 = 0\)，公式退化成 \(x = \tfrac{1}{2} a t^2\)"</span></label>
+          </div>
+          <div class="literacy-tag">📚 科学思维 · 代数与几何同源印证 · 模型化（v-t 图梯形面积 = 位移）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 卡 5 · v² = v₀² + 2ax ==================== -->
+  <div class="task-card" id="card5">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">5</div>
+      <h3>卡 5 · 推导公式 ③ · v² = v₀² + 2ax（速度-位移关系）</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：用代数消去 \(t\)、或用 \(a\,dx = v\,dv\) 直接积分两条路径，推出不显含 t 的公式 \(v^2 = v_0^2 + 2 a x\)。<br>
+        <strong>建议时长</strong>：35-40 分钟（代数法 15 + 微积分法 15 + checkpoint 10）
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">代数路径<br><span class="step-sub">消去 t</span></span></div>
+        <div class="step-content">
+          <p>把卡 3 和卡 4 已经推出的两条公式放在一起（约定：\(x\) 是从初始位置算起的位移，\(x_0 = 0\)）：</p>
+          <div class="quote-block">
+            ① \(v = v_0 + a t\)<br>
+            ② \(x = v_0 t + \tfrac{1}{2} a t^2\)
+          </div>
+          <p>这两条公式都含 \(t\)。如果题目<strong>不告诉</strong>时间 \(t\)，只给 \(v_0, a, x\) 求 \(v\)（或反过来），就要把 \(t\) <strong>消掉</strong>。</p>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 消去 t</div>
+            <div class="tp-pause">从公式 ① 把 \(t\) 解出来：\(t = (v - v_0)/a\)。代入公式 ②，再化简。建议先在草稿上把代入的式子写完整、再化简，不要心算。</div>
+            <div class="tp-ask">我代入之后展开得到一堆带 \(v_0 v\) 与 \(v_0^2\) 的项，化不开。请<strong>不要给中间式</strong>，反过来让我"把所有项乘以 2a，转成一行不含分式的等式"。</div>
+            <div class="tp-write">3 步：① 由 ① 解 t；② 代入 ②；③ 两边乘 2a 化简。</div>
+            <div class="tp-hint">化简关键：\((v - v_0)^2 = v^2 - 2 v_0 v + v_0^2\)；最后会发现 \(v_0 v\) 项相互抵消，只剩 \(v^2 - v_0^2\)。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">代数推导 · v² = v₀² + 2ax</div>
+            <div class="step-line"><strong>① 从 \(v = v_0 + a t\)</strong> 解 \(t\)：\(t = (v - v_0)/a\)。</div>
+            <div class="step-line"><strong>② 代入 \(x = v_0 t + \tfrac{1}{2} a t^2\)</strong>：
+              \[
+                x = v_0 \cdot \frac{v - v_0}{a} + \tfrac{1}{2} a \left( \frac{v - v_0}{a} \right)^2
+              \]
+            </div>
+            <div class="step-line"><strong>③ 化简</strong>（两边乘 \(2a\)）：
+              \[
+                2 a x = 2 v_0 (v - v_0) + (v - v_0)^2
+              \]
+              展开：\(= 2 v_0 v - 2 v_0^2 + v^2 - 2 v_0 v + v_0^2 = v^2 - v_0^2\)。
+            </div>
+            <div class="step-line"><strong>结论</strong>：\(\displaystyle \boxed{\,v^2 = v_0^2 + 2 a x\,}\)。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 · 微积分路径 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">微积分路径<br><span class="step-sub">a dx = v dv</span></span></div>
+        <div class="step-content">
+          <p>同样的结论也可以<strong>不经过 t</strong> 直接得到——这就是<strong>链式法则</strong>的妙用。</p>
+
+          <div class="derivation-block">
+            <div class="derivation-title">链式法则路径</div>
+            <div class="step-line"><strong>① 把 a 改写</strong>：\(\displaystyle a = \frac{dv}{dt} = \frac{dv}{dx} \cdot \frac{dx}{dt} = v \cdot \frac{dv}{dx}\)（用了 \(v = dx/dt\)）。</div>
+            <div class="step-line"><strong>② 移项</strong>：\(a\,dx = v\,dv\)。</div>
+            <div class="step-line"><strong>③ 两边定积分</strong>（左：从 0 到 x；右：从 \(v_0\) 到 \(v\)）：
+              \[
+                \int_0^x a\,dx' = \int_{v_0}^v v'\,dv' \;\Rightarrow\; a x = \tfrac{1}{2}(v^2 - v_0^2)
+              \]
+            </div>
+            <div class="step-line"><strong>④ 整理</strong>：\(v^2 - v_0^2 = 2 a x\)，即 \(v^2 = v_0^2 + 2 a x\)。和代数法<strong>完全一致</strong>。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · 两条路径的味道</div>
+            <div class="tp-pause">代数法的过程是"把 t 解出来再代入再化简"，微积分法是"先把 dt 换成 dx/v 再积分"。哪条更"工程"？哪条更"数学"？</div>
+            <div class="tp-ask">我觉得代数法更直接但化简琐碎，微积分法更优雅但要先想到链式法则。请<strong>不要直接评判</strong>，反过来问我："如果题目里 a 不是常数（比如 \(a = -k x\)，弹簧情形），上面哪条路径还行得通？"</div>
+            <div class="tp-write">写一句话："a 为常数时两路径等价；a 随 x 变化时，更通用的是____路径。"</div>
+            <div class="tp-hint">答案是微积分路径。因为 \(a\,dx = v\,dv\) 对 a 是否常数都成立——只要把左边按 \(a(x)\,dx\) 积分即可，而代数消 t 法只在 a 为常数时灵光。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">卡 5 自查</div>
+            <label data-key="c5-1"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能用代数消 t 法推出 \(v^2 = v_0^2 + 2 a x\)</span></label>
+            <label data-key="c5-2"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能用 \(a\,dx = v\,dv\) 路径推出同样结论</span></label>
+            <label data-key="c5-3"><input type="checkbox" onchange="persistCheckbox(this)"><span>我清楚此公式不显含 \(t\)，适用于"不给时间、只给初速/末速/位移"的题</span></label>
+            <label data-key="c5-4"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能算：\(v_0 = 0\)、\(a = 2\) m/s²、走过 \(x = 9\) m 后的速度（答案：\(v = 6\) m/s，与卡 2 的 v(3) 一致）</span></label>
+          </div>
+          <div class="literacy-tag">📚 科学思维 · 多路径求解的等价性 · 模型化（链式法则的物理用途）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 综合反思 ==================== -->
+  <div class="task-card" id="reflection">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">★</div>
+      <h3>综合反思 · 三公式来自同一颗"种子"</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+
+      <p style="margin-bottom: 18px;">本课从 <strong>(x<sup>n</sup>)' = n x<sup>n-1</sup></strong> 一条法则出发，连续推出三条匀加速直线运动公式。读到这里，把"种子"和"果实"的关系画一遍。</p>
+
+      <div class="step">
+        <div class="step-header"><span class="step-badge">回顾 A</span><span class="step-title">"种子" → 三公式<br><span class="step-sub">一条主链路</span></span></div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">主链路 · 一句话版</div>
+            <div class="step-line">"<strong>加速度是速度的导数</strong>" + "<strong>速度是位移的导数</strong>"——这是两条物理事实；</div>
+            <div class="step-line">"<strong>幂函数 \(t^n\) 的积分是 \(t^{n+1}/(n+1)\)</strong>"——这是一条数学工具；</div>
+            <div class="step-line">把两条事实 + 一条工具 + "初始条件" 组合起来 → \(v(t)\)、\(x(t)\)、\(v^2 - v_0^2\) 顺序而出。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">三公式对照表</div>
+            <div class="step-line"><strong>① v = v₀ + at</strong>——速度的"加成 + 累积"。已知时间求当前速度。</div>
+            <div class="step-line"><strong>② x = v₀t + ½ a t²</strong>——位移的"匀速分量 + 加速分量"。已知时间求当前位移。</div>
+            <div class="step-line"><strong>③ v² = v₀² + 2ax</strong>——速度与位移的代数关系（不显含时间）。已知位移求速度。</div>
+            <div class="step-line"><strong>选用规则</strong>：题面给什么、求什么，选对应公式即可。三公式之间通过 t 这把"梭子"互相穿连。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header"><span class="step-badge">回顾 B</span><span class="step-title">为什么<br>不用背？<span class="step-sub">推导链路在脑中</span></span></div>
+        <div class="step-content">
+          <p>把"背三公式"换成"会推三公式"，<strong>不是为了考试更难一点</strong>，而是为了下面三件事：</p>
+          <ul>
+            <li><strong>当 a 不再是常数时</strong>（弹簧、阻力、变力运动），三公式不再适用；但<strong>推导链路依旧</strong>——\(\int a(t)\,dt\) 和 \(\int v(t)\,dt\) 永远成立。"会推"的人能扩展，"会背"的人卡住。</li>
+            <li><strong>当题目方向变复杂时</strong>（自由落体、抛体的水平/竖直分解），公式里 \(v_0, a, x\) 都是矢量，正负要靠自己定。"会推"的人记得初始条件的位置，"会背"的人容易代错符号。</li>
+            <li><strong>它是后续学习的基石</strong>：圆周运动、抛体运动、牛顿动力学都要重复"由 a 积分 → v → x"这个模板。本课练熟一次，后面省力百次。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-header"><span class="step-badge">回顾 C</span><span class="step-title">下一课预告<br><span class="step-sub">把 N-L 公式补全</span></span></div>
+        <div class="step-content">
+          <p><strong>本课在用一条"白条"</strong>：第 4 课会正式证明<strong>牛顿-莱布尼茨公式</strong>，把"定积分（面积语义）"和"原函数（反求导）"严格连起来。届时本课卡 2 那条"\(\int_0^3 2 t\,dt = [t^2]_0^3 = 9\)"会从"借用"升级为"定理"。</p>
+          <p>本课的承诺是：你<strong>不需要知道为什么 N-L 公式对</strong>，就能照着它算定积分；但要<strong>知道这是临时借的</strong>。下一课兑现承诺。</p>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">综合反思 自查</div>
+            <label data-key="r-1"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能不看任何资料，把三公式从加速度定义一行一行推出来</span></label>
+            <label data-key="r-2"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能解释三公式之间是怎么通过 t 互相穿连的</span></label>
+            <label data-key="r-3"><input type="checkbox" onchange="persistCheckbox(this)"><span>我清楚本课用的牛莱公式只是借用，下一课会证明</span></label>
+            <label data-key="r-4"><input type="checkbox" onchange="persistCheckbox(this)"><span>我能说出"½" 既来自幂函数积分公式，也来自三角形面积公式</span></label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 学习产出要求 ==================== -->
+  <div class="card">
+    <h2 class="section-title">学习产出要求</h2>
+    <table class="info-table">
+      <tr><td>① 手写推导稿</td><td>把卡 1（\((x^2)'\)）+ 卡 3 + 卡 4 + 卡 5 共 4 段推导<strong>独立</strong>抄到一张 A4 纸上，不允许任何对照</td></tr>
+      <tr><td>② 反思日志</td><td>200 字以内写一段："本课之前我把三公式当成 ___ 来记；本课之后我会把它们看作 ___。最难的一步是 ___。"</td></tr>
+      <tr><td>③ 自评清单</td><td>本页底部 6 段 checkpoint 全部勾完（至少诚实勾完，不会的留空待补）</td></tr>
+      <tr><td>④ 基础检测</td><td>完成同板块的<strong>基础检测 HTML</strong>（独立答题、70% 通过）</td></tr>
+    </table>
+  </div>
+
+  <!-- ==================== Bottom Navigation ==================== -->
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="03_幂函数微积分_直线运动公式_mock-check.html">📝 基础检测</a>
+    <a href="../_oral-exam/A_基础口试_运动描述_极限_幂函数微积分-oral-exam.html">🎤 深度口试</a>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 幂函数的微积分 · 幂函数的微积分与直线运动公式 · task-cards Skill v0.1.29
+  </footer>
+
+</div>
+
+<script>
+  // KaTeX 自动渲染（含 mhchem 已在 head 加载）
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+
+  // 折叠展开
+  function toggleCard(headerEl) {
+    headerEl.classList.toggle("collapsed");
+    var body = headerEl.nextElementSibling;
+    if (body) body.classList.toggle("collapsed");
+  }
+
+  // Checkpoint localStorage
+  const STORAGE_KEY = "03-powerfunc-kinematics-checkpoints";
+  function getCheckboxState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { return {}; }
+  }
+  function persistCheckbox(checkbox) {
+    var label = checkbox.closest("label[data-key]");
+    if (!label) return;
+    var key = label.getAttribute("data-key");
+    if (!key) return;
+    var state = getCheckboxState();
+    state[key] = checkbox.checked;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    if (checkbox.checked) { label.classList.add("checked"); } else { label.classList.remove("checked"); }
+  }
+  function restoreCheckboxes() {
+    var state = getCheckboxState();
+    var labels = document.querySelectorAll(".checkpoint label[data-key]");
+    labels.forEach(function(label) {
+      var key = label.getAttribute("data-key");
+      if (state[key]) {
+        var cb = label.querySelector("input[type=checkbox]");
+        if (cb) { cb.checked = true; label.classList.add("checked"); }
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+    restoreCheckboxes();
+  });
+</script>
+
+</body>
+</html>

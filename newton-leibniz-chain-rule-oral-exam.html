@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 深度口试 · B 进阶组</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900:#002F73; --blue-700:#00409A; --blue-500:#0055B8; --blue-100:#E8EEF9; --blue-050:#F3F6FC;
+    --gold-900:#8E6E2E; --gold-700:#B8924A; --gold-500:#C9A961; --gold-100:#F4ECD6; --gold-050:#FBF7EC;
+    --silver-900:#5C6370; --silver-700:#7B8290; --silver-500:#A8AEBC; --silver-100:#E5E7EC; --silver-050:#F3F4F7;
+    --text-primary:#1d1d1f; --text-secondary:#6e6e73; --text-light:#7B8290;
+    --bg-primary:#ffffff; --bg-secondary:#FAFAFB; --border-color:#ECEDF0;
+    --radius:24px; --radius-sm:14px; --radius-btn:16px;
+    --shadow-sm:0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md:0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg-secondary); color:var(--text-primary); line-height:1.85; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container { max-width:820px; margin:0 auto; padding:32px 24px 64px; }
+
+  /* 面包屑 */
+  .breadcrumb { font-size:0.82rem; color:var(--text-secondary); margin-bottom:24px; letter-spacing:0.02em; }
+  .breadcrumb a { color:var(--blue-700); text-decoration:none; }
+  .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb strong { color:var(--text-primary); }
+
+  /* Header · 极简 + 大金圆装饰 */
+  .page-header {
+    text-align:center; padding:64px 32px 56px; background:#fff; color:var(--text-primary);
+    border-radius:var(--radius); margin-bottom:36px; position:relative; overflow:hidden;
+    box-shadow:var(--shadow-sm); border:1px solid var(--border-color);
+  }
+  .page-header::before {
+    content:""; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+    width:180px; height:180px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700)); opacity:0.12; z-index:0;
+  }
+  .page-header::after {
+    content:""; position:absolute; bottom:-40px; right:-40px; width:140px; height:140px;
+    border-radius:50%; border:1px solid var(--silver-500); opacity:0.35; z-index:0;
+  }
+  .page-header h1 {
+    font-size:1.5rem; margin-bottom:14px; font-weight:700; color:var(--blue-700);
+    letter-spacing:-0.01em; line-height:1.55; position:relative; z-index:1;
+  }
+  .page-header .subtitle { font-size:0.92rem; color:var(--silver-700); line-height:1.7; position:relative; z-index:1; }
+
+  /* intro-card / section-card · 蓝边引导块 */
+  .intro-card,
+  .section-card {
+    background:var(--bg-primary); border-radius:var(--radius);
+    padding:36px; margin-bottom:28px; box-shadow:var(--shadow-sm);
+    border:1px solid var(--border-color); border-left:3px solid var(--blue-700);
+  }
+  .intro-card h2,
+  .section-card h2 {
+    color:var(--blue-700); font-size:1.2rem; font-weight:700;
+    margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--silver-100);
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  }
+  .intro-card h2::before,
+  .section-card h2::before {
+    content:""; width:14px; height:14px; border-radius:50%;
+    background:var(--blue-700); flex-shrink:0; box-shadow:0 0 0 4px var(--blue-100);
+  }
+  .section-card h2 .tag {
+    font-size:0.72rem; background:var(--blue-050); color:var(--blue-700);
+    border-radius:999px; padding:3px 12px; font-weight:500;
+    letter-spacing:0.02em; margin-left:auto;
+  }
+  .intro-card p,
+  .section-card p { font-size:0.94rem; margin-bottom:12px; line-height:1.85; color:var(--text-primary); }
+  .intro-card p:last-child,
+  .section-card p:last-child { margin-bottom:0; }
+  .intro-card .key {
+    background:var(--blue-050); color:var(--blue-700);
+    padding:16px 20px; border-radius:var(--radius-sm);
+    font-size:0.9rem; line-height:1.8; margin-top:16px;
+    border-left:3px solid var(--blue-700);
+  }
+
+  /* flow-bar 4 阶段水平 pill 行 */
+  .flow-bar { display:flex; flex-direction:column; gap:12px; padding:8px 0; }
+  .flow-step {
+    width:100%; border-radius:var(--radius-sm);
+    background:var(--blue-050); border:1px solid var(--blue-100);
+    border-left:3px solid var(--blue-700);
+    padding:14px 18px; font-size:0.9rem; line-height:1.7; color:var(--text-primary);
+  }
+  .flow-step .ft {
+    display:inline-block; font-weight:700; color:var(--blue-700);
+    font-size:0.92rem; margin-right:10px; letter-spacing:0.02em;
+  }
+  .flow-step .fm {
+    display:inline-block; color:var(--silver-700); font-weight:600; font-size:0.78rem;
+    margin-right:12px; padding:2px 10px; border-radius:999px;
+    background:#fff; border:1px solid var(--silver-100); letter-spacing:0.04em;
+  }
+
+  /* qline · 主问题块 · 循环色 + 大圆标题 */
+  .qline {
+    --q-rich:var(--blue-900);
+    --q-mid:var(--blue-700);
+    --q-bg:var(--blue-050);
+    --q-tint:var(--blue-100);
+    background:var(--bg-primary); border-radius:var(--radius);
+    padding:36px; margin-bottom:28px; box-shadow:var(--shadow-sm);
+    border:1px solid var(--border-color); border-left:3px solid var(--q-mid);
+  }
+  .qline.q-blue   { --q-rich:var(--blue-900);   --q-mid:var(--blue-700);   --q-bg:var(--blue-050);   --q-tint:var(--blue-100);   }
+  .qline.q-gold   { --q-rich:var(--gold-900);   --q-mid:var(--gold-700);   --q-bg:var(--gold-050);   --q-tint:var(--gold-100);   }
+  .qline.q-silver { --q-rich:var(--silver-900); --q-mid:var(--silver-700); --q-bg:var(--silver-050); --q-tint:var(--silver-100); }
+
+  .qline-header {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    width:240px; height:240px; border-radius:50%;
+    background:var(--q-bg); border:2px solid var(--q-mid);
+    box-shadow:0 4px 18px rgba(20,30,60,0.06);
+    padding:28px 24px; margin:0 auto 28px; text-align:center;
+  }
+  .qline-num {
+    color:var(--q-mid); font-size:0.74rem; font-weight:700;
+    line-height:1.2; padding:0 0 8px; margin:0 0 12px;
+    letter-spacing:0.22em; white-space:nowrap;
+    border-bottom:1.5px solid var(--q-mid);
+  }
+  .qline-header h3 {
+    font-size:1rem; color:var(--q-rich); font-weight:700;
+    line-height:1.55; text-align:center;
+    word-break:break-word; overflow-wrap:anywhere;
+    max-width:100%; margin-bottom:12px;
+  }
+  .qline-time {
+    font-size:0.74rem; color:var(--q-mid); opacity:0.85;
+    margin-top:4px; letter-spacing:0.04em;
+  }
+
+  /* 开放主问 */
+  .main-q {
+    background:var(--q-bg); border-left:3px solid var(--q-mid);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:18px 22px; font-size:0.95rem; margin-bottom:20px;
+    line-height:1.85; color:var(--text-primary);
+  }
+  .main-q .mq-tag { font-weight:700; color:var(--q-mid); margin-right:6px; }
+
+  /* 考查锚点 key-points */
+  .key-points { font-size:0.92rem; }
+  .key-points .kp-title {
+    font-weight:700; color:var(--q-rich);
+    margin-bottom:12px; font-size:0.92rem; letter-spacing:0.01em;
+  }
+  .key-points ul { padding-left:4px; list-style:none; }
+  .key-points li { margin:10px 0; line-height:1.85; padding-left:0; }
+
+  /* 听点徽标 (⭐⭐核心金圆 / ⭐边界银圆) */
+  .lp {
+    background:var(--silver-050); color:var(--silver-900);
+    padding:4px 10px; border-radius:999px;
+    font-size:0.82rem; margin:3px 6px 3px 0;
+    display:inline-block; line-height:1.6;
+    border:1px solid var(--silver-100); font-weight:600;
+  }
+  .lp.core        { background:var(--gold-050);   color:var(--gold-900);   border:1px solid var(--gold-500); }
+  .lp.boundary-lp { background:var(--silver-050); color:var(--silver-900); border:1px dashed var(--silver-500); }
+  .core-star {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--gold-700); color:#fff;
+    font-size:0.62rem; font-weight:700;
+    margin-right:4px; vertical-align:middle;
+    box-shadow:0 0 0 2px var(--gold-100);
+  }
+  .lp.boundary-lp .core-star {
+    background:var(--silver-700);
+    box-shadow:0 0 0 2px var(--silver-100);
+  }
+
+  /* prep-card · 金色 · 顶层独立块 */
+  .prep-card {
+    background:var(--gold-050); border:none;
+    border-left:3px solid var(--gold-700);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:28px 32px 28px 64px;
+    margin:24px 0; font-size:0.92rem; line-height:1.85;
+    color:var(--text-primary); position:relative;
+  }
+  .prep-card::before {
+    content:"📝"; position:absolute; left:18px; top:26px;
+    width:32px; height:32px; border-radius:50%;
+    background:var(--gold-700); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:0.88rem;
+  }
+  .prep-card h3 {
+    color:var(--gold-900); font-size:1.05rem; font-weight:700;
+    margin-bottom:12px; letter-spacing:0.01em;
+  }
+  .prep-card ul { margin-left:22px; }
+  .prep-card li { margin:8px 0; line-height:1.85; }
+  .prep-card strong { color:var(--gold-900); }
+
+  /* CTA · 蓝品牌 · 16 px */
+  .btn-primary {
+    background:var(--blue-700); color:#fff; border:none;
+    padding:14px 28px; font-size:0.92rem; border-radius:var(--radius-btn);
+    cursor:pointer; font-weight:600;
+    box-shadow:0 4px 14px rgba(0,64,154,0.18);
+    transition:var(--transition); letter-spacing:0.02em;
+    font-family:inherit; text-decoration:none;
+    display:inline-block;
+  }
+  .btn-primary:hover {
+    background:var(--blue-900);
+    box-shadow:0 6px 18px rgba(0,64,154,0.24);
+  }
+  .btn-primary.silver { background:var(--silver-700); }
+  .btn-primary.silver:hover { background:var(--silver-900); }
+
+  /* details / summary */
+  details {
+    background:var(--blue-050); border:1px solid var(--blue-100);
+    border-radius:var(--radius-sm); padding:14px 18px; margin:14px 0;
+  }
+  details summary {
+    cursor:pointer; font-weight:600; color:var(--blue-700); font-size:0.95rem;
+  }
+  details.silver { background:var(--silver-050); border-color:var(--silver-100); }
+  details.silver summary { color:var(--silver-700); }
+  details code {
+    background:var(--blue-050); padding:4px 10px; border-radius:6px;
+    display:inline-block; margin:4px 0; font-size:0.88rem;
+  }
+  details.silver code { background:var(--silver-050); }
+
+  /* bottom-nav */
+  .bottom-nav {
+    display:flex; flex-wrap:wrap; gap:12px;
+    margin-top:28px; padding:22px 24px;
+    background:var(--bg-primary); border-radius:var(--radius);
+    border:1px solid var(--border-color); box-shadow:var(--shadow-sm);
+  }
+  .bottom-nav a {
+    flex:1; min-width:140px; text-align:center;
+    padding:12px 16px; border-radius:999px;
+    background:var(--blue-050); color:var(--blue-700);
+    text-decoration:none; font-size:0.88rem; font-weight:500;
+    transition:var(--transition); border:1px solid var(--blue-100);
+  }
+  .bottom-nav a:hover {
+    background:var(--blue-100); border-color:var(--blue-500);
+  }
+
+  footer {
+    text-align:center; color:var(--silver-700); font-size:0.78rem;
+    padding:24px 16px; letter-spacing:0.04em;
+  }
+
+  /* 移动端 */
+  @media (max-width: 640px) {
+    .container { padding:20px 14px 40px; }
+    .page-header { padding:44px 22px 36px; }
+    .page-header h1 { font-size:1.22rem; }
+    .intro-card, .section-card, .qline { padding:24px 22px; }
+    .qline-header { width:200px; height:200px; padding:22px 18px; }
+    .qline-num { font-size:0.66rem; padding:0 0 6px; margin:0 0 10px; }
+    .qline-header h3 { font-size:0.9rem; margin-bottom:10px; }
+    .qline-time { font-size:0.68rem; }
+    .flow-step { padding:12px 14px; font-size:0.84rem; }
+    .prep-card { padding:22px 20px 22px 56px; }
+    .prep-card::before { left:14px; top:22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<nav class="breadcrumb">
+  <a href="../../../index.html">主页</a> &raquo; 星图物理 &raquo; 经典力学 1 &raquo;
+  <strong>深度口试 · B 进阶组</strong>
+</nav>
+
+<header class="page-header">
+  <h1>深度口试 · B 进阶组 · 牛顿-莱布尼茨公式 · 导数的链式法则<br>深度口试 · 题库</h1>
+  <div class="subtitle">面对面 10-12 分钟 · 主问题中抽 3 条 · 当场签字 = 真实通关<br>进阶组铁律：抽中 3 条必含一条「推导复述题」（主问 2 或主问 4）</div>
+</header>
+
+<section class="intro-card">
+  <h2>关于深度口试</h2>
+  <p>口试是 <strong>牛顿-莱布尼茨公式, 导数的链式法则</strong> 的<strong>真实通关环节</strong>：先把学习任务卡学完、基础检测练熟，再预约口试。本页是 <strong>完整题库</strong>，公开给所有学生 —— 你可以提前准备每一条主问题。</p>
+  <p>口试由教师当面进行，从下方主问题中<strong>抽 3 条</strong>。每条主问题先开放讲，再由教师根据你的回答追问。<strong>讲思路 + 讲推导链</strong>比报出唯一正确数值更重要 —— 教师听的是「这两条推导链你能不能自己拉出来」。</p>
+  <div class="key">📌 通关条件：抽中的 3 条里，<strong>至少 2 条把核心要点讲清楚并能回应一层「为什么」</strong>；<strong>抽中的推导复述题（主问 2 / 主问 4 中被抽到的那条）</strong>能在合上手稿的情况下完整复述关键链路。</div>
+</section>
+
+<section class="section-card">
+  <h2>口试流程 <span class="tag">总时长 10-12 分钟</span></h2>
+  <div class="flow-bar">
+    <div class="flow-step"><span class="ft">① 暖场 · 自述</span><span class="fm">0-1 分钟</span>你先讲：「这两课里，让你印象最深的一句结论是什么？为什么重要？」—— 不卡时间，讲到能切入主问题就行。</div>
+    <div class="flow-step"><span class="ft">② 主问题 ×3</span><span class="fm">1-9 分钟</span>从下方主问题中由教师抽 3 条，每条约 2-3 分钟。先开放讲，再回答追问。<strong>抽中 3 条里至少含一条「推导复述题」</strong>（主问 2 或主问 4）。</div>
+    <div class="flow-step"><span class="ft">③ 联动 · 收尾</span><span class="fm">9-10 分钟</span>带 04 / 05 两份推导手稿或 1-2 道曾做错的题，教师可能让你翻到某一步指着读，再<strong>合上手稿口头复述</strong>关键转折。</div>
+    <div class="flow-step"><span class="ft">④ 判定 · 签字</span><span class="fm">10-12 分钟</span>通过 = 当场签字；暂缓 = 给补学方向 + 预约二试（二试<strong>必须换未用过的主问题</strong>，且仍含推导复述题）；不通过 = 回到学习阶段重学。</div>
+  </div>
+</section>
+
+<!-- ===== MAIN_QUESTIONS INJECTION POINT ===== -->
+
+<!-- ==================== 主问题 1 · q-blue ==================== -->
+<section class="qline q-blue">
+  <div class="qline-header">
+    <span class="qline-num">主问题 1</span>
+    <h3>变上限积分函数的双重身份 —— 桥梁是谁</h3>
+    <span class="qline-time">约 2-3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>04 课的推导里出现了 \(S(x) = \int_a^x f(t)\,dt\)，叫「变上限积分函数」。请你<strong>用自己的话</strong>说：这个 \(S(x)\) 在牛顿-莱布尼茨公式推导里扮演什么角色？为什么 03 课只算定积分数值时不需要它，而 04 课偏偏要专门定义？</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>S(x) 升级</span> 明确说「把上限从一个数变成变量，定积分从数值升级为函数」，不能只复述定义式。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>边界值 S(a)=0</span> 主动点出 \(S(a) = 0\) 和 \(S(b)\) 就是要算的那个定积分。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>桥梁双重身份</span> 能用「既是累积量又是原函数」说明 \(S(x)\) 把「极限运算」和「求逆运算」接起来。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>哑变量改名</span> 能讲出「上限是自变量、被积变量是哑变量，撞名会有歧义」。主动谈到是亮点/没提到也不扣分。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 2 · q-gold · 推导复述 ==================== -->
+<section class="qline q-gold">
+  <div class="qline-header">
+    <span class="qline-num">主问题 2 · 推导复述</span>
+    <h3>牛顿-莱布尼茨公式 5 段严格推导 · 合上手稿口头复述</h3>
+    <span class="qline-time">约 3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>请你<strong>合上 04 课推导手稿</strong>，用 2-3 分钟口头复述牛顿-莱布尼茨公式推导主链路：从定义 \(S(x)\) 开始，到得出 \(\int_a^b f\,dx = F(b) - F(a)\) 为止。每一段要说出<strong>这一步用到了哪件工具</strong>（积分可加性 / 积分中值定理 / 函数连续性 / 导数定义 / 「导数相等差常数」），讲完再打开手稿对照。</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>5 段主链路</span> 不查手稿依次讲出：① 差分 \(S(x+\Delta x) - S(x)\) → ② 积分可加性合并 → ③ 中值定理出 \(f(\xi)\Delta x\) → ④ 取极限得 \(S'(x) = f(x)\) → ⑤ 配 \(S = F + C\) + 用 \(S(a) = 0\) 定 \(C\)。<strong>本主问核心 · 推导复述铁律</strong>。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>连续性用在第 3 段</span> 明确指认连续性用在第 3 段取极限处（\(f(\xi) \to f(x)\)），不能只说「连续是前提」。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>中值定理 ξ 的地位</span> 能说「中值定理只断言 \(\xi\) <strong>存在</strong>不给精确值；\(\xi\) 夹在区间内，\(\Delta x \to 0\) 时 \(\xi \to x\)」。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>五段对应工具名</span> 能逐段说出用了哪件工具。主动谈到是亮点/没提到也不扣分。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 3 · q-silver ==================== -->
+<section class="qline q-silver">
+  <div class="qline-header">
+    <span class="qline-num">主问题 3</span>
+    <h3>任意原函数 F 与公式的失效情形</h3>
+    <span class="qline-time">约 2 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>牛顿-莱布尼茨公式 \(\int_a^b f\,dx = F(b) - F(a)\) 里的 \(F\) 写作「<strong>任意</strong>一个原函数」。请回答两件事：① 为什么「任意」在这里<strong>不</strong>产生歧义？② 这条公式在什么情形下<strong>不能用</strong>？举一个具体反例。</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>任意 F 常数消去</span> 能口头或纸上展示 \((F_1(b) + K) - (F_1(a) + K) = F_1(b) - F_1(a)\)，常数在两端相减消掉。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>C 由 S(a)=0 定</span> 能讲出「\(C\) 由 \(S(a) = 0\) 唯一定下，得 \(C = -F(a)\)；令 \(x = b\) 得结论」。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>失效情形举例</span> 至少举一例：① \(f\) 不连续（区间内跳跃）；② \(F\) 没有初等表达（如 \(\int e^{-x^2}\,dx\)）。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>数值方法补救</span> 能提到「闭式写不出时可用数值方法逼近」是亮点/没提到不扣分。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 4 · q-blue · 推导复述 ==================== -->
+<section class="qline q-blue">
+  <div class="qline-header">
+    <span class="qline-num">主问题 4 · 推导复述</span>
+    <h3>导数链式法则极限版严格推导 · 合上手稿口头复述</h3>
+    <span class="qline-time">约 3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>请你<strong>合上 05 课手稿</strong>，用 2-3 分钟口头推导链式法则：从导数定义 \(\dfrac{dy}{dx} = \lim_{\Delta x \to 0} \dfrac{\Delta y}{\Delta x}\) 出发，推到 \(\dfrac{dy}{dx} = \dfrac{dy}{du} \cdot \dfrac{du}{dx}\)。每一步说出<strong>这一步在做什么 + 用到什么前提</strong>（重点：\(\Delta x \to 0 \Rightarrow \Delta u \to 0\) 这一桥梁<strong>靠什么</strong>支撑）。</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>极限推导 4 步</span> 依次讲：① 上下同乘 \(\Delta u\) 凑出 \(\dfrac{\Delta y}{\Delta u} \cdot \dfrac{\Delta u}{\Delta x}\)（前提 \(\Delta u \ne 0\)）→ ② \(\Delta x \to 0\) 时由 \(g\) 可导 ⇒ \(g\) 连续 ⇒ \(\Delta u \to 0\) → ③ 拆乘积极限 → ④ 边界 \(\Delta u = 0\) 单独处理。<strong>本主问核心 · 推导复述铁律</strong>。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>「可导 ⇒ 连续」桥梁</span> 能在纸上写出 \(\Delta u = \dfrac{\Delta u}{\Delta x} \cdot \Delta x \to g'(x) \cdot 0 = 0\)。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>可导前提 + 内外拆分</span> 主动声明「两个函数都<strong>可导</strong>」；能讲「复合 = 内函数 \(u = g(x)\) + 外函数 \(y = f(u)\)」。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>Δu=0 边界修补</span> 能提到「\(\Delta u = 0\) 的边界修补技术细节」是亮点/没提到不扣分。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 5 · q-gold ==================== -->
+<section class="qline q-gold">
+  <div class="qline-header">
+    <span class="qline-num">主问题 5</span>
+    <h3>三角复合 + 多次链式 —— 多出来的 ω 在哪里</h3>
+    <span class="qline-time">约 2-3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>在直线运动里，某物体的位移是 \(x(t) = A\sin(\omega t)\)（\(A, \omega\) 是常数）。请你<strong>口头</strong>把速度 \(v(t)\) 和加速度 \(a(t)\) 推出来，并讲出每一步用到了几次链式法则、各自的内函数是什么。最后回答：能否得到 \(a(t)\) 与 \(x(t)\) 的关系？是什么？</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>三角复合内导</span> 能写出 \(v(t) = A\omega \cos(\omega t)\)，并指认「多出来的 \(\omega\) = 内函数导数」。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>两次链式 → a=−ω²x</span> 能讲「二阶求导调用了两次链式，每次贡献一个 \(\omega\)，所以系数是 \(\omega^2\)；负号来自 \(\cos\) 求导后变 \(-\sin\)」。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>幂复合不漏内导 a</span> 追问中能得到 \((at+b)^n\) 求导的内导因子 \(a\)，不漏。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>多层嵌套剥洋葱</span> 能正确处理三层嵌套（如 \(\sin^2(\omega t)\)），「从外到内」分段写出是亮点/没提到不扣分。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 6 · q-silver ==================== -->
+<section class="qline q-silver">
+  <div class="qline-header">
+    <span class="qline-num">主问题 6</span>
+    <h3>三方法对比 + 4 类触发信号 + 链式恒等式 a = v dv/ds</h3>
+    <span class="qline-time">约 2-3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>综合两课请回答三件事：① 算同一个积分 \(\int_0^t (v_0 + a\tau)\,d\tau\)，「面积法 / 不定积分+初值 / 牛顿-莱布尼茨公式」三种方法各自的舒适圈与风险点是什么？② 在直线运动里，看到题面就<strong>触发链式法则警觉</strong>的 4 类信号你能列几个？③ 已知 \(v(s) = \sqrt{2as}\)，求加速度 \(\dfrac{dv}{dt}\) —— 你会用什么<strong>链式恒等式</strong>？先说思路。</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>三方法各自舒适圈</span> 能讲出「面积法适合 \(v\text{-}t\) 图简单时；不定积分+初值要会写函数表达 + 定 \(C\)；牛顿-莱布尼茨适合原函数好找」。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>4 类触发信号</span> 至少列 3 类（位移含三角 / 位移含一次内函数的幂 / 变量替换 / 动量含速度复合）；4 类全列出最佳。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>链式恒等式 a=v·dv/ds</span> 能写出 \(\dfrac{dv}{dt} = v\,\dfrac{dv}{ds}\)（即 \(a = v\,dv/ds\)），并讲「\(\dfrac{ds}{dt} = v\) 来自 01 运动的描述」。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>链式 vs 乘法区分</span> 能用一句话区分：链式 = 「函数套函数」；乘法 = 「两个函数相乘」。主动谈到是亮点/没提到不扣分。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="prep-card">
+  <h3>怎么准备 · 进阶组专用建议</h3>
+  <ul>
+    <li><strong>带 04 + 05 两份推导手稿</strong>。把任务卡里写过的「5 段推导」和「极限版 4 步推导」整理成两张 A4 纸，口试时摊开讲。流程 ③ 教师可能让你<strong>合上手稿口头复述</strong>关键转折，这是进阶组铁律。</li>
+    <li><strong>主问 2 / 主问 4 至少练一条到「独立口头复述」程度</strong>。教师抽到的 3 条里必含这两条中至少一条；建议两条都练熟。复述时<strong>不能翻手稿照念</strong>，可以同步在纸上写关键式（差分式、中值定理、极限）。</li>
+    <li><strong>盯紧两座「隐藏桥梁」</strong>：① 牛顿-莱布尼茨 5 段推导里，「函数连续性」到底用在<strong>第几段</strong>？（提示：取极限那一步）② 链式 4 步推导里，「\(\Delta x \to 0 \Rightarrow \Delta u \to 0\)」靠什么？（提示：可导 ⇒ 连续）这两座桥梁是追问的命门。</li>
+    <li><strong>不要背最终公式</strong>。教师第一刀往往是「这一步为什么能这么写？用了哪条工具？」—— 把每一步的「为什么 + 用到的工具名」想清楚，比记住公式表更重要。</li>
+    <li><strong>主问 5 的「\(\omega^2\) 怎么来的」要会拆</strong>。两次求导调用了两次链式，每次贡献一个 \(\omega\)；提前在纸上分两步显式圈出每次内导，避免临场漏 \(\omega\) 或漏负号。</li>
+    <li><strong>边界标 ⭐（银）的不强求</strong>：主动谈到是亮点，没提到也不扣分。</li>
+    <li><strong>讲思路 ＞ 算对数值</strong>。教师听的是「推导链你能不能自己拉出来 + 关键步骤能不能讲清根据」，比说出唯一正确数值更重要。</li>
+  </ul>
+</section>
+
+<!-- bottom-nav · 仅引用 task-cards 相关学生页, 严禁指向 canonical-teacher-template -->
+<nav class="bottom-nav">
+  <a href="../index.html">⬅ 返回主页</a>
+  <a href="../牛顿-莱布尼茨公式/04_牛莱公式.html">📖 牛顿-莱布尼茨公式</a>
+  <a href="../导数的链式法则/05_链式法则.html">📖 导数的链式法则</a>
+</nav>
+
+<footer>蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 深度口试 · B 进阶组 · oral-exam Skill v0.1.0</footer>
+
+</div>
+
+<script>
+  // KaTeX auto-render (学生版无 localStorage / picker / record)
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+</body>
+</html>

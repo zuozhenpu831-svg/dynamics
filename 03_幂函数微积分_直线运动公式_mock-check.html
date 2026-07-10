@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 幂函数的微积分 · 幂函数的微积分与直线运动公式 · 基础检测</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8; --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961; --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC; --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73;
+    --bg-primary: #ffffff; --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px; --radius-sm: 14px; --radius-btn: 16px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  .v021-banner {
+    background: var(--gold-050);
+    border-left: 3px solid var(--gold-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px 18px 56px;
+    margin-bottom: 28px;
+    font-size: 0.86rem;
+    color: var(--gold-900);
+    line-height: 1.75;
+    position: relative;
+  }
+  .v021-banner::before {
+    content: "i"; position: absolute; left: 16px; top: 18px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gold-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .v021-banner strong { color: var(--gold-900); }
+  .v021-banner-title { font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+
+  .header {
+    text-align: center; padding: 56px 32px 48px;
+    background: #fff; color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 36px;
+    position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%;
+    transform: translateX(-50%); width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--blue-500), var(--blue-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.45rem; margin-bottom: 12px;
+    color: var(--blue-700); font-weight: 700;
+    line-height: 1.5; position: relative; z-index: 1;
+  }
+  .header .h1-sub {
+    display: inline-block; font-size: 0.82rem; font-weight: 500;
+    color: var(--silver-700); margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--silver-500);
+  }
+  .header .subtitle {
+    font-size: 0.9rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  .screen {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    border-top: 3px solid var(--blue-700);
+  }
+  .screen.hidden { display: none; }
+
+  .entry-title { font-size: 1.15rem; font-weight: 700; color: var(--blue-700); margin-bottom: 18px; }
+  .entry-info { font-size: 0.9rem; color: var(--text-primary); line-height: 1.85; margin-bottom: 22px; padding-left: 22px; list-style: disc; }
+  .entry-info li { margin-bottom: 6px; }
+  .entry-info strong { color: var(--blue-700); }
+  .name-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    font-family: inherit; font-size: 0.95rem;
+    margin: 14px 0 8px; background: #fff;
+    transition: var(--transition);
+  }
+  .name-input:focus { outline: none; border-color: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .last-attempt-note {
+    background: var(--blue-050); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 16px; font-size: 0.85rem; color: var(--blue-700);
+    margin: 10px 0 18px;
+  }
+  .last-attempt-note.honor { background: var(--gold-050); border-left-color: var(--gold-700); color: var(--gold-900); }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--blue-700); color: #fff;
+    padding: 14px 32px;
+    border-radius: var(--radius-btn);
+    border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    transition: var(--transition);
+  }
+  .btn-primary:hover { background: var(--blue-900); }
+  .btn-secondary {
+    display: inline-block;
+    background: var(--silver-050); color: var(--silver-900);
+    padding: 14px 24px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--border-color); cursor: pointer;
+    font-family: inherit; font-size: 0.9rem; font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  .btn-secondary:hover { background: var(--silver-100); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+
+  .progress-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem; color: var(--silver-700);
+  }
+  .progress-name { font-weight: 600; color: var(--blue-700); }
+
+  .questions-list { }
+
+  .question {
+    --q-rich: var(--blue-900);
+    --q-mid:  var(--blue-700);
+    --q-bg:   var(--blue-050);
+    --q-tint: var(--blue-100);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--q-mid);
+  }
+  .questions-list > .question:nth-of-type(3n+2) {
+    --q-rich: var(--gold-900); --q-mid: var(--gold-700);
+    --q-bg: var(--gold-050); --q-tint: var(--gold-100);
+  }
+  .questions-list > .question:nth-of-type(3n) {
+    --q-rich: var(--silver-900); --q-mid: var(--silver-700);
+    --q-bg: var(--silver-050); --q-tint: var(--silver-100);
+  }
+
+  .q-header-circle {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--q-bg);
+    border: 2px solid var(--q-mid);
+    margin: 0 auto 32px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 22px;
+    box-sizing: border-box;
+  }
+  .q-h-num { font-size: 0.74rem; font-weight: 700; color: var(--q-rich); letter-spacing: 0.22em; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1.5px solid var(--q-mid); }
+  .q-h-type { font-size: 0.95rem; font-weight: 700; color: var(--q-rich); line-height: 1.5; }
+  .q-h-diff { font-size: 0.78rem; color: var(--q-mid); margin-top: 6px; }
+  .q-h-id { font-size: 0.75rem; color: var(--silver-700); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .q-stem { font-size: 0.95rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-primary); }
+  .q-stem strong { color: var(--q-rich); }
+
+  .q-options { margin: 14px 0 18px; }
+  .q-options label {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 0.92rem; line-height: 1.75;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .q-options label:hover { background: var(--q-bg); border-color: var(--q-mid); }
+  .q-options input { margin-top: 5px; flex-shrink: 0; accent-color: var(--q-mid); }
+  .opt-letter { font-weight: 700; color: var(--q-rich); flex-shrink: 0; }
+
+  .q-fillin {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+  }
+  .q-fillin:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-short-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+    min-height: 110px; resize: vertical;
+    line-height: 1.75;
+  }
+  .q-short-input:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-calc { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 12px; align-items: center; }
+  .q-calc-num, .q-calc-unit {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem; background: #fff;
+  }
+  .q-calc-num { flex: 1; min-width: 120px; }
+  .q-calc-unit { width: 140px; }
+  .q-calc-num:focus, .q-calc-unit:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-feedback {
+    margin-top: 18px; padding: 22px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--q-bg);
+    border-left: 3px solid var(--q-mid);
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.wrong { background: var(--gold-050); border-left-color: var(--gold-700); }
+  .q-result { font-weight: 700; color: var(--q-rich); font-size: 0.95rem; margin-bottom: 10px; }
+  .q-feedback.wrong .q-result { color: var(--gold-900); }
+  .q-fb-row { margin: 12px 0; padding: 10px 14px; border-radius: var(--radius-sm); background: #fff; border-left: 3px solid var(--q-mid); }
+  .q-fb-row strong { display: block; color: var(--q-rich); font-size: 0.86rem; margin-bottom: 4px; }
+  .q-feedback.wrong .q-fb-row strong { color: var(--gold-900); }
+  .q-fb-row p, .q-fb-row div { font-size: 0.88rem; line-height: 1.8; }
+  .q-export-label {
+    display: inline-block;
+    padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--q-tint); color: var(--q-rich);
+    border-radius: 999px; font-size: 0.78rem;
+    border: 1px solid var(--q-mid);
+  }
+  .q-anchor { margin-top: 14px; font-size: 0.86rem; color: var(--text-primary); line-height: 1.75; }
+  .q-anchor a { color: var(--blue-700); text-decoration: none; font-weight: 600; }
+  .q-anchor a:hover { text-decoration: underline; }
+
+  .result-summary { text-align: center; padding: 28px 0; }
+  .result-score { font-size: 3rem; font-weight: 800; color: var(--blue-700); line-height: 1.1; }
+  .result-score .total { font-size: 1.2rem; color: var(--silver-700); font-weight: 500; }
+  .result-pass {
+    margin-top: 12px; padding: 10px 18px; border-radius: 999px;
+    display: inline-block; font-size: 0.9rem; font-weight: 600;
+  }
+  .result-pass.pass { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-700); }
+  .result-pass.honor { background: var(--gold-050); color: var(--gold-900); border: 1px solid var(--gold-700); }
+  .result-pass.fail { background: var(--silver-050); color: var(--silver-900); border: 1px solid var(--silver-500); }
+  .result-message { font-size: 0.9rem; color: var(--text-primary); margin-top: 14px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  .weak-points-block { background: var(--blue-050); border-left: 3px solid var(--blue-700); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 22px 26px; margin: 24px 0; }
+  .weak-points-block h4 { color: var(--blue-700); font-size: 0.95rem; margin-bottom: 12px; }
+  .weak-points-block ul { padding-left: 22px; font-size: 0.88rem; line-height: 1.85; }
+
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px; text-align: center;
+    padding: 16px 18px; border-radius: 999px;
+    background: var(--silver-050); color: var(--silver-500);
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 40px 22px 36px; }
+    .header h1 { font-size: 1.18rem; }
+    .screen { padding: 24px 20px; }
+    .question { padding: 24px 22px; }
+    .q-header-circle { width: 200px; height: 200px; padding: 18px; }
+    .q-h-type { font-size: 0.85rem; }
+    .v021-banner { padding-left: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>幂函数的微积分</span>
+    <span class="sep">&gt;</span>
+    <span>幂函数的微积分与直线运动公式 · 基础检测</span>
+  </nav>
+
+  <div class="v021-banner">
+    <div class="v021-banner-title">关于本页的练习形态 · v0.1.21</div>
+    本页是<strong>HTML 模拟练习</strong>——用于学完《幂函数的微积分与直线运动公式》任务卡之后快速自测核心概念是否到位。<strong>真实的纸笔检测</strong>由学科导师线下组织、由教师批改，不在本页面内完成。本页给出自动判分仅作即时反馈用，建议每打开一次重新抽题以扩大覆盖。
+  </div>
+
+  <div class="header">
+    <h1>幂函数的微积分与直线运动公式 · 基础检测<br><span class="h1-sub">题库版 · 每考点 4 变体随机抽 1 · 总分 100 · 推荐 30-40 分钟</span></h1>
+    <div class="subtitle">70% 通过 · 90% 荣誉 · 不强制限时</div>
+  </div>
+
+  <div class="screen" id="entry-screen">
+    <div class="entry-title">开始练习</div>
+    <p style="font-size: 0.9rem; margin-bottom: 10px;">请先填写你的姓名（仅本地保存，用于显示与你的提交记录）：</p>
+    <input id="student-name" class="name-input" type="text" placeholder="请输入你的姓名" maxlength="20">
+    <div id="last-attempt-slot"></div>
+    <ul class="entry-info">
+      <li>每个考点从 4 个变体中随机抽 1 道，共抽若干题</li>
+      <li>通过：<strong>70 分</strong> · 荣誉：<strong>90 分</strong></li>
+      <li>建议用时：<strong>30-40 分钟</strong>（不强制限时）</li>
+      <li>多选题严格相等判分；填空自动去空格 / 全半角归一</li>
+      <li>提交后展示 5 字段反馈（原理 / 逻辑 / 系统连接 / 常见误区 / 扩展）</li>
+      <li>不查资料、不翻任务卡——看清自己掌握到哪一档</li>
+      <li>通过 / 荣誉一次达成永不撤销</li>
+    </ul>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="startTest()">开始练习</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="test-screen">
+    <div class="progress-bar">
+      <div>👤 <span class="progress-name" id="progress-name">—</span> · 本次抽题 <span id="picked-ids">—</span></div>
+      <div>已答 <span id="answered-count">0</span> / <span id="total-count">0</span></div>
+    </div>
+    <div class="questions-list" id="questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-primary" onclick="submitTest()">提交本次抽题</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="result-screen">
+    <div class="result-summary">
+      <div class="result-score"><span id="result-total">0</span><span class="total"> / 100</span></div>
+      <div id="result-pass-pill" class="result-pass">—</div>
+      <div class="result-message" id="result-message">—</div>
+    </div>
+    <div class="weak-points-block" id="weak-points-block" style="display:none;">
+      <h4>本次错题考点聚类（建议优先复习）</h4>
+      <ul id="weak-points-list"></ul>
+    </div>
+    <div id="result-questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-secondary" onclick="reshuffleAndStart()">🎲 重新抽题再练</button>
+      <a class="btn-secondary" href="03_幂函数微积分_直线运动公式.html">⬅ 返回任务卡复习</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="03_幂函数微积分_直线运动公式.html">📘 返回任务卡</a>
+    <span>📈 熟练度检测（暂未开放）</span>
+    <a href="A_基础口试_运动描述_极限_幂函数微积分-oral-exam.html">🎤 深度口试</a>
+    <span>📝 纸笔检测请联系导师</span>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 幂函数的微积分 · 幂函数的微积分与直线运动公式 · 基础检测 · mock-check Skill v0.1.11
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+// ===== MOCK_DATA INJECTION POINT =====
+const MOCK_DATA = {
+  EXPORT_NAMES: {
+    "E1": "幂函数求导法则 (xⁿ)′ = n·xⁿ⁻¹",
+    "E2": "导数的极限定义",
+    "E3": "定积分 = 曲线下面积（割条求和→极限）",
+    "E4": "幂函数不定积分 ∫xⁿ dx = xⁿ⁺¹/(n+1) + C",
+    "E5": "v = v₀ + at 的推导（a = dv/dt 积分）",
+    "E6": "x = v₀t + ½at² 的推导（v = dx/dt 积分）",
+    "E7": "v² = v₀² + 2ax 的推导（代数消 t 或 a·dx = v·dv）",
+    "E8": "牛莱公式作为工具（本课不证）"
+  },
+  QUESTION_BANK: {
+    T1: [
+      {
+        id: "T1-1", type: "choice", score: 20, difficulty: "基础", exportIds: ["E1"],
+        stem: "下列函数中，导数等于 \\(6x^2\\) 的是：",
+        options: { A: "\\(2x^3\\)", B: "\\(3x^2\\)", C: "\\(6x\\)", D: "\\(x^6\\)" },
+        answer: "A",
+        explanation: {
+          principle: "导数的核心是「瞬时变化率」。对幂函数 \\(x^n\\)，由极限定义可推出 \\((x^n)' = n x^{n-1}\\)——「系数下来、指数减一」。",
+          logic: "\\((2x^3)' = 2 \\cdot 3 x^2 = 6x^2\\) ✓。B 选项 \\((3x^2)' = 6x\\) 而非 \\(6x^2\\)；C 选项 \\((6x)' = 6\\)；D 选项 \\((x^6)' = 6 x^5\\)。只有 A 满足。",
+          connection: "本题考查 (xⁿ)′ 法则的<strong>反向应用</strong>——已知导数找原函数，正是下一课「不定积分」的雏形。卡 1 STEP 4 推出此法则，卡 2 STEP 3 把它反过来用，本题正处在两者衔接处。"
+        },
+        mistakes: "易错点：把「系数下来」漏掉，或把「指数减一」误为「指数加一」。区分关键：求导是降幂操作（x³ → x²），积分是升幂操作（x → ½x²）。",
+        extension: "若把 \\(x^n\\) 换成 \\(\\sin x\\) 或 \\(e^x\\)，导数规则完全不同——本课只覆盖幂函数，其他类型留待后续学科扩展。",
+        cardAnchor: "卡 1 STEP 4 · (xⁿ)′ = n·xⁿ⁻¹"
+      },
+      {
+        id: "T1-2", type: "choice", score: 20, difficulty: "基础", exportIds: ["E1"],
+        stem: "已知 \\(f(x) = 4 x^3 - 5 x^2 + 7\\)，则 \\(f'(x) = \\)：",
+        options: { A: "\\(12 x^2 - 10 x\\)", B: "\\(12 x^2 - 10 x + 7\\)", C: "\\(4 x^2 - 5 x\\)", D: "\\(12 x^3 - 10 x^2\\)" },
+        answer: "A",
+        explanation: {
+          principle: "幂函数求导法则 + 线性法则：\\((a f + b g)' = a f' + b g'\\)；常数函数导数为 0。",
+          logic: "逐项求导：\\((4 x^3)' = 12 x^2\\)；\\((-5 x^2)' = -10 x\\)；\\((7)' = 0\\)（常数）。相加得 \\(12 x^2 - 10 x\\)。B 错在保留了常数项 7；C 错在没把系数算上来；D 错在指数没减 1。",
+          connection: "线性法则让多项式求导变得「逐项独立」——这是后面卡 4 推 \\(x=v_0 t+\\tfrac{1}{2} a t^2\\) 时「逐项积分」思路的镜像版。"
+        },
+        mistakes: "易错点：忘记常数的导数是 0（把 7 误留下）；或把整体当成一个 x³ 项漏算其他项。每项独立处理，系数照搬，指数减 1。",
+        extension: "线性法则也适用于积分：\\(\\int (a f + b g)\\,dx = a \\int f\\,dx + b \\int g\\,dx\\)。这是卡 4 推 x(t) 公式时使用的核心技巧。",
+        cardAnchor: "卡 1 STEP 4 · 常用导数表与线性法则"
+      },
+      {
+        id: "T1-3", type: "fill", score: 20, difficulty: "中等", exportIds: ["E1", "E2"],
+        stem: "用极限定义推 \\((x^2)' = 2x\\)。填空：\\(\\displaystyle (x^2)' = \\lim_{\\Delta x \\to 0} \\frac{(x+\\Delta x)^2 - x^2}{\\Delta x} = \\lim_{\\Delta x \\to 0} \\frac{2x\\,\\Delta x + (\\Delta x)^2}{\\Delta x} = \\lim_{\\Delta x \\to 0} (\\,\\underline{\\;\\;[1]\\;\\;}\\,) = \\underline{\\;\\;[2]\\;\\;}\\)。",
+        blanks: ["2x+Δx", "2x"],
+        answer: [
+          ["2x+Δx", "2x + Δx", "2x+\\Delta x", "2x + \\Delta x"],
+          ["2x", "2 x"]
+        ],
+        explanation: {
+          principle: "导数定义里「先约分，再代极限值」是关键操作：\\(\\Delta x\\) 永远不等于 0，只趋近 0，所以能约分。",
+          logic: "分子展开后 \\(x^2\\) 抵消，剩 \\(2x \\Delta x + (\\Delta x)^2\\)；与分母 \\(\\Delta x\\) 同时约掉一个 \\(\\Delta x\\)，得 \\(2x + \\Delta x\\)；再令 \\(\\Delta x \\to 0\\) 得 2x。",
+          connection: "这是<strong>导数定义的可视化</strong>——定义本身是抽象的极限式，但通过「展开」「约分」「代极限」三步能落到具体数值。卡 1 STEP 3 就是此推导。后面 \\((x^n)' = n x^{n-1}\\) 的一般证明用二项式定理重复同样模式。"
+        },
+        mistakes: "易错点 1：不写「约分前提是 Δx ≠ 0」而被严谨学生质疑。易错点 2：直接代 Δx = 0 而出现 0/0。",
+        extension: "若把 \\(x^2\\) 换成 \\(x^3\\)，立方展开式 \\((x + \\Delta x)^3 = x^3 + 3 x^2 \\Delta x + 3 x (\\Delta x)^2 + (\\Delta x)^3\\) 同样能约分得 \\(3 x^2 + 3 x \\Delta x + (\\Delta x)^2\\) → 极限 \\(3 x^2\\)。",
+        cardAnchor: "卡 1 STEP 3 · 推 (x²)′"
+      },
+      {
+        id: "T1-4", type: "multi", score: 20, difficulty: "较难", exportIds: ["E1"],
+        stem: "下列关于幂函数求导法则 \\((x^n)' = n x^{n-1}\\) 的说法，正确的是（多选 · 严格相等）：",
+        options: {
+          A: "对 \\(n = 0\\)，即 \\(x^0 = 1\\)（常数 1），导数为 \\(0 \\cdot x^{-1} = 0\\)，与「常数导数为 0」一致。",
+          B: "对 \\(n = 1\\)，\\((x)' = 1 \\cdot x^0 = 1\\)。",
+          C: "对负指数（如 \\(n = -2\\)），公式仍然成立：\\((x^{-2})' = -2 x^{-3}\\)。",
+          D: "公式只对正整数 n 成立，对负数或小数不成立。"
+        },
+        answer: ["A", "B", "C"],
+        explanation: {
+          principle: "(xⁿ)′ = n·xⁿ⁻¹ 对所有实数 n 都成立（前提是 x 在定义域内）。这一普适性是幂函数导数的强大之处。",
+          logic: "A 对（约定 x⁰ = 1，导数为 0）；B 对（x¹ 的导数是 1）；C 对（负指数也成立，如 1/x² = x⁻² 的导数是 -2/x³）；D 错（公式对实数 n 都成立，本课只验证整数，但学过链式法则后可证明任意实数）。",
+          connection: "这就是 \\(\\int x^n\\,dx = \\dfrac{x^{n+1}}{n+1}+C\\) 中「\\(n \\neq -1\\)」例外的<strong>正面理由</strong>——求导法则成立但反过来求原函数时 \\(n = -1\\) 会让分母为 0。"
+        },
+        mistakes: "易错点：以为法则只对自然数 n 成立而排除 C。事实上正整数与负整数与有理数甚至无理数指数都遵守同一法则。",
+        extension: "对 \\(x^{1/2} = \\sqrt{x}\\)，\\((\\sqrt{x})' = \\tfrac{1}{2} x^{-1/2} = \\dfrac{1}{2 \\sqrt{x}}\\)——同一法则的小数指数版本。",
+        cardAnchor: "卡 1 STEP 4 · 法则适用范围"
+      }
+    ],
+    T2: [
+      {
+        id: "T2-1", type: "choice", score: 20, difficulty: "基础", exportIds: ["E3"],
+        stem: "在匀加速直线运动中，v-t 图象下方与时间轴在 \\([0, T]\\) 围成的面积（如下金色区域），物理意义是：<br><svg viewBox=\"0 0 400 220\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:400px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"180\" x2=\"380\" y2=\"180\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"380,180 372,176 372,184\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"180\" x2=\"50\" y2=\"20\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,20 46,28 54,28\" fill=\"#1e40af\"/><text x=\"383\" y=\"195\" font-size=\"14\">t</text><text x=\"25\" y=\"25\" font-size=\"14\">v</text><text x=\"40\" y=\"195\" font-size=\"12\">0</text><line x1=\"320\" y1=\"180\" x2=\"320\" y2=\"185\" stroke=\"#1e40af\"/><text x=\"316\" y=\"198\" font-size=\"12\">T</text><line x1=\"50\" y1=\"140\" x2=\"45\" y2=\"140\" stroke=\"#1e40af\"/><text x=\"22\" y=\"144\" font-size=\"12\">v₀</text><line x1=\"50\" y1=\"60\" x2=\"45\" y2=\"60\" stroke=\"#1e40af\"/><text x=\"18\" y=\"64\" font-size=\"12\">v_T</text><line x1=\"50\" y1=\"60\" x2=\"320\" y2=\"60\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><line x1=\"320\" y1=\"180\" x2=\"320\" y2=\"60\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><polygon points=\"50,180 50,140 320,60 320,180\" fill=\"#fef3c7\" stroke=\"none\"/><line x1=\"50\" y1=\"140\" x2=\"320\" y2=\"60\" stroke=\"#dc2626\" stroke-width=\"2.2\"/><circle cx=\"50\" cy=\"140\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"320\" cy=\"60\" r=\"3\" fill=\"#dc2626\"/><text x=\"165\" y=\"130\" font-size=\"13\" fill=\"#a16207\" font-weight=\"bold\">面积 = ?</text></svg>",
+        options: { A: "加速度", B: "平均速度", C: "位移", D: "瞬时速率的最大值" },
+        answer: "C",
+        explanation: {
+          principle: "把 v-t 图切成无穷多个宽度为 \\(dt\\) 的细条，每条面积 \\(v \\cdot dt\\) = 这一小段时间内的位移；所有细条面积之和 = 总位移。形式上写作 \\(\\displaystyle x = \\int_0^T v\\,dt\\)。",
+          logic: "A 错：加速度 a 是 v-t 图的<strong>斜率</strong>，不是面积。B 错：平均速度是 v-t 图的<strong>高度均值</strong>。D 错：最大速率读 v-t 图最高点。C 是唯一正确的几何含义。",
+          connection: "这条几何对应是<strong>本课的灵魂</strong>——它把卡 4 的 \\(\\dfrac{1}{2}\\) 从抽象的积分公式连到具体的「三角形面积」。学透此对应后，自由落体与抛体竖直方向位移都能「看图直接读出」。"
+        },
+        mistakes: "易错点：把面积当成「路程」而非「位移」——当速度有正负时，正面积是正向位移与负面积是反向位移，代数和才是真位移。本题 v ≥ 0 不用考虑此细节。",
+        extension: "若 a-t 图象呢？a-t 图下方面积 = 速度的变化量 \\(\\Delta v\\)，因为 \\(\\int a\\,dt = \\Delta v\\)。每一层导数关系都对应一层「面积 = 累积量」。",
+        cardAnchor: "卡 2 STEP 1 · v-t 图位移的几何直觉"
+      },
+      {
+        id: "T2-2", type: "calc", score: 20, difficulty: "基础", exportIds: ["E4"],
+        stem: "计算定积分 \\(\\displaystyle \\int_0^2 3 x^2\\,dx = \\)？（写出数值，无需单位）",
+        answer: { value: 8, unit: "", tolerance: 0.05 },
+        explanation: {
+          principle: "用反求导找原函数：\\(\\int 3 x^2\\,dx = x^3 + C\\)（验证：\\((x^3)' = 3 x^2\\) ✓）。",
+          logic: "定积分 \\(\\int_0^2 3 x^2\\,dx = [x^3]_0^2 = 2^3 - 0^3 = 8\\)。也可用面积验证：曲线 \\(y = 3 x^2\\) 在 \\([0, 2]\\) 下方面积，用割条求和→极限同样得 8。",
+          connection: "本题是<strong>牛莱公式作为工具</strong>的一次实操——本课承认它好用但不证明，下一课会从积分上限函数 \\(S(x) = \\int_0^x f(t)\\,dt\\) 严格证明 \\(S'(x) = f(x)\\) 进而推出 \\(\\int_a^b f = F(b) - F(a)\\)。"
+        },
+        mistakes: "易错点 1：忘了「上限代入 - 下限代入」的<strong>减法</strong>顺序，得到 \\(0 - 8 = -8\\)。易错点 2：常数 C 在定积分里会抵消，不要纠结。",
+        extension: "若定积分下限非 0（如 \\(\\int_1^2 3 x^2\\,dx = [x^3]_1^2 = 8 - 1 = 7\\)），仍套同一公式。",
+        cardAnchor: "卡 2 STEP 3 · 不定积分公式与牛莱工具"
+      },
+      {
+        id: "T2-3", type: "fill", score: 20, difficulty: "中等", exportIds: ["E4"],
+        stem: "填空：\\(\\displaystyle \\int x^5\\,dx = \\underline{\\;\\;[1]\\;\\;} + C\\)；\\(\\displaystyle \\int (2 t + 3)\\,dt = \\underline{\\;\\;[2]\\;\\;} + C\\)。（填表达式，不写 C 本身。第 ② 空可写 \\(t^2+3t\\) 或 \\(3t+t^2\\)）",
+        blanks: ["x^6/6", "t^2+3t"],
+        answer: [
+          ["x^6/6", "(1/6)x^6", "x^6 / 6", "\\frac{x^6}{6}"],
+          ["t^2+3t", "t^2 + 3t", "3t+t^2", "3t + t^2"]
+        ],
+        explanation: {
+          principle: "幂函数不定积分：\\(\\int x^n\\,dx = \\dfrac{x^{n+1}}{n+1} + C\\)（\\(n \\neq -1\\)）。线性法则：\\(\\int (a f + b g)\\,dx = a \\int f + b \\int g\\)。",
+          logic: "① n = 5 → 答 \\(x^6 / 6\\)。② 拆成 \\(\\int 2t\\,dt + \\int 3\\,dt = t^2 + 3t\\)。",
+          connection: "本题是卡 2 STEP 3「反求导直觉」的练习场。学会拆项与套公式后，卡 4 推 \\(\\int (v_0+a t)\\,dt = v_0 t+\\tfrac{1}{2} a t^2\\) 就是同款操作的物理版。"
+        },
+        mistakes: "易错点 1：分母漏写或写错（误为 5 而非 6）。易错点 2：把常数 3 当作变量积分（写成 \\(3 t^2 / 2\\)，错；常数积分 = 常数·t）。",
+        extension: "若被积函数是 \\(t^{-2}\\)（n = -2），\\(\\int t^{-2}\\,dt = t^{-1}/(-1) + C = -1/t + C\\)——n 是负数也适用，只要 n ≠ -1。",
+        cardAnchor: "卡 2 STEP 3 · ∫ xⁿ dx 公式"
+      },
+      {
+        id: "T2-4", type: "multi", score: 20, difficulty: "较难", exportIds: ["E3", "E4", "E8"],
+        stem: "下列关于「定积分等于曲线下面积」的说法，正确的是（多选 · 严格相等）：",
+        options: {
+          A: "面积语义是「分割→近似→求和→取极限」的结果，与具体被积函数形式无关。",
+          B: "通过牛顿-莱布尼茨公式可以不必每次都做「割条求和」，直接 \\(F(b) - F(a)\\) 即可。",
+          C: "本课已经证明了牛莱公式，可以放心使用。",
+          D: "若 \\(f(x) &lt; 0\\)，则定积分为负值，几何上代表「轴下方面积」的相反数。"
+        },
+        answer: ["A", "B", "D"],
+        explanation: {
+          principle: "定积分的<strong>语义</strong>来自割条求和→极限，与被积函数形式无关；牛莱公式是<strong>计算工具</strong>，不动语义只提速度。",
+          logic: "A 对（语义普适）；B 对（牛莱公式正是为了避免每次都积一遍极限）；C 错（本课说明「牛莱只是工具，证明留给下一课」）；D 对（有向面积的代数含义）。",
+          connection: "C 的「陷阱」是本课的<strong>教学诚实</strong>之处——把「会用」和「会证」分开。卡 2 STEP 3 末段明确写「牛莱公式本课只当工具用，下一课正式证明」，这与「基础知识的可推导性」原则一致。"
+        },
+        mistakes: "C 的迷惑性最强：因为我们已经「用」了牛莱公式（卡 2 末验证 \\(\\int_0^3 2t\\,dt = 9\\)），容易误以为已经「证」过了。本课特意把这道「墙」留给下一课。",
+        extension: "下一课会从 \\(S(x) = \\int_a^x f\\,dt\\) 入手，证明 \\(S'(x) = f(x)\\)，再推出 \\(F(b) - F(a)\\)。本课不展开。",
+        cardAnchor: "卡 2 STEP 3 · 牛莱仅做工具一句话"
+      }
+    ],
+    T3: [
+      {
+        id: "T3-1", type: "choice", score: 20, difficulty: "基础", exportIds: ["E5"],
+        stem: "已知一物体做匀加速直线运动，初速度 \\(v_0 = 3\\) m/s，加速度 \\(a = 2\\) m/s²。第 5 秒末的速度是：",
+        options: { A: "10 m/s", B: "13 m/s", C: "15 m/s", D: "16 m/s" },
+        answer: "B",
+        explanation: {
+          principle: "v = v₀ + at 来自 \\(a = dv/dt\\) 对时间的积分，初始条件 \\(v(0) = v_0\\)。",
+          logic: "代入：\\(v = 3 + 2 \\times 5 = 13\\) m/s。A 错在忘了加 v₀；C 把 t 当 6 算（「第 5 秒」是 t=5 s 末，不是 t=6 s）；D 是 v₀ + at + 误算。",
+          connection: "本题是 v = v₀+at 的<strong>正向代入</strong>。学会推导链路（卡 3 STEP 2 的 3 行）后，记忆压力降到零——下次只需重推。"
+        },
+        mistakes: "易错点：「第 5 秒末」对应 t = 5 s 而非 t = 6 s。「第 n 秒」是第 n 秒这一秒钟（开始于 t = n-1，结束于 t = n）；「第 n 秒末」是结束时刻 t = n。",
+        extension: "若已知末速度求初速度（如 v = 13, a = 2, t = 5 求 v₀），代入移项得 v₀ = v - at = 13 - 10 = 3，同公式反向用。",
+        cardAnchor: "卡 3 STEP 2 · 公式 v = v₀+at"
+      },
+      {
+        id: "T3-2", type: "choice", score: 20, difficulty: "基础", exportIds: ["E5"],
+        stem: "一辆汽车以 20 m/s 行驶，开始以 \\(-4\\) m/s² 匀减速刹车。问刹车后多少秒速度变为零？",
+        options: { A: "3 s", B: "4 s", C: "5 s", D: "6 s" },
+        answer: "C",
+        explanation: {
+          principle: "刹车是匀减速直线运动，加速度方向与速度方向相反、取负号。仍套 v = v₀ + at。",
+          logic: "令 v = 0：\\(0 = 20 + (-4) \\cdot t\\) → \\(t = 20 / 4 = 5\\) s。",
+          connection: "正负号约定（取初速方向为正，a 反向时取负）是矢量在一维上的简化。卡 3 STEP 3「物理含义」段强调先约定正方向再代入。"
+        },
+        mistakes: "易错点 1：把 a 写成正 4（忘了减速时 a 与 v 反向）。易错点 2：刹车停下后<strong>不再倒退</strong>——v = 0 之后 a 不再起作用，公式只用到 t = 5 s 为止。",
+        extension: "若问「6 s 时速度多少」，<strong>公式给出 -4 m/s</strong>，但物理上汽车 5 s 已停，6 s 仍停。这是「公式适用边界」的典型例子。",
+        cardAnchor: "卡 3 STEP 3 · 物理含义（方向）"
+      },
+      {
+        id: "T3-3", type: "fill", score: 20, difficulty: "中等", exportIds: ["E5"],
+        stem: "完成 v = v₀ + at 的推导填空：起点 \\(a = \\dfrac{dv}{dt}\\)（a 为常数）；两边对 t 不定积分得 \\(v = \\underline{\\;\\;[1]\\;\\;} + C\\)；由初始条件 \\(v(0) = v_0\\) 得 \\(C = \\underline{\\;\\;[2]\\;\\;}\\)。",
+        blanks: ["at", "v0"],
+        answer: [
+          ["at", "a t", "a*t", "a·t"],
+          ["v0", "v_0", "v₀"]
+        ],
+        explanation: {
+          principle: "积分 \\(\\int a\\,dt = a t + C\\)（常数 a 可提到积分外，\\(\\int dt = t\\)）；初始条件确定常数 C 的具体值。",
+          logic: "① 套不定积分得 \\(v = a t + C\\)。② 代入 t = 0：\\(v_0 = a \\cdot 0 + C = C\\)，所以 C = v₀。合并：v = v₀ + at。",
+          connection: "本题是<strong>「会推三公式」的核心练习</strong>——比记忆公式本身重要 10 倍。掌握后，遇到 a 不是常数的情形（如弹簧或阻力运动）也能套用同一思路。"
+        },
+        mistakes: "易错点：不写 + C 直接得到 v = at（错，遗漏初始速度）。「初始条件」是积分推导的灵魂。",
+        extension: "若初始时刻不是 t = 0 而是 t = t₀，公式变 \\(v = v_0 + a (t - t_0)\\)——同一推导只改「代入」的时刻。",
+        cardAnchor: "卡 3 STEP 2 · 推导公式 v = v₀+at"
+      },
+      {
+        id: "T3-4", type: "multi", score: 20, difficulty: "较难", exportIds: ["E5"],
+        stem: "下列关于 \\(v = v_0 + at\\) 的说法正确的是（多选 · 严格相等）：",
+        options: {
+          A: "公式适用于<strong>匀加速</strong>直线运动；若 a 随时间变化，需要重新积分 \\(v = v_0 + \\int_0^t a(t')\\,dt'\\)。",
+          B: "公式中的 \\(v_0\\) 既可以是正数也可以是负数，取决于约定的「正方向」。",
+          C: "若 a 与 v₀ 反向（刹车），t 的合理范围是 \\([0, v_0 / |a|]\\)，超过此范围公式不再代表物理实际。",
+          D: "公式来自 a = dv/dt 对 t 求导得到。"
+        },
+        answer: ["A", "B", "C"],
+        explanation: {
+          principle: "公式适用前提（匀加速）+ 矢量约定（正方向）+ 边界条件（刹车停下后无意义）三者构成「会用公式」的完整图景。",
+          logic: "A 对（强调「匀」）；B 对（一维矢量靠正负表示方向）；C 对（刹车停下后公式给负速度但物理不真实）；D 错（公式来自 a = dv/dt 对 t 的<strong>积分</strong>，不是求导）。",
+          connection: "D 是「求导 vs 积分」概念混淆的经典陷阱——三公式都来自<strong>对加速度积分</strong>而非对加速度求导。卡 3 STEP 2 的推导链路是关键。"
+        },
+        mistakes: "D 的迷惑性强：因为「a = dv/dt」是<strong>导数</strong>形式，容易误以为「v 来自 a 求导」。实际上要从 a 反推 v 必须用<strong>积分</strong>（求导的逆操作）。",
+        extension: "如果 a(t) = kt（线性增加的加速度），\\(v = v_0 + \\int_0^t k t'\\,dt' = v_0 + \\tfrac{1}{2} k t^2\\)——非匀加速时公式要重新推。",
+        cardAnchor: "卡 3 STEP 1-3 · 推导路径与物理含义"
+      }
+    ],
+    T4: [
+      {
+        id: "T4-1", type: "calc", score: 20, difficulty: "基础", exportIds: ["E6"],
+        stem: "物体由静止开始（\\(v_0 = 0\\)），以 \\(a = 2\\) m/s² 匀加速运动 3 s。位移是多少米？（填数值）",
+        answer: { value: 9, unit: "", tolerance: 0.05 },
+        explanation: {
+          principle: "x = v₀t + ½at²；v₀ = 0 时退化为 x = ½at²。",
+          logic: "x = 0 + ½ × 2 × 3² = ½ × 2 × 9 = 9 m。",
+          connection: "本题数值与卡 2 STEP 2 的「割条求和→极限」结果（9 m）<strong>完全一致</strong>——这正是「位移 = v-t 图面积」的实证。三角形面积 = ½ × 底 × 高 = ½ × 3 × 6 = 9 m，同样的 9。"
+        },
+        mistakes: "易错点：把 t² 误算成 6（即 t × 2）。立方与平方混淆是低年级常见错。",
+        extension: "若 v₀ ≠ 0（如 v₀ = 1，a = 2，t = 3），则 x = 1·3 + ½·2·9 = 3 + 9 = 12 m——多了一个「匀速分量 v₀·t」。",
+        cardAnchor: "卡 4 STEP 1 · 推导与数值验证"
+      },
+      {
+        id: "T4-2", type: "choice", score: 20, difficulty: "基础", exportIds: ["E6"],
+        stem: "公式 \\(x = v_0 t + \\tfrac{1}{2} a t^2\\) 中「\\(\\tfrac{1}{2}\\)」的几何来源是：",
+        options: {
+          A: "v-t 图中的三角形面积公式（½ × 底 × 高）",
+          B: "圆面积公式中的 π",
+          C: "勾股定理中的开方",
+          D: "纯属代数约定，无几何含义"
+        },
+        answer: "A",
+        explanation: {
+          principle: "v-t 图下方在 \\([0, t]\\) 是一个梯形——下底 v₀、上底 v₀ + at、高 = t。把梯形拆成下矩形（v₀ · t）+ 上三角形（½ · at · t），三角形面积公式贡献了 ½。",
+          logic: "A 正确（梯形面积的几何拆分给出 ½）。B 与 C 与 D 都与本场景无关。",
+          connection: "本题是<strong>「代数公式 ↔ 几何图象」对应关系</strong>的考查。卡 4 STEP 2 用 SVG 把梯形拆解可视化。理解此对应后，三公式不再是要记的字符串，而是「看图就能读出」的几何事实。"
+        },
+        mistakes: "易错点：在公式 x = v₀t + ½at² 里「½」是一个分数符号，许多学生把它当成「约定俗成」的固定值——其实它有两重身份：① 幂函数积分 \\(\\int t\\,dt = \\tfrac{1}{2} t^2\\)；② 三角形面积 ½ × 底 × 高。两者本质同源。",
+        extension: "若加速度变化（如 a(t) = 2t），v-t 图变曲线，下方面积要积分算；但只要 v(0) = 0，「½」仍然以面积公式形式出现（曲线下方面积常含 1/3, 1/4 等分数）。",
+        cardAnchor: "卡 4 STEP 2 · 几何解释 · ½ 的来源"
+      },
+      {
+        id: "T4-3", type: "fill", score: 20, difficulty: "中等", exportIds: ["E6"],
+        stem: "推导 \\(x = v_0 t + \\tfrac{1}{2} a t^2\\) 填空：由 \\(v = dx/dt\\) 与 \\(v = v_0 + at\\) 得 \\(dx/dt = v_0 + at\\)；两边对 t 积分得 \\(x = \\underline{\\;\\;[1]\\;\\;} + C\\)；用初始条件 \\(x(0) = 0\\) 得 \\(C = \\underline{\\;\\;[2]\\;\\;}\\)。",
+        blanks: ["v_0*t + (1/2)a*t^2", "0"],
+        answer: [
+          ["v_0*t + (1/2)a*t^2", "v0*t+(1/2)at^2", "v_0 t + (1/2) a t^2", "v0 t + 0.5 a t^2", "v_0 t + a t^2 / 2", "v0*t + a*t^2/2"],
+          ["0"]
+        ],
+        explanation: {
+          principle: "线性法则：\\(\\int (v_0 + a t)\\,dt = v_0 \\int dt + a \\int t\\,dt = v_0 t + \\tfrac{1}{2} a t^2\\)。常数项 v₀ 与 a 都可提到积分外。",
+          logic: "① \\(v_0 t + \\tfrac{1}{2} a t^2\\)。② x(0) = 0 代入：0 = 0 + 0 + C → C = 0。所以 x = v₀t + ½at²。",
+          connection: "<strong>「x(0) = 0」是位移约定</strong>——把起点设为坐标原点。如果起点不是原点（如 x(0) = x₀），公式变 \\(x = x_0+v_0 t+\\tfrac{1}{2} a t^2\\)。"
+        },
+        mistakes: "易错点 1：分项积分时把 \\(\\int t\\,dt\\) 算成 t（漏 ½）。易错点 2：常数 v₀ 不提出积分而被错积成 \\(\\tfrac{1}{2} v_0 t^2\\)。",
+        extension: "若初始位移 \\(x_0 \\neq 0\\)，公式 \\(x = x_0 + v_0 t + \\tfrac{1}{2} a t^2\\)——加上初始位移项即可。这是后续学习「参考系选择」的入口。",
+        cardAnchor: "卡 4 STEP 1 · 代数推导 4 行"
+      },
+      {
+        id: "T4-4", type: "calc", score: 20, difficulty: "较难", exportIds: ["E6"],
+        stem: "汽车初速度 \\(v_0 = 10\\) m/s，加速度 \\(a = 2\\) m/s²，匀加速行驶。第 4 秒末汽车的位移是多少米？（填数值）",
+        answer: { value: 56, unit: "", tolerance: 0.05 },
+        explanation: {
+          principle: "x = v₀t + ½at²，把 t = 4 代入。注意「第 4 秒末」= t = 4 s。",
+          logic: "x = 10 × 4 + ½ × 2 × 4² = 40 + ½ × 2 × 16 = 40 + 16 = 56 m。",
+          connection: "本题验证了三公式的<strong>组合使用</strong>——若先用 v = v₀+at 算 t=4 时速度 = 18 m/s，再用梯形面积 \\(\\tfrac{1}{2}(10+18) \\times 4 = 56\\) m 也得同样答案。两条路径在匀加速下永远等价。"
+        },
+        mistakes: "易错点：「第 4 秒」和「第 4 秒末」含义不同：第 4 秒是 t ∈ [3, 4] 这一秒钟，第 4 秒末是 t = 4 s。汉语精度坑。",
+        extension: "本题若只问「前 4 秒平均速度」，可用梯形面积 / 时间 = 56 / 4 = 14 m/s = (v₀ + v) / 2——匀变速运动下平均速度等于「始末速度的算术平均」，是 v-t 图梯形的另一种几何读法。",
+        cardAnchor: "卡 4 STEP 2 · 几何路径（梯形面积）"
+      }
+    ],
+    T5: [
+      {
+        id: "T5-1", type: "calc", score: 20, difficulty: "基础", exportIds: ["E7"],
+        stem: "物体由静止开始（\\(v_0 = 0\\)），以 \\(a = 2\\) m/s² 匀加速运动，经过 9 m 后速度是多少？（填数值，单位 m/s）",
+        answer: { value: 6, unit: "", tolerance: 0.05 },
+        explanation: {
+          principle: "v² = v₀² + 2ax 是不显含 t 的运动学公式，特别适合「给位移求速度」或「给速度求位移」的情形。",
+          logic: "代入：v² = 0 + 2 × 2 × 9 = 36，v = 6 m/s。",
+          connection: "本题数值与卡 3 数值题（v(3) = 6 m/s）<strong>完全一致</strong>——同一物理过程从两个不同公式入手得到一致结果。本课<strong>所有数值都设计成自洽</strong>，验证三公式的内在一致性。"
+        },
+        mistakes: "易错点：开方时忘记取正根（在本题语境下 v ≥ 0）。",
+        extension: "若已知 v 求 x：从 v² = 0 + 2ax 解 x = v²/(2a)。如 v = 10 m/s、a = 2 m/s² → x = 25 m。",
+        cardAnchor: "卡 5 STEP 1 · v² = v₀²+2ax"
+      },
+      {
+        id: "T5-2", type: "choice", score: 20, difficulty: "基础", exportIds: ["E7"],
+        stem: "用公式 \\(v^2 = v_0^2 + 2ax\\) 解题时，下列情景<strong>不能</strong>直接应用此公式的是：",
+        options: {
+          A: "已知 v₀, a, t 求 v",
+          B: "已知 v₀, a, x 求 v",
+          C: "已知 v, v₀, a 求 x",
+          D: "已知 v, v₀, x 求 a"
+        },
+        answer: "A",
+        explanation: {
+          principle: "v² = v₀² + 2ax 的<strong>四个量</strong>是 v, v₀, a, x；<strong>不含 t</strong>。已知 t 的题应该用 v = v₀ + at。",
+          logic: "B 与 C 与 D 都是公式的四个量中已知三个求第四个，可直接用。A 给的是 t，公式里没有 t，要用 v = v₀ + at。",
+          connection: "三公式各有<strong>看家本领</strong>——选公式的诀窍是看「题目给了什么，要的什么」。<br>选公式表：<br>给 t 求 v 或反 → v = v₀ + at（卡 3）<br>给 t 求 x 或反 → x = v₀t + ½at²（卡 4）<br>给 x 求 v 或反（无 t）→ v² = v₀² + 2ax（卡 5）"
+        },
+        mistakes: "易错点：盲目尝试每条公式而不分析「已知/未知」组合。本题考查「<strong>选公式的元认知</strong>」。",
+        extension: "如果同时给 t 和 x 求 v，三公式哪条都行——但 v = v₀ + at 最快，运算最少。",
+        cardAnchor: "卡 5 STEP 1 · 公式适用情形"
+      },
+      {
+        id: "T5-3", type: "fill", score: 20, difficulty: "中等", exportIds: ["E7"],
+        stem: "用代数法推 \\(v^2 = v_0^2 + 2ax\\) 填空：由公式 ① \\(v = v_0 + at\\) 解出 \\(t = \\underline{\\;\\;[1]\\;\\;}\\)，代入公式 ② \\(x = v_0 t + \\tfrac{1}{2} a t^2\\)，化简后两边乘 \\(2a\\) 得 \\(2 a x = v^2 - \\underline{\\;\\;[2]\\;\\;}\\)。",
+        blanks: ["(v-v_0)/a", "v_0^2"],
+        answer: [
+          ["(v-v_0)/a", "(v - v_0)/a", "(v - v_0) / a", "(v-v0)/a"],
+          ["v_0^2", "v0^2", "v_0²", "v₀²", "v_0 ^ 2"]
+        ],
+        explanation: {
+          principle: "代数消 t 法：从公式 ① 解出 t，代入公式 ② 消掉 t，得到只含 v, v₀, a, x 的关系。",
+          logic: "① t = (v - v₀)/a。代入 ② 后展开化简，t 项相互抵消，仅剩 v² - v₀²。具体推导见卡 5 STEP 1。",
+          connection: "这条<strong>消 t 路径</strong>是代数派的解法。微积分派可用 \\(a\\,dx = v\\,dv\\) 直接定积分得同样结论（卡 5 STEP 2）。两路径在 a 为常数时等价。"
+        },
+        mistakes: "易错点 1：从公式 ① 解 t 时把分子分母颠倒。易错点 2：代入 ② 后展开漏项（\\((v - v_0)^2 = v^2 - 2 v_0 v + v_0^2\\) 别漏中间项）。",
+        extension: "若 a 不为常数（如弹簧 a = -kx/m），代数消 t 法失效；只能用微积分路径 \\(\\int a\\,dx = \\int v\\,dv\\)——这正是卡 5 STEP 2 思考点 2 的核心。",
+        cardAnchor: "卡 5 STEP 1 · 代数推导"
+      },
+      {
+        id: "T5-4", type: "multi", score: 20, difficulty: "较难", exportIds: ["E7"],
+        stem: "下列关于 \\(v^2 = v_0^2 + 2ax\\) 的说法正确的是（多选 · 严格相等）：",
+        options: {
+          A: "公式不显含 t，适用于「不给时间，只给位移」的题。",
+          B: "公式可由 v = v₀ + at 与 x = v₀t + ½at² 联立、消去 t 得到。",
+          C: "公式也可由 \\(a\\,dx = v\\,dv\\) 两边定积分直接得到。",
+          D: "公式只在 a 为常数时成立；a 随位移变化时（如弹簧），此公式不再适用，但 \\(a\\,dx = v\\,dv\\) 仍可用。"
+        },
+        answer: ["A", "B", "C", "D"],
+        explanation: {
+          principle: "v² = v₀² + 2ax 在匀加速直线运动场景下完全等价于另两条公式；推导可走代数或微积分两路径；公式适用边界是「a 为常数」。",
+          logic: "A 对（不含 t）；B 对（代数路径，卡 5 STEP 1）；C 对（微积分路径，卡 5 STEP 2）；D 对（适用边界 + 更通用路径）。四个选项全对——本题考查对公式<strong>多角度理解</strong>。",
+          connection: "<strong>多路径推导 = 概念深度</strong>。能从代数与微积分两条路径都推出同一公式，意味着真正理解了位移与速度与加速度三者通过微积分互相串联的本质。"
+        },
+        mistakes: "全选题最考查「诚实」——若有任一选项犹豫，会少选错过满分。每个选项独立判断，不要因为「全选少见」而排除 D。",
+        extension: "更通用的能量观点：把 \\(a\\,dx = v\\,dv\\) 两边乘以 m，得 \\(m a\\,dx = m v\\,dv\\)，即 \\(F\\,dx = d(\\tfrac{1}{2} m v^2)\\)——这就是<strong>动能定理</strong>的微分形式。卡 5 实际是动能定理的「匀力版」。",
+        cardAnchor: "卡 5 STEP 1-2 · 双路径与适用边界"
+      }
+    ]
+  }
+};
+
+// ===== 常量 =====
+const ATOMIC_SLUG = "power_calc_kinematics";
+const KEY_STATE   = "mockcheck_" + ATOMIC_SLUG + "_state";
+const KEY_NAME    = "mockcheck_student_name";
+const PASS_SCORE  = 70;
+const HONOR_SCORE = 90;
+
+const EXPORT_NAMES  = MOCK_DATA.EXPORT_NAMES  || {};
+const QUESTION_BANK = MOCK_DATA.QUESTION_BANK || {};
+
+// 单位归一 (calc 题)
+const UNIT_TO_SI = {
+  "m": 1, "km": 1000, "cm": 0.01, "mm": 0.001,
+  "s": 1, "min": 60, "h": 3600,
+  "m/s": 1, "km/h": 1/3.6,
+  "m/s²": 1, "m/s^2": 1,
+  "kg": 1, "g": 0.001,
+  "J": 1, "kJ": 1000,
+  "J/mol": 1, "kJ/mol": 1000, "kcal/mol": 4184,
+  "mol": 1, "L": 1, "mL": 0.001,
+  "": 1
+};
+
+// ===== 状态 =====
+let pickedQuestions = [];
+let results = [];
+
+// ===== 抽题 =====
+function pickQuestions() {
+  pickedQuestions = [];
+  Object.keys(QUESTION_BANK).sort().forEach(function(tKey) {
+    const pool = QUESTION_BANK[tKey];
+    if (!Array.isArray(pool) || pool.length === 0) return;
+    pickedQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+  });
+}
+
+// ===== 归一化 (fill / short 用) =====
+function normalizeText(s) {
+  return (s || "")
+    .replace(/[\s　]+/g, "")
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+    .replace(/[₀-₉]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2080]; })
+    .replace(/[⁰-⁹]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2070]; })
+    .toLowerCase();
+}
+
+// ===== 5 题型判分 =====
+function gradeQuestion(q, ua) {
+  if (q.type === "choice") return gradeChoice(q, ua);
+  if (q.type === "multi")  return gradeMulti(q, ua);
+  if (q.type === "fill")   return gradeFill(q, ua);
+  if (q.type === "short")  return gradeShort(q, ua);
+  if (q.type === "calc")   return gradeCalc(q, ua);
+  return { score: 0, isCorrect: false, userAnswer: ua };
+}
+
+function gradeChoice(q, ua) {
+  const isCorrect = ua === q.answer;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+function gradeMulti(q, ua) {
+  if (!Array.isArray(ua)) ua = [];
+  const ans = q.answer || [];
+  const same = ua.length === ans.length && ua.every(function(x) { return ans.indexOf(x) !== -1; });
+  return { score: same ? q.score : 0, isCorrect: same, userAnswer: ua };
+}
+
+function gradeFill(q, ua) {
+  const blanks = q.blanks || [];
+  const answers = q.answer || blanks;
+  if (!Array.isArray(ua)) ua = [];
+  let hit = 0;
+  const detail = [];
+  answers.forEach(function(a, i) {
+    const acceptable = Array.isArray(a) ? a : [a];
+    const u = normalizeText(ua[i] || "");
+    const ok = acceptable.some(function(x) { return normalizeText(x) === u; });
+    detail.push({ user: ua[i] || "", ok: ok, expect: acceptable[0] });
+    if (ok) hit++;
+  });
+  const per = q.score / Math.max(answers.length, 1);
+  const score = Math.round(hit * per);
+  return { score: score, isCorrect: hit === answers.length, userAnswer: ua, detail: detail };
+}
+
+function gradeShort(q, ua) {
+  const text = normalizeText(ua || "");
+  const kws = q.keywords || [];
+  const hits = kws.filter(function(k) { return text.indexOf(normalizeText(k)) !== -1; });
+  const ratio = kws.length > 0 ? hits.length / kws.length : 0;
+  let score = 0;
+  if (ratio >= 1.0)      score = q.score;
+  else if (ratio >= 0.5) score = Math.round(q.score * 0.5);
+  else                   score = 0;
+  return { score: score, isCorrect: ratio >= 1.0, userAnswer: ua, hits: hits, ratio: ratio };
+}
+
+function gradeCalc(q, ua) {
+  if (!ua || typeof ua.value !== "number" || isNaN(ua.value)) {
+    return { score: 0, isCorrect: false, userAnswer: ua };
+  }
+  const uSI = ua.value * (UNIT_TO_SI[ua.unit] || 1);
+  const aSI = q.answer.value * (UNIT_TO_SI[q.answer.unit] || 1);
+  const tol = typeof q.answer.tolerance === "number" ? q.answer.tolerance : 0.01;
+  const rel = Math.abs(uSI - aSI) / Math.abs(aSI || 1);
+  const isCorrect = rel <= tol;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+// ===== 题目渲染 (Nova 契约: data-q-id / data-q-type / .q-feedback) =====
+function renderQuestions() {
+  const list = document.getElementById("questions-list");
+  list.innerHTML = pickedQuestions.map(function(q, idx) {
+    const num = idx + 1;
+    return `
+      <div class="question" data-q-id="q${num}" data-q-type="${q.type}" data-q-original="${q.id}" id="q-${num}">
+        <div class="q-header-circle">
+          <div class="q-h-num">第 ${num} 题</div>
+          <div class="q-h-type">${typeLabel(q.type)}</div>
+          <div class="q-h-diff">${q.difficulty || ""}</div>
+          <div class="q-h-id">${q.id} · ${q.score} 分</div>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        ${renderInput(q, num)}
+        <div class="q-feedback" data-q-id="q${num}"></div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("total-count").textContent = pickedQuestions.length;
+  document.getElementById("picked-ids").textContent = pickedQuestions.map(function(q) { return q.id; }).join(" / ");
+  attachAnswerListeners();
+  renderKatex(list);
+}
+
+function typeLabel(t) {
+  return { choice: "单选题", multi: "多选题", fill: "填空题", short: "简答题", calc: "计算题" }[t] || t;
+}
+
+function renderInput(q, num) {
+  if (q.type === "choice") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="radio" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "multi") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="checkbox" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "fill") {
+    const blanks = q.blanks || (q.answer || []);
+    return blanks.map(function(_, i) {
+      return `<input class="q-fillin" data-q-id="q${num}" data-blank="${i}" type="text" placeholder="第 ${i+1} 空">`;
+    }).join("");
+  }
+  if (q.type === "short") {
+    return `<textarea class="q-short-input" data-q-id="q${num}" placeholder="用 2-4 句话作答, 涵盖关键概念"></textarea>`;
+  }
+  if (q.type === "calc") {
+    return `<div class="q-calc">
+      <input class="q-calc-num" data-q-id="q${num}" type="number" step="any" placeholder="数值">
+      <input class="q-calc-unit" data-q-id="q${num}" type="text" placeholder="单位, 如 m/s" value="${(q.answer && q.answer.unit) || ""}">
+    </div>`;
+  }
+  return "";
+}
+
+function attachAnswerListeners() {
+  document.querySelectorAll(".question input, .question textarea").forEach(function(el) {
+    el.addEventListener("input", updateAnsweredCount);
+    el.addEventListener("change", updateAnsweredCount);
+  });
+}
+
+function updateAnsweredCount() {
+  let n = 0;
+  pickedQuestions.forEach(function(q, idx) {
+    if (readUserAnswer(q, idx + 1) != null) n++;
+  });
+  document.getElementById("answered-count").textContent = n;
+}
+
+function readUserAnswer(q, num) {
+  if (q.type === "choice") {
+    const el = document.querySelector('input[name="q' + num + '"]:checked');
+    return el ? el.value : null;
+  }
+  if (q.type === "multi") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('input[name="q' + num + '"]:checked')).map(function(e) { return e.value; });
+    return arr.length ? arr : null;
+  }
+  if (q.type === "fill") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('.q-fillin[data-q-id="q' + num + '"]')).map(function(e) { return e.value; });
+    return arr.some(function(x) { return x && x.length > 0; }) ? arr : null;
+  }
+  if (q.type === "short") {
+    const el = document.querySelector('.q-short-input[data-q-id="q' + num + '"]');
+    return el && el.value.trim().length > 0 ? el.value : null;
+  }
+  if (q.type === "calc") {
+    const numEl  = document.querySelector('.q-calc-num[data-q-id="q' + num + '"]');
+    const unitEl = document.querySelector('.q-calc-unit[data-q-id="q' + num + '"]');
+    if (!numEl || numEl.value === "") return null;
+    return { value: parseFloat(numEl.value), unit: unitEl ? unitEl.value.trim() : "" };
+  }
+  return null;
+}
+
+// ===== 反馈渲染 =====
+function renderFeedback(q, r, num) {
+  const el = document.querySelector('.q-feedback[data-q-id="q' + num + '"]');
+  if (!el) return;
+  el.classList.add("show");
+  el.classList.toggle("wrong", !r.isCorrect);
+
+  const stdAns = formatStdAnswer(q, r);
+  const exp = q.explanation || {};
+  const isObj = exp && typeof exp === "object";
+  const principle  = isObj ? (exp.principle  || "") : String(exp || "");
+  const logic      = isObj ? (exp.logic      || "") : "";
+  const connection = isObj ? (exp.connection || "") : "";
+
+  const exportHtml = (q.exportIds || []).map(function(id) {
+    const cn = EXPORT_NAMES[id];
+    return cn ? `<span class="q-export-label">${cn}</span>` : `<code>${id}</code>`;
+  }).join(" ");
+
+  el.innerHTML = `
+    <div class="q-result">${r.isCorrect ? "✓ 答对" : "✗ 答错"} · 得 ${r.score} / ${q.score} 分</div>
+    <div class="q-fb-row"><strong>📌 标准答案</strong><div>${stdAns}</div></div>
+    <div class="q-fb-row"><strong>🔬 涉及的核心原理</strong><div>${principle}</div></div>
+    ${logic ? `<div class="q-fb-row"><strong>🧩 逻辑分析</strong><div>${logic}</div></div>` : ""}
+    ${connection ? `<div class="q-fb-row"><strong>🌐 知识系统中的位置</strong><div>${connection}</div></div>` : ""}
+    ${q.mistakes ? `<div class="q-fb-row"><strong>⚠️ 常见误区</strong><div>${q.mistakes}</div></div>` : ""}
+    ${q.extension ? `<div class="q-fb-row"><strong>📚 扩展</strong><div>${q.extension}</div></div>` : ""}
+    <div class="q-anchor">📖 锚结论: ${exportHtml} · 回 <a href="03_幂函数微积分_直线运动公式.html">学习任务卡 · ${q.cardAnchor || ""}</a> 复习。</div>
+  `;
+  renderKatex(el);
+}
+
+function formatStdAnswer(q, r) {
+  if (q.type === "choice") return q.answer;
+  if (q.type === "multi")  return (q.answer || []).join(" · ");
+  if (q.type === "fill") {
+    const ans = q.answer || q.blanks || [];
+    return ans.map(function(a, i) {
+      const s = Array.isArray(a) ? a[0] : a;
+      return "第 " + (i+1) + " 空: " + s;
+    }).join(" · ");
+  }
+  if (q.type === "short") {
+    const kws = (q.keywords || []).join(" / ");
+    const hits = r && r.hits ? r.hits.length : 0;
+    const total = (q.keywords || []).length;
+    return "关键词: " + kws + " (命中 " + hits + " / " + total + ")";
+  }
+  if (q.type === "calc") return q.answer.value + " " + q.answer.unit;
+  return "";
+}
+
+// ===== 提交 / 结果 =====
+function submitTest() {
+  results = pickedQuestions.map(function(q, idx) {
+    const ua = readUserAnswer(q, idx + 1);
+    const r = gradeQuestion(q, ua);
+    r.q = q; r.idx = idx;
+    renderFeedback(q, r, idx + 1);
+    return r;
+  });
+  const total = results.reduce(function(s, r) { return s + r.score; }, 0);
+  const passed  = total >= PASS_SCORE;
+  const honored = total >= HONOR_SCORE;
+  showResult(total, passed, honored);
+  saveState(total, passed, honored);
+}
+
+function showResult(total, passed, honored) {
+  // v0.1.12: 不藏 test-screen — 每题反馈在 test-screen 内每题下方渲染, 藏了用户看不到
+  document.getElementById("result-screen").classList.remove("hidden");
+  document.getElementById("result-screen").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("result-total").textContent = total;
+  const pill = document.getElementById("result-pass-pill");
+  const msg  = document.getElementById("result-message");
+  if (honored) {
+    pill.className = "result-pass honor"; pill.textContent = "⭐ 荣誉 (90+)";
+    msg.textContent = "掌握充分 (90%+) — 推荐进入教师组织的真实纸笔检测。";
+  } else if (passed) {
+    pill.className = "result-pass pass"; pill.textContent = "✓ 已通过 (70+)";
+    msg.textContent = "已具备纸笔检测基础水平 (70%+) — 可继续巩固或去星图 /student/requests 预约。";
+  } else {
+    pill.className = "result-pass fail"; pill.textContent = "✗ 未通过";
+    msg.textContent = "距通过还差 " + (PASS_SCORE - total) + " 分 — 建议针对错题回 task-cards 复习再练。";
+  }
+  const wrong = results.filter(function(r) { return !r.isCorrect; });
+  const counts = {};
+  wrong.forEach(function(r) {
+    (r.q.exportIds || []).forEach(function(eid) { counts[eid] = (counts[eid] || 0) + 1; });
+  });
+  const sorted = Object.keys(counts).sort(function(a, b) { return counts[b] - counts[a]; }).slice(0, 3);
+  const block = document.getElementById("weak-points-block");
+  const ul = document.getElementById("weak-points-list");
+  if (sorted.length > 0) {
+    block.style.display = "";
+    ul.innerHTML = sorted.map(function(eid) {
+      const cn = EXPORT_NAMES[eid] || eid;
+      return "<li><strong>" + cn + "</strong> (错 " + counts[eid] + " 题)</li>";
+    }).join("");
+  } else {
+    block.style.display = "none";
+  }
+}
+
+// ===== localStorage =====
+function saveState(total, passed, honored) {
+  try {
+    const prev = JSON.parse(localStorage.getItem(KEY_STATE) || "{}");
+    const state = {
+      studentName: document.getElementById("student-name").value.trim(),
+      submittedAt: Date.now(),
+      totalScore: total,
+      passed: passed || prev.passed || false,
+      honored: honored || prev.honored || false,
+      pickedIds: pickedQuestions.map(function(q) { return q.id; }),
+      attemptCount: (prev.attemptCount || 0) + 1
+    };
+    localStorage.setItem(KEY_STATE, JSON.stringify(state));
+    localStorage.setItem(KEY_NAME, state.studentName);
+  } catch (e) { /* localStorage 不可用 */ }
+}
+
+function loadState() {
+  try {
+    const nameEl = document.getElementById("student-name");
+    const savedName = localStorage.getItem(KEY_NAME);
+    if (savedName) nameEl.value = savedName;
+    const raw = localStorage.getItem(KEY_STATE);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    const slot = document.getElementById("last-attempt-slot");
+    const cls = s.honored ? "last-attempt-note honor" : "last-attempt-note";
+    const badge = s.honored ? "⭐ 荣誉" : (s.passed ? "✓ 已通过" : "✗ 未通过");
+    slot.innerHTML = `<div class="${cls}">上次提交: ${s.totalScore} 分 · ${badge} · 累计 ${s.attemptCount} 次</div>`;
+  } catch (e) { /* ignore */ }
+}
+
+// ===== 流程 =====
+function startTest() {
+  const name = document.getElementById("student-name").value.trim();
+  if (!name) { alert("请先填写你的姓名"); return; }
+  document.getElementById("progress-name").textContent = name;
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("entry-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
+  window.scrollTo(0, 0);
+}
+
+function reshuffleAndStart() {
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("result-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function renderKatex(root) {
+  if (typeof renderMathInElement !== "function") return;
+  try {
+    renderMathInElement(root || document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$",  right: "$",  display: false }
+      ],
+      throwOnError: false
+    });
+  } catch (e) { /* ignore */ }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  loadState();
+});
+window.addEventListener("load", function() {
+  renderKatex(document.body);
+});
+</script>
+
+</body>
+</html>

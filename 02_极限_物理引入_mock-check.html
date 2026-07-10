@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 极限 · 极限（物理引入） · 基础检测</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8; --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961; --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC; --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73;
+    --bg-primary: #ffffff; --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px; --radius-sm: 14px; --radius-btn: 16px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  .v021-banner {
+    background: var(--gold-050);
+    border-left: 3px solid var(--gold-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px 18px 56px;
+    margin-bottom: 28px;
+    font-size: 0.86rem;
+    color: var(--gold-900);
+    line-height: 1.75;
+    position: relative;
+  }
+  .v021-banner::before {
+    content: "i"; position: absolute; left: 16px; top: 18px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gold-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .v021-banner strong { color: var(--gold-900); }
+  .v021-banner-title { font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+
+  .header {
+    text-align: center; padding: 56px 32px 48px;
+    background: #fff; color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 36px;
+    position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%;
+    transform: translateX(-50%); width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--blue-500), var(--blue-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.45rem; margin-bottom: 12px;
+    color: var(--blue-700); font-weight: 700;
+    line-height: 1.5; position: relative; z-index: 1;
+  }
+  .header .h1-sub {
+    display: inline-block; font-size: 0.82rem; font-weight: 500;
+    color: var(--silver-700); margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--silver-500);
+  }
+  .header .subtitle {
+    font-size: 0.9rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  .screen {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    border-top: 3px solid var(--blue-700);
+  }
+  .screen.hidden { display: none; }
+
+  .entry-title { font-size: 1.15rem; font-weight: 700; color: var(--blue-700); margin-bottom: 18px; }
+  .entry-info { font-size: 0.9rem; color: var(--text-primary); line-height: 1.85; margin-bottom: 22px; padding-left: 22px; list-style: disc; }
+  .entry-info li { margin-bottom: 6px; }
+  .entry-info strong { color: var(--blue-700); }
+  .name-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    font-family: inherit; font-size: 0.95rem;
+    margin: 14px 0 8px; background: #fff;
+    transition: var(--transition);
+  }
+  .name-input:focus { outline: none; border-color: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .last-attempt-note {
+    background: var(--blue-050); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 16px; font-size: 0.85rem; color: var(--blue-700);
+    margin: 10px 0 18px;
+  }
+  .last-attempt-note.honor { background: var(--gold-050); border-left-color: var(--gold-700); color: var(--gold-900); }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--blue-700); color: #fff;
+    padding: 14px 32px;
+    border-radius: var(--radius-btn);
+    border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    transition: var(--transition);
+  }
+  .btn-primary:hover { background: var(--blue-900); }
+  .btn-secondary {
+    display: inline-block;
+    background: var(--silver-050); color: var(--silver-900);
+    padding: 14px 24px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--border-color); cursor: pointer;
+    font-family: inherit; font-size: 0.9rem; font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  .btn-secondary:hover { background: var(--silver-100); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+
+  .progress-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem; color: var(--silver-700);
+  }
+  .progress-name { font-weight: 600; color: var(--blue-700); }
+
+  .questions-list { }
+
+  .question {
+    --q-rich: var(--blue-900);
+    --q-mid:  var(--blue-700);
+    --q-bg:   var(--blue-050);
+    --q-tint: var(--blue-100);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--q-mid);
+  }
+  .questions-list > .question:nth-of-type(3n+2) {
+    --q-rich: var(--gold-900); --q-mid: var(--gold-700);
+    --q-bg: var(--gold-050); --q-tint: var(--gold-100);
+  }
+  .questions-list > .question:nth-of-type(3n) {
+    --q-rich: var(--silver-900); --q-mid: var(--silver-700);
+    --q-bg: var(--silver-050); --q-tint: var(--silver-100);
+  }
+
+  .q-header-circle {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--q-bg);
+    border: 2px solid var(--q-mid);
+    margin: 0 auto 32px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 22px;
+    box-sizing: border-box;
+  }
+  .q-h-num { font-size: 0.74rem; font-weight: 700; color: var(--q-rich); letter-spacing: 0.22em; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1.5px solid var(--q-mid); }
+  .q-h-type { font-size: 0.95rem; font-weight: 700; color: var(--q-rich); line-height: 1.5; }
+  .q-h-diff { font-size: 0.78rem; color: var(--q-mid); margin-top: 6px; }
+  .q-h-id { font-size: 0.75rem; color: var(--silver-700); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .q-stem { font-size: 0.95rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-primary); }
+  .q-stem strong { color: var(--q-rich); }
+
+  .q-options { margin: 14px 0 18px; }
+  .q-options label {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 0.92rem; line-height: 1.75;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .q-options label:hover { background: var(--q-bg); border-color: var(--q-mid); }
+  .q-options input { margin-top: 5px; flex-shrink: 0; accent-color: var(--q-mid); }
+  .opt-letter { font-weight: 700; color: var(--q-rich); flex-shrink: 0; }
+
+  .q-fillin {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+  }
+  .q-fillin:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-short-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+    min-height: 110px; resize: vertical;
+    line-height: 1.75;
+  }
+  .q-short-input:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-calc { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 12px; align-items: center; }
+  .q-calc-num, .q-calc-unit {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem; background: #fff;
+  }
+  .q-calc-num { flex: 1; min-width: 120px; }
+  .q-calc-unit { width: 140px; }
+  .q-calc-num:focus, .q-calc-unit:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-feedback {
+    margin-top: 18px; padding: 22px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--q-bg);
+    border-left: 3px solid var(--q-mid);
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.wrong { background: var(--gold-050); border-left-color: var(--gold-700); }
+  .q-result { font-weight: 700; color: var(--q-rich); font-size: 0.95rem; margin-bottom: 10px; }
+  .q-feedback.wrong .q-result { color: var(--gold-900); }
+  .q-fb-row { margin: 12px 0; padding: 10px 14px; border-radius: var(--radius-sm); background: #fff; border-left: 3px solid var(--q-mid); }
+  .q-fb-row strong { display: block; color: var(--q-rich); font-size: 0.86rem; margin-bottom: 4px; }
+  .q-feedback.wrong .q-fb-row strong { color: var(--gold-900); }
+  .q-fb-row p, .q-fb-row div { font-size: 0.88rem; line-height: 1.8; }
+  .q-export-label {
+    display: inline-block;
+    padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--q-tint); color: var(--q-rich);
+    border-radius: 999px; font-size: 0.78rem;
+    border: 1px solid var(--q-mid);
+  }
+  .q-anchor { margin-top: 14px; font-size: 0.86rem; color: var(--text-primary); line-height: 1.75; }
+  .q-anchor a { color: var(--blue-700); text-decoration: none; font-weight: 600; }
+  .q-anchor a:hover { text-decoration: underline; }
+
+  .result-summary { text-align: center; padding: 28px 0; }
+  .result-score { font-size: 3rem; font-weight: 800; color: var(--blue-700); line-height: 1.1; }
+  .result-score .total { font-size: 1.2rem; color: var(--silver-700); font-weight: 500; }
+  .result-pass {
+    margin-top: 12px; padding: 10px 18px; border-radius: 999px;
+    display: inline-block; font-size: 0.9rem; font-weight: 600;
+  }
+  .result-pass.pass { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-700); }
+  .result-pass.honor { background: var(--gold-050); color: var(--gold-900); border: 1px solid var(--gold-700); }
+  .result-pass.fail { background: var(--silver-050); color: var(--silver-900); border: 1px solid var(--silver-500); }
+  .result-message { font-size: 0.9rem; color: var(--text-primary); margin-top: 14px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  .weak-points-block { background: var(--blue-050); border-left: 3px solid var(--blue-700); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 22px 26px; margin: 24px 0; }
+  .weak-points-block h4 { color: var(--blue-700); font-size: 0.95rem; margin-bottom: 12px; }
+  .weak-points-block ul { padding-left: 22px; font-size: 0.88rem; line-height: 1.85; }
+
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px; text-align: center;
+    padding: 16px 18px; border-radius: 999px;
+    background: var(--silver-050); color: var(--silver-500);
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 40px 22px 36px; }
+    .header h1 { font-size: 1.18rem; }
+    .screen { padding: 24px 20px; }
+    .question { padding: 24px 22px; }
+    .q-header-circle { width: 200px; height: 200px; padding: 18px; }
+    .q-h-type { font-size: 0.85rem; }
+    .v021-banner { padding-left: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>极限</span>
+    <span class="sep">&gt;</span>
+    <span>极限（物理引入） · 基础检测</span>
+  </nav>
+
+  <div class="v021-banner">
+    <div class="v021-banner-title">关于本页的练习形态 · v0.1.21</div>
+    本页是<strong>HTML 模拟练习</strong>——用于学完《极限（物理引入）》任务卡之后快速自测核心概念是否到位。<strong>真实的纸笔检测</strong>由学科导师线下组织、由教师批改，不在本页面内完成。本页给出自动判分仅作即时反馈用，建议每打开一次重新抽题以扩大覆盖。
+  </div>
+
+  <div class="header">
+    <h1>极限（物理引入） · 基础检测<br><span class="h1-sub">题库版 · 每考点 4 变体随机抽 1 · 总分 100 · 推荐 30-40 分钟</span></h1>
+    <div class="subtitle">70% 通过 · 90% 荣誉 · 不强制限时</div>
+  </div>
+
+  <div class="screen" id="entry-screen">
+    <div class="entry-title">开始练习</div>
+    <p style="font-size: 0.9rem; margin-bottom: 10px;">请先填写你的姓名（仅本地保存，用于显示与你的提交记录）：</p>
+    <input id="student-name" class="name-input" type="text" placeholder="请输入你的姓名" maxlength="20">
+    <div id="last-attempt-slot"></div>
+    <ul class="entry-info">
+      <li>每个考点从 4 个变体中随机抽 1 道，共抽若干题</li>
+      <li>通过：<strong>70 分</strong> · 荣誉：<strong>90 分</strong></li>
+      <li>建议用时：<strong>30-40 分钟</strong>（不强制限时）</li>
+      <li>多选题严格相等判分；填空自动去空格 / 全半角归一</li>
+      <li>提交后展示 5 字段反馈（原理 / 逻辑 / 系统连接 / 常见误区 / 扩展）</li>
+      <li>不查资料、不翻任务卡——看清自己掌握到哪一档</li>
+      <li>通过 / 荣誉一次达成永不撤销</li>
+    </ul>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="startTest()">开始练习</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="test-screen">
+    <div class="progress-bar">
+      <div>👤 <span class="progress-name" id="progress-name">—</span> · 本次抽题 <span id="picked-ids">—</span></div>
+      <div>已答 <span id="answered-count">0</span> / <span id="total-count">0</span></div>
+    </div>
+    <div class="questions-list" id="questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-primary" onclick="submitTest()">提交本次抽题</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="result-screen">
+    <div class="result-summary">
+      <div class="result-score"><span id="result-total">0</span><span class="total"> / 100</span></div>
+      <div id="result-pass-pill" class="result-pass">—</div>
+      <div class="result-message" id="result-message">—</div>
+    </div>
+    <div class="weak-points-block" id="weak-points-block" style="display:none;">
+      <h4>本次错题考点聚类（建议优先复习）</h4>
+      <ul id="weak-points-list"></ul>
+    </div>
+    <div id="result-questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-secondary" onclick="reshuffleAndStart()">🎲 重新抽题再练</button>
+      <a class="btn-secondary" href="02_极限_物理引入.html">⬅ 返回任务卡复习</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="02_极限_物理引入.html">📘 返回任务卡</a>
+    <span>📈 熟练度检测 (前置课暂无)</span>
+    <a href="A_基础口试_运动描述_极限_幂函数微积分-oral-exam.html">🎤 深度口试</a>
+    <span>📝 纸笔检测请联系导师</span>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 极限 · 极限（物理引入） · 基础检测 · mock-check Skill v0.1.10
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+// ===== MOCK_DATA INJECTION POINT =====
+// agent 在下一行注入: const MOCK_DATA = { EXPORT_NAMES: {...}, QUESTION_BANK: {...} };
+// 数据 schema 见文件顶部 HTML 注释。
+const MOCK_DATA = {
+  "EXPORT_NAMES": {
+    "avg-vs-inst": "平均速度 vs 瞬时速度的语义边界",
+    "zero-over-zero": "直接代入 Δt=0 得到 0/0 的不确定形式",
+    "limit-symbol": "极限符号 lim 与「无限趋近」的读写",
+    "simplify-then-lim": "先化简后取极限：合法约分的物理含义",
+    "tend-vs-equal": "「无限趋近」≠「等于」（极限值是被定义出的新量）",
+    "secant-to-tangent": "割线 → 切线的几何对应（割线斜率 = 平均速度，切线斜率 = 瞬时速度）",
+    "bridge-to-deriv": "通向导数：把「取极限」提炼成对任意函数都能用的运算规则"
+  },
+  "QUESTION_BANK": {
+    "T1": [
+      {
+        "id": "T1-1",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "avg-vs-inst"
+        ],
+        "stem": "<p>关于「平均速度」与「瞬时速度」，下列说法正确的是：</p>",
+        "options": {
+          "A": "平均速度描述某一时刻的快慢，瞬时速度描述一段时间的快慢",
+          "B": "平均速度描述一段时间的快慢，瞬时速度描述某一时刻的快慢",
+          "C": "平均速度与瞬时速度的差别只是时间间隔大小，本质上是同一物理量",
+          "D": "平均速度只能用于匀速运动，瞬时速度只能用于变速运动"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "平均速度 \\(\\bar v = \\Delta x / \\Delta t\\) 的定义本身要求两个时刻 \\(t_1, t_2\\)，描述的是这段时间内的整体快慢；瞬时速度 \\(v(t)\\) 描述的是某一个时刻的快慢。",
+          "logic": "A 是把两者反着说；C 错在「本质同一」——瞬时速度需要通过极限过程从平均速度<strong>定义</strong>出来，并不是简单缩小 Δt 就等同；D 错在两者都适用于任何运动（包括匀速），只是匀速时两者数值恰好相等。",
+          "connection": "这是整个课的入口判据。后续「极限符号」、「割线→切线」都建立在这一语义区分上。如果这一条混淆，后面所有推理都会跑偏。"
+        },
+        "mistakes": "最常见误区：以为「瞬时速度就是 Δt 很小时的平均速度」——这种说法只是直觉描述，<strong>不是定义</strong>。瞬时速度的定义需要「取极限」这一步。",
+        "extension": "该区分会贯穿整个力学：加速度 = 瞬时速度对时间的变化率；功率 = 瞬时功率 vs 平均功率；电流 = 瞬时电流 vs 平均电流。「瞬时 vs 平均」是物理学描述变化过程的核心范式。",
+        "cardAnchor": "Card 1 · STEP 1 思考点 1<br>Card 1 自查 ①"
+      },
+      {
+        "id": "T1-2",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "avg-vs-inst"
+        ],
+        "stem": "<p>下列四个问题中，<strong>必须用瞬时速度</strong>（而不是平均速度）才能回答的是：</p>",
+        "options": {
+          "A": "一辆汽车 8:00 出发，9:30 到达 90 km 外的目的地，整段行程的快慢",
+          "B": "某测速摄像头判定一辆车经过门架那一<em>瞬间</em>是否超速",
+          "C": "一名跑步者完成 5 km 用时 25 分钟，整次锻炼的「配速」",
+          "D": "高铁列车从 A 站到 B 站全程 300 km 用时 1 小时 20 分"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "「判定经过门架那一瞬间」——问的就是某一时刻的快慢，必须用瞬时速度。",
+          "logic": "A、C、D 问的都是「一段时间的整体快慢」，平均速度足够。区分关键就一句话：被问的量对应「一段」还是「一刻」。",
+          "connection": "该判别能力是后续「求导 vs 求平均」的判别基础——同一函数在同一时间窗口可以同时提取两类信息，但用途完全不同。"
+        },
+        "mistakes": "常见误区：以为「测速摄像头实际测的就是一段很短时间的平均速度」——物理实现细节可以这样近似，但<strong>题目问的物理量名称</strong>仍是瞬时速度。不要混淆「测量手段」与「物理量本身」。",
+        "extension": "工程上「瞬时量」的近似测量都是这种思路：取一个足够短的时间窗口测平均，然后<strong>声明</strong>该值近似等于瞬时值。这种声明的合法性，由极限的存在性保证。",
+        "cardAnchor": "Card 1 · STEP 3 思考点 3"
+      },
+      {
+        "id": "T1-3",
+        "type": "multi",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "avg-vs-inst",
+          "tend-vs-equal"
+        ],
+        "stem": "<p>关于「瞬时速度」，下列说法<strong>正确</strong>的有（多选 · 严格相等）：</p>",
+        "options": {
+          "A": "瞬时速度是平均速度在时间间隔趋于零时的极限",
+          "B": "只要平均速度计算时取的 Δt 足够小，就一定等于瞬时速度",
+          "C": "瞬时速度对应 x-t 图上某一时刻的切线斜率",
+          "D": "匀速直线运动中，任何时刻的瞬时速度都等于全程的平均速度"
+        },
+        "answer": [
+          "A",
+          "C",
+          "D"
+        ],
+        "explanation": {
+          "principle": "瞬时速度的标准定义、几何含义、与匀速运动的特殊关系。",
+          "logic": "A 是定义；C 是几何含义（Card 3 主推）；D 在匀速直线运动中 \\(\\bar v\\) 与任意瞬时 \\(v(t)\\) 数值相等，是匀速的特征。B 错在「等于」——任何有限的 Δt 对应的都只是「足够接近」，<strong>不</strong>等于；只有取极限那一刻才得到瞬时值，这是「趋近≠等于」的核心。",
+          "connection": "该题把 Card 1（定义）/ Card 2（趋近≠等于）/ Card 3（切线斜率）三条主线串起来。能勾对 ACD 而不勾 B，说明三条主线都没有走偏。"
+        },
+        "mistakes": "最常见错误：勾 B。这种「足够小就等于」的近似思维在工程上常见，但在物理定义中是错的——本课的核心就是把这种含糊的近似升级为严格的「极限」。",
+        "extension": "在测量实践中，「取一段足够短的时间求平均当作瞬时」是常用技巧（如频闪照相、打点计时器），但前提是知道该极限<strong>存在且唯一</strong>。极限不存在的情形（如位置函数不连续）需要单独讨论。",
+        "cardAnchor": "Card 1 全卡<br>Card 2 思考点 5<br>Card 3 推导块「几何与代数对应表」"
+      },
+      {
+        "id": "T1-4",
+        "type": "short",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "avg-vs-inst"
+        ],
+        "stem": "<p>用一段话（30-60 字）回答：为什么「平均速度」<strong>无法直接</strong>回答「小车在 \\(t = 2\\) s 这一瞬间有多快」？答题中至少出现以下两个要点：① 平均速度的定义需要两个时刻 ② 「瞬间」只有一个时刻。</p>",
+        "keywords": [
+          "两个时刻",
+          "一个时刻",
+          "间隔",
+          "一段",
+          "某一时刻",
+          "瞬间"
+        ],
+        "answer": "关键字命中 ≥ 2 项(含「两个时刻/一个时刻/间隔/一段/某一时刻/瞬间」)算掌握",
+        "explanation": {
+          "principle": "平均速度 \\(\\bar v = \\Delta x / \\Delta t\\) 必须给定 \\(t_1, t_2\\) 两个时刻；「瞬间」只指定一个时刻，无法构造 Δt。",
+          "logic": "从公式入手：\\(\\bar v\\) 的分母是 \\(\\Delta t = t_2 - t_1\\)，如果只给一个时刻，\\(t_2 = t_1\\) 会使 \\(\\Delta t = 0\\) 与 \\(\\Delta x = 0\\)，比值变成 0/0 没有意义。本题考查「为什么必须引入新工具（极限）」的根本动因。",
+          "connection": "这是下一段「为什么要引入极限」的逻辑起点；想清楚这一条，才能理解后面「先化简后取极限」的操作动机。"
+        },
+        "mistakes": "常见问题：只写「因为 Δt = 0」而没说清「一个时刻 vs 两个时刻」的语义差，可能不命中关键字。",
+        "extension": "同样的语义结构出现在：函数在某一点的「导数」 vs 函数在某区间的「平均变化率」——只有引入极限才能从后者过渡到前者。",
+        "cardAnchor": "Card 1 · STEP 1 思考点 1<br>Card 1 · STEP 1 驱动问题"
+      }
+    ],
+    "T2": [
+      {
+        "id": "T2-1",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "zero-over-zero"
+        ],
+        "stem": "<p>设 \\(x(t) = 5t^2\\)（单位：m / s）。从 \\(t = 2\\) 起经历 \\(\\Delta t\\) 时间内的平均速度可化为 \\(\\bar v = \\dfrac{20 \\Delta t + 5(\\Delta t)^2}{\\Delta t}\\)。如果直接代入 \\(\\Delta t = 0\\)，会得到：</p>",
+        "options": {
+          "A": "一个确定的数 0",
+          "B": "一个确定的数 20",
+          "C": "0/0 这种没有意义的不确定形式",
+          "D": "0 m/s（小车静止）"
+        },
+        "answer": "C",
+        "explanation": {
+          "principle": "\\(\\Delta t = 0\\) 时分子分母同时为 0；0/0 在数学上是<strong>不确定形式</strong>，需要先化简再取极限才能定值。",
+          "logic": "A、B 错在「确定数」——直接代入根本走不通；D 错在「0 m/s 意味着小车静止」，把「运算结果」与「物理状态」混为一谈。正确答案 C 道出了本课最核心的卡点：为什么必须引入「极限」这一新工具。",
+          "connection": "该卡点是引入极限的根本动因。能识别 0/0 的不确定形式 → 能理解「先化简后取极限」为什么必要 → 能理解极限符号 \\(\\lim\\) 的物理含义。三步连环。"
+        },
+        "mistakes": "常见误区：以为「分子分母都是 0 那就是 0」——这种「0 当作普通数」的运算在不确定形式下完全失效。",
+        "extension": "0/0 是微积分中最重要的不确定形式之一；下一课「导数的定义」就是处理 0/0 的标准方法之一（先化简、约去 Δx，再令 Δx → 0）。",
+        "cardAnchor": "Card 1 · STEP 2 推导块最后一行"
+      },
+      {
+        "id": "T2-2",
+        "type": "fill",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "zero-over-zero"
+        ],
+        "stem": "<p>对 \\(x(t) = 5t^2\\)，从 \\(t = 1\\) s 起经历 \\(\\Delta t\\) 时间，请按 Card 1 的推导规范在草稿上展开 \\(\\Delta x\\) 与 \\(\\bar v\\)。化简后（约掉分母 \\(\\Delta t\\)）的表达式为 \\(\\bar v = \\)____（用含 \\(\\Delta t\\) 的最简形式作答；如 「10 + 5Δt」）。</p>",
+        "blanks": [
+          "化简后的最简形式"
+        ],
+        "answer": [
+          [
+            "10+5Δt",
+            "10+5delta t",
+            "10+5*Δt",
+            "5Δt+10",
+            "10 + 5 Δt",
+            "10+5△t"
+          ]
+        ],
+        "explanation": {
+          "principle": "\\(\\Delta x = 5(1+\\Delta t)^2 - 5 = 10 \\Delta t + 5(\\Delta t)^2\\)；除以 \\(\\Delta t\\) 得 \\(10 + 5\\Delta t\\)。",
+          "logic": "步骤：① 展开 \\((1 + \\Delta t)^2 = 1 + 2\\Delta t + (\\Delta t)^2\\)；② \\(5(1 + 2\\Delta t + (\\Delta t)^2) - 5 = 10\\Delta t + 5(\\Delta t)^2\\)；③ 提取公因子 Δt 后约分（合法因为 \\(\\Delta t \\neq 0\\)）；④ 得 \\(10 + 5\\Delta t\\)。化简之后令 Δt → 0 立即得 v(1) = 10 m/s。",
+          "connection": "本题是 Card 1 推导的「换起点」重做版——把「在 t=2 推 \\(20 + 5\\Delta t\\)」类比迁移到「在 t=1 推 \\(10 + 5\\Delta t\\)」，验证你是否真的掌握了推导步骤，而不只是背了答案。"
+        },
+        "mistakes": "常见错误：① 漏掉 \\(2\\Delta t \\cdot 1\\) 这个一次项 → 错答 \\(5\\Delta t\\)；② 忘记约分 → 留下 \\(\\dfrac{10\\Delta t + 5(\\Delta t)^2}{\\Delta t}\\) 形式（本题要求「化简后」）。",
+        "extension": "若把起点换成任意 \\(t = t_0\\)，化简后的表达式是 \\(10\\, t_0 + 5\\Delta t\\)——令 Δt → 0 即得 \\(v(t_0) = 10\\, t_0\\)。这正是「瞬时速度函数 \\(v(t) = 10\\, t\\)」的引子，下一课会用导数一步给出。",
+        "cardAnchor": "Card 1 · STEP 2 推导块（迁移到 t=1）"
+      },
+      {
+        "id": "T2-3",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "zero-over-zero",
+          "simplify-then-lim"
+        ],
+        "stem": "<p>关于「分子分母都趋于 0 的比值」，下列说法正确的是：</p>",
+        "options": {
+          "A": "0/0 一定等于 0",
+          "B": "0/0 一定等于 1",
+          "C": "0/0 是不确定形式，比值的趋近值取决于分子分母各自趋于 0 的「快慢」",
+          "D": "0/0 一定没有定义，对应的极限一定不存在"
+        },
+        "answer": "C",
+        "explanation": {
+          "principle": "0/0 之所以「不确定」，是因为它的值依赖于分子分母的具体函数形式——同样是 0/0，可能算出任意有限值，甚至无穷大。",
+          "logic": "本题三个干扰项分别对应三种典型误解。A、B 把 0/0 当成普通运算；D 把「不确定」当成「不存在」——其实极限可能存在，只是需要通过化简先解除「形式上的 0/0」才能看出。",
+          "connection": "这一条解释了为什么 Card 2 要费力「先化简再取极限」——化简的作用就是把「形式上 0/0 但实际有确定极限」的式子转化为可以直接取值的形式。"
+        },
+        "mistakes": "常见误区：「0/0 就是没意义」→ 这种粗糙判断会让你跳过整个极限学习。0/0 是不确定形式，但具体到某个函数往往能算出确定极限。",
+        "extension": "高等数学中「洛必达法则」就是处理 0/0 与 ∞/∞ 不确定形式的强大工具；本课不要求掌握，但理解「不确定 ≠ 无解」这一点，是后续学习的入口。",
+        "cardAnchor": "Card 1 · STEP 2 推导块<br>Card 2 · STEP 2 推导块（化简过程）"
+      },
+      {
+        "id": "T2-4",
+        "type": "short",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "zero-over-zero"
+        ],
+        "stem": "<p>用 30-50 字回答：在 \\(\\bar v = \\dfrac{20\\Delta t + 5(\\Delta t)^2}{\\Delta t}\\) 中，为什么<strong>不能</strong>直接令 \\(\\Delta t = 0\\)，但<strong>可以</strong>让 \\(\\Delta t\\) 趋于 0？答题中至少出现「分母」「0/0」或「不确定形式」等关键字。</p>",
+        "keywords": [
+          "分母",
+          "0/0",
+          "不确定",
+          "不为零",
+          "约分",
+          "无法"
+        ],
+        "answer": "关键字命中 ≥ 1 项算掌握",
+        "explanation": {
+          "principle": "直接令 \\(\\Delta t = 0\\) 会使分母为 0；「\\(\\Delta t \\to 0\\) 但 \\(\\Delta t \\neq 0\\)」则保留了分母非零这一前提，可以合法约分后再让结果趋于一个稳定值。",
+          "logic": "关键在 \\(\\Delta t = 0\\) 与 \\(\\Delta t \\to 0\\) 是两件事：前者「直接代入」会触发除以零；后者「无限趋近」在过程中始终保持非零，可以合法约分。两者结合「先化简再求极限」才能走通。",
+          "connection": "理解这一条 → 理解 Card 2 化简步骤 → 理解极限符号 \\(\\lim_{\\Delta t \\to 0}\\) 的「\\(\\to 0\\) 而非 = 0」含义。"
+        },
+        "mistakes": "常见问题：只写「代入会出错」而不指出「分母为 0」的具体原因，可能不命中关键字。",
+        "extension": "该区分是整个微积分的语法基础：从极限到导数到积分，「趋近」始终是过程描述，结果作为「被定义出」的量。",
+        "cardAnchor": "Card 1 · STEP 2 推导块<br>Card 2 · STEP 2 推导块第二段「为什么能绕开 0/0」"
+      }
+    ],
+    "T3": [
+      {
+        "id": "T3-1",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "limit-symbol"
+        ],
+        "stem": "<p>记号 \\(\\displaystyle\\lim_{\\Delta t \\to 0}\\ \\dfrac{\\Delta x}{\\Delta t}\\) 的<strong>物理含义</strong>是：</p>",
+        "options": {
+          "A": "让 \\(\\Delta t\\) 等于 0，此时比值的取值",
+          "B": "让 \\(\\Delta t\\) 无限趋近于 0（但不等于 0），比值趋近的稳定值——这个值被定义为瞬时速度",
+          "C": "一段时间 \\(\\Delta t\\) 内的平均速度",
+          "D": "\\(\\Delta x\\) 与 \\(\\Delta t\\) 同时为 0 时的比值"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "\\(\\lim_{\\Delta t \\to 0}\\) 表示「让 Δt 趋于 0 但不等于 0 这一过程中比值趋近的稳定值」。",
+          "logic": "A、D 错把「\\(\\to 0\\)」当成「\\(=0\\)」——这是本课最关键的语法区分；C 错把极限值当成普通平均速度（普通平均速度是 Δt 取某个非零值时的比值，极限值是 Δt 任意小都接近的那个稳定值）。",
+          "connection": "记号 \\(\\lim\\) 的读写是这一课的「语法成果」——能准确读懂这一句，下一课「导数的定义」\\(v(t) = \\lim_{\\Delta t \\to 0} \\dfrac{\\Delta x}{\\Delta t}\\) 立即就能读懂。"
+        },
+        "mistakes": "最常见误区：把 \\(\\lim_{\\Delta t \\to 0}\\) 读成「令 Δt = 0」——一字之差，整套定义就崩了。务必读成「Δt 趋于 0」。",
+        "extension": "所有微积分记号（导数 \\(\\dfrac{\\mathrm{d}x}{\\mathrm{d}t}\\) / 积分 \\(\\int\\) / 偏导 \\(\\partial\\)）都是「极限的形式化」，理解 lim 的物理含义是理解整个微积分的入口。",
+        "cardAnchor": "Card 2 · STEP 2 推导块「用符号写下这件事：极限」"
+      },
+      {
+        "id": "T3-2",
+        "type": "fill",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "limit-symbol"
+        ],
+        "stem": "<p>读出下列符号的中文表述：\\(\\displaystyle\\lim_{\\Delta t \\to 0}\\ (20 + 5\\Delta t)\\)。请用一句话写出读法（30 字以内）。</p>",
+        "blanks": [
+          "读法(中文)"
+        ],
+        "answer": [
+          [
+            "当Δt趋于0时20+5Δt的极限",
+            "当delta t趋于0时20+5delta t的极限",
+            "当Δt趋于零时20+5Δt的极限",
+            "Δt趋于0时20+5Δt的极限"
+          ]
+        ],
+        "explanation": {
+          "principle": "\\(\\lim\\) 读作「极限」；\\(\\Delta t \\to 0\\) 读作「Δt 趋于 0」；整个式子读作「当 Δt 趋于 0 时 …… 的极限」。",
+          "logic": "核心要点有三：① 「lim」必须读成「极限」 ② 「→0」必须读成「趋于零」（不能读成「等于零」）③ 「20 + 5Δt」作为被取极限的对象，必须读出来。三者缺一不可。",
+          "connection": "能正确读 lim → 能理解课堂上其他人在讨论什么 → 能与 AI 用准确术语对话。读写能力直接决定后续学习效率。"
+        },
+        "mistakes": "常见错误：读成「Δt 等于 0 时的值」——把「趋于」与「等于」混淆。",
+        "extension": "同样的读法适用于 \\(\\lim_{n \\to \\infty}\\)（n 趋于无穷大）/ \\(\\lim_{x \\to a}\\)（x 趋于 a 点）。本课只接触 \\(\\to 0\\) 的最简情形。",
+        "cardAnchor": "Card 2 · STEP 2 推导块「读法」段"
+      },
+      {
+        "id": "T3-3",
+        "type": "multi",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "limit-symbol",
+          "tend-vs-equal"
+        ],
+        "stem": "<p>关于极限符号 \\(\\displaystyle\\lim_{\\Delta t \\to 0}\\)，下列说法<strong>正确</strong>的有（多选 · 严格相等）：</p>",
+        "options": {
+          "A": "\\(\\Delta t \\to 0\\) 中 \\(\\Delta t\\) 始终不等于 0",
+          "B": "极限值是被「定义」出的新量，不是直接代入算出的",
+          "C": "极限存在时，对应的极限值唯一",
+          "D": "只要 \\(\\Delta t\\) 取得足够小，比值就一定等于极限值"
+        },
+        "answer": [
+          "A",
+          "B",
+          "C"
+        ],
+        "explanation": {
+          "principle": "\\(\\to\\) 是「趋近」过程，过程中 Δt 始终非零；极限值是被命名的新量；极限若存在则唯一。",
+          "logic": "A 是「\\(\\to 0\\) 与 \\(= 0\\)」的根本区分；B 道出极限的「命名」本质（Card 2 思考点 5 主推）；C 是极限的关键性质（唯一性）。D 错在「等于」——有限的 Δt 始终是「足够接近」，极限值是「被定义」为这种接近趋势的目标。",
+          "connection": "能勾对 ABC 而不勾 D，说明你已经把「无限趋近 ≠ 等于」这一条吃透了。这是后续学习导数（lim Δy/Δx → dy/dx）时不出错的前提。"
+        },
+        "mistakes": "勾 D 的同学：直觉来自「Δt = 0.0001 时 \\(\\bar v\\) = 20.0005，已经「几乎」等于 20」——但「几乎等于」不是「等于」。物理直觉允许这样近似，数学定义不允许。",
+        "extension": "「唯一性」在 C 中是关键：若一个比值从左、右趋近时给出不同的值，那这个极限就不存在（如 \\(\\lim_{x \\to 0} \\sin(1/x)\\)）。本课所有例子的极限都存在且唯一。",
+        "cardAnchor": "Card 2 · STEP 2 推导块「读法」段<br>Card 2 思考点 5"
+      },
+      {
+        "id": "T3-4",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "limit-symbol"
+        ],
+        "stem": "<p>下列写法中，<strong>正确表达</strong>「瞬时速度是平均速度在 Δt 趋于零时的极限」的是：</p>",
+        "options": {
+          "A": "\\(v(t) = \\Delta x / \\Delta t\\)",
+          "B": "\\(v(t) = \\lim_{\\Delta t = 0} \\Delta x / \\Delta t\\)",
+          "C": "\\(v(t) = \\lim_{\\Delta t \\to 0} \\dfrac{\\Delta x}{\\Delta t}\\)",
+          "D": "\\(v(t) = \\dfrac{0}{0}\\)"
+        },
+        "answer": "C",
+        "explanation": {
+          "principle": "完整写法必须含三件事：① \\(\\lim\\) 算符 ② \\(\\Delta t \\to 0\\)（趋近不等于） ③ 被取极限的对象 \\(\\Delta x / \\Delta t\\)。",
+          "logic": "A 漏掉极限算符，写成平均速度；B 错用 \\(\\Delta t = 0\\)（=号），本质是「直接代入」，结果是 0/0；D 直接写成 0/0，混淆了「形式」与「值」。只有 C 三者齐全。",
+          "connection": "能在书写时正确使用 \\(\\to\\) 而不是 \\(=\\)，是这一课最直观的「过关凭证」——下一课导数的标准写法 \\(\\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = \\lim_{\\Delta t \\to 0} \\dfrac{\\Delta x}{\\Delta t}\\) 直接复用本式。"
+        },
+        "mistakes": "高频笔误：把 \\(\\to\\) 写成 \\(=\\)。在草稿上检查时，先确认每个 \\(\\lim\\) 下方都是 \\(\\to\\) 而不是 \\(=\\)。",
+        "extension": "不同教材中 lim 下标的写法略有差异（有的写在 lim 正下方，有的写在右下角），但内容必须包含「变量 + → + 目标值」三件事。",
+        "cardAnchor": "Card 2 · STEP 2 推导块「用符号写下这件事」"
+      }
+    ],
+    "T4": [
+      {
+        "id": "T4-1",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "simplify-then-lim"
+        ],
+        "stem": "<p>对 \\(\\bar v = \\dfrac{20\\Delta t + 5(\\Delta t)^2}{\\Delta t}\\)，按「先化简后取极限」求 \\(v(2)\\)。下列<strong>步骤顺序</strong>正确的是：</p>",
+        "options": {
+          "A": "直接代入 Δt = 0 → 得 0/0 → 放弃",
+          "B": "先令 Δt → 0 化简 → 再代入",
+          "C": "先在 Δt ≠ 0 前提下提取公因子 Δt 约分 → 得 \\(20 + 5\\Delta t\\) → 再令 Δt → 0 → 得 20 m/s",
+          "D": "令 Δt = 0.001 → 算出 20.005 m/s → 报为答案"
+        },
+        "answer": "C",
+        "explanation": {
+          "principle": "「先化简」指利用 \\(\\Delta t \\neq 0\\) 这一条件合法约分；「后取极限」指化简后的式子再让 Δt → 0。",
+          "logic": "A 是放弃；B 顺序错（极限不能「先取」再化简）；D 用近似数代替极限值（虽数值上「几乎」等于但概念上不对）。只有 C 是完整正确的两步流程。",
+          "connection": "「先化简后取极限」是处理 0/0 不确定形式的标准方法；下一课导数的具体计算几乎都靠这一招（如 \\(\\dfrac{d}{dt} t^2 = \\lim_{\\Delta t \\to 0} \\dfrac{(t+\\Delta t)^2 - t^2}{\\Delta t} = \\lim_{\\Delta t \\to 0} (2t + \\Delta t) = 2t\\)）。"
+        },
+        "mistakes": "常见误区：勾 D 的同学把「用很小的 Δt 算近似」等同于「取极限」——前者是<strong>实验测量</strong>的近似手段，后者是<strong>数学定义</strong>。",
+        "extension": "该流程的合法性依赖一个隐含前提：化简后的式子 \\(20 + 5\\Delta t\\) 在 Δt = 0 处必须连续——这个前提对多项式总成立，对其他函数需要单独验证。",
+        "cardAnchor": "Card 2 · STEP 2 推导块「为什么先化简再趋于 0 能绕开 0/0」"
+      },
+      {
+        "id": "T4-2",
+        "type": "fill",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "simplify-then-lim"
+        ],
+        "stem": "<p>已知 \\(x(t) = 3t^2\\)（单位：m / s）。求 \\(t = 2\\) s 时的瞬时速度。按「先化简后取极限」流程，化简后的表达式为 \\(\\bar v = \\)____（用含 Δt 的最简形式），代入极限得 \\(v(2) = \\)____ m/s。</p>",
+        "blanks": [
+          "化简后表达式",
+          "v(2) 数值"
+        ],
+        "answer": [
+          [
+            "12+3Δt",
+            "12+3delta t",
+            "3Δt+12",
+            "12 + 3 Δt",
+            "12+3△t"
+          ],
+          [
+            "12"
+          ]
+        ],
+        "explanation": {
+          "principle": "套同样推导路线，只是把 x(t) = 5t² 换成 3t²、起点 t = 2 不变。",
+          "logic": "步骤：① \\(\\Delta x = 3(2+\\Delta t)^2 - 3 \\cdot 4 = 12 \\Delta t + 3 (\\Delta t)^2\\)；② 除以 Δt 得 \\(12 + 3\\Delta t\\)；③ 令 Δt → 0 得 \\(v(2) = 12\\) m/s。",
+          "connection": "本题验证你能否把「在 5t² 上做过的推导」完整迁移到一个新的位移函数。能独立完成 → 说明已掌握流程；卡在某一步 → 回 Card 1 / Card 2 对应位置重做。"
+        },
+        "mistakes": "常见错误：① 漏掉 \\(2 \\cdot 2 \\cdot \\Delta t\\) 的因子 2 → 错算系数 6 而非 12；② 化简结束忘记令 Δt → 0，留下 \\(12 + 3\\Delta t\\) 当作最终答案。",
+        "extension": "若把系数 3 推广为任意 \\(k\\)，则 \\(v(2) = 4k\\)；若把起点 t = 2 推广为任意 \\(t_0\\)，则 \\(v(t_0) = 2k\\, t_0\\)。下一课用导数一句话给出：\\((kt^2)\\prime = 2kt\\)。",
+        "cardAnchor": "Card 1 · STEP 2 推导块<br>Card 2 · STEP 2 推导块（流程迁移）"
+      },
+      {
+        "id": "T4-3",
+        "type": "multi",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "simplify-then-lim",
+          "zero-over-zero"
+        ],
+        "stem": "<p>关于「先化简后取极限」流程，下列说法<strong>正确</strong>的有（多选 · 严格相等）：</p>",
+        "options": {
+          "A": "化简（约去 Δt）的合法性来自「过程中 Δt 始终不为零」",
+          "B": "化简之后的表达式 \\(20 + 5\\Delta t\\) 中已经没有 Δt 在分母，所以可以放心代入 Δt = 0",
+          "C": "该流程只对位移是 \\(t^2\\) 形式的函数适用",
+          "D": "化简的目的是把「形式上的 0/0」转化为「可以直接代入」的形式"
+        },
+        "answer": [
+          "A",
+          "B",
+          "D"
+        ],
+        "explanation": {
+          "principle": "A、B、D 分别是化简合法性的来源 / 化简后代入的安全性 / 化简的目的。三者共同构成完整流程的逻辑。",
+          "logic": "C 错在「只适用于 t² 形式」——这一流程适用于任何能通过代数化简提取公因子的函数；下一课你会看到它在 \\(t^n\\)（任意 n）、\\(\\sin t\\)、\\(e^t\\) 等函数上都管用。",
+          "connection": "「先化简后取极限」的普适性是导数能成为通用工具的根本——它是一种「模式」，不是某个函数的特例。这一条理解到位，下一课进入导数时就不会觉得唐突。"
+        },
+        "mistakes": "勾 C 的同学：你可能只见过 5t² 这一个例子，所以以为流程「只对 t² 有效」——其实下一课会立即推广到任意位移函数。",
+        "extension": "在更一般的情形下，化简方法包括：① 代数因式分解（本课方法）② 乘以「共轭式」分子有理化 ③ 利用三角恒等式。本课只用 ①，但流程的精神一致。",
+        "cardAnchor": "Card 2 · STEP 2 推导块「为什么先化简再趋于 0 能绕开 0/0」<br>Card 2 思考点 6"
+      },
+      {
+        "id": "T4-4",
+        "type": "short",
+        "score": 14,
+        "difficulty": "较难",
+        "exportIds": [
+          "simplify-then-lim"
+        ],
+        "stem": "<p>用 60-100 字说明：在 \\(\\bar v = \\dfrac{20\\Delta t + 5(\\Delta t)^2}{\\Delta t}\\) 中，<strong>约去 Δt 的合法性</strong>从何而来？为什么这一步约分不算「除以零」？请明确写出关键前提。</p>",
+        "keywords": [
+          "不等于零",
+          "不为零",
+          "不为 0",
+          "Δt≠0",
+          "趋于",
+          "过程中",
+          "约分"
+        ],
+        "answer": "关键字命中 ≥ 1 项算掌握",
+        "explanation": {
+          "principle": "约分的前提是分母不为零。\\(\\lim_{\\Delta t \\to 0}\\) 表示「Δt 趋于 0 但始终不等于 0」，因此在整个取极限的过程中 \\(\\Delta t \\neq 0\\)，分子分母同时提取因子 Δt 然后约掉是合法运算——这与「代入 Δt = 0 之后再约分」完全不同。",
+          "logic": "关键区分：「过程中 Δt ≠ 0」→ 合法约分；「已经令 Δt = 0」→ 触发除以零。两者次序不同、合法性不同。化简就是利用前者的合法窗口。",
+          "connection": "这条逻辑是后续导数计算所有「约分→取极限」步骤共享的合法性来源。理解到这一层，下一课所有 \\(\\lim_{\\Delta t \\to 0} \\dfrac{f(t+\\Delta t) - f(t)}{\\Delta t}\\) 的展开都可以放心做。"
+        },
+        "mistakes": "常见问题：答「因为可以约分」而不指出「为什么可以约分」会失分。",
+        "extension": "同样的「过程中保持非零」思想也是积分的合法性基础——黎曼和中每一段宽度始终非零，只是最终趋于零。",
+        "cardAnchor": "Card 2 · STEP 2 推导块「为什么先化简再趋于 0 能绕开 0/0」关键句"
+      }
+    ],
+    "T5": [
+      {
+        "id": "T5-1",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "tend-vs-equal"
+        ],
+        "stem": "<p>对 \\(x(t) = 5t^2\\)，从 \\(t = 2\\) 起取 \\(\\Delta t = 0.001\\) 时算得 \\(\\bar v = 20.005\\) m/s。下列说法正确的是：</p>",
+        "options": {
+          "A": "20.005 就是 t = 2 时的瞬时速度",
+          "B": "20.005 是一个具体的平均速度值，它比 20 略大，反映了「还差一点点没到极限」",
+          "C": "20.005 是错误的计算结果，正确答案应该是 20",
+          "D": "20.005 与 20 在物理上完全等价，没有差别"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "任何有限的 Δt 给出的都是「平均速度」，不是「瞬时速度」；瞬时速度是「Δt 任意小时的极限」。",
+          "logic": "A 把平均速度直接等同于瞬时速度（「足够小就等于」的错觉）；C 否定了平均速度本身的计算正确性（\\(\\bar v = 20 + 5 \\cdot 0.001 = 20.005\\) 确实正确）；D 抹去「差别」——但物理上 20 是一个「极限值」，20.005 是一个「近似值」，两者地位不同。",
+          "connection": "Card 2 思考点 5 主推：「无限接近 ≠ 等于」。能对这一题判 B，说明你已经分清了「平均速度的具体数值」 vs 「瞬时速度的极限值」两个范畴。"
+        },
+        "mistakes": "勾 A 的同学：你的思路是「Δt 很小所以差不多了」——物理实验里这样近似是 OK 的，但在物理定义里 20.005 ≠ 20。本课的训练就是让你能在两种语境下切换。",
+        "extension": "在精密物理实验中，你需要明确报告「测量值」与「极限值」的差异——例如打点计时器测出的「瞬时速度」实际上是某个小区间的平均速度，论文中应说明该近似的有效性。",
+        "cardAnchor": "Card 2 · STEP 2 思考点 5"
+      },
+      {
+        "id": "T5-2",
+        "type": "multi",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "tend-vs-equal"
+        ],
+        "stem": "<p>关于「无限趋近 ≠ 等于」，下列说法<strong>正确</strong>的有（多选 · 严格相等）：</p>",
+        "options": {
+          "A": "数表里任何一行的 \\(\\bar v\\) 都不真的等于极限值 20，但它们逼近的目标是 20",
+          "B": "我们把「逼近的目标」定义为瞬时速度，等号是「定义」，不是「代入计算的结果」",
+          "C": "「无限趋近」只是描述方式，没有数学上的精确含义",
+          "D": "虽然没有任何一行等于 20，但 20 这个值确实由整个数列「无穷地」刻画出来"
+        },
+        "answer": [
+          "A",
+          "B",
+          "D"
+        ],
+        "explanation": {
+          "principle": "逼近 ≠ 等于 / 极限值是定义 / 极限值由整个趋近过程精确刻画。",
+          "logic": "A、B、D 分别是这一条铁律的三个面：① 现象（任何一行都不等于） ② 命名（「=」是定义） ③ 精确性（虽然过程无限，但极限值唯一确定）。C 错在「没有精确含义」——大学的 ε-δ 定义把「无限趋近」刻画得严格至毫厘，本课只是不展开。",
+          "connection": "勾 ABD 不勾 C，说明你既掌握了直觉版「无限趋近」，又知道它背后有严格数学保证。这是从物理直觉到数学严格性的过渡阶段。"
+        },
+        "mistakes": "勾 C 的同学：你可能因为本课没讲严格定义而以为「无限趋近」只是模糊的说法——其实数学家用 ε-δ 把它刻画得极精确，本课只是为了不分散注意力而省略了形式定义。",
+        "extension": "严格 ε-δ 定义见大学微积分课本；本课对它的承诺是「它存在 + 它给极限值唯一的精确含义」，已经够用。",
+        "cardAnchor": "Card 2 · STEP 2 思考点 5<br>Card 2 · STEP 2 tp-hint（地平线类比）"
+      },
+      {
+        "id": "T5-3",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "tend-vs-equal"
+        ],
+        "stem": "<p>类比：「地平线在远方看上去和大海相连，但你永远走不到地平线那个点。」这个类比想说明的<strong>极限性质</strong>是：</p>",
+        "options": {
+          "A": "极限值不存在",
+          "B": "我们「走过去的目标」虽然永远不被某一行真正达到，但这个目标本身被精确命名了",
+          "C": "极限只是错觉，没有数学意义",
+          "D": "物理上无法实现极限，所以极限只是一种理论假设"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "地平线类比强调的是「目标存在且唯一，但任何有限步都不真正达到」——这正是极限的核心性质。",
+          "logic": "A、C 否认极限的存在与意义，与本课结论相反；D 把「物理实现」与「数学定义」混为一谈——数学上极限值精确存在，物理上的「实现」是另一个话题。只有 B 准确捕捉了极限「被命名 + 永不达成」的双重特性。",
+          "connection": "这个类比是 Card 2 思考点 5 的核心比喻；能对它判 B，说明你抓住了极限的本质：「过程无限 + 目标精确」。"
+        },
+        "mistakes": "勾 D 的同学：物理上的「无法实现」与数学上的「无法达成有限步」是两件事——前者是测量精度问题，后者是定义性质问题。本课的「极限」是数学定义。",
+        "extension": "同样的「过程无限 + 目标精确」出现在：无穷级数求和（如 \\(1 + 1/2 + 1/4 + \\cdots = 2\\)）、\\(\\pi\\) 的无穷小数表示等。",
+        "cardAnchor": "Card 2 · 思考点 5 tp-hint 段（地平线类比）"
+      },
+      {
+        "id": "T5-4",
+        "type": "short",
+        "score": 14,
+        "difficulty": "较难",
+        "exportIds": [
+          "tend-vs-equal"
+        ],
+        "stem": "<p>用 60-100 字解释：为什么 Card 2 数表中<strong>没有任何一行</strong>的 \\(\\bar v\\) 真的等于 20，但我们仍然可以确定地写出 \\(v(2) = 20\\) m/s？这个「=」是什么「=」？</p>",
+        "keywords": [
+          "定义",
+          "命名",
+          "极限值",
+          "目标",
+          "趋近",
+          "存在且唯一",
+          "不等于"
+        ],
+        "answer": "关键字命中 ≥ 1 项算掌握",
+        "explanation": {
+          "principle": "「=」是「定义的符号」——把数表逼近的那个稳定值命名为 \\(v(2)\\)；这个被命名的值通过整个无限趋近过程精确刻画，而不是通过代入某一行数值得到。",
+          "logic": "关键三段论：① 数表中任何一行的 \\(\\bar v\\) 都 ≠ 20（具体计算如 \\(\\Delta t = 0.001\\) 给出 20.005）。② 但所有行的 \\(\\bar v\\) 都「以确定方式」逼近 20，且越往后越接近、修正量越小。③ 我们<strong>命名</strong>这个被逼近的稳定值为瞬时速度 \\(v(2)\\)，等号是定义，不是代入。",
+          "connection": "这是这一课最哲学的一句：物理学允许我们「命名一个过程的目标」，并赋予它精确含义。下一课导数同样如此——「位移变化率的极限」被命名为导数。"
+        },
+        "mistakes": "常见问题：只写「因为 Δt 很小所以约等于」不命中关键字。",
+        "extension": "所有微积分对象（极限 / 导数 / 积分）都遵循「被定义为某种过程的极限」这一范式。理解这一条，整个微积分语言就打开了。",
+        "cardAnchor": "Card 2 · STEP 2 思考点 5 关键句「这个 = 是定义」"
+      }
+    ],
+    "T6": [
+      {
+        "id": "T6-1",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "secant-to-tangent"
+        ],
+        "stem": "<p>在 x-t 图上取曲线 \\(x = 5t^2\\) 上两点 \\(P_1(2, 20)\\) 与 \\(P_2(3, 45)\\)，连成的直线段是<strong>割线</strong>。示意图如下：</p><svg viewBox=\"0 0 460 340\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:460px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"300\" x2=\"440\" y2=\"300\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"440,300 432,296 432,304\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"300\" x2=\"50\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,30 46,38 54,38\" fill=\"#1e40af\"/><text x=\"445\" y=\"315\" font-size=\"14\">t/s</text><text x=\"20\" y=\"35\" font-size=\"14\">x/m</text><text x=\"40\" y=\"318\" font-size=\"12\">0</text><line x1=\"250\" y1=\"300\" x2=\"250\" y2=\"305\" stroke=\"#1e40af\"/><text x=\"244\" y=\"318\" font-size=\"12\">2</text><line x1=\"350\" y1=\"300\" x2=\"350\" y2=\"305\" stroke=\"#1e40af\"/><text x=\"344\" y=\"318\" font-size=\"12\">3</text><line x1=\"50\" y1=\"200\" x2=\"45\" y2=\"200\" stroke=\"#1e40af\"/><text x=\"18\" y=\"205\" font-size=\"12\">20</text><line x1=\"50\" y1=\"75\" x2=\"45\" y2=\"75\" stroke=\"#1e40af\"/><text x=\"18\" y=\"80\" font-size=\"12\">45</text><path d=\"M 50 300 Q 150 292 250 200 T 350 75\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2\"/><line x1=\"250\" y1=\"200\" x2=\"350\" y2=\"75\" stroke=\"#dc2626\" stroke-width=\"2.2\"/><circle cx=\"250\" cy=\"200\" r=\"4\" fill=\"#dc2626\"/><circle cx=\"350\" cy=\"75\" r=\"4\" fill=\"#dc2626\"/><text x=\"258\" y=\"195\" font-size=\"12\" fill=\"#dc2626\" font-weight=\"bold\">P₁(2, 20)</text><text x=\"358\" y=\"75\" font-size=\"12\" fill=\"#dc2626\" font-weight=\"bold\">P₂(3, 45)</text><text x=\"290\" y=\"155\" font-size=\"12\" fill=\"#dc2626\" font-weight=\"bold\">割线</text><text x=\"180\" y=\"270\" font-size=\"12\" fill=\"#059669\">x = 5t²</text></svg><p>这条割线的斜率等于：</p>",
+        "options": {
+          "A": "某一时刻的瞬时速度 v(t)",
+          "B": "从 t = 2 到 t = 3 这段时间内的平均速度 \\(\\bar v\\) = 25 m/s",
+          "C": "P₁ 处的切线斜率",
+          "D": "5t² 在 t = 2 处的导数"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "割线斜率 = \\(\\dfrac{x_2 - x_1}{t_2 - t_1} = \\dfrac{45 - 20}{3 - 2} = 25\\)，正好就是这段时间内的平均速度。",
+          "logic": "A、C、D 都对应「瞬时速度 / 切线斜率 / 导数」——这是「\\(P_2 \\to P_1\\) 的极限位置」的几何对象，需要让 \\(P_2\\) 趋近 \\(P_1\\) 才能得到，不是单条割线能给出。",
+          "connection": "「割线斜率 = 平均速度」是 Card 3 的几何代数对应表第一行；理解这一条，才能理解为什么「让 P₂ → P₁」 在几何上对应「让 Δt → 0」在代数上。"
+        },
+        "mistakes": "勾 C 的同学：你可能没注意到「P₂ 还停在 (3, 45)」——这条割线还没「趋近」，仍是一条具体的割线，对应的是一段具体的平均速度，不是切线斜率。",
+        "extension": "在 x-t 图上「读斜率」是分析直线运动的基本动作；后续学位移-时间图、速度-时间图、加速度-时间图都会重复这一动作，只是物理含义不同。",
+        "cardAnchor": "Card 3 · STEP 2 推导块「几何与代数对应表」第一行"
+      },
+      {
+        "id": "T6-2",
+        "type": "choice",
+        "score": 14,
+        "difficulty": "基础",
+        "exportIds": [
+          "secant-to-tangent"
+        ],
+        "stem": "<p>在 x-t 图上，让 \\(P_2\\) 沿曲线 \\(x = 5t^2\\) 不断靠近 \\(P_1(2, 20)\\)。三条割线 \\(P_1 P_2\\) 在 \\(P_2 = (3, 45),\\ (2.5, 31.25),\\ (2.1, 22.05)\\) 时的斜率依次是 25 / 22.5 / 20.5。示意图如下（三条红色割线 → 蓝色切线的极限过程）：</p><svg viewBox=\"0 0 460 340\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:460px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"300\" x2=\"440\" y2=\"300\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"440,300 432,296 432,304\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"300\" x2=\"50\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,30 46,38 54,38\" fill=\"#1e40af\"/><text x=\"445\" y=\"315\" font-size=\"14\">t/s</text><text x=\"20\" y=\"35\" font-size=\"14\">x/m</text><text x=\"40\" y=\"318\" font-size=\"12\">0</text><line x1=\"250\" y1=\"300\" x2=\"250\" y2=\"305\" stroke=\"#1e40af\"/><text x=\"244\" y=\"318\" font-size=\"12\">2</text><line x1=\"350\" y1=\"300\" x2=\"350\" y2=\"305\" stroke=\"#1e40af\"/><text x=\"344\" y=\"318\" font-size=\"12\">3</text><line x1=\"50\" y1=\"200\" x2=\"45\" y2=\"200\" stroke=\"#1e40af\"/><text x=\"18\" y=\"205\" font-size=\"12\">20</text><path d=\"M 50 300 Q 150 292 250 200 T 350 75\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2\"/><line x1=\"170\" y1=\"260\" x2=\"350\" y2=\"80\" stroke=\"#1e40af\" stroke-width=\"2.4\" stroke-dasharray=\"5,4\"/><text x=\"340\" y=\"70\" font-size=\"12\" fill=\"#1e40af\" font-weight=\"bold\">切线</text><line x1=\"250\" y1=\"200\" x2=\"350\" y2=\"75\" stroke=\"#dc2626\" stroke-width=\"1.8\" opacity=\"0.5\"/><line x1=\"250\" y1=\"200\" x2=\"300\" y2=\"122\" stroke=\"#dc2626\" stroke-width=\"1.8\" opacity=\"0.7\"/><line x1=\"250\" y1=\"200\" x2=\"260\" y2=\"186\" stroke=\"#dc2626\" stroke-width=\"1.8\"/><circle cx=\"250\" cy=\"200\" r=\"4\" fill=\"#dc2626\"/><circle cx=\"350\" cy=\"75\" r=\"3\" fill=\"#dc2626\" opacity=\"0.5\"/><circle cx=\"300\" cy=\"122\" r=\"3\" fill=\"#dc2626\" opacity=\"0.7\"/><circle cx=\"260\" cy=\"186\" r=\"3\" fill=\"#dc2626\"/><text x=\"258\" y=\"195\" font-size=\"12\" fill=\"#dc2626\" font-weight=\"bold\">P₁</text><text x=\"355\" y=\"72\" font-size=\"10\" fill=\"#dc2626\">(3,45)</text><text x=\"305\" y=\"120\" font-size=\"10\" fill=\"#dc2626\">(2.5,31.25)</text><text x=\"265\" y=\"180\" font-size=\"10\" fill=\"#dc2626\">(2.1,22.05)</text><text x=\"180\" y=\"270\" font-size=\"12\" fill=\"#059669\">x = 5t²</text></svg><p>当 \\(P_2 \\to P_1\\) 时，<strong>割线的极限位置</strong>是：</p>",
+        "options": {
+          "A": "一条水平线（斜率 0）",
+          "B": "一条与 \\(P_1\\) 处切线重合的直线（斜率 20）",
+          "C": "一条竖直线（斜率无穷大）",
+          "D": "一条与 x 轴成 45° 的斜线"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "随着 \\(P_2 \\to P_1\\)，割线斜率序列 25 → 22.5 → 20.5 → ... 趋近 20；而 \\(P_1\\) 处的切线斜率正是 20。两者数值相等且几何位置重合。",
+          "logic": "从数据序列就能看出：割线斜率向 20 收敛；几何上「两点不断靠近」必然让割线绕 P₁ 旋转，旋转的终极位置就是切线。所以极限位置 = 切线、斜率 = 20。",
+          "connection": "这一条把数表（Card 2）和几何（Card 3）打通了——同一个 20，在数表里是「\\(\\bar v\\) 的逼近目标」，在几何里是「切线斜率」。"
+        },
+        "mistakes": "常见误区：以为「P₂ 趋于 P₁ 时，割线会消失或退化为一个点」——其实在极限位置割线变成切线，斜率有意义（不是 0 也不是 ∞）。",
+        "extension": "这个动态过程在数学上叫做「切线作为割线的极限」，是导数几何定义的核心；下一课会直接复用这一图景。",
+        "cardAnchor": "Card 3 · STEP 1 思考点 7<br>Card 3 · STEP 2 图 1"
+      },
+      {
+        "id": "T6-3",
+        "type": "multi",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "secant-to-tangent",
+          "avg-vs-inst"
+        ],
+        "stem": "<p>关于 x-t 图上的「割线 → 切线」（示意如下：红色为割线 · 蓝色为切线），下列说法<strong>正确</strong>的有（多选 · 严格相等）：</p><svg viewBox=\"0 0 380 240\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:380px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"40\" y1=\"200\" x2=\"360\" y2=\"200\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"360,200 352,196 352,204\" fill=\"#1e40af\"/><line x1=\"40\" y1=\"200\" x2=\"40\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"40,30 36,38 44,38\" fill=\"#1e40af\"/><text x=\"363\" y=\"215\" font-size=\"14\">t</text><text x=\"15\" y=\"35\" font-size=\"14\">x</text><path d=\"M 40 200 Q 150 190 220 120 T 340 40\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2\"/><line x1=\"140\" y1=\"180\" x2=\"310\" y2=\"55\" stroke=\"#1e40af\" stroke-width=\"2.4\" stroke-dasharray=\"5,4\"/><line x1=\"220\" y1=\"120\" x2=\"340\" y2=\"40\" stroke=\"#dc2626\" stroke-width=\"1.8\"/><circle cx=\"220\" cy=\"120\" r=\"4\" fill=\"#dc2626\"/><circle cx=\"340\" cy=\"40\" r=\"3\" fill=\"#dc2626\"/><text x=\"228\" y=\"115\" font-size=\"12\" fill=\"#dc2626\" font-weight=\"bold\">P₁</text><text x=\"345\" y=\"38\" font-size=\"12\" fill=\"#dc2626\" font-weight=\"bold\">P₂</text><text x=\"295\" y=\"90\" font-size=\"11\" fill=\"#dc2626\">割线</text><text x=\"265\" y=\"75\" font-size=\"11\" fill=\"#1e40af\" font-weight=\"bold\">切线</text><text x=\"240\" y=\"195\" font-size=\"11\" fill=\"#059669\">x(t)</text></svg>",
+        "options": {
+          "A": "割线需要两个点才能确定，切线只对应曲线上一个点",
+          "B": "割线的斜率给出该段时间的平均速度",
+          "C": "切线的斜率给出该时刻的瞬时速度",
+          "D": "只要曲线连续，切线就一定存在"
+        },
+        "answer": [
+          "A",
+          "B",
+          "C"
+        ],
+        "explanation": {
+          "principle": "A、B、C 是「割线 vs 切线」的核心三条对应；D 错在「只要连续」过强——切线存在还需要「光滑」（不能有尖角）。",
+          "logic": "A 是几何区分；B、C 是斜率含义。D 错在反例：函数 \\(|t|\\) 在 t=0 处连续但有尖角，此处没有唯一切线（左斜率 −1，右斜率 +1）。本课例子 \\(5t^2\\) 处处光滑，所以处处有切线；但不能由此推广为「所有连续函数都有切线」。",
+          "connection": "本题既考查 Card 3 主线，又留下一个伏笔：「切线不总是存在」——下一课导数的存在条件会展开。能勾 ABC 不勾 D，说明你已经知道「光滑」这一隐藏前提。"
+        },
+        "mistakes": "勾 D 的同学：你可能没接触过「尖角」函数的反例——本课不要求理解尖角，但应该知道「连续 ≠ 一定有切线」的局限。",
+        "extension": "「可导 ⟹ 连续，但连续 ⟹ 可导」，是大学微积分中的经典结论。本课只用「位移函数 \\(x(t) = 5t^2\\) 处处光滑」这一友好情形。",
+        "cardAnchor": "Card 3 · STEP 2 推导块「几何与代数对应表」<br>Card 3 · STEP 2 思考点 8"
+      },
+      {
+        "id": "T6-4",
+        "type": "short",
+        "score": 14,
+        "difficulty": "中等",
+        "exportIds": [
+          "secant-to-tangent"
+        ],
+        "stem": "<p>用 60-100 字解释：为什么「切线只与曲线上一个点有关」，而不是像割线那样需要两个点？请结合 \\(P_2 \\to P_1\\) 的极限过程作答。</p>",
+        "keywords": [
+          "极限",
+          "趋近",
+          "重合",
+          "一个点",
+          "唯一",
+          "极限位置",
+          "存在"
+        ],
+        "answer": "关键字命中 ≥ 1 项算掌握",
+        "explanation": {
+          "principle": "我们让另一个点 \\(P_2\\) 无限趋近 \\(P_1\\)，二者在极限下「重合」于一个点 P₁；但割线绕 P₁ 旋转的过程给出了一个稳定的极限位置——这个极限位置就是切线。所以切线虽然只对应曲线上一个点，但它本身是由「两点趋近合并」这个过程命名的。",
+          "logic": "关键区分：割线「在过程的每一步」对应两个点；切线「在过程的极限」对应一个点。切线不是「凭一个点凭空出现」，而是「两个点合并过程」的产物。",
+          "connection": "这一条理解清楚 → 后续看到「曲线在某点的切线」时，你脑中会自动浮现「P₂ 趋近 P₁」的动画，而不是把切线当作「凭空给定」的几何对象。"
+        },
+        "mistakes": "常见问题：答「切线就是定义里只对一个点」不命中关键字，会失分。",
+        "extension": "该思想推广到曲面：曲面上一点的「切平面」由「该点上的任意切向量张成」，每个切向量都是某条曲线的极限切线方向。",
+        "cardAnchor": "Card 3 · STEP 2 思考点 8 关键句"
+      }
+    ],
+    "T7": [
+      {
+        "id": "T7-1",
+        "type": "choice",
+        "score": 16,
+        "difficulty": "中等",
+        "exportIds": [
+          "bridge-to-deriv",
+          "limit-symbol"
+        ],
+        "stem": "<p>本课最后给出：「瞬时速度 \\(v(t) = \\displaystyle\\lim_{\\Delta t \\to 0} \\dfrac{\\Delta x}{\\Delta t} = \\) x-t 图上切线斜率」（示意如下）。下一课会把这一表达式提炼成对<strong>任意位移函数</strong>都能用的运算规则，这个运算被命名为：</p><svg viewBox=\"0 0 340 200\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:340px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"40\" y1=\"170\" x2=\"320\" y2=\"170\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"320,170 312,166 312,174\" fill=\"#1e40af\"/><line x1=\"40\" y1=\"170\" x2=\"40\" y2=\"20\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"40,20 36,28 44,28\" fill=\"#1e40af\"/><text x=\"323\" y=\"185\" font-size=\"13\">t</text><text x=\"20\" y=\"25\" font-size=\"13\">x</text><path d=\"M 40 170 Q 130 165 200 100 T 300 30\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2\"/><line x1=\"110\" y1=\"155\" x2=\"290\" y2=\"45\" stroke=\"#1e40af\" stroke-width=\"2.4\" stroke-dasharray=\"5,4\"/><circle cx=\"200\" cy=\"100\" r=\"4\" fill=\"#1e40af\"/><text x=\"208\" y=\"96\" font-size=\"12\" fill=\"#1e40af\" font-weight=\"bold\">切线斜率 = v(t)</text></svg>",
+        "options": {
+          "A": "积分",
+          "B": "导数",
+          "C": "微分方程",
+          "D": "差分"
+        },
+        "answer": "B",
+        "explanation": {
+          "principle": "导数 = 函数的瞬时变化率 = \\(\\lim_{\\Delta x \\to 0} \\dfrac{\\Delta y}{\\Delta x}\\)；对位移 \\(x(t)\\) 的导数即瞬时速度 \\(v(t)\\)。",
+          "logic": "积分（A）是导数的「逆运算」，做的事情相反；微分方程（C）是「含导数的方程」，是导数的应用；差分（D）是「离散版本的变化」，对应有限 Δ而非趋于 0 的极限。只有导数（B）是把「取极限」提炼为通用运算规则。",
+          "connection": "本题是给下一课递的入口卡片——能选 B，说明你已经准备好进入第 3 课「导数」。"
+        },
+        "mistakes": "勾 A 的同学：积分确实与导数密切相关，但方向相反（积分把变化率累加回总量；导数把总量化为变化率）。下一课会先讲导数，积分留在更后面。",
+        "extension": "「导数 + 积分」是微积分的两大支柱；「瞬时速度（导数）+ 位移（速度的积分）」是它们在直线运动里最直接的对应。",
+        "cardAnchor": "Card 3 · STEP 3 思考点 9"
+      },
+      {
+        "id": "T7-2",
+        "type": "multi",
+        "score": 16,
+        "difficulty": "中等",
+        "exportIds": [
+          "bridge-to-deriv",
+          "avg-vs-inst",
+          "secant-to-tangent"
+        ],
+        "stem": "<p>带着这一课的成果进入下一课，下列哪些「语言转换」<strong>已经对你成立</strong>（多选 · 严格相等）：</p>",
+        "options": {
+          "A": "「瞬时速度」 ⟺ 「\\(\\lim_{\\Delta t \\to 0} \\Delta x / \\Delta t\\)」",
+          "B": "「瞬时速度」 ⟺ 「x-t 图上的切线斜率」",
+          "C": "「瞬时速度」 ⟺ 「在某段时间 Δt 内的平均速度」",
+          "D": "「\\(\\lim_{\\Delta t \\to 0} \\Delta x / \\Delta t\\)」 ⟺ 「x-t 图上的切线斜率」"
+        },
+        "answer": [
+          "A",
+          "B",
+          "D"
+        ],
+        "explanation": {
+          "principle": "本课建立了「物理（瞬时速度）= 代数（lim Δx/Δt）= 几何（切线斜率）」三位一体的对应。",
+          "logic": "A、B、D 三个对应都成立，分别是「物理↔代数」 / 「物理↔几何」 / 「代数↔几何」。C 错在等价「瞬时速度 = 平均速度」——除非取极限，这两个范畴不同。",
+          "connection": "能勾 ABD 不勾 C，说明这一课的三组对应已经完整建立——这正是下一课需要的「入口词典」。"
+        },
+        "mistakes": "勾 C 的同学：复习 Card 1 与 Card 2 思考点 5。瞬时速度只在极限下从平均速度「被定义」出来，两者范畴不同。",
+        "extension": "「物理 ↔ 代数 ↔ 几何」三语言转换是物理学的核心方法论；同样的三角对应会贯穿后面所有章节（牛顿定律、动量、能量等）。",
+        "cardAnchor": "Card 3 · STEP 3 三段总结<br>Card 3 · STEP 3 思考点 9"
+      },
+      {
+        "id": "T7-3",
+        "type": "choice",
+        "score": 16,
+        "difficulty": "较难",
+        "exportIds": [
+          "bridge-to-deriv",
+          "simplify-then-lim"
+        ],
+        "stem": "<p>把本课方法迁移：「对任意位移函数 \\(x(t)\\)，瞬时速度 \\(v(t)\\) 的<strong>通用公式</strong>是：</p>",
+        "options": {
+          "A": "\\(v(t) = x(t) / t\\)",
+          "B": "\\(v(t) = \\Delta x / \\Delta t\\)",
+          "C": "\\(v(t) = \\displaystyle\\lim_{\\Delta t \\to 0} \\dfrac{x(t + \\Delta t) - x(t)}{\\Delta t}\\)",
+          "D": "\\(v(t) = x(t + \\Delta t) - x(t)\\)"
+        },
+        "answer": "C",
+        "explanation": {
+          "principle": "瞬时速度的通用定义就是 \\(\\lim_{\\Delta t \\to 0}\\) 作用在 \\(\\dfrac{x(t + \\Delta t) - x(t)}{\\Delta t}\\) 上。",
+          "logic": "A 是「位置除以时间」，连平均速度都不是；B 是平均速度的通用写法，<strong>没有取极限</strong>；D 是位移变化量，<strong>没有除以 Δt 也没有取极限</strong>。只有 C 三件事齐全：① 分子是位移变化 \\(x(t+\\Delta t) - x(t)\\) ② 分母是时间变化 Δt ③ 整体取极限。",
+          "connection": "本题是「把 5t² 的特殊推导<strong>抽象</strong>到任意 \\(x(t)\\)」。能写出 C，说明你已经从「做题模式」切换到了「通用模式」——这正是下一课导数定义的标准写法。"
+        },
+        "mistakes": "勾 B 的同学：你写出的是平均速度的通用形式，但缺了「\\(\\lim\\)」这一步。下一课你会发现，整个微积分语言就是在不断追问「上面这个表达式取极限是什么」。",
+        "extension": "C 这个表达式正是导数的定义：\\(v(t) = \\dfrac{\\mathrm{d}x}{\\mathrm{d}t} = \\lim_{\\Delta t \\to 0} \\dfrac{x(t+\\Delta t) - x(t)}{\\Delta t}\\)。本课与下一课在这里「无缝衔接」。",
+        "cardAnchor": "Card 3 · STEP 3 思考点 9<br>Card 3 · STEP 3 学习产出「下一课入口卡」"
+      },
+      {
+        "id": "T7-4",
+        "type": "short",
+        "score": 16,
+        "difficulty": "较难",
+        "exportIds": [
+          "bridge-to-deriv"
+        ],
+        "stem": "<p>用 80-120 字写一份「下一课入口自述」。要求：① 30 秒内能向 AI 复述出来 ② 包含「瞬时速度的极限定义」 + 「切线斜率」 + 「对任意 x(t) 想要的通用规则」三件事 ③ 用自己的话，不背公式。</p>",
+        "keywords": [
+          "极限",
+          "切线",
+          "通用",
+          "任意",
+          "导数",
+          "瞬时速度",
+          "斜率"
+        ],
+        "answer": "关键字命中 ≥ 2 项算掌握",
+        "explanation": {
+          "principle": "入口自述本质是「把本课成果包装成下一课的钥匙」。三件事缺一不可：① 极限定义建立瞬时速度概念 ② 切线斜率给出几何直观 ③ 想要一个对任意 x(t) 都管用的运算规则。",
+          "logic": "示例答案：「这一课我学到了：① 瞬时速度被定义为平均速度在 Δt → 0 时的极限 \\(\\lim_{\\Delta t \\to 0} \\Delta x / \\Delta t\\)；② 在 x-t 图上，它等于该时刻处的切线斜率；③ 我现在想要一个对任意位移函数 \\(x(t)\\) 都能一步给出 v(t) 的通用运算规则——下一课就是讲这个，把它命名为<strong>导数</strong>。」",
+          "connection": "能写出这份自述 → 下一课第一分钟就能跟上节奏；写不出 → 回 Card 3 STEP 3 重做思考点 9。"
+        },
+        "mistakes": "常见问题：仅说「我学了极限」不算到位。",
+        "extension": "这份自述也是你下次回头复习时的「快速重建入口」——读一遍这份自述就能回忆整课主线。",
+        "cardAnchor": "Card 3 · STEP 3 三段总结<br>Card 3 · STEP 3 学习产出「下一课入口卡」"
+      }
+    ]
+  }
+};
+
+// ===== 常量 =====
+const ATOMIC_SLUG = "limit_intro";
+const KEY_STATE   = "mockcheck_" + ATOMIC_SLUG + "_state";
+const KEY_NAME    = "mockcheck_student_name";
+const PASS_SCORE  = 70;
+const HONOR_SCORE = 90;
+
+const EXPORT_NAMES  = MOCK_DATA.EXPORT_NAMES  || {};
+const QUESTION_BANK = MOCK_DATA.QUESTION_BANK || {};
+
+// 单位归一 (calc 题)
+const UNIT_TO_SI = {
+  "m": 1, "km": 1000, "cm": 0.01, "mm": 0.001,
+  "s": 1, "min": 60, "h": 3600,
+  "m/s": 1, "km/h": 1/3.6,
+  "m/s²": 1, "m/s^2": 1,
+  "kg": 1, "g": 0.001,
+  "J": 1, "kJ": 1000,
+  "J/mol": 1, "kJ/mol": 1000, "kcal/mol": 4184,
+  "mol": 1, "L": 1, "mL": 0.001,
+  "": 1
+};
+
+// ===== 状态 =====
+let pickedQuestions = [];
+let results = [];
+
+// ===== 抽题 =====
+function pickQuestions() {
+  pickedQuestions = [];
+  Object.keys(QUESTION_BANK).sort().forEach(function(tKey) {
+    const pool = QUESTION_BANK[tKey];
+    if (!Array.isArray(pool) || pool.length === 0) return;
+    pickedQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+  });
+}
+
+// ===== 归一化 (fill / short 用) =====
+function normalizeText(s) {
+  return (s || "")
+    .replace(/[\s　]+/g, "")
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+    .replace(/[₀-₉]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2080]; })
+    .replace(/[⁰-⁹]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2070]; })
+    .toLowerCase();
+}
+
+// ===== 5 题型判分 =====
+function gradeQuestion(q, ua) {
+  if (q.type === "choice") return gradeChoice(q, ua);
+  if (q.type === "multi")  return gradeMulti(q, ua);
+  if (q.type === "fill")   return gradeFill(q, ua);
+  if (q.type === "short")  return gradeShort(q, ua);
+  if (q.type === "calc")   return gradeCalc(q, ua);
+  return { score: 0, isCorrect: false, userAnswer: ua };
+}
+
+function gradeChoice(q, ua) {
+  const isCorrect = ua === q.answer;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+function gradeMulti(q, ua) {
+  if (!Array.isArray(ua)) ua = [];
+  const ans = q.answer || [];
+  const same = ua.length === ans.length && ua.every(function(x) { return ans.indexOf(x) !== -1; });
+  return { score: same ? q.score : 0, isCorrect: same, userAnswer: ua };
+}
+
+function gradeFill(q, ua) {
+  const blanks = q.blanks || [];
+  const answers = q.answer || blanks;
+  if (!Array.isArray(ua)) ua = [];
+  let hit = 0;
+  const detail = [];
+  answers.forEach(function(a, i) {
+    const acceptable = Array.isArray(a) ? a : [a];
+    const u = normalizeText(ua[i] || "");
+    const ok = acceptable.some(function(x) { return normalizeText(x) === u; });
+    detail.push({ user: ua[i] || "", ok: ok, expect: acceptable[0] });
+    if (ok) hit++;
+  });
+  const per = q.score / Math.max(answers.length, 1);
+  const score = Math.round(hit * per);
+  return { score: score, isCorrect: hit === answers.length, userAnswer: ua, detail: detail };
+}
+
+function gradeShort(q, ua) {
+  const text = normalizeText(ua || "");
+  const kws = q.keywords || [];
+  const hits = kws.filter(function(k) { return text.indexOf(normalizeText(k)) !== -1; });
+  const ratio = kws.length > 0 ? hits.length / kws.length : 0;
+  let score = 0;
+  if (ratio >= 1.0)      score = q.score;
+  else if (ratio >= 0.5) score = Math.round(q.score * 0.5);
+  else                   score = 0;
+  return { score: score, isCorrect: ratio >= 1.0, userAnswer: ua, hits: hits, ratio: ratio };
+}
+
+function gradeCalc(q, ua) {
+  if (!ua || typeof ua.value !== "number" || isNaN(ua.value)) {
+    return { score: 0, isCorrect: false, userAnswer: ua };
+  }
+  const uSI = ua.value * (UNIT_TO_SI[ua.unit] || 1);
+  const aSI = q.answer.value * (UNIT_TO_SI[q.answer.unit] || 1);
+  const tol = typeof q.answer.tolerance === "number" ? q.answer.tolerance : 0.01;
+  const rel = Math.abs(uSI - aSI) / Math.abs(aSI || 1);
+  const isCorrect = rel <= tol;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+// ===== 题目渲染 (Nova 契约: data-q-id / data-q-type / .q-feedback) =====
+function renderQuestions() {
+  const list = document.getElementById("questions-list");
+  list.innerHTML = pickedQuestions.map(function(q, idx) {
+    const num = idx + 1;
+    return `
+      <div class="question" data-q-id="q${num}" data-q-type="${q.type}" data-q-original="${q.id}" id="q-${num}">
+        <div class="q-header-circle">
+          <div class="q-h-num">第 ${num} 题</div>
+          <div class="q-h-type">${typeLabel(q.type)}</div>
+          <div class="q-h-diff">${q.difficulty || ""}</div>
+          <div class="q-h-id">${q.id} · ${q.score} 分</div>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        ${renderInput(q, num)}
+        <div class="q-feedback" data-q-id="q${num}"></div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("total-count").textContent = pickedQuestions.length;
+  document.getElementById("picked-ids").textContent = pickedQuestions.map(function(q) { return q.id; }).join(" / ");
+  attachAnswerListeners();
+  renderKatex(list);
+}
+
+function typeLabel(t) {
+  return { choice: "单选题", multi: "多选题", fill: "填空题", short: "简答题", calc: "计算题" }[t] || t;
+}
+
+function renderInput(q, num) {
+  if (q.type === "choice") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="radio" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "multi") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="checkbox" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "fill") {
+    const blanks = q.blanks || (q.answer || []);
+    return blanks.map(function(_, i) {
+      return `<input class="q-fillin" data-q-id="q${num}" data-blank="${i}" type="text" placeholder="第 ${i+1} 空">`;
+    }).join("");
+  }
+  if (q.type === "short") {
+    return `<textarea class="q-short-input" data-q-id="q${num}" placeholder="用 2-4 句话作答, 涵盖关键概念"></textarea>`;
+  }
+  if (q.type === "calc") {
+    return `<div class="q-calc">
+      <input class="q-calc-num" data-q-id="q${num}" type="number" step="any" placeholder="数值">
+      <input class="q-calc-unit" data-q-id="q${num}" type="text" placeholder="单位, 如 m/s" value="${(q.answer && q.answer.unit) || ""}">
+    </div>`;
+  }
+  return "";
+}
+
+function attachAnswerListeners() {
+  document.querySelectorAll(".question input, .question textarea").forEach(function(el) {
+    el.addEventListener("input", updateAnsweredCount);
+    el.addEventListener("change", updateAnsweredCount);
+  });
+}
+
+function updateAnsweredCount() {
+  let n = 0;
+  pickedQuestions.forEach(function(q, idx) {
+    if (readUserAnswer(q, idx + 1) != null) n++;
+  });
+  document.getElementById("answered-count").textContent = n;
+}
+
+function readUserAnswer(q, num) {
+  if (q.type === "choice") {
+    const el = document.querySelector('input[name="q' + num + '"]:checked');
+    return el ? el.value : null;
+  }
+  if (q.type === "multi") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('input[name="q' + num + '"]:checked')).map(function(e) { return e.value; });
+    return arr.length ? arr : null;
+  }
+  if (q.type === "fill") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('.q-fillin[data-q-id="q' + num + '"]')).map(function(e) { return e.value; });
+    return arr.some(function(x) { return x && x.length > 0; }) ? arr : null;
+  }
+  if (q.type === "short") {
+    const el = document.querySelector('.q-short-input[data-q-id="q' + num + '"]');
+    return el && el.value.trim().length > 0 ? el.value : null;
+  }
+  if (q.type === "calc") {
+    const numEl  = document.querySelector('.q-calc-num[data-q-id="q' + num + '"]');
+    const unitEl = document.querySelector('.q-calc-unit[data-q-id="q' + num + '"]');
+    if (!numEl || numEl.value === "") return null;
+    return { value: parseFloat(numEl.value), unit: unitEl ? unitEl.value.trim() : "" };
+  }
+  return null;
+}
+
+// ===== 反馈渲染 =====
+function renderFeedback(q, r, num) {
+  const el = document.querySelector('.q-feedback[data-q-id="q' + num + '"]');
+  if (!el) return;
+  el.classList.add("show");
+  el.classList.toggle("wrong", !r.isCorrect);
+
+  const stdAns = formatStdAnswer(q, r);
+  const exp = q.explanation || {};
+  const isObj = exp && typeof exp === "object";
+  const principle  = isObj ? (exp.principle  || "") : String(exp || "");
+  const logic      = isObj ? (exp.logic      || "") : "";
+  const connection = isObj ? (exp.connection || "") : "";
+
+  const exportHtml = (q.exportIds || []).map(function(id) {
+    const cn = EXPORT_NAMES[id];
+    return cn ? `<span class="q-export-label">${cn}</span>` : `<code>${id}</code>`;
+  }).join(" ");
+
+  el.innerHTML = `
+    <div class="q-result">${r.isCorrect ? "✓ 答对" : "✗ 答错"} · 得 ${r.score} / ${q.score} 分</div>
+    <div class="q-fb-row"><strong>📌 标准答案</strong><div>${stdAns}</div></div>
+    <div class="q-fb-row"><strong>🔬 涉及的核心原理</strong><div>${principle}</div></div>
+    ${logic ? `<div class="q-fb-row"><strong>🧩 逻辑分析</strong><div>${logic}</div></div>` : ""}
+    ${connection ? `<div class="q-fb-row"><strong>🌐 知识系统中的位置</strong><div>${connection}</div></div>` : ""}
+    ${q.mistakes ? `<div class="q-fb-row"><strong>⚠️ 常见误区</strong><div>${q.mistakes}</div></div>` : ""}
+    ${q.extension ? `<div class="q-fb-row"><strong>📚 扩展</strong><div>${q.extension}</div></div>` : ""}
+    <div class="q-anchor">📖 锚结论: ${exportHtml} · 回 <a href="02_极限_物理引入.html">学习任务卡 · ${q.cardAnchor || ""}</a> 复习。</div>
+  `;
+  renderKatex(el);
+}
+
+function formatStdAnswer(q, r) {
+  if (q.type === "choice") return q.answer;
+  if (q.type === "multi")  return (q.answer || []).join(" · ");
+  if (q.type === "fill") {
+    const ans = q.answer || q.blanks || [];
+    return ans.map(function(a, i) {
+      const s = Array.isArray(a) ? a[0] : a;
+      return "第 " + (i+1) + " 空: " + s;
+    }).join(" · ");
+  }
+  if (q.type === "short") {
+    const kws = (q.keywords || []).join(" / ");
+    const hits = r && r.hits ? r.hits.length : 0;
+    const total = (q.keywords || []).length;
+    return "关键词: " + kws + " (命中 " + hits + " / " + total + ")";
+  }
+  if (q.type === "calc") return q.answer.value + " " + q.answer.unit;
+  return "";
+}
+
+// ===== 提交 / 结果 =====
+function submitTest() {
+  results = pickedQuestions.map(function(q, idx) {
+    const ua = readUserAnswer(q, idx + 1);
+    const r = gradeQuestion(q, ua);
+    r.q = q; r.idx = idx;
+    renderFeedback(q, r, idx + 1);
+    return r;
+  });
+  const total = results.reduce(function(s, r) { return s + r.score; }, 0);
+  const passed  = total >= PASS_SCORE;
+  const honored = total >= HONOR_SCORE;
+  showResult(total, passed, honored);
+  saveState(total, passed, honored);
+}
+
+function showResult(total, passed, honored) {
+  // v0.1.12: 不藏 test-screen — 每题反馈在 test-screen 内每题下方渲染, 藏了用户看不到
+  document.getElementById("result-screen").classList.remove("hidden");
+  document.getElementById("result-screen").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("result-total").textContent = total;
+  const pill = document.getElementById("result-pass-pill");
+  const msg  = document.getElementById("result-message");
+  if (honored) {
+    pill.className = "result-pass honor"; pill.textContent = "⭐ 荣誉 (90+)";
+    msg.textContent = "掌握充分 (90%+) — 推荐进入教师组织的真实纸笔检测。";
+  } else if (passed) {
+    pill.className = "result-pass pass"; pill.textContent = "✓ 已通过 (70+)";
+    msg.textContent = "已具备纸笔检测基础水平 (70%+) — 可继续巩固或去星图 /student/requests 预约。";
+  } else {
+    pill.className = "result-pass fail"; pill.textContent = "✗ 未通过";
+    msg.textContent = "距通过还差 " + (PASS_SCORE - total) + " 分 — 建议针对错题回 task-cards 复习再练。";
+  }
+  const wrong = results.filter(function(r) { return !r.isCorrect; });
+  const counts = {};
+  wrong.forEach(function(r) {
+    (r.q.exportIds || []).forEach(function(eid) { counts[eid] = (counts[eid] || 0) + 1; });
+  });
+  const sorted = Object.keys(counts).sort(function(a, b) { return counts[b] - counts[a]; }).slice(0, 3);
+  const block = document.getElementById("weak-points-block");
+  const ul = document.getElementById("weak-points-list");
+  if (sorted.length > 0) {
+    block.style.display = "";
+    ul.innerHTML = sorted.map(function(eid) {
+      const cn = EXPORT_NAMES[eid] || eid;
+      return "<li><strong>" + cn + "</strong> (错 " + counts[eid] + " 题)</li>";
+    }).join("");
+  } else {
+    block.style.display = "none";
+  }
+}
+
+// ===== localStorage =====
+function saveState(total, passed, honored) {
+  try {
+    const prev = JSON.parse(localStorage.getItem(KEY_STATE) || "{}");
+    const state = {
+      studentName: document.getElementById("student-name").value.trim(),
+      submittedAt: Date.now(),
+      totalScore: total,
+      passed: passed || prev.passed || false,
+      honored: honored || prev.honored || false,
+      pickedIds: pickedQuestions.map(function(q) { return q.id; }),
+      attemptCount: (prev.attemptCount || 0) + 1
+    };
+    localStorage.setItem(KEY_STATE, JSON.stringify(state));
+    localStorage.setItem(KEY_NAME, state.studentName);
+  } catch (e) { /* localStorage 不可用 */ }
+}
+
+function loadState() {
+  try {
+    const nameEl = document.getElementById("student-name");
+    const savedName = localStorage.getItem(KEY_NAME);
+    if (savedName) nameEl.value = savedName;
+    const raw = localStorage.getItem(KEY_STATE);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    const slot = document.getElementById("last-attempt-slot");
+    const cls = s.honored ? "last-attempt-note honor" : "last-attempt-note";
+    const badge = s.honored ? "⭐ 荣誉" : (s.passed ? "✓ 已通过" : "✗ 未通过");
+    slot.innerHTML = `<div class="${cls}">上次提交: ${s.totalScore} 分 · ${badge} · 累计 ${s.attemptCount} 次</div>`;
+  } catch (e) { /* ignore */ }
+}
+
+// ===== 流程 =====
+function startTest() {
+  const name = document.getElementById("student-name").value.trim();
+  if (!name) { alert("请先填写你的姓名"); return; }
+  document.getElementById("progress-name").textContent = name;
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("entry-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
+  window.scrollTo(0, 0);
+}
+
+function reshuffleAndStart() {
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("result-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function renderKatex(root) {
+  if (typeof renderMathInElement !== "function") return;
+  try {
+    renderMathInElement(root || document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$",  right: "$",  display: false }
+      ],
+      throwOnError: false
+    });
+  } catch (e) { /* ignore */ }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  loadState();
+});
+window.addEventListener("load", function() {
+  renderKatex(document.body);
+});
+</script>
+
+</body>
+</html>

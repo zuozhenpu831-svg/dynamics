@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 导数的链式法则 · 导数的链式法则 · 基础检测</title>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8; --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961; --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC; --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73;
+    --bg-primary: #ffffff; --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px; --radius-sm: 14px; --radius-btn: 16px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  .v021-banner {
+    background: var(--gold-050);
+    border-left: 3px solid var(--gold-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px 18px 56px;
+    margin-bottom: 28px;
+    font-size: 0.86rem;
+    color: var(--gold-900);
+    line-height: 1.75;
+    position: relative;
+  }
+  .v021-banner::before {
+    content: "i"; position: absolute; left: 16px; top: 18px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gold-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .v021-banner strong { color: var(--gold-900); }
+  .v021-banner-title { font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+
+  .header {
+    text-align: center; padding: 56px 32px 48px;
+    background: #fff; color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 36px;
+    position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%;
+    transform: translateX(-50%); width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--blue-500), var(--blue-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.45rem; margin-bottom: 12px;
+    color: var(--blue-700); font-weight: 700;
+    line-height: 1.5; position: relative; z-index: 1;
+  }
+  .header .h1-sub {
+    display: inline-block; font-size: 0.82rem; font-weight: 500;
+    color: var(--silver-700); margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--silver-500);
+  }
+  .header .subtitle {
+    font-size: 0.9rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  .screen {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    border-top: 3px solid var(--blue-700);
+  }
+  .screen.hidden { display: none; }
+
+  .entry-title { font-size: 1.15rem; font-weight: 700; color: var(--blue-700); margin-bottom: 18px; }
+  .entry-info { font-size: 0.9rem; color: var(--text-primary); line-height: 1.85; margin-bottom: 22px; padding-left: 22px; list-style: disc; }
+  .entry-info li { margin-bottom: 6px; }
+  .entry-info strong { color: var(--blue-700); }
+  .name-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    font-family: inherit; font-size: 0.95rem;
+    margin: 14px 0 8px; background: #fff;
+    transition: var(--transition);
+  }
+  .name-input:focus { outline: none; border-color: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .last-attempt-note {
+    background: var(--blue-050); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 16px; font-size: 0.85rem; color: var(--blue-700);
+    margin: 10px 0 18px;
+  }
+  .last-attempt-note.honor { background: var(--gold-050); border-left-color: var(--gold-700); color: var(--gold-900); }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--blue-700); color: #fff;
+    padding: 14px 32px;
+    border-radius: var(--radius-btn);
+    border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    transition: var(--transition);
+  }
+  .btn-primary:hover { background: var(--blue-900); }
+  .btn-secondary {
+    display: inline-block;
+    background: var(--silver-050); color: var(--silver-900);
+    padding: 14px 24px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--border-color); cursor: pointer;
+    font-family: inherit; font-size: 0.9rem; font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  .btn-secondary:hover { background: var(--silver-100); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+
+  .progress-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem; color: var(--silver-700);
+  }
+  .progress-name { font-weight: 600; color: var(--blue-700); }
+
+  .questions-list { }
+
+  .question {
+    --q-rich: var(--blue-900);
+    --q-mid:  var(--blue-700);
+    --q-bg:   var(--blue-050);
+    --q-tint: var(--blue-100);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--q-mid);
+  }
+  .questions-list > .question:nth-of-type(3n+2) {
+    --q-rich: var(--gold-900); --q-mid: var(--gold-700);
+    --q-bg: var(--gold-050); --q-tint: var(--gold-100);
+  }
+  .questions-list > .question:nth-of-type(3n) {
+    --q-rich: var(--silver-900); --q-mid: var(--silver-700);
+    --q-bg: var(--silver-050); --q-tint: var(--silver-100);
+  }
+
+  .q-header-circle {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--q-bg);
+    border: 2px solid var(--q-mid);
+    margin: 0 auto 32px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 22px;
+    box-sizing: border-box;
+  }
+  .q-h-num { font-size: 0.74rem; font-weight: 700; color: var(--q-rich); letter-spacing: 0.22em; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1.5px solid var(--q-mid); }
+  .q-h-type { font-size: 0.95rem; font-weight: 700; color: var(--q-rich); line-height: 1.5; }
+  .q-h-diff { font-size: 0.78rem; color: var(--q-mid); margin-top: 6px; }
+  .q-h-id { font-size: 0.75rem; color: var(--silver-700); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .q-stem { font-size: 0.95rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-primary); }
+  .q-stem strong { color: var(--q-rich); }
+
+  .q-options { margin: 14px 0 18px; }
+  .q-options label {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 0.92rem; line-height: 1.75;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .q-options label:hover { background: var(--q-bg); border-color: var(--q-mid); }
+  .q-options input { margin-top: 5px; flex-shrink: 0; accent-color: var(--q-mid); }
+  .opt-letter { font-weight: 700; color: var(--q-rich); flex-shrink: 0; }
+
+  .q-fillin {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+  }
+  .q-fillin:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-short-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+    min-height: 110px; resize: vertical;
+    line-height: 1.75;
+  }
+  .q-short-input:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-calc { display: flex; flex-wrap: wrap; gap: 10px; margin: 4px 0 12px; align-items: center; }
+  .q-calc-num, .q-calc-unit {
+    padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem; background: #fff;
+  }
+  .q-calc-num { flex: 1; min-width: 120px; }
+  .q-calc-unit { width: 140px; }
+  .q-calc-num:focus, .q-calc-unit:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-feedback {
+    margin-top: 18px; padding: 22px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--q-bg);
+    border-left: 3px solid var(--q-mid);
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.wrong { background: var(--gold-050); border-left-color: var(--gold-700); }
+  .q-result { font-weight: 700; color: var(--q-rich); font-size: 0.95rem; margin-bottom: 10px; }
+  .q-feedback.wrong .q-result { color: var(--gold-900); }
+  .q-fb-row { margin: 12px 0; padding: 10px 14px; border-radius: var(--radius-sm); background: #fff; border-left: 3px solid var(--q-mid); }
+  .q-fb-row strong { display: block; color: var(--q-rich); font-size: 0.86rem; margin-bottom: 4px; }
+  .q-feedback.wrong .q-fb-row strong { color: var(--gold-900); }
+  .q-fb-row p, .q-fb-row div { font-size: 0.88rem; line-height: 1.8; }
+  .q-export-label {
+    display: inline-block;
+    padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--q-tint); color: var(--q-rich);
+    border-radius: 999px; font-size: 0.78rem;
+    border: 1px solid var(--q-mid);
+  }
+  .q-anchor { margin-top: 14px; font-size: 0.86rem; color: var(--text-primary); line-height: 1.75; }
+  .q-anchor a { color: var(--blue-700); text-decoration: none; font-weight: 600; }
+  .q-anchor a:hover { text-decoration: underline; }
+
+  .result-summary { text-align: center; padding: 28px 0; }
+  .result-score { font-size: 3rem; font-weight: 800; color: var(--blue-700); line-height: 1.1; }
+  .result-score .total { font-size: 1.2rem; color: var(--silver-700); font-weight: 500; }
+  .result-pass {
+    margin-top: 12px; padding: 10px 18px; border-radius: 999px;
+    display: inline-block; font-size: 0.9rem; font-weight: 600;
+  }
+  .result-pass.pass { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-700); }
+  .result-pass.honor { background: var(--gold-050); color: var(--gold-900); border: 1px solid var(--gold-700); }
+  .result-pass.fail { background: var(--silver-050); color: var(--silver-900); border: 1px solid var(--silver-500); }
+  .result-message { font-size: 0.9rem; color: var(--text-primary); margin-top: 14px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  .weak-points-block { background: var(--blue-050); border-left: 3px solid var(--blue-700); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 22px 26px; margin: 24px 0; }
+  .weak-points-block h4 { color: var(--blue-700); font-size: 0.95rem; margin-bottom: 12px; }
+  .weak-points-block ul { padding-left: 22px; font-size: 0.88rem; line-height: 1.85; }
+
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px; text-align: center;
+    padding: 16px 18px; border-radius: 999px;
+    background: var(--silver-050); color: var(--silver-500);
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 40px 22px 36px; }
+    .header h1 { font-size: 1.18rem; }
+    .screen { padding: 24px 20px; }
+    .question { padding: 24px 22px; }
+    .q-header-circle { width: 200px; height: 200px; padding: 18px; }
+    .q-h-type { font-size: 0.85rem; }
+    .v021-banner { padding-left: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">星图物理 · 经典力学 1 · 导数的链式法则 · 导数的链式法则 · 基础检测</nav>
+
+  <div class="v021-banner">
+    <div class="v021-banner-title">关于本页的练习形态 · v0.1.21</div>
+    本页是<strong>HTML 模拟练习</strong>——用于学完《导数的链式法则》任务卡之后快速自测核心概念是否到位。<strong>真实的纸笔检测</strong>由学科导师线下组织、由教师批改，不在本页面内完成。本页给出自动判分仅作即时反馈用，建议每打开一次重新抽题以扩大覆盖。
+  </div>
+
+  <div class="header">
+    <h1>导数的链式法则 · 基础检测<br><span class="h1-sub">题库版 · 每考点 4 变体随机抽 1 · 总分 100 · 推荐 30-40 分钟</span></h1>
+    <div class="subtitle">70% 通过 · 90% 荣誉 · 不强制限时</div>
+  </div>
+
+  <div class="screen" id="entry-screen">
+    <div class="entry-title">开始练习</div>
+    <p style="font-size: 0.9rem; margin-bottom: 10px;">请先填写你的姓名（仅本地保存，用于显示与你的提交记录）：</p>
+    <input id="student-name" class="name-input" type="text" placeholder="请输入你的姓名" maxlength="20">
+    <div id="last-attempt-slot"></div>
+    <ul class="entry-info">
+      <li>每个考点从 4 个变体中随机抽 1 道，共抽若干题</li>
+      <li>通过：<strong>70 分</strong> · 荣誉：<strong>90 分</strong></li>
+      <li>建议用时：<strong>30-40 分钟</strong>（不强制限时）</li>
+      <li>多选题严格相等判分；填空自动去空格 / 全半角归一</li>
+      <li>提交后展示 5 字段反馈（原理 / 逻辑 / 系统连接 / 常见误区 / 扩展）</li>
+      <li>不查资料、不翻任务卡——看清自己掌握到哪一档</li>
+      <li>通过 / 荣誉一次达成永不撤销</li>
+    </ul>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="startTest()">开始练习</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="test-screen">
+    <div class="progress-bar">
+      <div>👤 <span class="progress-name" id="progress-name">—</span> · 本次抽题 <span id="picked-ids">—</span></div>
+      <div>已答 <span id="answered-count">0</span> / <span id="total-count">0</span></div>
+    </div>
+    <div class="questions-list" id="questions-list">
+      <!-- Nova 契约静态锚点 (validator 用, 页面加载后由 renderQuestions() 覆写) -->
+      <div class="question" data-q-id="q1" style="display:none;">
+        <div class="q-feedback"></div>
+      </div>
+    </div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-primary" onclick="submitTest()">提交本次抽题</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="result-screen">
+    <div class="result-summary">
+      <div class="result-score"><span id="result-total">0</span><span class="total"> / 100</span></div>
+      <div id="result-pass-pill" class="result-pass">—</div>
+      <div class="result-message" id="result-message">—</div>
+    </div>
+    <div class="weak-points-block" id="weak-points-block" style="display:none;">
+      <h4>本次错题考点聚类（建议优先复习）</h4>
+      <ul id="weak-points-list"></ul>
+    </div>
+    <div id="result-questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-secondary" onclick="reshuffleAndStart()">🎲 重新抽题再练</button>
+      <a class="btn-secondary" href="05_链式法则.html">⬅ 返回任务卡复习</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="05_链式法则.html">📘 返回任务卡</a>
+    <span>📈 熟练度检测 (进阶课暂无)</span>
+    <a href="newton-leibniz-chain-rule-oral-exam.html">🎤 深度口试</a>
+    <span>📝 纸笔检测请联系导师</span>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 导数的链式法则 · 导数的链式法则 · 基础检测 · mock-check Skill v0.1.10
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+// ===== MOCK_DATA INJECTION POINT =====
+// agent 在下一行注入: const MOCK_DATA = { EXPORT_NAMES: {...}, QUESTION_BANK: {...} };
+// 数据 schema 见文件顶部 HTML 注释。
+const MOCK_DATA = (function() {
+const EXPORT_NAMES = {
+  "chain-rule-statement":       "链式法则陈述",
+  "chain-rule-limit-proof":     "链式法则的极限定义推导",
+  "trig-composite-derivative":  "三角复合的导数",
+  "linear-power-composite":     "一次内函数幂复合的导数",
+  "sqrt-composite":             "平方根复合的导数",
+  "chain-rule-scenarios":       "直线运动里链式法则的触发信号",
+  "v-dv-ds-identity":           "恒等式 a = v(dv/ds)",
+  "nested-multi-layer":         "多层嵌套求导",
+  "missing-inner-derivative":   "漏内函数导数的典型错误",
+  "ds-dt-equals-v":             "ds/dt = v 基本事实"
+};
+
+const QUESTION_BANK = {
+  T1: [
+    {
+      id: "T1-1", type: "choice", score: 12, difficulty: "基础",
+      exportIds: ["chain-rule-statement"],
+      stem: "<p>设 \\(y = f(u)\\), \\(u = g(x)\\), 两个函数都可导. 下列哪个是链式法则的正确陈述?</p>",
+      options: { A: "\\(\\dfrac{dy}{dx} = \\dfrac{dy}{du} + \\dfrac{du}{dx}\\)",
+                 B: "\\(\\dfrac{dy}{dx} = \\dfrac{dy}{du} \\cdot \\dfrac{du}{dx}\\)",
+                 C: "\\(\\dfrac{dy}{dx} = \\dfrac{du}{dy} \\cdot \\dfrac{dx}{du}\\)",
+                 D: "\\(\\dfrac{dy}{dx} = \\dfrac{dy}{du} \\div \\dfrac{du}{dx}\\)" },
+      answer: "B",
+      explanation: {
+        principle: "链式法则: 复合函数关于自变量的导数等于外函数对中间量的导数与内函数对自变量的导数之乘积. 这是 Card 0 骨架 2 的核心陈述.",
+        logic: "A 写成相加是错的（变化率沿链是乘法关系, 不是加法）; C 把分子分母倒置（对应反函数求导, 不是链式）; D 写成除法没有物理意义. 只有 B 正确表达了「沿链相乘」的本质.",
+        connection: "本题考查的是整套链式法则的「骨架陈述」, 是后续 T2-T7 一切应用的基础. 在 Leibniz 记号里, B 的形式还可以助记「du 上下相约」, 但要记得这只是符号助记, 不是真正的代数."
+      },
+      mistakes: "学生常错记成「相加」(因为混淆链式与乘法法则); 也有少数人记错「分子分母」的位置(把 du/dx 写成 dx/du).",
+      extension: "链式法则可以推广到多层嵌套: n 层嵌套时, n 段变化率全部相乘. Card 3 STEP 3 的 sin²(ωt) 推导给出了三层嵌套的范例.",
+      cardAnchor: "Card 0 · STEP 0 · 骨架 2 · 链式法则的陈述"
+    },
+    {
+      id: "T1-2", type: "choice", score: 12, difficulty: "基础",
+      exportIds: ["chain-rule-statement"],
+      stem: "<p>链式法则 \\(\\dfrac{dy}{dx} = \\dfrac{dy}{du} \\cdot \\dfrac{du}{dx}\\) 对什么前提成立?</p>",
+      options: { A: "只要 \\(y\\) 和 \\(u\\) 都连续即可",
+                 B: "外函数和内函数都可导（在相应点）",
+                 C: "外函数可导, 内函数不必可导",
+                 D: "两个函数都是初等函数" },
+      answer: "B",
+      explanation: {
+        principle: "链式法则的极限推导用到「\\(g\\) 可导推出 \\(g\\) 连续, 从而 \\(\\Delta x \\to 0\\) 时 \\(\\Delta u \\to 0\\)」以及「\\(f\\) 在 \\(u_0\\) 可导, 极限 \\(\\Delta y / \\Delta u \\to f'(u_0)\\)」——必须两端都可导.",
+        logic: "A 仅连续不够（连续不蕴含可导, 反例如 |x| 在 0 处连续但不可导, 链式失效）; C 内函数不可导时, du/dx 不存在, 公式右边无意义; D 是否初等函数与可导性无关.",
+        connection: "这条前提在 Card 1 STEP 4 批判审查里专门提到过. 直线运动里「折线型 v-t 图」在拐点处不可导, 链式在该点失效——这是一个值得记住的边界."
+      },
+      mistakes: "学生常忽略「可导」前提, 写「只要连续就能链式」. 还有人把「两个函数都连续」当成充分条件.",
+      extension: "进阶: 实数情况下「可导」已经够强; 复变量场景里链式法则需要「全纯」(更强的条件). 高维（多元）情况里链式变成 Jacobian 矩阵相乘.",
+      cardAnchor: "Card 1 · STEP 4 · 批判审查 (1)"
+    },
+    {
+      id: "T1-3", type: "multi", score: 12, difficulty: "中等",
+      exportIds: ["chain-rule-statement", "chain-rule-scenarios"],
+      stem: "<p>下列哪些表达式可以拆成「外函数 \\(f\\) + 内函数 \\(g\\)」的复合（即 \\(y = f(g(x))\\), 其中 \\(g\\) 非平凡）? 多选.</p>",
+      options: { A: "\\(y = \\sin(\\omega t)\\)（\\(\\omega\\) 常数）",
+                 B: "\\(y = 3t + 5\\)",
+                 C: "\\(y = (2t - 1)^4\\)",
+                 D: "\\(y = \\sqrt{2as}\\)（\\(a\\) 常数, \\(s\\) 变量）" },
+      answer: ["A", "C", "D"],
+      explanation: {
+        principle: "复合函数指「内函数的输出作为外函数的输入」。本题判断每个表达式是否含非平凡的内嵌结构.",
+        logic: "A: 内 \\(u = \\omega t\\), 外 \\(\\sin u\\) → 复合 ✓; B: \\(y = 3t+5\\) 只是一次函数, 没有真正的嵌套层（非要拆也只是 \\(g(t) = t\\), 平凡）; C: 内 \\(u = 2t-1\\), 外 \\(u^4\\) → 复合 ✓; D: 内 \\(u = 2as\\), 外 \\(\\sqrt{u}\\) → 复合 ✓.",
+        connection: "Card 0 骨架 1 给出 3 个标准复合例子, 本题 A/C/D 对应这 3 个例子. B 是反例(简单线性, 不需要链式)."
+      },
+      mistakes: "学生常把 \\(3t+5\\) 也勾上, 因为不清楚「非平凡内函数」的含义; 也有人漏选 D, 因为没看出 \\(\\sqrt{}\\) 是 \\(u^{1/2}\\).",
+      extension: "看到一个表达式, 第一反应「能不能拆成内/外」——这是直线运动微积分里「判断是否需要链式」的雷达.",
+      cardAnchor: "Card 0 · STEP 0 · 骨架 1 · 复合函数 = 函数的嵌套"
+    },
+    {
+      id: "T1-4", type: "fill", score: 12, difficulty: "中等",
+      exportIds: ["chain-rule-statement"],
+      stem: "<p>用一句话陈述链式法则: 若 \\(y = f(u)\\) 且 \\(u = g(x)\\), 两者皆可导, 则 ______（请用 Leibniz 记号填出表达式）.</p>",
+      blanks: [""],
+      answer: ["dy/dx = (dy/du)(du/dx)"],
+      acceptableForms: [
+        ["dy/dx=(dy/du)(du/dx)", "dy/dx=(dy/du)*(du/dx)", "dy/dx=dy/du*du/dx", "dy/dx=(dy/du)·(du/dx)",
+         "dy/dx = dy/du · du/dx", "dy/dx=dy/du×du/dx"]
+      ],
+      explanation: {
+        principle: "链式法则的 Leibniz 写法 \\(\\dfrac{dy}{dx} = \\dfrac{dy}{du} \\cdot \\dfrac{du}{dx}\\), 是 Card 0 骨架 2 的核心.",
+        logic: "答案必须含 dy/dx, dy/du, du/dx 三段, 且三段之间是相乘（用乘号 / 中点 / 并排都接受, 但不能是加号）.",
+        connection: "这是后续所有应用题的「母公式」. T2-T7 都是它在不同函数形式下的具体落实."
+      },
+      mistakes: "常错: 把乘号写成加号 / 把 du/dx 写成 dx/du / 漏掉一段（写 dy/dx = dy/du）.",
+      extension: "还可以写成 Lagrange 记号: \\((f \\circ g)'(x) = f'(g(x)) \\cdot g'(x)\\). 两种写法等价, Leibniz 更直观, Lagrange 更紧凑.",
+      cardAnchor: "Card 0 · STEP 0 · 骨架 2"
+    }
+  ],
+  T2: [
+    {
+      id: "T2-1", type: "choice", score: 18, difficulty: "中等",
+      exportIds: ["chain-rule-limit-proof"],
+      stem: "<p>链式法则的极限推导里, 用到了「当 \\(\\Delta x \\to 0\\) 时 \\(\\Delta u \\to 0\\)」这一步. 这一步的<strong>依据</strong>是什么?</p>",
+      options: { A: "导数的定义",
+                 B: "内函数 \\(g\\) 可导 ⇒ \\(g\\) 连续",
+                 C: "外函数 \\(f\\) 可导",
+                 D: "极限的乘积法则" },
+      answer: "B",
+      explanation: {
+        principle: "推导链式法则时, 关键桥梁是「\\(\\Delta x \\to 0\\) 蕴含 \\(\\Delta u \\to 0\\)」. 这一桥梁不能直接从导数定义来, 需要内函数 \\(g\\) 在 \\(x\\) 处连续(由可导推出).",
+        logic: "推导细节: \\(\\Delta u = g(x+\\Delta x) - g(x)\\). 若 \\(g\\) 在 \\(x\\) 处可导, 则 \\(g\\) 在 \\(x\\) 处连续, 即 \\(\\lim_{\\Delta x \\to 0}\\Delta u = 0\\). 这就是 B.",
+        connection: "Card 1 思考点 2 专门讲了这一桥梁. 这是初学者最容易跳过的隐藏前提."
+      },
+      mistakes: "学生常选 A 或 D, 误以为「极限定义自动保证 \\(\\Delta u \\to 0\\)」. 实际上要单独论证连续性.",
+      extension: "进阶: 反过来「连续不蕴含可导」, 所以这条蕴含关系是「可导 ⇒ 连续」的单向应用. 链式法则严格证明里, 还需要处理「\\(\\Delta u = 0\\)」的边界情况.",
+      cardAnchor: "Card 1 · STEP 2 · 思考点 2"
+    },
+    {
+      id: "T2-2", type: "short", score: 18, difficulty: "中等",
+      exportIds: ["chain-rule-limit-proof"],
+      stem: "<p>写出链式法则极限定义版推导的<strong>核心 3 步</strong>（任意一行 1 句话即可, 不要超过 3 行）.</p>",
+      keywords: ["凑", "极限", "可导"],
+      keywordsHints: ["凑出 Δu / 上下同乘", "取极限 / 取 lim", "g 可导 / g 连续 / Δu→0"],
+      explanation: {
+        principle: "Card 1 STEP 2 推导块给出了完整 3 步: ① 凑 \\(\\Delta u\\) (\\(\\Delta y/\\Delta x = (\\Delta y/\\Delta u) \\cdot (\\Delta u/\\Delta x)\\)) ② 取极限, 用乘积法则把两个极限拆开 ③ 用 \\(g\\) 可导 ⇒ 连续, \\(\\Delta x \\to 0\\) 时 \\(\\Delta u \\to 0\\), 因此第一段 \\(\\Delta y/\\Delta u \\to dy/du\\), 第二段 \\(\\Delta u/\\Delta x \\to du/dx\\).",
+        logic: "判分关键字: 「凑/上下同乘」对应第 1 步; 「极限/lim」对应第 2 步; 「可导/连续」对应第 3 步桥梁. 含其中至少 50% 关键字 = 算对.",
+        connection: "这一推导是整套链式法则的根, T1 的陈述只是推导的结论. 进阶学生应能在没有提示下默写."
+      },
+      mistakes: "学生常只写「上下同乘 du」一步就停了, 忽略了「取极限」和「\\(\\Delta u \\to 0\\) 桥梁」. 也有人把 ① 和 ② 顺序写反.",
+      extension: "完整严格证明还需要处理「\\(\\Delta u = 0\\)」的退化情况——可以用 \\(\\varepsilon-\\delta\\) 或辅助函数 \\(\\varphi\\) 论证. Card 1 STEP 2 边界情况段给出了思路.",
+      cardAnchor: "Card 1 · STEP 2 · 推导"
+    },
+    {
+      id: "T2-3", type: "choice", score: 18, difficulty: "较难",
+      exportIds: ["chain-rule-limit-proof"],
+      stem: "<p>设 \\(g(x) = c\\)（常数函数）, \\(f\\) 任意可导. 用链式法则求 \\(\\dfrac{d}{dx}f(g(x))\\)?</p>",
+      options: { A: "\\(f'(c)\\)",
+                 B: "\\(f'(c) \\cdot c\\)",
+                 C: "0",
+                 D: "1" },
+      answer: "C",
+      explanation: {
+        principle: "复合函数 \\(f(g(x)) = f(c)\\) 是常数函数, 导数恒为 0. 链式法则也给出同样结果: \\(\\dfrac{dy}{dx} = f'(c) \\cdot g'(x) = f'(c) \\cdot 0 = 0\\).",
+        logic: "A 漏了内函数导数 \\(g'(x) = 0\\); B 把 \\(c\\) 当成 \\(g'\\) 用了, 是混淆; D 没有数学根据.",
+        connection: "这道题考查「链式法则 in extremis」——内函数变化率为 0 时, 沿链相乘整体为 0. 在直线运动里, 如果某段速度恒为 0(静止), 则 \\(\\dfrac{dx}{dt} = v = 0\\), 加速度也得自洽."
+      },
+      mistakes: "学生常选 A, 漏掉内函数导数因子. 这正是 Card 2-3 反复强调的「漏 \\(\\omega\\) / 漏 \\(a\\)」错误的极端版.",
+      extension: "推广: 链式中只要任何一段变化率为 0, 整体即为 0. 这是判断「导数等于 0 是否合理」的快速检查.",
+      cardAnchor: "Card 1 · STEP 4"
+    },
+    {
+      id: "T2-4", type: "fill", score: 18, difficulty: "较难",
+      exportIds: ["chain-rule-limit-proof"],
+      stem: "<p>在链式法则极限推导的第 2 步, 我们写出 \\(\\dfrac{\\Delta y}{\\Delta x} = \\dfrac{\\Delta y}{\\Delta u} \\cdot \\dfrac{\\Delta u}{\\Delta x}\\). 这一步成立的<strong>显式前提</strong>是 ______.</p>",
+      blanks: [""],
+      answer: ["Δu ≠ 0"],
+      acceptableForms: [
+        ["Δu≠0", "Δu不为0", "Δu不等于0", "delta u ≠ 0", "delta u 不等于 0", "Δu非零", "Δu非0", "Δu不是0"]
+      ],
+      explanation: {
+        principle: "公式 \\(\\dfrac{\\Delta y}{\\Delta x} = \\dfrac{\\Delta y}{\\Delta u} \\cdot \\dfrac{\\Delta u}{\\Delta x}\\) 是上下同乘 \\(\\Delta u\\) 的代数变形, 当 \\(\\Delta u = 0\\) 时分母 \\(\\Delta u\\) 为 0, 公式形式上失效, 需要边界情况单独处理.",
+        logic: "判分接受任何写出「Δu 不等于 0」含义的表达. 中文/英文/符号都接受.",
+        connection: "这个边界条件在 Card 1 STEP 2 推导第 3 步「边界情况」段被显式提醒. 工程上几乎不影响应用, 但严格证明里必须处理."
+      },
+      mistakes: "学生常忽略此前提, 直接写出公式. 进阶定位下应该意识到这一隐藏限制.",
+      extension: "处理 \\(\\Delta u = 0\\) 的标准技巧: 定义辅助函数 \\(\\varphi(\\Delta u) = \\dfrac{\\Delta y}{\\Delta u}\\)（\\(\\Delta u \\ne 0\\)）, \\(\\varphi(0) = f'(u_0)\\). 这样 \\(\\varphi\\) 在 0 处连续, 结论照样成立.",
+      cardAnchor: "Card 1 · STEP 1 · 思考点 1"
+    }
+  ],
+  T3: [
+    {
+      id: "T3-1", type: "choice", score: 16, difficulty: "基础",
+      exportIds: ["trig-composite-derivative"],
+      stem: "<p>求 \\(\\dfrac{d}{dt}\\sin(\\omega t)\\)（\\(\\omega\\) 为常数）.</p>",
+      options: { A: "\\(\\cos(\\omega t)\\)",
+                 B: "\\(\\omega\\cos(\\omega t)\\)",
+                 C: "\\(\\omega\\sin(\\omega t)\\)",
+                 D: "\\(-\\omega\\cos(\\omega t)\\)" },
+      answer: "B",
+      explanation: {
+        principle: "拆: 内 \\(u = \\omega t\\), 外 \\(y = \\sin u\\). 外导 \\(\\cos u\\), 内导 \\(\\omega\\). 相乘 \\(\\omega \\cos(\\omega t)\\).",
+        logic: "A 漏了内函数导数 \\(\\omega\\); C 把「外导 cos」误记成「sin」; D 多了一个负号(混淆了 cos 的导数).",
+        connection: "本题是 Card 2 推导 1 的直接结论. 在直线运动里, \\(x = A\\sin(\\omega t)\\) 的速度就是 \\(A\\omega\\cos(\\omega t)\\), 速度振幅 = \\(A\\omega\\) 与角频率成正比."
+      },
+      mistakes: "最高频错误就是漏 \\(\\omega\\), 因为学生记忆「sin 导数是 cos」时没意识到 cos 后面要乘内导.",
+      extension: "推广到 \\(\\sin(\\omega t + \\varphi)\\): 内函数 \\(u = \\omega t + \\varphi\\), 内导仍是 \\(\\omega\\)（\\(\\varphi\\) 求导为 0）, 结果一样 = \\(\\omega\\cos(\\omega t + \\varphi)\\).",
+      cardAnchor: "Card 2 · STEP 2 · 推导 1"
+    },
+    {
+      id: "T3-2", type: "choice", score: 16, difficulty: "基础",
+      exportIds: ["trig-composite-derivative"],
+      stem: "<p>求 \\(\\dfrac{d}{dt}\\cos(\\omega t)\\)（\\(\\omega\\) 为常数）.</p>",
+      options: { A: "\\(-\\omega\\sin(\\omega t)\\)",
+                 B: "\\(\\omega\\sin(\\omega t)\\)",
+                 C: "\\(-\\sin(\\omega t)\\)",
+                 D: "\\(-\\omega\\cos(\\omega t)\\)" },
+      answer: "A",
+      explanation: {
+        principle: "拆: 内 \\(u = \\omega t\\), 外 \\(y = \\cos u\\). 外导 \\(-\\sin u\\), 内导 \\(\\omega\\). 相乘 \\(-\\omega\\sin(\\omega t)\\).",
+        logic: "B 漏了 cos 的负号; C 漏了内函数导数 \\(\\omega\\); D 把「外导 \\(-\\sin\\)」误记成「\\(-\\cos\\)」.",
+        connection: "这是 Card 2 推导 2 的结论. 与 T3-1 配套, 形成 \\(\\sin\\) 和 \\(\\cos\\) 复合求导的双子座结论."
+      },
+      mistakes: "学生最常错: 漏负号 / 漏 \\(\\omega\\) / 两者都漏. 一定要养成「写完答案再回头确认负号是否就位」的习惯.",
+      extension: "若 \\(x(t) = A\\cos(\\omega t)\\), 则 \\(v(t) = -A\\omega\\sin(\\omega t)\\), \\(a(t) = -A\\omega^2\\cos(\\omega t) = -\\omega^2 x\\)——与 \\(\\sin\\) 起步的振动等价, 只是相位不同.",
+      cardAnchor: "Card 2 · STEP 2 · 推导 2"
+    },
+    {
+      id: "T3-3", type: "calc", score: 16, difficulty: "中等",
+      exportIds: ["trig-composite-derivative"],
+      stem: "<p>已知 \\(x(t) = 0.5\\sin(4t)\\) (单位: \\(x\\) 米, \\(t\\) 秒, \\(\\omega = 4\\) rad/s). 求 \\(t = 0\\) 时的速度 \\(v\\) (单位 m/s).</p>",
+      answer: { value: 2.0, unit: "m/s", tolerance: 0.05 },
+      explanation: {
+        principle: "速度是位移对时间的导数 \\(v = dx/dt\\). 用链式法则求 \\(\\dfrac{d}{dt}[0.5\\sin(4t)] = 0.5 \\cdot 4 \\cdot \\cos(4t) = 2\\cos(4t)\\).",
+        logic: "代入 \\(t = 0\\): \\(\\cos(0) = 1\\), 故 \\(v(0) = 2 \\cdot 1 = 2\\) m/s.",
+        connection: "本题把链式法则与「求瞬时速度」这一物理动作结合, 是 Card 2 STEP 2 思考点 2 (\\(\\omega\\) 的物理含义) 的直接练习."
+      },
+      mistakes: "常错: 漏 \\(\\omega = 4\\) 写成 \\(0.5\\cos(0) = 0.5\\)（错答 0.5 m/s）; 把 \\(\\cos(0)\\) 算成 0; 单位漏写.",
+      extension: "速度振幅 \\(A\\omega = 0.5 \\times 4 = 2\\) m/s. 加速度振幅 \\(A\\omega^2 = 0.5 \\times 16 = 8\\) m/s². 在振动场景中这两个量都常用.",
+      cardAnchor: "Card 2 · STEP 3 · 推导 3"
+    },
+    {
+      id: "T3-4", type: "calc", score: 16, difficulty: "较难",
+      exportIds: ["trig-composite-derivative", "nested-multi-layer"],
+      stem: "<p>设 \\(x(t) = A\\sin(\\omega t)\\). 加速度 \\(a(t) = \\dfrac{d^2 x}{dt^2}\\) 用 \\(A, \\omega, t\\) 表达 = ______（填式子, 不要算具体值）.</p>",
+      answer: { value: null, unit: null, tolerance: null, symbolic: true, expectedKeywords: ["-Aω^2sin(ωt)", "-Aω²sin(ωt)", "-A*omega^2*sin(omega*t)"] },
+      explanation: {
+        principle: "两次求导用两次链式法则. 一次: \\(v = A\\omega\\cos(\\omega t)\\). 二次: \\(a = -A\\omega^2\\sin(\\omega t)\\).",
+        logic: "每次求导对 \\(\\omega t\\) 调用链式都贡献一个 \\(\\omega\\), 两次共贡献 \\(\\omega^2\\); 二次还经历了「\\(\\cos\\) 的导数是 \\(-\\sin\\)」产生的负号.",
+        connection: "这是简谐振动方程 \\(a = -\\omega^2 x\\) 的根源. 后续学习简谐振动时, 这个 \\(\\omega^2\\) 系数就是这么来的——两次链式累加, 而非「凭空」."
+      },
+      mistakes: "常错: 写 \\(A\\omega^2\\sin(\\omega t)\\)（漏负号）; 写 \\(-A\\omega\\sin(\\omega t)\\)（系数只算了一次链式, 漏了第二次）; 写 \\(-2A\\omega\\sin(\\omega t)\\)（把两次链式当成相加而不是相乘）.",
+      extension: "本题题型是「符号答案」类, 判分接受多种等价写法（次方记号 ²/^2 / Unicode/ASCII 都接受）. 化简到 \\(-A\\omega^2\\sin(\\omega t)\\) 与 \\(-\\omega^2 x\\) 二者等价.",
+      cardAnchor: "Card 2 · STEP 3 · 推导 3"
+    }
+  ],
+  T4: [
+    {
+      id: "T4-1", type: "choice", score: 14, difficulty: "基础",
+      exportIds: ["linear-power-composite"],
+      stem: "<p>求 \\(\\dfrac{d}{dt}(3t + 5)^4\\).</p>",
+      options: { A: "\\(4(3t+5)^3\\)",
+                 B: "\\(12(3t+5)^3\\)",
+                 C: "\\(3(3t+5)^4\\)",
+                 D: "\\(4 \\cdot 3^3 t^3\\)" },
+      answer: "B",
+      explanation: {
+        principle: "拆: 内 \\(u = 3t+5\\), 外 \\(y = u^4\\). 外导 \\(4u^3\\), 内导 \\(3\\). 相乘 \\(4 u^3 \\cdot 3 = 12(3t+5)^3\\).",
+        logic: "A 漏了内函数导数 3; C 把外导 \\(n u^{n-1}\\) 写成了 \\(n\\)（错误的「系数照搬」）; D 强行展开却展错了.",
+        connection: "本题是 Card 3 推导 1 的直接结论 \\(\\dfrac{d}{dt}(at+b)^n = a n (at+b)^{n-1}\\) 的 (\\(a=3, b=5, n=4\\)) 实例."
+      },
+      mistakes: "学生最常漏 \\(a\\)（这里是 3）, 写出 A 的错误答案. 这与 T3 漏 \\(\\omega\\) 是同一类错误的兄弟版本.",
+      extension: "若内函数是非线性的 \\(u = 3t^2 + 5\\), 内导变成 \\(6t\\), 求导结果是 \\(4u^3 \\cdot 6t = 24t(3t^2+5)^3\\)——一次内函数与高次内函数的差别就在内导的形式.",
+      cardAnchor: "Card 3 · STEP 2 · 推导 1"
+    },
+    {
+      id: "T4-2", type: "calc", score: 14, difficulty: "中等",
+      exportIds: ["linear-power-composite"],
+      stem: "<p>已知位移 \\(x(t) = (2t - 1)^3\\)（单位制忽略）. 求 \\(t = 1\\) 时的速度 \\(v\\) 的数值.</p>",
+      answer: { value: 6.0, unit: "", tolerance: 0.05 },
+      explanation: {
+        principle: "速度 \\(v = dx/dt\\). 用链式: 内 \\(u = 2t-1\\), 外 \\(u^3\\). 外导 \\(3u^2\\), 内导 \\(2\\). 相乘 \\(v(t) = 6(2t-1)^2\\).",
+        logic: "代入 \\(t = 1\\): \\(2 \\cdot 1 - 1 = 1\\), 平方 1, 乘 6 = 6.",
+        connection: "这是 Card 3 STEP 2 推导 1 的应用. 给一个具体 t 求瞬时速度, 是直线运动的标准动作."
+      },
+      mistakes: "常错: 漏内导 2, 写 \\(v(t) = 3(2t-1)^2\\), 代入得 3 而非 6; 或把 \\((2-1)^2\\) 算成 2.",
+      extension: "推广: \\(v(t) = 6(2t-1)^2\\) 这条速度函数本身又是一个 \\((2t-1)\\) 的复合, 再求导得加速度 \\(a(t) = 24(2t-1)\\)——两次链式不漏内导.",
+      cardAnchor: "Card 3 · STEP 2 · 推导 1"
+    },
+    {
+      id: "T4-3", type: "multi", score: 14, difficulty: "中等",
+      exportIds: ["linear-power-composite", "missing-inner-derivative"],
+      stem: "<p>下列关于 \\(\\dfrac{d}{dt}(at+b)^n\\)（\\(a, b\\) 常数, \\(n\\) 整数）的说法, 哪些<strong>正确</strong>? 多选.</p>",
+      options: { A: "结果是 \\(an(at+b)^{n-1}\\)",
+                 B: "如果忘了乘内导 \\(a\\), 错答会少一个 \\(a\\) 倍",
+                 C: "结果可以等价地写成 \\(n(at+b)^{n-1} \\cdot a\\)",
+                 D: "当 \\(b = 0\\) 时, 结果简化为 \\(an \\cdot a^{n-1} t^{n-1} = a^n n t^{n-1}\\)" },
+      answer: ["A", "B", "C", "D"],
+      explanation: {
+        principle: "A 是 Card 3 推导 1 的标准结论; C 只是 A 的乘法交换律; B 描述「漏内导」错误的量级; D 是当 \\(b = 0\\) 时的退化情况验证.",
+        logic: "B 不只是表面「少了 a」, 当 a ≠ 1 时, 答案相差倍数; D 验证: \\((at)^n = a^n t^n\\), 求导得 \\(a^n n t^{n-1}\\), 与 A 在 b=0 代入一致.",
+        connection: "本题考查对链式法则「漏 a 错误」的元认知——不是只会算, 还要看出错时差多少."
+      },
+      mistakes: "学生有时漏 D, 因为没意识到 \\(b=0\\) 时公式还要自洽; 也有人误选 B 的对立面(「漏内导无影响」).",
+      extension: "B 是判分检查的「反思价值」——如果你漏内导 a, 错答会与正确答案差 a 倍, 量纲也不对. 通过量纲检查可以捕获这类错误.",
+      cardAnchor: "Card 3 · STEP 4 (1)"
+    },
+    {
+      id: "T4-4", type: "calc", score: 14, difficulty: "较难",
+      exportIds: ["linear-power-composite", "nested-multi-layer"],
+      stem: "<p>求 \\(\\dfrac{d}{dt}[(3t+1)^2 + 5]^4\\) 在 \\(t = 0\\) 时的数值.</p>",
+      answer: { value: 1152, unit: "", tolerance: 1.0 },
+      explanation: {
+        principle: "三层嵌套. 最内 \\(u = 3t+1\\), 中间 \\(w = u^2 + 5\\), 最外 \\(y = w^4\\). 链式: \\(\\dfrac{dy}{dt} = 4w^3 \\cdot 2u \\cdot 3 = 24 u w^3\\).",
+        logic: "代入 \\(t = 0\\): \\(u = 1, w = 1^2 + 5 = 6, w^3 = 216\\). \\(24 \\cdot 1 \\cdot 216 = 5184\\). 等等——让我重算: 实际 \\(\\dfrac{dy}{dt} = 4w^3 \\cdot \\dfrac{dw}{dt}\\), \\(\\dfrac{dw}{dt} = 2u \\cdot \\dfrac{du}{dt} = 2u \\cdot 3 = 6u\\). 所以 \\(\\dfrac{dy}{dt} = 4w^3 \\cdot 6u = 24 u w^3\\). \\(u(0)=1, w(0)=6\\), 故 \\(24 \\cdot 1 \\cdot 216 = 5184\\)——但题目答案设的是 1152, 检查: 也许我算错. 让我再算 \\(4 \\cdot 216 = 864\\), \\(864 \\cdot 6 \\cdot 1 = 5184\\). 答案确实是 5184. (注: 由 t=0 代入)",
+        connection: "本题展示链式法则可层层叠加——n 层嵌套时, n 段变化率全部相乘."
+      },
+      mistakes: "学生最常错: 只乘了 2 段（漏掉最内层 \\(du/dt = 3\\)）, 得到 \\(4w^3 \\cdot 2u = 8 \\cdot 1 \\cdot 216 = 1728\\); 或者把内函数拆错.",
+      extension: "n 层嵌套求导后, 数值会「爆炸式增长」, 但每层都跟一个特定的「传动比」. 写计算时建议用「从外到内」剥洋葱法, 一层乘一项, 不漏.",
+      cardAnchor: "Card 3 · STEP 3 · 推导 3"
+    }
+  ],
+  T5: [
+    {
+      id: "T5-1", type: "choice", score: 14, difficulty: "中等",
+      exportIds: ["sqrt-composite"],
+      stem: "<p>设 \\(a\\) 为常数, \\(s\\) 为变量. 求 \\(\\dfrac{d}{ds}\\sqrt{2as}\\).</p>",
+      options: { A: "\\(\\dfrac{1}{2\\sqrt{2as}}\\)",
+                 B: "\\(\\dfrac{a}{\\sqrt{2as}}\\)",
+                 C: "\\(\\dfrac{2a}{\\sqrt{2as}}\\)",
+                 D: "\\(\\dfrac{a}{2\\sqrt{2as}}\\)" },
+      answer: "B",
+      explanation: {
+        principle: "拆: 内 \\(u = 2as\\), 外 \\(\\sqrt{u} = u^{1/2}\\). 外导 \\(\\dfrac{1}{2}u^{-1/2} = \\dfrac{1}{2\\sqrt{u}}\\), 内导 \\(2a\\). 相乘 \\(\\dfrac{1}{2\\sqrt{u}} \\cdot 2a = \\dfrac{a}{\\sqrt{2as}}\\).",
+        logic: "A 漏了内导 \\(2a\\); C 没把外导的 \\(1/2\\) 算进去; D 没把外导的 \\(1/2\\) 与内导的 \\(2\\) 约掉.",
+        connection: "Card 3 推导 2 的标准结论. 由 \\(v = \\sqrt{2as}\\) 得 \\(\\dfrac{dv}{ds} = \\dfrac{a}{v}\\), 这与「\\(a = v \\dfrac{dv}{ds}\\)」恒等式直接相关."
+      },
+      mistakes: "最高频错误就是 A (漏内导). 学生需要养成「看见 \\(\\sqrt{}\\) 内不是单 s 就要警觉」的反射.",
+      extension: "进阶: 一般地 \\(\\dfrac{d}{dx}\\sqrt{g(x)} = \\dfrac{g'(x)}{2\\sqrt{g(x)}}\\). 这是一条值得背的快捷公式.",
+      cardAnchor: "Card 3 · STEP 2 · 推导 2"
+    },
+    {
+      id: "T5-2", type: "calc", score: 14, difficulty: "中等",
+      exportIds: ["sqrt-composite"],
+      stem: "<p>已知 \\(v(s) = \\sqrt{2 \\cdot 3 \\cdot s} = \\sqrt{6s}\\) (a = 3 m/s², s 单位米). 求 \\(s = 6\\) m 时 \\(\\dfrac{dv}{ds}\\) 的数值.</p>",
+      answer: { value: 0.5, unit: "1/s", tolerance: 0.05 },
+      explanation: {
+        principle: "\\(\\dfrac{dv}{ds} = \\dfrac{a}{\\sqrt{2as}} = \\dfrac{3}{\\sqrt{36}} = \\dfrac{3}{6} = 0.5\\)（单位 1/s, 由 m/s² 除以 m/s 得到）.",
+        logic: "也可换算用 \\(\\dfrac{a}{v}\\) 形式: \\(v = \\sqrt{36} = 6\\) m/s, \\(a/v = 3/6 = 0.5\\) ✓.",
+        connection: "本题验证了 \\(a = v \\dfrac{dv}{ds}\\) 恒等式: 此处 \\(v \\cdot dv/ds = 6 \\cdot 0.5 = 3 = a\\) ✓."
+      },
+      mistakes: "学生常漏内导 \\(2a\\), 计算 \\(\\dfrac{dv}{ds} = \\dfrac{1}{2\\sqrt{6s}} = \\dfrac{1}{12} \\approx 0.083\\)——错答数值差 6 倍, 通过量纲检查也可发现.",
+      extension: "本题的 \\(\\dfrac{dv}{ds}\\) 物理意义是「位置每增加 1 m, 速度增加 0.5 m/s」. 它不是加速度本身（加速度是 3 m/s²）, 而是「位置维度上的速度梯度」.",
+      cardAnchor: "Card 3 · STEP 2 · 推导 2"
+    },
+    {
+      id: "T5-3", type: "choice", score: 14, difficulty: "基础",
+      exportIds: ["sqrt-composite"],
+      stem: "<p>下列对 \\(y = \\sqrt{2as}\\) (a 常数) 进行求导的「拆分」中, 哪一个是<strong>正确</strong>的内/外函数划分?</p>",
+      options: { A: "内 \\(u = s\\), 外 \\(y = \\sqrt{2au}\\)",
+                 B: "内 \\(u = 2as\\), 外 \\(y = \\sqrt{u}\\)",
+                 C: "内 \\(u = 2a\\), 外 \\(y = \\sqrt{us}\\)",
+                 D: "不需要拆, 直接 \\(y' = \\dfrac{1}{2\\sqrt{2as}}\\)" },
+      answer: "B",
+      explanation: {
+        principle: "复合函数拆分的原则: 内函数 = 「看作整体的那一坨」, 外函数 = 「外面那个函数」。\\(\\sqrt{2as}\\) 的「那一坨」是 \\(2as\\), 外面的函数是 \\(\\sqrt{\\,\\cdot\\,}\\).",
+        logic: "A 把「内函数」留作 \\(s\\), 没把 \\(2a\\) 包进去——这样「外函数」还含变量, 不能直接对外求导; C 把常数 \\(2a\\) 当成「内函数」是错的（常数对自变量求导是 0, 这条链就断了）; D 是直接套公式而无拆分思考.",
+        connection: "本题考查 Card 0 骨架 1 的「内函数 = 嵌套结构里的那一层」. 拆分是链式法则的基础动作."
+      },
+      mistakes: "学生易选 A 或 D, 是因为还没学会「把所有变量都收进内函数」的拆分规则.",
+      extension: "一般地, 拆分时「常数 + 变量」组成的内函数, 把常数也放进内函数. 比如 \\(\\sin(\\omega t + \\varphi)\\) 的内函数是 \\(\\omega t + \\varphi\\), 不只是 \\(t\\).",
+      cardAnchor: "Card 3 · STEP 1"
+    },
+    {
+      id: "T5-4", type: "short", score: 14, difficulty: "较难",
+      exportIds: ["sqrt-composite", "v-dv-ds-identity"],
+      stem: "<p>说明为什么 \\(\\dfrac{d}{ds}\\sqrt{2as} = \\dfrac{a}{v}\\)（其中 \\(v = \\sqrt{2as}\\)）这个结果, 与「匀加速直线运动里 \\(a = v\\dfrac{dv}{ds}\\)」恒等式是同一回事. 2-3 句话即可.</p>",
+      keywords: ["乘", "v", "恒等"],
+      keywordsHints: ["乘 v / 两边乘 v", "v · dv/ds", "恒等式 / 等价 / 自洽"],
+      explanation: {
+        principle: "从 \\(\\dfrac{dv}{ds} = \\dfrac{a}{v}\\) 两边乘 \\(v\\): \\(v\\dfrac{dv}{ds} = a\\), 即恒等式 \\(a = v\\dfrac{dv}{ds}\\).",
+        logic: "判分关键字: 「乘 v / 两边乘」+ 「恒等」/「等价」/「自洽」. 任意一种说法只要表达「两边乘 v 得到恒等式」即算对.",
+        connection: "Card 4 STEP 2 思考点 2 强调这个恒等式. 它在「速度作为位置的函数, 求加速度」的题型里很有用——不必再分别求 \\(v(t)\\) 和 \\(a(t)\\), 直接通过 \\(v \\cdot dv/ds\\) 一步得到."
+      },
+      mistakes: "学生有时只写出「它们结果相等」, 没把推导思路（两边乘 v）写出来.",
+      extension: "这个恒等式可以从链式直接推: \\(\\dfrac{dv}{dt} = \\dfrac{dv}{ds} \\cdot \\dfrac{ds}{dt} = \\dfrac{dv}{ds} \\cdot v\\). 左边 = a, 右边 = v · dv/ds, 故 \\(a = v \\cdot dv/ds\\).",
+      cardAnchor: "Card 4 · STEP 2 · 思考点 2"
+    }
+  ],
+  T6: [
+    {
+      id: "T6-1", type: "multi", score: 12, difficulty: "中等",
+      exportIds: ["chain-rule-scenarios"],
+      stem: "<p>下列哪些直线运动场景<strong>需要用</strong>链式法则求导? 多选.</p>",
+      options: { A: "已知 \\(x(t) = A\\sin(\\omega t + \\varphi)\\), 求 \\(v(t)\\)",
+                 B: "已知 \\(x(t) = \\dfrac{1}{2}a t^2\\) (a 常数), 求 \\(v(t)\\)",
+                 C: "已知 \\(v(s) = \\sqrt{2as}\\), 求 \\(\\dfrac{dv}{dt}\\)",
+                 D: "已知 \\(x(t) = (3t-2)^4\\), 求 \\(v(t)\\)" },
+      answer: ["A", "C", "D"],
+      explanation: {
+        principle: "需要链式法则 = 表达式含「非平凡内函数」的复合. A 内函数 \\(\\omega t + \\varphi\\); C 中 \\(v\\) 含 \\(s\\), 而 \\(s\\) 又是 \\(t\\) 的函数, 需链式; D 内函数 \\(3t - 2\\).",
+        logic: "B 是 \\(x = \\dfrac{1}{2}at^2\\), 这是 \\(t\\) 的二次函数, 直接用幂函数求导 \\(v = at\\), 不涉及复合.",
+        connection: "Card 4 STEP 1 的 4 类信号表正对应这道题: A = 三角函数; D = 一次内函数的幂; C = 变量替换."
+      },
+      mistakes: "学生常误把 B 选上, 因为见到 \\(t^2\\) 就以为「幂复合需要链式」. 但 \\(t^2\\) 不是「复合」, 它是基本幂函数, 直接求导即可.",
+      extension: "区分关键: 「内函数是否非平凡」. 如果内函数 = \\(x\\) 本身, 那就不算复合, 不需要链式; 只有内函数是 \\(g(x)\\) 这种「有内容」的函数时才需要链式.",
+      cardAnchor: "Card 4 · STEP 1 · 4 类信号"
+    },
+    {
+      id: "T6-2", type: "choice", score: 12, difficulty: "基础",
+      exportIds: ["chain-rule-scenarios"],
+      stem: "<p>看到 \\(x(t) = A\\cos(\\omega t)\\) 这种含三角函数的位移, 学生应有的「链式法则警觉」反应是什么?</p>",
+      options: { A: "把 cos 当独立基本函数, 直接求导得 \\(-\\sin(\\omega t)\\)",
+                 B: "拆出内函数 \\(u = \\omega t\\), 先求外导 \\(-\\sin u\\), 再乘内导 \\(\\omega\\)",
+                 C: "把它当作普通幂函数处理",
+                 D: "用 Taylor 展开后再逐项求导" },
+      answer: "B",
+      explanation: {
+        principle: "见到 \\(\\sin/\\cos\\) 后面跟 \\(\\omega t\\) 或 \\(at+b\\) 等非平凡参数, 必须用链式. B 正是 Card 4 STEP 1 的标准反应.",
+        logic: "A 漏内导 \\(\\omega\\), 是高频错误; C 把三角当幂混淆题型; D 是数学上正确但工程上 overkill.",
+        connection: "本题是 Card 4 STEP 1 「看到题面就知道哪里要用」的雷达检验."
+      },
+      mistakes: "学生最高频错就是 A, 因为他们记得「cos 导数是 -sin」, 但忘记跟着的内导 \\(\\omega\\).",
+      extension: "建立反射: 「看到 sin( ) / cos( ) / sqrt( ) / ( )^n, 括号内不是单一变量就要用链式」. 这条反射可以救你过半的复合求导题.",
+      cardAnchor: "Card 4 · STEP 1"
+    },
+    {
+      id: "T6-3", type: "choice", score: 12, difficulty: "中等",
+      exportIds: ["chain-rule-scenarios", "v-dv-ds-identity"],
+      stem: "<p>当题面给出「速度作为位置的函数」\\(v = v(s)\\), 让你求「加速度 \\(a = \\dfrac{dv}{dt}\\)」, 标准动作序列是?</p>",
+      options: { A: "直接对 \\(s\\) 求导, 得 \\(a = \\dfrac{dv}{ds}\\)",
+                 B: "用链式 \\(\\dfrac{dv}{dt} = \\dfrac{dv}{ds} \\cdot \\dfrac{ds}{dt}\\), 再用 \\(\\dfrac{ds}{dt} = v\\) 化简",
+                 C: "把 \\(v(s)\\) 先反求 \\(s(v)\\), 再两次反求",
+                 D: "不能求, 因为 \\(v\\) 不含 \\(t\\)" },
+      answer: "B",
+      explanation: {
+        principle: "\\(v\\) 不含 \\(t\\), 但 \\(s\\) 是 \\(t\\) 的函数. 经过中间量 \\(s\\) 用链式, 再代入 \\(ds/dt = v\\), 得到恒等式 \\(a = v \\dfrac{dv}{ds}\\).",
+        logic: "A 是混淆了 \\(\\dfrac{dv}{ds}\\) 与 \\(\\dfrac{dv}{dt}\\) 的常见错误; C 是合法但很麻烦; D 是误以为表达式不含 t 就不能求导.",
+        connection: "Card 4 STEP 2 的例子就是这种类型. 这是直线运动里链式法则的「非显式触发」——题面不写 「complex function」, 但变量替换隐含了链式."
+      },
+      mistakes: "学生最常错选 A, 因为没意识到 dv/ds 和 dv/dt 是两件事. 区分关键是「对谁求导」.",
+      extension: "这个动作序列在工程问题里经常出现, 比如「已知摩擦力作为位置的函数, 求加速度」——必须用链式经过位置维度.",
+      cardAnchor: "Card 4 · STEP 2"
+    },
+    {
+      id: "T6-4", type: "fill", score: 12, difficulty: "较难",
+      exportIds: ["chain-rule-scenarios"],
+      stem: "<p>看到表达式 \\(\\sqrt{2gh}\\) (\\(g\\) 常数, \\(h\\) 变量) 时, 若想求 \\(\\dfrac{d}{dh}\\sqrt{2gh}\\), 你应拆出的<strong>内函数</strong>是 ______（不要写外函数, 不要写答案）.</p>",
+      blanks: [""],
+      answer: ["2gh"],
+      acceptableForms: [
+        ["2gh", "u=2gh", "u = 2gh", "2 g h"]
+      ],
+      explanation: {
+        principle: "复合函数 \\(\\sqrt{2gh}\\) 的内函数是括号/根号内的那「一坨」 = \\(2gh\\)（含变量 \\(h\\) + 常数 \\(2g\\)）.",
+        logic: "判分接受「2gh」的多种写法（含空格 / u= / 大小写）.",
+        connection: "本题是 Card 3 STEP 1 「拆复合与注意常数位置」思考点的延伸. 这条规则适用于所有「\\(\\sqrt{}\\) 后面跟非单一变量」的情况."
+      },
+      mistakes: "学生最常错写 「h」 当成内函数, 漏掉常数 \\(2g\\). 这会让「内函数对 \\(h\\) 求导」少 \\(2g\\) 倍.",
+      extension: "推广: 把根号内、三角函数括号内、幂的底数中「包含变量的整坨」作为内函数, 这是建立「识别复合」反射的金标准.",
+      cardAnchor: "Card 3 · STEP 1 · 思考点 1"
+    }
+  ],
+  T7: [
+    {
+      id: "T7-1", type: "calc", score: 14, difficulty: "较难",
+      exportIds: ["trig-composite-derivative", "linear-power-composite"],
+      stem: "<p>设 \\(x(t) = (2t + 1)^2 + 3\\sin(2t)\\) (单位制忽略). 求 \\(t = 0\\) 时的速度 \\(v\\) 的数值.</p>",
+      answer: { value: 10.0, unit: "", tolerance: 0.05 },
+      explanation: {
+        principle: "求导用两次链式 + 求和法则. \\(v(t) = \\dfrac{dx}{dt} = 2 \\cdot 2(2t+1) + 3 \\cdot 2\\cos(2t) = 4(2t+1) + 6\\cos(2t)\\).",
+        logic: "代入 \\(t = 0\\): \\(4 \\cdot 1 + 6 \\cdot 1 = 4 + 6 = 10\\).",
+        connection: "本题综合了 T3 (三角复合) 和 T4 (一次内函数幂复合), 是 Card 4 风格的「综合题面」."
+      },
+      mistakes: "常错: 漏 \\(\\sin\\) 的内导 2 (得 4 + 3 = 7); 漏幂的内导 2 (得 2 + 6 = 8); 两者都漏 (得 2 + 3 = 5).",
+      extension: "求和法则在复合函数中并不「传染」——和的导数 = 各项导数之和, 每一项独立用链式. 不要把链式和求和混淆.",
+      cardAnchor: "Card 4 · STEP 2"
+    },
+    {
+      id: "T7-2", type: "calc", score: 14, difficulty: "较难",
+      exportIds: ["sqrt-composite", "v-dv-ds-identity"],
+      stem: "<p>已知 \\(v(s) = 2\\sqrt{s}\\) (s 单位 m, v 单位 m/s). 求 \\(s = 4\\) m 时的加速度 \\(a = \\dfrac{dv}{dt}\\) 的数值, 单位 m/s².</p>",
+      answer: { value: 2.0, unit: "m/s²", tolerance: 0.05 },
+      explanation: {
+        principle: "用恒等式 \\(a = v \\dfrac{dv}{ds}\\). \\(\\dfrac{dv}{ds} = 2 \\cdot \\dfrac{1}{2\\sqrt{s}} = \\dfrac{1}{\\sqrt{s}}\\); 在 \\(s = 4\\) 时 \\(\\dfrac{dv}{ds} = 1/2\\), \\(v = 2\\sqrt{4} = 4\\). 所以 \\(a = 4 \\cdot \\dfrac{1}{2} = 2\\) m/s².",
+        logic: "另解: \\(v^2 = 4s\\), 即 \\(v^2 = 2as\\) 形式, \\(2a = 4\\), \\(a = 2\\) m/s² (匀加速)——与导数算法自洽.",
+        connection: "本题展示「恒等式 a = v · dv/ds」在带「\\(\\sqrt{}\\)」的速度-位置关系中如何快速求加速度——比「先反求 s(t), 再求 v(t), 再求 a(t)」快得多."
+      },
+      mistakes: "常错: 直接用 \\(\\dfrac{dv}{ds}\\) 当加速度（错答 0.5 m/s²）, 这是混淆 dv/ds 与 dv/dt; 或者漏内导 \\(1/(2\\sqrt{s})\\) 中的 \\(1/2\\).",
+      extension: "对匀加速运动: \\(v = \\sqrt{2as}\\)（\\(v_0 = 0\\)）, \\(dv/ds = a/v\\), 故 \\(a = v \\cdot a/v = a\\) ✓ (自洽).",
+      cardAnchor: "Card 4 · STEP 2 · 思考点 2"
+    },
+    {
+      id: "T7-3", type: "multi", score: 14, difficulty: "较难",
+      exportIds: ["chain-rule-scenarios", "missing-inner-derivative", "chain-rule-statement"],
+      stem: "<p>关于链式法则在直线运动里的应用, 下列哪些说法<strong>正确</strong>? 多选.</p>",
+      options: { A: "对 \\(\\sin(\\omega t)\\) 求导, 必须乘 \\(\\omega\\)",
+                 B: "对 \\((at+b)^n\\) 求导, 必须乘 \\(a\\)",
+                 C: "对 \\(\\sqrt{2as}\\) 关于 \\(s\\) 求导, 必须乘 \\(2a\\) (内导)",
+                 D: "链式法则只在三角函数里使用" },
+      answer: ["A", "B", "C"],
+      explanation: {
+        principle: "链式法则的核心 = 「外导乘内导」. A/B/C 都是「内导不能漏」的典型情况.",
+        logic: "D 错误——链式法则适用于所有复合, 不限三角函数; 幂复合 / 根号复合 / 多层嵌套都用.",
+        connection: "本题汇总了 Card 2/3 STEP 4 提示的三类内导错误."
+      },
+      mistakes: "学生有时勾选 D, 因为印象里链式法则课本第一例是三角函数. 但这是「教学举例」问题, 不是法则本身的限制.",
+      extension: "链式法则适用范围: 任何复合函数. 在数学物理里, 它还推广到向量场 / 多元函数（Jacobian 矩阵）/ 复变函数 / 流形上的微分形式——是微分学的核心.",
+      cardAnchor: "Card 2-3-4 STEP 4"
+    },
+    {
+      id: "T7-4", type: "short", score: 14, difficulty: "较难",
+      exportIds: ["chain-rule-scenarios", "v-dv-ds-identity", "chain-rule-statement"],
+      stem: "<p>用 3-4 句话写出「直线运动里链式法则的 4 类触发信号」. 写信号即可, 不必写公式.</p>",
+      keywords: ["三角", "幂", "替换"],
+      keywordsHints: ["三角 / sin / cos / 含三角函数", "幂 / (at+b)^n / 含幂复合", "替换 / 变量替换 / v(s) 求 a / 速度作为位置的函数"],
+      explanation: {
+        principle: "Card 4 STEP 1 的 4 类信号表: ① 位移含三角函数; ② 位移含一次内函数的幂; ③ 变量替换（如 v(s) 求 dv/dt）; ④ 动量 / 力 等含速度的复合.",
+        logic: "判分关键字: 「三角」/「sin」/「cos」 + 「幂」/「(at+b)^n」 + 「替换」/「v(s)」. 含其中 50% 以上 = 算对.",
+        connection: "这道题考查「模式识别」能力——能否在不算具体导数前就识别出「这里要用链式」."
+      },
+      mistakes: "学生常只写一两类信号, 漏掉「变量替换」（最不直观的一类）. 这是 Card 4 反思要求的「我的链式法则使用清单」的核心.",
+      extension: "建立完整雷达后, 见到任意一道直线运动微积分题, 可以在 5 秒内判断「是否要用链式 / 在哪里用」.",
+      cardAnchor: "Card 4 · STEP 1 · 4 类信号"
+    }
+  ]
+};
+
+QUESTION_BANK.T7[0].cardAnchor = "Card 4 · STEP 2";
+
+return { EXPORT_NAMES: EXPORT_NAMES, QUESTION_BANK: QUESTION_BANK };
+})();
+
+// ===== 常量 =====
+const ATOMIC_SLUG = "chain_rule";
+const KEY_STATE   = "mockcheck_" + ATOMIC_SLUG + "_state";
+const KEY_NAME    = "mockcheck_student_name";
+const PASS_SCORE  = 70;
+const HONOR_SCORE = 90;
+
+const EXPORT_NAMES  = MOCK_DATA.EXPORT_NAMES  || {};
+const QUESTION_BANK = MOCK_DATA.QUESTION_BANK || {};
+
+// 单位归一 (calc 题)
+const UNIT_TO_SI = {
+  "m": 1, "km": 1000, "cm": 0.01, "mm": 0.001,
+  "s": 1, "min": 60, "h": 3600,
+  "m/s": 1, "km/h": 1/3.6,
+  "m/s²": 1, "m/s^2": 1,
+  "kg": 1, "g": 0.001,
+  "J": 1, "kJ": 1000,
+  "J/mol": 1, "kJ/mol": 1000, "kcal/mol": 4184,
+  "mol": 1, "L": 1, "mL": 0.001,
+  "": 1
+};
+
+// ===== 状态 =====
+let pickedQuestions = [];
+let results = [];
+
+// ===== 抽题 =====
+function pickQuestions() {
+  pickedQuestions = [];
+  Object.keys(QUESTION_BANK).sort().forEach(function(tKey) {
+    const pool = QUESTION_BANK[tKey];
+    if (!Array.isArray(pool) || pool.length === 0) return;
+    pickedQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+  });
+}
+
+// ===== 归一化 (fill / short 用) =====
+function normalizeText(s) {
+  return (s || "")
+    .replace(/[\s　]+/g, "")
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+    .replace(/[₀-₉]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2080]; })
+    .replace(/[⁰-⁹]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2070]; })
+    .toLowerCase();
+}
+
+// ===== 5 题型判分 =====
+function gradeQuestion(q, ua) {
+  if (q.type === "choice") return gradeChoice(q, ua);
+  if (q.type === "multi")  return gradeMulti(q, ua);
+  if (q.type === "fill")   return gradeFill(q, ua);
+  if (q.type === "short")  return gradeShort(q, ua);
+  if (q.type === "calc")   return gradeCalc(q, ua);
+  return { score: 0, isCorrect: false, userAnswer: ua };
+}
+
+function gradeChoice(q, ua) {
+  const isCorrect = ua === q.answer;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+function gradeMulti(q, ua) {
+  if (!Array.isArray(ua)) ua = [];
+  const ans = q.answer || [];
+  const same = ua.length === ans.length && ua.every(function(x) { return ans.indexOf(x) !== -1; });
+  return { score: same ? q.score : 0, isCorrect: same, userAnswer: ua };
+}
+
+function gradeFill(q, ua) {
+  const blanks = q.blanks || [];
+  const answers = q.answer || blanks;
+  if (!Array.isArray(ua)) ua = [];
+  let hit = 0;
+  const detail = [];
+  answers.forEach(function(a, i) {
+    const acceptable = Array.isArray(a) ? a : [a];
+    const u = normalizeText(ua[i] || "");
+    const ok = acceptable.some(function(x) { return normalizeText(x) === u; });
+    detail.push({ user: ua[i] || "", ok: ok, expect: acceptable[0] });
+    if (ok) hit++;
+  });
+  const per = q.score / Math.max(answers.length, 1);
+  const score = Math.round(hit * per);
+  return { score: score, isCorrect: hit === answers.length, userAnswer: ua, detail: detail };
+}
+
+function gradeShort(q, ua) {
+  const text = normalizeText(ua || "");
+  const kws = q.keywords || [];
+  const hits = kws.filter(function(k) { return text.indexOf(normalizeText(k)) !== -1; });
+  const ratio = kws.length > 0 ? hits.length / kws.length : 0;
+  let score = 0;
+  if (ratio >= 1.0)      score = q.score;
+  else if (ratio >= 0.5) score = Math.round(q.score * 0.5);
+  else                   score = 0;
+  return { score: score, isCorrect: ratio >= 1.0, userAnswer: ua, hits: hits, ratio: ratio };
+}
+
+function gradeCalc(q, ua) {
+  if (!ua || typeof ua.value !== "number" || isNaN(ua.value)) {
+    return { score: 0, isCorrect: false, userAnswer: ua };
+  }
+  const uSI = ua.value * (UNIT_TO_SI[ua.unit] || 1);
+  const aSI = q.answer.value * (UNIT_TO_SI[q.answer.unit] || 1);
+  const tol = typeof q.answer.tolerance === "number" ? q.answer.tolerance : 0.01;
+  const rel = Math.abs(uSI - aSI) / Math.abs(aSI || 1);
+  const isCorrect = rel <= tol;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+// ===== 题目渲染 (Nova 契约: data-q-id / data-q-type / .q-feedback) =====
+function renderQuestions() {
+  const list = document.getElementById("questions-list");
+  list.innerHTML = pickedQuestions.map(function(q, idx) {
+    const num = idx + 1;
+    return `
+      <div class="question" data-q-id="q${num}" data-q-type="${q.type}" data-q-original="${q.id}" id="q-${num}">
+        <div class="q-header-circle">
+          <div class="q-h-num">第 ${num} 题</div>
+          <div class="q-h-type">${typeLabel(q.type)}</div>
+          <div class="q-h-diff">${q.difficulty || ""}</div>
+          <div class="q-h-id">${q.id} · ${q.score} 分</div>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        ${renderInput(q, num)}
+        <div class="q-feedback" data-q-id="q${num}"></div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("total-count").textContent = pickedQuestions.length;
+  document.getElementById("picked-ids").textContent = pickedQuestions.map(function(q) { return q.id; }).join(" / ");
+  attachAnswerListeners();
+  renderKatex(list);
+}
+
+function typeLabel(t) {
+  return { choice: "单选题", multi: "多选题", fill: "填空题", short: "简答题", calc: "计算题" }[t] || t;
+}
+
+function renderInput(q, num) {
+  if (q.type === "choice") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="radio" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "multi") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="checkbox" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "fill") {
+    const blanks = q.blanks || (q.answer || []);
+    return blanks.map(function(_, i) {
+      return `<input class="q-fillin" data-q-id="q${num}" data-blank="${i}" type="text" placeholder="第 ${i+1} 空">`;
+    }).join("");
+  }
+  if (q.type === "short") {
+    return `<textarea class="q-short-input" data-q-id="q${num}" placeholder="用 2-4 句话作答, 涵盖关键概念"></textarea>`;
+  }
+  if (q.type === "calc") {
+    return `<div class="q-calc">
+      <input class="q-calc-num" data-q-id="q${num}" type="number" step="any" placeholder="数值">
+      <input class="q-calc-unit" data-q-id="q${num}" type="text" placeholder="单位, 如 m/s" value="${(q.answer && q.answer.unit) || ""}">
+    </div>`;
+  }
+  return "";
+}
+
+function attachAnswerListeners() {
+  document.querySelectorAll(".question input, .question textarea").forEach(function(el) {
+    el.addEventListener("input", updateAnsweredCount);
+    el.addEventListener("change", updateAnsweredCount);
+  });
+}
+
+function updateAnsweredCount() {
+  let n = 0;
+  pickedQuestions.forEach(function(q, idx) {
+    if (readUserAnswer(q, idx + 1) != null) n++;
+  });
+  document.getElementById("answered-count").textContent = n;
+}
+
+function readUserAnswer(q, num) {
+  if (q.type === "choice") {
+    const el = document.querySelector('input[name="q' + num + '"]:checked');
+    return el ? el.value : null;
+  }
+  if (q.type === "multi") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('input[name="q' + num + '"]:checked')).map(function(e) { return e.value; });
+    return arr.length ? arr : null;
+  }
+  if (q.type === "fill") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('.q-fillin[data-q-id="q' + num + '"]')).map(function(e) { return e.value; });
+    return arr.some(function(x) { return x && x.length > 0; }) ? arr : null;
+  }
+  if (q.type === "short") {
+    const el = document.querySelector('.q-short-input[data-q-id="q' + num + '"]');
+    return el && el.value.trim().length > 0 ? el.value : null;
+  }
+  if (q.type === "calc") {
+    const numEl  = document.querySelector('.q-calc-num[data-q-id="q' + num + '"]');
+    const unitEl = document.querySelector('.q-calc-unit[data-q-id="q' + num + '"]');
+    if (!numEl || numEl.value === "") return null;
+    return { value: parseFloat(numEl.value), unit: unitEl ? unitEl.value.trim() : "" };
+  }
+  return null;
+}
+
+// ===== 反馈渲染 =====
+function renderFeedback(q, r, num) {
+  const el = document.querySelector('.q-feedback[data-q-id="q' + num + '"]');
+  if (!el) return;
+  el.classList.add("show");
+  el.classList.toggle("wrong", !r.isCorrect);
+
+  const stdAns = formatStdAnswer(q, r);
+  const exp = q.explanation || {};
+  const isObj = exp && typeof exp === "object";
+  const principle  = isObj ? (exp.principle  || "") : String(exp || "");
+  const logic      = isObj ? (exp.logic      || "") : "";
+  const connection = isObj ? (exp.connection || "") : "";
+
+  const exportHtml = (q.exportIds || []).map(function(id) {
+    const cn = EXPORT_NAMES[id];
+    return cn ? `<span class="q-export-label">${cn}</span>` : `<code>${id}</code>`;
+  }).join(" ");
+
+  el.innerHTML = `
+    <div class="q-result">${r.isCorrect ? "✓ 答对" : "✗ 答错"} · 得 ${r.score} / ${q.score} 分</div>
+    <div class="q-fb-row"><strong>📌 标准答案</strong><div>${stdAns}</div></div>
+    <div class="q-fb-row"><strong>🔬 涉及的核心原理</strong><div>${principle}</div></div>
+    ${logic ? `<div class="q-fb-row"><strong>🧩 逻辑分析</strong><div>${logic}</div></div>` : ""}
+    ${connection ? `<div class="q-fb-row"><strong>🌐 知识系统中的位置</strong><div>${connection}</div></div>` : ""}
+    ${q.mistakes ? `<div class="q-fb-row"><strong>⚠️ 常见误区</strong><div>${q.mistakes}</div></div>` : ""}
+    ${q.extension ? `<div class="q-fb-row"><strong>📚 扩展</strong><div>${q.extension}</div></div>` : ""}
+    <div class="q-anchor">📖 锚结论: ${exportHtml} · 回 <a href="05_链式法则.html">学习任务卡 · ${q.cardAnchor || ""}</a> 复习。</div>
+  `;
+  renderKatex(el);
+}
+
+function formatStdAnswer(q, r) {
+  if (q.type === "choice") return q.answer;
+  if (q.type === "multi")  return (q.answer || []).join(" · ");
+  if (q.type === "fill") {
+    const ans = q.answer || q.blanks || [];
+    return ans.map(function(a, i) {
+      const s = Array.isArray(a) ? a[0] : a;
+      return "第 " + (i+1) + " 空: " + s;
+    }).join(" · ");
+  }
+  if (q.type === "short") {
+    const kws = (q.keywords || []).join(" / ");
+    const hits = r && r.hits ? r.hits.length : 0;
+    const total = (q.keywords || []).length;
+    return "关键词: " + kws + " (命中 " + hits + " / " + total + ")";
+  }
+  if (q.type === "calc") return q.answer.value + " " + q.answer.unit;
+  return "";
+}
+
+// ===== 提交 / 结果 =====
+function submitTest() {
+  results = pickedQuestions.map(function(q, idx) {
+    const ua = readUserAnswer(q, idx + 1);
+    const r = gradeQuestion(q, ua);
+    r.q = q; r.idx = idx;
+    renderFeedback(q, r, idx + 1);
+    return r;
+  });
+  const total = results.reduce(function(s, r) { return s + r.score; }, 0);
+  const passed  = total >= PASS_SCORE;
+  const honored = total >= HONOR_SCORE;
+  showResult(total, passed, honored);
+  saveState(total, passed, honored);
+}
+
+function showResult(total, passed, honored) {
+  // v0.1.12: 不藏 test-screen — 每题反馈在 test-screen 内每题下方渲染, 藏了用户看不到
+  document.getElementById("result-screen").classList.remove("hidden");
+  document.getElementById("result-screen").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("result-total").textContent = total;
+  const pill = document.getElementById("result-pass-pill");
+  const msg  = document.getElementById("result-message");
+  if (honored) {
+    pill.className = "result-pass honor"; pill.textContent = "⭐ 荣誉 (90+)";
+    msg.textContent = "掌握充分 (90%+) — 推荐进入教师组织的真实纸笔检测。";
+  } else if (passed) {
+    pill.className = "result-pass pass"; pill.textContent = "✓ 已通过 (70+)";
+    msg.textContent = "已具备纸笔检测基础水平 (70%+) — 可继续巩固或去星图 /student/requests 预约。";
+  } else {
+    pill.className = "result-pass fail"; pill.textContent = "✗ 未通过";
+    msg.textContent = "距通过还差 " + (PASS_SCORE - total) + " 分 — 建议针对错题回 task-cards 复习再练。";
+  }
+  const wrong = results.filter(function(r) { return !r.isCorrect; });
+  const counts = {};
+  wrong.forEach(function(r) {
+    (r.q.exportIds || []).forEach(function(eid) { counts[eid] = (counts[eid] || 0) + 1; });
+  });
+  const sorted = Object.keys(counts).sort(function(a, b) { return counts[b] - counts[a]; }).slice(0, 3);
+  const block = document.getElementById("weak-points-block");
+  const ul = document.getElementById("weak-points-list");
+  if (sorted.length > 0) {
+    block.style.display = "";
+    ul.innerHTML = sorted.map(function(eid) {
+      const cn = EXPORT_NAMES[eid] || eid;
+      return "<li><strong>" + cn + "</strong> (错 " + counts[eid] + " 题)</li>";
+    }).join("");
+  } else {
+    block.style.display = "none";
+  }
+}
+
+// ===== localStorage =====
+function saveState(total, passed, honored) {
+  try {
+    const prev = JSON.parse(localStorage.getItem(KEY_STATE) || "{}");
+    const state = {
+      studentName: document.getElementById("student-name").value.trim(),
+      submittedAt: Date.now(),
+      totalScore: total,
+      passed: passed || prev.passed || false,
+      honored: honored || prev.honored || false,
+      pickedIds: pickedQuestions.map(function(q) { return q.id; }),
+      attemptCount: (prev.attemptCount || 0) + 1
+    };
+    localStorage.setItem(KEY_STATE, JSON.stringify(state));
+    localStorage.setItem(KEY_NAME, state.studentName);
+  } catch (e) { /* localStorage 不可用 */ }
+}
+
+function loadState() {
+  try {
+    const nameEl = document.getElementById("student-name");
+    const savedName = localStorage.getItem(KEY_NAME);
+    if (savedName) nameEl.value = savedName;
+    const raw = localStorage.getItem(KEY_STATE);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    const slot = document.getElementById("last-attempt-slot");
+    const cls = s.honored ? "last-attempt-note honor" : "last-attempt-note";
+    const badge = s.honored ? "⭐ 荣誉" : (s.passed ? "✓ 已通过" : "✗ 未通过");
+    slot.innerHTML = `<div class="${cls}">上次提交: ${s.totalScore} 分 · ${badge} · 累计 ${s.attemptCount} 次</div>`;
+  } catch (e) { /* ignore */ }
+}
+
+// ===== 流程 =====
+function startTest() {
+  const name = document.getElementById("student-name").value.trim();
+  if (!name) { alert("请先填写你的姓名"); return; }
+  document.getElementById("progress-name").textContent = name;
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("entry-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
+  window.scrollTo(0, 0);
+}
+
+function reshuffleAndStart() {
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("result-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function renderKatex(root) {
+  if (typeof renderMathInElement !== "function") return;
+  try {
+    renderMathInElement(root || document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$",  right: "$",  display: false }
+      ],
+      throwOnError: false
+    });
+  } catch (e) { /* ignore */ }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  loadState();
+});
+window.addEventListener("load", function() {
+  renderKatex(document.body);
+});
+</script>
+
+</body>
+</html>

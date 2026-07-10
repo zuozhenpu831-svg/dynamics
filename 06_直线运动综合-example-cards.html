@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 直线运动综合 · 直线运动综合 · 例题讲解集</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+    :root {
+      --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8;
+      --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+      --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961;
+      --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+      --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC;
+      --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-light: #7B8290;
+      --bg-primary: #ffffff;
+      --bg-secondary: #FAFAFB;
+      --border-color: #ECEDF0;
+      --radius: 24px;
+      --radius-sm: 14px;
+      --radius-btn: 16px;
+      --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+      --shadow-md: 0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.85;
+      padding: 40px 36px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    /* breadcrumb */
+    .breadcrumb { font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 20px; letter-spacing: 0.02em; }
+    .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* page header · 蓝 gradient */
+    header.page-header {
+      background: linear-gradient(135deg, var(--blue-900), var(--blue-700), var(--blue-500));
+      color: #fff;
+      padding: 36px 32px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+    }
+    header.page-header h1 { margin: 0 0 8px 0; font-size: 28px; font-weight: 600; }
+    header.page-header .subtitle { font-size: 14px; opacity: 0.92; line-height: 1.7; }
+
+    /* about-card · 蓝 */
+    .about-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      border-left: 5px solid var(--blue-700);
+    }
+    .about-card h2 { color: var(--blue-900); font-size: 18px; margin: 0 0 12px 0; }
+    .about-card p { color: var(--text-primary); font-size: 14px; margin: 0 0 10px 0; line-height: 1.85; }
+    .about-card .learning-path {
+      background: var(--blue-050);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+    .about-card .learning-path strong { color: var(--blue-700); }
+
+    /* prereq-card · 银 */
+    .prereq-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      border-left: 5px solid var(--silver-700);
+    }
+    .prereq-card h3 { color: var(--silver-900); font-size: 17px; margin: 0 0 12px 0; }
+    .prereq-card h4 { color: var(--silver-900); font-size: 14.5px; margin: 18px 0 8px 0; font-weight: 600; }
+    .prereq-card h4.recommend { color: var(--gold-900); }
+    .prereq-card p { color: var(--text-primary); font-size: 14px; margin: 0 0 10px 0; line-height: 1.85; }
+    .prereq-list { list-style: none; padding: 0; margin: 12px 0; }
+    .prereq-list > li {
+      background: var(--silver-050);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      font-size: 13.5px;
+      line-height: 1.8;
+    }
+    .prereq-list > li a:first-of-type { color: var(--blue-700); font-weight: 600; }
+    .prereq-list .usage {
+      font-size: 12.5px;
+      color: var(--silver-900);
+      margin-top: 6px;
+      padding: 6px 0 0 12px;
+      border-left: 2px solid var(--silver-100);
+      line-height: 1.7;
+    }
+    .prereq-list .usage strong { color: var(--silver-900); }
+    .recommend-list { list-style: disc; padding-left: 22px; margin: 8px 0 4px; }
+    .recommend-list li { font-size: 13px; margin-bottom: 6px; line-height: 1.75; color: var(--text-primary); }
+    .recommend-list a { color: var(--gold-700); font-weight: 600; }
+    .recommend-list a:hover { color: var(--gold-900); }
+
+    /* tool-card · 银蓝 · 标化考试工具清单 */
+    .tool-card {
+      background: var(--blue-050);
+      border-radius: var(--radius-sm);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      border-left: 5px solid var(--blue-700);
+    }
+    .tool-card h3 { color: var(--blue-900); font-size: 17px; margin: 0 0 8px 0; }
+    .tool-card .tool-sub { color: var(--blue-700); font-size: 13px; margin-bottom: 14px; font-style: italic; }
+    .tool-card ul { list-style: none; padding: 0; margin: 10px 0; }
+    .tool-card li {
+      background: rgba(255,255,255,0.9);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      font-size: 13.5px;
+      line-height: 1.85;
+      border-left: 3px solid var(--blue-500);
+    }
+    .tool-card li strong { color: var(--blue-900); }
+    .tool-card .tool-note {
+      background: var(--blue-100);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--blue-900);
+      line-height: 1.75;
+    }
+
+    /* perspective-card · 金 · 自由落体引导 */
+    .perspective-card {
+      background: var(--gold-050);
+      border-radius: var(--radius-sm);
+      padding: 26px 30px;
+      margin: 32px 0 28px;
+      box-shadow: var(--shadow-sm);
+      border-left: 5px solid var(--gold-700);
+      position: relative;
+    }
+    .perspective-card::before {
+      content: "📌";
+      position: absolute;
+      top: -14px; left: 22px;
+      background: var(--gold-700);
+      color: #fff;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      box-shadow: var(--shadow-sm);
+    }
+    .perspective-card h3 { color: var(--gold-900); font-size: 17px; margin: 4px 0 12px 0; padding-left: 44px; }
+    .perspective-card p { color: var(--text-primary); font-size: 14px; margin: 0 0 12px 0; line-height: 1.9; }
+    .perspective-card p strong { color: var(--gold-900); }
+    .perspective-card ul { padding-left: 24px; margin: 10px 0; }
+    .perspective-card ul li { font-size: 13.5px; margin: 6px 0; line-height: 1.85; }
+    .perspective-card .key-insight {
+      background: rgba(255,255,255,0.85);
+      border-left: 3px solid var(--gold-700);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 13.5px;
+      line-height: 1.85;
+    }
+    .perspective-card .key-insight strong { color: var(--gold-900); }
+
+    /* toc-card · 金 */
+    .toc-card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      border-left: 5px solid var(--gold-700);
+    }
+    .toc-card h3 { color: var(--gold-900); font-size: 18px; margin: 0 0 14px 0; }
+    .toc-card ol { padding-left: 24px; margin: 0; }
+    .toc-card li { font-size: 14px; margin-bottom: 10px; line-height: 1.7; }
+    .toc-card a { color: var(--blue-700); font-weight: 500; }
+    .toc-card a:hover { color: var(--blue-900); }
+    .toc-card .type-tag, .type-tag {
+      background: var(--blue-050);
+      color: var(--blue-700);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      margin-left: 6px;
+      font-weight: 500;
+    }
+    .diff-tag, .diff-tag.中等, .diff-tag.较难, .diff-tag.综合压轴 {
+      background: var(--silver-100);
+      color: var(--silver-900);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      margin-left: 6px;
+      font-weight: 500;
+    }
+
+    /* ===== example-card · 3 色循环 蓝/金/银 ===== */
+    .example-card {
+      --q-rich: var(--blue-900);
+      --q-mid:  var(--blue-700);
+      --q-bg:   var(--blue-050);
+      --q-tint: var(--blue-100);
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      padding: 28px 30px;
+      margin-bottom: 28px;
+      border-left: 5px solid var(--q-mid);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+    .example-card:nth-of-type(3n+2) {
+      --q-rich: var(--gold-900);
+      --q-mid:  var(--gold-700);
+      --q-bg:   var(--gold-050);
+      --q-tint: var(--gold-100);
+    }
+    .example-card:nth-of-type(3n) {
+      --q-rich: var(--silver-900);
+      --q-mid:  var(--silver-700);
+      --q-bg:   var(--silver-050);
+      --q-tint: var(--silver-100);
+    }
+
+    .example-card-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--q-mid), var(--q-rich));
+      color: #fff;
+      margin: 0 auto 22px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 0 6px var(--q-tint), var(--shadow-md);
+    }
+    .example-card-no { font-size: 0.86rem; font-weight: 600; letter-spacing: 0.04em; opacity: 0.92; background: transparent; width: auto; height: auto; line-height: 1.3; }
+    .example-card-title { font-size: 1.04rem; font-weight: 700; color: #fff; flex: none; min-width: 0; line-height: 1.4; padding: 0 6px; }
+    .example-card-type { background: rgba(255,255,255,0.18); color: #fff; padding: 3px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.02em; }
+    .example-card-diff, .example-card-diff.中等, .example-card-diff.较难, .example-card-diff.综合压轴 {
+      background: rgba(255,255,255,0.92); color: var(--q-rich);
+      padding: 3px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+    }
+
+    /* q-stem */
+    .q-stem {
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 0 0 18px 0;
+      line-height: 1.95;
+      font-size: 0.95rem;
+      border-left: 3px solid var(--q-mid);
+    }
+    .q-stem .stem-label {
+      display: inline-block;
+      background: var(--q-mid); color: #fff;
+      padding: 2px 10px; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* four-sec */
+    .four-sec {
+      background: var(--q-bg);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 14px 0;
+      border-left: 4px solid var(--q-mid);
+      line-height: 1.85;
+      font-size: 0.93rem;
+      color: var(--text-primary);
+    }
+    .four-sec-title {
+      font-weight: 700; color: var(--q-rich);
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 1rem;
+    }
+    .four-sec-body { line-height: 1.95; color: var(--text-primary); }
+    .four-sec-body ul { padding-left: 22px; margin: 4px 0; }
+    .four-sec-body ul li { margin: 4px 0; color: var(--text-primary); }
+    .four-sec-body .step {
+      background: rgba(255,255,255,0.7);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 10px 0;
+      border-left: 3px solid var(--q-mid);
+    }
+    .four-sec-body .step .step-no {
+      display: inline-block;
+      background: var(--q-mid); color: #fff;
+      padding: 1px 10px; border-radius: 999px;
+      font-size: 0.74rem; font-weight: 600;
+      margin-right: 6px;
+    }
+    .four-sec-body .step .step-rule {
+      font-size: 0.78rem; color: var(--text-secondary);
+      font-style: italic; margin-top: 4px;
+    }
+    .four-sec-body .mistake-item {
+      background: rgba(255,255,255,0.7);
+      border-radius: 8px;
+      padding: 10px 14px; margin: 10px 0;
+    }
+    .four-sec-body .mistake-item .mistake-no { font-weight: 700; color: var(--q-rich); }
+    .four-sec-body .mistake-item .wrong { color: var(--gold-900); font-weight: 500; }
+    .four-sec-body .mistake-item .right { color: var(--blue-700); font-weight: 500; }
+
+    .answer-box {
+      background: rgba(255,255,255,0.75);
+      border: 1px dashed var(--q-mid);
+      border-radius: 8px;
+      padding: 10px 14px; margin: 12px 0;
+      font-weight: 600; color: var(--q-rich);
+    }
+
+    /* 三层引导块 · 想 / 做 / 校验 */
+    .think-block, .do-block, .check-block {
+      background: rgba(255,255,255,0.85);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+      line-height: 1.85;
+      color: var(--text-primary);
+    }
+    .think-block { border-left: 3px solid var(--silver-700); background: var(--silver-050); }
+    .do-block { border-left: 3px solid var(--q-mid); background: var(--q-bg); }
+    .check-block { border-left: 3px solid var(--gold-700); background: var(--gold-050); }
+
+    .think-label, .do-label, .check-label {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+    .think-label { background: var(--silver-700); color: #fff; }
+    .do-label { background: var(--q-mid); color: #fff; }
+    .check-label { background: var(--gold-700); color: #fff; }
+    .formula, code.formula {
+      background: rgba(255,255,255,0.85);
+      padding: 2px 7px; border-radius: 5px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.84rem; color: var(--q-rich);
+    }
+
+    .cross-prereq {
+      background: var(--q-bg);
+      border-left: 4px solid var(--q-mid);
+      border-radius: 8px;
+      padding: 14px 18px; margin: 12px 0;
+      font-size: 0.86rem; color: var(--text-primary);
+      line-height: 1.85;
+    }
+    .cross-prereq strong { color: var(--q-rich); }
+
+    .anchor-link {
+      background: var(--blue-050);
+      border-left: 3px solid var(--blue-700);
+      border-radius: 6px;
+      padding: 10px 16px; margin-top: 14px;
+      font-size: 13px; color: var(--text-primary);
+      line-height: 1.7;
+    }
+    .anchor-link a { color: var(--blue-700); font-weight: 600; }
+
+    .verify-box {
+      background: var(--silver-050);
+      border-left: 3px solid var(--gold-700);
+      border-radius: 6px;
+      padding: 10px 16px; margin-top: 10px;
+      font-size: 13px; color: var(--text-primary);
+      line-height: 1.75;
+    }
+    .verify-box strong { color: var(--gold-900); }
+
+    a { color: var(--blue-700); }
+    a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 32px 16px 8px;
+      font-size: 0.82rem;
+      color: var(--silver-700);
+      margin-top: 28px;
+    }
+
+    /* bottom-nav */
+    .bottom-nav {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      margin-top: 32px; padding-top: 28px;
+      border-top: 1px solid var(--border-color);
+    }
+    .bottom-nav a, .bottom-nav span {
+      flex: 1; min-width: 140px;
+      text-align: center; padding: 16px 18px;
+      border-radius: 999px;
+      background: var(--silver-050); color: var(--silver-700);
+      text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: var(--transition);
+    }
+    .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+    .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+    @media (max-width: 720px) {
+      body { padding: 22px 16px; }
+      .example-card { padding: 22px 18px; }
+      .example-card-header { width: 200px; height: 200px; padding: 16px; }
+      .example-card-title { font-size: 0.96rem; }
+      .prereq-card, .toc-card, .tool-card { padding: 20px 18px; }
+      .perspective-card { padding: 22px 20px; }
+      .perspective-card h3 { padding-left: 40px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+<nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>直线运动综合</span>
+    <span class="sep">&gt;</span>
+    <span>例题讲解集</span>
+</nav>
+
+<header class="page-header">
+    <h1>直线运动综合 · 标化考试例题讲解集</h1>
+    <div class="subtitle">蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 直线运动综合 · 例题讲解集 · example-cards Skill v0.1.31</div>
+</header>
+
+<div class="about-card">
+    <h2>📌 关于本例题集</h2>
+    <p>本模块是"直线运动"板块的<strong>标化考试题型讲解集</strong>——面向高考 / 学考中直线运动的综合大题题型训练。8 道例题覆盖<strong>图像综合、三大公式、追及相遇、多阶段运动、几何+运动学、自由落体的对称性、双物体追及、综合压轴</strong> 8 类高频考型。</p>
+    <p>解综合大题的<strong>三步链</strong>：<strong>① 判读物理情境</strong>（画草图 + 标已知/未知 + 判定题型）→ <strong>② 选工具</strong>（v-t 图几何 / 三大公式 / 分段处理 / 代数联立）→ <strong>③ 校验闭环</strong>（单位一致 · 特殊时刻代入 · 图像与数值互查 · 边界情形）。</p>
+    <div class="learning-path">
+        <strong>建议学习路径</strong>：
+        <strong>① 例题讲解集</strong>（本文件 · 学题型 + 学解题框架）
+        → <strong>② 熟练度检测</strong> fluency-test（模仿题独立做）
+        → <strong>③ 深度口试</strong> oral-exam（选 1-2 题向老师讲解解题思路）
+    </div>
+</div>
+
+<div class="prereq-card">
+    <h3>📚 前置板块清单</h3>
+    <p>本例题集预设学生<strong>已完成以下 3 个基础板块</strong>。若某个板块还没学完，建议先回去学单板块再来。</p>
+
+    <ul class="prereq-list">
+        <li>
+            <a href="../运动学的描述/01_运动的描述.html">运动的描述</a> ·
+            <a href="../运动学的描述/01_运动的描述_mock-check.html" style="font-size:12px;color:#7B8290;">基础检测</a> ·
+            <a href="../运动学的描述/01_运动的描述_fluency.html" style="font-size:12px;color:#7B8290;">熟练度检测</a>
+            <div class="usage">→ 本例题集用到：<strong>位移/速度/加速度定义</strong> + <strong>矢量与标量判据</strong> + <strong>v-t 图的读法</strong>（斜率 = 加速度、面积 = 位移的几何含义） — 全部 8 题的基础</div>
+        </li>
+        <li>
+            <a href="../极限/02_极限_物理引入.html">极限（物理引入）</a> ·
+            <a href="../极限/02_极限_物理引入_mock-check.html" style="font-size:12px;color:#7B8290;">基础检测</a>
+            <div class="usage">→ 本例题集用到：<strong>瞬时量的极限含义</strong>（v-t 图斜率为什么是加速度、面积为什么是位移的直觉基础） — 支撑几何法的物理含义</div>
+        </li>
+        <li>
+            <a href="../幂函数的微积分/03_幂函数微积分_直线运动公式.html">幂函数的微积分与直线运动公式</a> ·
+            <a href="../幂函数的微积分/03_幂函数微积分_直线运动公式_mock-check.html" style="font-size:12px;color:#7B8290;">基础检测</a>
+            <div class="usage">→ 本例题集用到：<strong>匀变速三大公式</strong>（\(v = v_0 + at\) / \(x = v_0 t + \tfrac{1}{2}at^2\) / \(v^2 = v_0^2 + 2ax\)）的推导来源。<strong>本例题集直接把三大公式作为结论调用</strong>，不再重推 — 想追溯推导回 03 课。</div>
+        </li>
+    </ul>
+
+    <h4 class="recommend">🔭 推荐深化（进阶 · 学有余力可选 · 非标化考试必修）</h4>
+    <p style="font-size:13px;">若你已学完 04、05 进阶板块，可以在做题时用更严谨的微积分工具重推本例题集的结论，加深理解。<strong>标化考试本身不要求这些工具</strong>——本例题集全程只用三大公式 + v-t 图几何。</p>
+    <ul class="recommend-list">
+        <li><a href="../牛顿-莱布尼茨公式/04_牛莱公式.html">牛顿-莱布尼茨公式（进阶）</a> — 用定积分严谨算 v-t 图曲线段面积（如变加速度阶段），验证几何法的结果</li>
+        <li><a href="../导数的链式法则/05_链式法则.html">导数的链式法则（进阶）</a> — 处理变加速度问题（如正弦、指数型的启停曲线 · 现实汽车启停中出现）</li>
+    </ul>
+</div>
+
+<div class="tool-card">
+    <h3>🛠️ 本文使用的标化考试工具</h3>
+    <div class="tool-sub">全部 8 道例题的解题只用下列工具 · 不引入 \(\dfrac{dx}{dt}\) / \(\int\) / \(\lim\) 等超越标化考试范围的符号</div>
+
+    <ul>
+        <li><strong>匀变速三大公式</strong>（作为结论直接调用 · 推导见 03 课）：
+            <div style="margin: 6px 0 4px 12px; font-family:'SF Mono', Menlo, monospace; font-size:14px; color:var(--blue-900);">
+                \(v = v_0 + a\,t\) · \(x = v_0\,t + \tfrac{1}{2}\,a\,t^2\) · \(v^2 = v_0^2 + 2\,a\,x\)
+            </div>
+        </li>
+        <li><strong>平均速度</strong>（匀变速运动特有）：\(\bar{v} = \dfrac{v_0 + v}{2} = \dfrac{x}{t}\)</li>
+        <li><strong>v-t 图几何</strong>：<strong>斜率</strong> = 加速度 · <strong>曲线下方面积</strong>（含正负号）= 位移</li>
+        <li><strong>自由落体特例</strong>：直接把 \(a = g\)（约 9.8 m/s²，本文题面可能取 10 m/s² 简化）代入三大公式；下落取正、上抛过程可取 \(a = -g\)（视方向约定）</li>
+        <li><strong>追及/相遇的代数框架</strong>：两物体分别写位移方程 → 联立解相遇时间 → 判断能否追上（判别式 / 相对速度归零点）</li>
+    </ul>
+
+    <div class="tool-note">
+        <strong>使用铁律</strong>：解题步骤里若出现 \(\dfrac{dx}{dt}\) / \(\int\) / \(\lim_{\Delta t \to 0}\) / "链式法则"等符号 → 一定是<strong>用错了工具</strong> — 回到上面清单里的等价方法（三公式代入 / v-t 图几何 / 分段处理）。
+    </div>
+</div>
+
+<div class="toc-card">
+    <h3>📋 8 道例题</h3>
+    <ol>
+        <li><a href="#example-1">v-t 图像综合 · 高铁进出站三段速度图</a> <span class="type-tag">P1 · 图像综合</span> <span class="diff-tag">基础</span></li>
+        <li><a href="#example-2">匀变速三公式 · 比例与中间时刻速度 · 汽车加速情境</a> <span class="type-tag">P2 · 三公式</span> <span class="diff-tag">基础</span></li>
+        <li><a href="#example-3">追及相遇 · 汽车追公交的临界条件</a> <span class="type-tag">P3 · 追及相遇</span> <span class="diff-tag 中等">中等</span></li>
+        <li><a href="#example-4">多阶段运动 · 加速→匀速→减速的总位移与总时间</a> <span class="type-tag">P4 · 多阶段</span> <span class="diff-tag 中等">中等</span></li>
+        <li><a href="#example-5">列车过桥 · 匀速通过一座桥的时间与位移</a> <span class="type-tag">P5 · 几何+运动学</span> <span class="diff-tag 较难">较难</span></li>
+        <li><a href="#example-6">自由落体 · 竖直上抛的对称性 · 经过同高度的两次时刻</a> <span class="type-tag">P6 · 自由落体</span> <span class="diff-tag 较难">较难</span></li>
+        <li><a href="#example-7">双物体自由落体的追及 · 高度差场景相遇分析</a> <span class="type-tag">P7 · 追及竖直变体</span> <span class="diff-tag 较难">较难</span></li>
+        <li><a href="#example-8">综合大题 · 前车紧急制动 + 后车反应时间 + 制动过程</a> <span class="type-tag">P1+P3+P4 · 综合</span> <span class="diff-tag 综合压轴">综合压轴</span></li>
+    </ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- Step 3 · 例题 1-4 (P1 图像 + P2 三公式 + P3 追及 + P4 多阶段) -->
+<!-- ============================================================ -->
+
+<!-- 例题 1 · P1 图像综合 · 高铁 · 基础 · 蓝 -->
+<div class="example-card" id="example-1">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 1</div>
+        <div class="example-card-title">v-t 图像综合 · 高铁进出站</div>
+        <div class="example-card-type">P1 · 图像综合</div>
+        <div class="example-card-diff">基础</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>一列高铁离开车站到进入下一站的完整过程，其速度随时间变化的 \(v\)-\(t\) 图像如下：</p>
+
+        <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 坐标轴 -->
+            <line x1="60" y1="260" x2="470" y2="260" stroke="#5C6370" stroke-width="1.5"/>
+            <line x1="60" y1="260" x2="60" y2="40" stroke="#5C6370" stroke-width="1.5"/>
+            <!-- 箭头 -->
+            <polygon points="470,260 462,257 462,263" fill="#5C6370"/>
+            <polygon points="60,40 57,48 63,48" fill="#5C6370"/>
+            <!-- 轴标签 -->
+            <text x="482" y="264" font-size="12" fill="#5C6370">t / s</text>
+            <text x="42" y="34" font-size="12" fill="#5C6370">v / (m·s⁻¹)</text>
+            <text x="46" y="266" font-size="11" fill="#5C6370" text-anchor="end">O</text>
+
+            <!-- x 轴刻度 -->
+            <line x1="150" y1="256" x2="150" y2="264" stroke="#5C6370" stroke-width="1"/>
+            <text x="150" y="278" font-size="11" fill="#5C6370" text-anchor="middle">30</text>
+            <line x1="270" y1="256" x2="270" y2="264" stroke="#5C6370" stroke-width="1"/>
+            <text x="270" y="278" font-size="11" fill="#5C6370" text-anchor="middle">60</text>
+            <line x1="330" y1="256" x2="330" y2="264" stroke="#5C6370" stroke-width="1"/>
+            <text x="330" y="278" font-size="11" fill="#5C6370" text-anchor="middle">90</text>
+            <line x1="420" y1="256" x2="420" y2="264" stroke="#5C6370" stroke-width="1"/>
+            <text x="420" y="278" font-size="11" fill="#5C6370" text-anchor="middle">120</text>
+
+            <!-- y 轴刻度 -->
+            <line x1="56" y1="200" x2="64" y2="200" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="204" font-size="11" fill="#5C6370" text-anchor="end">20</text>
+            <line x1="56" y1="140" x2="64" y2="140" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="144" font-size="11" fill="#5C6370" text-anchor="end">40</text>
+            <line x1="56" y1="80" x2="64" y2="80" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="84" font-size="11" fill="#5C6370" text-anchor="end">60</text>
+
+            <!-- 阶段 ① 蓝色斜线 (0,0)→(30,60) -->
+            <line x1="60" y1="260" x2="150" y2="80" stroke="#00409A" stroke-width="2.6"/>
+            <!-- 阶段 ② 金色水平线 (30,60)→(90,60) -->
+            <line x1="150" y1="80" x2="330" y2="80" stroke="#B8924A" stroke-width="2.6"/>
+            <!-- 阶段 ③ 银色斜线 (90,60)→(120,0) -->
+            <line x1="330" y1="80" x2="420" y2="260" stroke="#7B8290" stroke-width="2.6"/>
+
+            <!-- 关键点小圆 -->
+            <circle cx="60" cy="260" r="4" fill="#00409A"/>
+            <circle cx="150" cy="80" r="4" fill="#00409A"/>
+            <circle cx="330" cy="80" r="4" fill="#B8924A"/>
+            <circle cx="420" cy="260" r="4" fill="#7B8290"/>
+
+            <!-- 阶段编号 -->
+            <text x="100" y="180" font-size="18" font-weight="700" fill="#00409A" text-anchor="middle">①</text>
+            <text x="240" y="70" font-size="18" font-weight="700" fill="#B8924A" text-anchor="middle">②</text>
+            <text x="378" y="180" font-size="18" font-weight="700" fill="#7B8290" text-anchor="middle">③</text>
+
+            <!-- 虚线辅助 · 从 (30,60) 与 (90,60) 分别向下向左投影 -->
+            <line x1="150" y1="80" x2="150" y2="256" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="150" y1="80" x2="60" y2="80" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="330" y1="80" x2="330" y2="256" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+
+            <!-- 标题 -->
+            <text x="250" y="312" font-size="12" fill="#1d1d1f" text-anchor="middle">高铁进出站 · v-t 图</text>
+        </svg>
+
+        <p>结合图像给出的三段数据：</p>
+        <ul>
+            <li>阶段 ①（\(0 \le t \le 30\) s）：从静止匀加速，末速度达 \(60\) m/s；</li>
+            <li>阶段 ②（\(30 \le t \le 90\) s）：匀速行驶，速度保持 \(60\) m/s；</li>
+            <li>阶段 ③（\(90 \le t \le 120\) s）：匀减速，末速度为 \(0\)。</li>
+        </ul>
+        <p>请回答：</p>
+        <ol>
+            <li>阶段 ① 的加速度 \(a_1\)；</li>
+            <li>阶段 ③ 的加速度 \(a_3\)；</li>
+            <li>高铁从离站到进入下一站的<strong>总位移</strong> \(x\)。</li>
+        </ol>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>v-t 图斜率的物理含义</strong>：在 v-t 图上，某一段的<strong>斜率 = 该段加速度</strong>；斜率为正表示加速，斜率为负表示减速。</li>
+                <li><strong>v-t 图面积的物理含义</strong>：v-t 图上曲线与 t 轴之间围出的面积 = <strong>该时段内的位移</strong>。位移是矢量，若图形在 t 轴下方，面积按负计（本题都在 t 轴上方，全正）。</li>
+                <li><strong>本题图形的组合</strong>：阶段 ① 是三角形 · 阶段 ② 是矩形 · 阶段 ③ 是三角形。总位移 = 三段面积之和。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>题面直接给出三段 v-t 图的关键数据（起止时刻 + 起止速度）— <strong>题型识别 = 纯图像综合</strong>，不需要额外画图，只要按图形分段计算。
+                <div class="step-rule">（判读要点：三段的分界点 \(t = 30, 90, 120\) s；每段的起末速度都已知）</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span><strong>加速度用斜率</strong>（\(a = \Delta v / \Delta t\) · 就是 v-t 图斜率）；<strong>位移用面积</strong>（阶段 ① 三角形 · 阶段 ② 矩形 · 阶段 ③ 三角形）。
+                <div class="step-rule">（工具限定：<strong>不用</strong> \(x = v_0 t + \tfrac{1}{2}at^2\) 硬算，直接用几何面积更快 · 这就是"图像综合"题的核心优势）</div>
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>单位一致（m/s²、m）+ 特殊时刻代入检验（\(t=30\) s 末速度 \(60\) m/s 与图形一致）+ 加速与减速阶段用时之比 30 : 30 s，末速度变化量之比 60 : 60 → 加速度大小之比 1 : 1 ← 图形对称性验证。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导（想 → 做 → 校验）</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求阶段 ① 加速度</span></div>
+
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    阶段 ① 是 v-t 图上从 \((0, 0)\) 到 \((30, 60)\) 的一段直线。<br>
+                    <strong>这段直线的"斜率"对应哪个物理量？</strong>（回忆 01 课 · Card 4 的核心结论）<br>
+                    "斜率" 的几何意义是"\(y\) 变化量 / \(x\) 变化量"—— 在 v-t 图上就是"速度变化量 / 时间变化量"—— 对照加速度的定义…
+                </div>
+
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    v-t 图斜率 = 加速度（01 课结论 · 本文直接调用）。阶段 ① 起末速度 \(0 \to 60\) m/s、起末时刻 \(0 \to 30\) s：
+                    \[
+                        a_1 = \frac{\Delta v}{\Delta t} = \frac{60 - 0}{30 - 0} = 2\ \text{m/s}^2.
+                    \]
+                </div>
+
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    正号 → 速度递增 → 加速阶段 ✓（与题面"匀加速"一致）<br>
+                    量级：2 m/s² 是常见高铁加速度量级（自然加速不激烈） ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求阶段 ③ 加速度</span></div>
+
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    阶段 ③ 是从 \((90, 60)\) 到 \((120, 0)\) 的直线。<br>
+                    <strong>这段的斜率与阶段 ① 相比，符号会一样吗？为什么？</strong><br>
+                    v 从 60 减到 0，Δv 是<em>正数还是负数</em>？加速度的"方向"如何用符号表达？
+                </div>
+
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    起末速度 \(60 \to 0\) m/s、起末时刻 \(90 \to 120\) s：
+                    \[
+                        a_3 = \frac{\Delta v}{\Delta t} = \frac{0 - 60}{120 - 90} = -2\ \text{m/s}^2.
+                    \]
+                </div>
+
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    负号表示加速度与运动方向相反 → 减速 ✓（与题面"匀减速"一致）<br>
+                    大小 \(|a_3| = 2\) m/s² 与 \(|a_1|\) 相等 —— 图形对称性的体现（下方辅图会更直观）
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(3) 求总位移</span></div>
+
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    题面已经给了 v-t 图 —— <strong>v-t 图上"面积"代表什么？</strong>（01 课·Card 4 STEP 3 的核心结论）<br>
+                    三段图形分别是什么形状？（观察下方辅图 · 阶段 ① / ③ 是<em>三角形</em>，阶段 ② 是<em>矩形</em>）<br>
+                    <strong>选择工具</strong>：既然是"读图题"，用<em>几何面积法</em>比硬套 \(x = v_0 t + \tfrac{1}{2}a t^2\) 快得多。
+                </div>
+
+                <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+                    <!-- 面积着色 · 三段 -->
+                    <polygon points="60,260 150,260 150,80" fill="#E8EEF9" stroke="#00409A" stroke-width="0.8"/>
+                    <polygon points="150,260 150,80 330,80 330,260" fill="#FBF7EC" stroke="#B8924A" stroke-width="0.8"/>
+                    <polygon points="330,260 330,80 420,260" fill="#F3F4F7" stroke="#7B8290" stroke-width="0.8"/>
+
+                    <!-- 坐标轴 -->
+                    <line x1="60" y1="260" x2="470" y2="260" stroke="#5C6370" stroke-width="1.5"/>
+                    <line x1="60" y1="260" x2="60" y2="40" stroke="#5C6370" stroke-width="1.5"/>
+                    <polygon points="470,260 462,257 462,263" fill="#5C6370"/>
+                    <polygon points="60,40 57,48 63,48" fill="#5C6370"/>
+                    <text x="482" y="264" font-size="12" fill="#5C6370">t / s</text>
+                    <text x="42" y="34" font-size="12" fill="#5C6370">v / (m·s⁻¹)</text>
+
+                    <!-- 刻度 -->
+                    <text x="150" y="278" font-size="11" fill="#5C6370" text-anchor="middle">30</text>
+                    <text x="330" y="278" font-size="11" fill="#5C6370" text-anchor="middle">90</text>
+                    <text x="420" y="278" font-size="11" fill="#5C6370" text-anchor="middle">120</text>
+                    <text x="52" y="84" font-size="11" fill="#5C6370" text-anchor="end">60</text>
+
+                    <!-- 三段折线 -->
+                    <line x1="60" y1="260" x2="150" y2="80" stroke="#00409A" stroke-width="2.6"/>
+                    <line x1="150" y1="80" x2="330" y2="80" stroke="#B8924A" stroke-width="2.6"/>
+                    <line x1="330" y1="80" x2="420" y2="260" stroke="#7B8290" stroke-width="2.6"/>
+
+                    <!-- 三段面积标注 -->
+                    <text x="118" y="215" font-size="12" fill="#00409A" font-weight="700" text-anchor="middle">S₁</text>
+                    <text x="118" y="232" font-size="10.5" fill="#00409A" text-anchor="middle">= ½·30·60</text>
+                    <text x="118" y="248" font-size="10.5" fill="#00409A" text-anchor="middle">= 900 m</text>
+
+                    <text x="240" y="170" font-size="12" fill="#8E6E2E" font-weight="700" text-anchor="middle">S₂</text>
+                    <text x="240" y="187" font-size="10.5" fill="#8E6E2E" text-anchor="middle">= 60·60</text>
+                    <text x="240" y="203" font-size="10.5" fill="#8E6E2E" text-anchor="middle">= 3600 m</text>
+
+                    <text x="358" y="215" font-size="12" fill="#5C6370" font-weight="700" text-anchor="middle">S₃</text>
+                    <text x="358" y="232" font-size="10.5" fill="#5C6370" text-anchor="middle">= ½·30·60</text>
+                    <text x="358" y="248" font-size="10.5" fill="#5C6370" text-anchor="middle">= 900 m</text>
+
+                    <text x="250" y="312" font-size="12" fill="#1d1d1f" text-anchor="middle">辅图：三段面积着色 · 总位移 = S₁ + S₂ + S₃</text>
+                </svg>
+
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    对照辅图逐段读面积：
+                    <br>阶段 ①（三角形 · 底 30 高 60）：\(S_1 = \tfrac{1}{2} \times 30 \times 60 = 900\) m
+                    <br>阶段 ②（矩形 · 长 60 高 60）：\(S_2 = 60 \times 60 = 3600\) m
+                    <br>阶段 ③（三角形 · 底 30 高 60）：\(S_3 = \tfrac{1}{2} \times 30 \times 60 = 900\) m
+                    \[
+                        x = S_1 + S_2 + S_3 = 900 + 3600 + 900 = 5400\ \text{m} = 5.4\ \text{km}.
+                    \]
+                </div>
+
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    阶段 ① 与 ③ 图形<strong>对称</strong>（都是底 30 高 60 的三角形）→ \(S_1 = S_3 = 900\) m ✓（不用重算，图形告诉你答案必等）<br>
+                    量级：\(5.4\) km 是高铁相邻站台典型间距 ✓<br>
+                    <strong>另一条独立通道</strong>：整个 v-t 图是一个梯形（上底 60 · 下底 120 · 高 60）—— 梯形面积 \(= \tfrac{1}{2}(60 + 120) \times 60 = 5400\) m ✓
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：\(a_1 = 2\) m/s² · \(a_3 = -2\) m/s²（减速大小 2 m/s²）· \(x = 5400\) m = 5.4 km
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">把 v-t 图斜率读成位移</span>（"这段爬得越陡位移越大"）— 陡度对应的是<strong>加速度</strong>，位移是<strong>面积</strong>。</div>
+                <div><span class="right">正解：</span>斜率 = 加速度 · 面积 = 位移。这是 v-t 图两条独立信息。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">硬套 \(x = v_0 t + \tfrac{1}{2}at^2\) 三次分段算</span>（也能得对答案但慢 · 图形题的优势被浪费）。</div>
+                <div><span class="right">正解：</span>图像题优先用面积法（几何直观）。\(x = v_0 t + \tfrac{1}{2}at^2\) 只在题目没给图、只给起末速度与加速度时才是首选。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">阶段 ③ 时长写成 120 s</span>（不减去起点时刻 \(t=90\) s）。</div>
+                <div><span class="right">正解：</span>斜率、面积的横坐标是<strong>时间间隔</strong>（\(\Delta t = t_{\text{末}} - t_{\text{初}}\)），不是终点时刻本身。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 回看 v-t 图基础 → <a href="../运动学的描述/01_运动的描述.html">01 运动的描述 · Card 3 STEP 2 · v-t 图的读法</a>
+    </div>
+</div>
+
+<!-- 例题 2 · P2 三公式 · 汽车加速 · 基础 · 金 -->
+<div class="example-card" id="example-2">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 2</div>
+        <div class="example-card-title">匀变速三公式 · 比例与中间时刻速度</div>
+        <div class="example-card-type">P2 · 三公式</div>
+        <div class="example-card-diff">基础</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>一辆汽车从<strong>静止</strong>出发，在平直公路上做匀加速直线运动。已知 \(t = 5\) s 末的速度为 \(20\) m/s。请回答：</p>
+
+        <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 460px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 坐标轴 -->
+            <line x1="60" y1="240" x2="470" y2="240" stroke="#5C6370" stroke-width="1.5"/>
+            <line x1="60" y1="240" x2="60" y2="40" stroke="#5C6370" stroke-width="1.5"/>
+            <polygon points="470,240 462,237 462,243" fill="#5C6370"/>
+            <polygon points="60,40 57,48 63,48" fill="#5C6370"/>
+            <text x="482" y="244" font-size="12" fill="#5C6370">t / s</text>
+            <text x="42" y="34" font-size="12" fill="#5C6370">v / (m·s⁻¹)</text>
+            <text x="46" y="246" font-size="11" fill="#5C6370" text-anchor="end">O</text>
+
+            <!-- x 刻度 · 每格 = 1 s = 70px（起 60，到 410；5 s → 60+5·70=410） -->
+            <line x1="130" y1="236" x2="130" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="130" y="258" font-size="11" fill="#5C6370" text-anchor="middle">1</text>
+            <line x1="200" y1="236" x2="200" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="200" y="258" font-size="11" fill="#5C6370" text-anchor="middle">2</text>
+            <line x1="270" y1="236" x2="270" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="270" y="258" font-size="11" fill="#5C6370" text-anchor="middle">3</text>
+            <line x1="340" y1="236" x2="340" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="340" y="258" font-size="11" fill="#5C6370" text-anchor="middle">4</text>
+            <line x1="410" y1="236" x2="410" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="410" y="258" font-size="11" fill="#5C6370" text-anchor="middle">5</text>
+
+            <!-- y 刻度 · 每格 = 4 m/s = 40px（起 240，向上；20 m/s → 240 - 5·40 = 40） -->
+            <line x1="56" y1="200" x2="64" y2="200" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="204" font-size="11" fill="#5C6370" text-anchor="end">4</text>
+            <line x1="56" y1="160" x2="64" y2="160" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="164" font-size="11" fill="#5C6370" text-anchor="end">8</text>
+            <line x1="56" y1="120" x2="64" y2="120" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="124" font-size="11" fill="#5C6370" text-anchor="end">12</text>
+            <line x1="56" y1="80" x2="64" y2="80" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="84" font-size="11" fill="#5C6370" text-anchor="end">16</text>
+            <line x1="56" y1="40" x2="64" y2="40" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="44" font-size="11" fill="#5C6370" text-anchor="end">20</text>
+
+            <!-- 匀变速斜线 · (0,0)→(5,20) → (60,240)→(410,40) -->
+            <line x1="60" y1="240" x2="410" y2="40" stroke="#B8924A" stroke-width="2.6"/>
+
+            <!-- 起末关键点 -->
+            <circle cx="60" cy="240" r="4" fill="#B8924A"/>
+            <circle cx="410" cy="40" r="4" fill="#B8924A"/>
+            <text x="72" y="238" font-size="11" fill="#5C6370">(0, 0)</text>
+            <text x="418" y="46" font-size="11" fill="#8E6E2E" font-weight="600">(5, 20)</text>
+
+            <text x="250" y="286" font-size="12" fill="#1d1d1f" text-anchor="middle">汽车匀加速 v-t 图 · 斜率 = a</text>
+        </svg>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>匀变速三大公式</strong>（本题主要用第 1、2 条）：
+                    <br>速度公式 \(v = v_0 + a\,t\)
+                    <br>位移公式 \(x = v_0\,t + \tfrac{1}{2}a\,t^2\)
+                    <br>速度平方公式 \(v^2 = v_0^2 + 2 a\,x\)
+                </li>
+                <li><strong>匀变速平均速度定理</strong>：某段时间内 \(\bar{v} = \dfrac{v_0 + v}{2} = \dfrac{x}{t}\)（这是匀变速运动特有的性质 · 非匀变速不成立）。</li>
+                <li><strong>"第 N 秒内"的定义</strong>：指从 \(t = N - 1\) s 到 \(t = N\) s 这一秒钟的位移，写作 \(\Delta x_N = x(N) - x(N-1)\)。这与"第 N 秒末（瞬时）"不同 — 后者是一个时刻的速度。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>题面给"从静止 + 5 s 末速度" — 已知 \(v_0 = 0, t = 5, v = 20\) — <strong>题型识别 = 匀变速三公式直接代入</strong>。
+                <div class="step-rule">（判读要点：静止起 → \(v_0 = 0\)；三条公式代入 \(v_0 = 0\) 后简化为 \(v = at\)、\(x = \tfrac{1}{2}a t^2\)、\(v^2 = 2ax\)）</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span>
+                问 (1) 加速度 → 用<strong>速度公式</strong>反解 \(a\)；
+                问 (2) 瞬时速度 → 直接代速度公式；
+                问 (3) 前 5 s 位移 → 用<strong>位移公式</strong>或"平均速度 × 时间"（两法互校）；
+                问 (4) "第 3 秒内位移" → 分段减法 \(x(3) - x(2)\)，或用<strong>中间时刻速度定理</strong>（\(t = 2.5\) s 时的瞬时速度 × 1 s）；
+                问 (5) 平均速度 → 直接用 \(\bar{v} = (v_0 + v)/2\) 或 \(x/t\)。
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>问 (3) 用两种方法算得同一值 → 逻辑闭合；问 (4) 分段减法与中间时刻定理算得同一值 → 逻辑闭合；问 (5) 用 \((v_0+v)/2\) 与 \(x/t\) 算得同一值 → 平均速度公式成立的验证。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求加速度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    已知量是什么？（"从静止" \(\Rightarrow v_0 = 0\)、"5 s 末速度" \(\Rightarrow v = 20\)、"5 s" \(\Rightarrow t = 5\)）<br>
+                    三大公式里，<strong>哪一条同时含 \(\{v, v_0, a, t\}\) 而不含 \(x\)？</strong>——这就是选公式的判据。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    选第一条速度公式 \(v = v_0 + a t\)，反解 \(a\)：
+                    \[
+                        a = \frac{v - v_0}{t} = \frac{20 - 0}{5} = 4\ \text{m/s}^2.
+                    \]
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    "每秒速度增加 4 m/s"—— 5 秒后正好增加 20 m/s ✓<br>量级 4 m/s² 是家用车加速档量级（合理）。
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求第 3 秒末瞬时速度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    "第 3 秒末" = 时刻 \(t = 3\) s。求某<strong>时刻</strong>的<strong>速度</strong>——最直接的工具是哪条公式？<br>
+                    （已经算出 \(a = 4\)，代入即可，不需要三公式里其它两条）
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \[
+                        v_3 = v_0 + a\,t_3 = 0 + 4 \times 3 = 12\ \text{m/s}.
+                    \]
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    \(t = 3\) s 时速度 12 m/s；\(t = 5\) s 时应为 20 m/s，等比线性 ✓<br>
+                    v-t 图上：\(t = 3\) 对应的 \(v\) 值恰好在 (0,0) 与 (5,20) 直线的 3/5 位置 = 12 ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(3) 求前 5 s 位移</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    求"位移"—— 三大公式里哪条含 \(x\)？（位移公式或第三公式）<br>
+                    <strong>还有一个更几何的选择</strong>：v-t 图上"面积 = 位移"（01 课结论）。前 5 s 的图形是什么？三角形。<br>
+                    <strong>两种方法可以互校</strong>——一个是代数（公式），一个是几何（面积），得到同一答案时就闭环。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    方法 A · 位移公式：\(x_5 = v_0 t + \tfrac{1}{2}a t^2 = 0 + \tfrac{1}{2} \times 4 \times 25 = 50\) m.<br>
+                    方法 B · 平均速度：\(\bar{v} = (v_0 + v)/2 = (0 + 20)/2 = 10\) m/s；\(x_5 = \bar{v} \cdot t = 10 \times 5 = 50\) m.<br>
+                    方法 C · v-t 图三角形面积：\(\tfrac{1}{2} \times 5 \times 20 = 50\) m.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    三种方法算得同一答案 50 m ✓ —— 三条独立通道闭环。
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(4) 求第 3 秒内位移</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    <strong>"第 3 秒内"</strong> ≠ "前 3 秒"！这是 P2 最经典的陷阱。<br>
+                    "第 3 秒内"指的是从 \(t = 2\) s 到 \(t = 3\) s 那<strong>一秒钟</strong>的位移，写作 \(\Delta x_3 = x(3) - x(2)\)。<br>
+                    有两条路径：<strong>(A)</strong> 分别算 \(x(2)、x(3)\) 再作差；<strong>(B)</strong> 用"中间时刻速度定理"—— 匀变速中某段时间的<strong>平均速度</strong> = 该段<strong>中间时刻的瞬时速度</strong>。第 3 秒内的中间时刻是 \(t = 2.5\) s。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    方法 A · 分段减法：\(x(2) = \tfrac{1}{2} \times 4 \times 4 = 8\) m；\(x(3) = \tfrac{1}{2} \times 4 \times 9 = 18\) m；\(\Delta x_3 = 18 - 8 = 10\) m.<br>
+                    方法 B · 中间时刻速度定理：\(\bar{v}_{\text{第 3 秒}} = v(2.5) = 0 + 4 \times 2.5 = 10\) m/s；一秒位移 = 10 m.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法算得同一答案 10 m ✓<br>
+                    <strong>陷阱自查</strong>：不是 \(x(3) = 18\) m，那是"前 3 秒"总位移。
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(5) 求前 5 s 平均速度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    平均速度有两条定义/公式：<strong>通用</strong> \(\bar{v} = x/t\)（任意运动都适用）；<strong>匀变速专用</strong> \(\bar{v} = (v_0 + v)/2\)（只在匀变速时才对）。<br>
+                    本题是匀变速 —— 两条都能用。<strong>用不同公式算得同一答案是对"匀变速"这个前提的验证</strong>。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    定义式：\(\bar{v} = x_5 / t = 50 / 5 = 10\) m/s.<br>
+                    匀变速专用：\(\bar{v} = (v_0 + v)/2 = (0 + 20)/2 = 10\) m/s.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法一致 = 10 m/s ✓，且等于 \(t = 2.5\) s（区间中间时刻）的瞬时速度 ✓ —— 匀变速中"平均速度 = 中间时刻瞬时速度"的又一次体现。
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：\(a = 4\) m/s² · \(v_3 = 12\) m/s · \(x_5 = 50\) m · \(\Delta x_3 = 10\) m · \(\bar{v} = 10\) m/s
+            </div>
+
+            <div class="verify-box">
+                <strong>独立通道校验</strong>：第三公式 \(v^2 = v_0^2 + 2ax \Rightarrow 20^2 = 0 + 2 \times 4 \times 50 = 400\) ✓（三条公式互不矛盾 · 答案闭环）
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">把"第 3 秒内位移"当成"前 3 秒位移"</span>（即算成 \(x(3) = 18\) m）。</div>
+                <div><span class="right">正解：</span>"第 3 秒内" = 从 \(t=2\) s 到 \(t=3\) s 那一秒钟 = \(x(3) - x(2) = 10\) m。<strong>"第 N 秒内"是一秒钟的间隔位移</strong>，"前 N 秒"是从 0 到 N 的总位移。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">对非匀变速运动也用 \(\bar{v} = (v_0 + v)/2\)</span>。</div>
+                <div><span class="right">正解：</span>这个公式<strong>只对匀变速成立</strong>（因为 v-t 图是直线，梯形面积除以宽 = 上下底之和的一半）。若加速度不是常数（如变加速度），必须用 \(\bar{v} = x/t\) 或分段处理。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">用第三公式 \(v^2 = v_0^2 + 2ax\) 硬算 \(v_3\)</span>（先算 \(x(3)\)，再反推 \(v_3\)）— 也对但绕。</div>
+                <div><span class="right">正解：</span>知道 \(t\)、\(v_0\)、\(a\) 直接用速度公式 \(v = v_0 + at\)。三条公式各有适用场景：<strong>已知 \(t\) 求 \(v\) 或 \(x\) 用前两条；已知 \(x\) 但不知 \(t\) 用第三条</strong>。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 匀变速三大公式的推导来源 → <a href="../幂函数的微积分/03_幂函数微积分_直线运动公式.html">03 幂函数的微积分与直线运动公式</a>（本例题集直接把公式作为结论调用）
+    </div>
+</div>
+
+<!-- 例题 3 · P3 追及相遇 · 汽车追公交 · 中等 · 银 -->
+<div class="example-card" id="example-3">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 3</div>
+        <div class="example-card-title">追及相遇 · 汽车追公交的临界条件</div>
+        <div class="example-card-type">P3 · 追及相遇</div>
+        <div class="example-card-diff 中等">中等</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>汽车 \(A\) 以 \(v_A = 20\) m/s 沿平直公路匀速行驶。此时，公交车 \(B\) 在 \(A\) 前方 \(\Delta x_0 = 100\) m 处，正以 \(v_B = 10\) m/s 沿同方向匀速前进。忽略车长、反应时间与制动过程。</p>
+
+        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 数轴 -->
+            <line x1="40" y1="120" x2="470" y2="120" stroke="#5C6370" stroke-width="1.5"/>
+            <polygon points="470,120 462,117 462,123" fill="#5C6370"/>
+            <text x="482" y="124" font-size="12" fill="#5C6370">x</text>
+
+            <!-- 起点刻度 -->
+            <line x1="80" y1="116" x2="80" y2="124" stroke="#5C6370" stroke-width="1"/>
+            <text x="80" y="138" font-size="11" fill="#5C6370" text-anchor="middle">0</text>
+            <line x1="330" y1="116" x2="330" y2="124" stroke="#5C6370" stroke-width="1"/>
+            <text x="330" y="138" font-size="11" fill="#5C6370" text-anchor="middle">100 m</text>
+
+            <!-- A 车（银色小方块） -->
+            <rect x="70" y="90" width="20" height="20" fill="#7B8290" rx="3"/>
+            <text x="80" y="80" font-size="13" fill="#7B8290" font-weight="700" text-anchor="middle">A</text>
+            <!-- A 速度箭头 -->
+            <line x1="95" y1="100" x2="145" y2="100" stroke="#7B8290" stroke-width="2"/>
+            <polygon points="145,100 138,96 138,104" fill="#7B8290"/>
+            <text x="120" y="90" font-size="11" fill="#5C6370" text-anchor="middle">v<tspan font-size="8" dy="4">A</tspan><tspan dy="-4"> = 20 m/s</tspan></text>
+
+            <!-- B 车（金色小方块） -->
+            <rect x="320" y="90" width="20" height="20" fill="#B8924A" rx="3"/>
+            <text x="330" y="80" font-size="13" fill="#8E6E2E" font-weight="700" text-anchor="middle">B</text>
+            <line x1="345" y1="100" x2="380" y2="100" stroke="#B8924A" stroke-width="2"/>
+            <polygon points="380,100 373,96 373,104" fill="#B8924A"/>
+            <text x="363" y="90" font-size="11" fill="#8E6E2E" text-anchor="middle">v<tspan font-size="8" dy="4">B</tspan><tspan dy="-4"> = 10 m/s</tspan></text>
+
+            <!-- 100 m 距离标注 -->
+            <line x1="80" y1="160" x2="330" y2="160" stroke="#00409A" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="80" y1="155" x2="80" y2="165" stroke="#00409A" stroke-width="1"/>
+            <line x1="330" y1="155" x2="330" y2="165" stroke="#00409A" stroke-width="1"/>
+            <text x="205" y="176" font-size="12" fill="#00409A" font-weight="600" text-anchor="middle">Δx₀ = 100 m（A 与 B 的初始间距）</text>
+
+            <text x="255" y="14" font-size="12" fill="#1d1d1f" text-anchor="middle" font-weight="600">t = 0 时的位置示意（同方向 · A 在后 · B 在前）</text>
+        </svg>
+
+        <ol>
+            <li>多长时间后 \(A\) 追上 \(B\)？</li>
+            <li>追上时 \(A\) 从起点算走了多少米？</li>
+        </ol>
+        <p><strong>延伸思考</strong>：若 \(B\) 突然加速到 \(v_B' = 20\) m/s 匀速前进（正好等于 \(A\) 的速度），\(A\) 还能追上吗？</p>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>追及相遇的代数框架</strong>：
+                    <br>选定统一的<strong>时间起点</strong>与<strong>位置原点</strong>（本题以 \(A\) 起点为原点）；
+                    <br>分别写出 \(A\)、\(B\) 的位移方程 \(x_A(t), x_B(t)\)；
+                    <br>追上条件 = <strong>两者位置相等</strong>：\(x_A(t) = x_B(t)\)。
+                </li>
+                <li><strong>相对速度视角</strong>（等价方法 · 更直观）：
+                    <br>\(A\) 相对 \(B\) 的速度 \(v_{AB} = v_A - v_B\)；
+                    <br>初始相对距离 \(\Delta x_0\)；
+                    <br>相对追上时间 \(t = \Delta x_0 / v_{AB}\)（要求 \(v_{AB} > 0\)）。
+                </li>
+                <li><strong>能否追上的判据</strong>：若 \(v_A > v_B\)（后车更快）→ 一定能追上；若 \(v_A = v_B\) → 距离恒定，追不上；若 \(v_A < v_B\) → 差距越拉越大，追不上。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>题面是"同向追及" — 两车都往同方向、后车快于前车、初始相距 \(\Delta x_0 = 100\) m。<strong>题型识别 = 一维追及相遇</strong>。
+                <div class="step-rule">（判读要点：画一维数轴示意 → \(A\) 在 \(x=0\) 处，向东 \(v_A = 20\) m/s；\(B\) 在 \(x=100\) m 处，向东 \(v_B = 10\) m/s）</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span>方法 A · <strong>位移方程联立</strong>（代数 · 通用）；方法 B · <strong>相对速度</strong>（快 · 但仅适用于匀速追匀速）。本题两法互校。
+                <div class="step-rule">（工具限定：只用匀速运动公式 \(x = v t\)，不涉及加速度，不涉及三大公式的二次项）</div>
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>两种方法算得同一 \(t\) → 逻辑闭合；追上时 \(A\)、\(B\) 位置分别 \(x_A = 200\) m 与 \(x_B = 100 + 100 = 200\) m → 位置一致 ✓；延伸情境用相对速度判据 \(v_{AB} = 0\) 直接判"追不上"。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求追上时间</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    <strong>第一步：先判断能不能追上</strong>。\(A\) 的速度 20 m/s > \(B\) 的速度 10 m/s → 相对速度 &gt; 0 → 可以追上。<br>
+                    <strong>如果直接跳过这一步，延伸问题就会翻车</strong>。<br><br>
+                    追上"发生"是一件几何事件——<strong>两车位置相同的那一刻</strong>。把它翻译成方程：以 \(A\) 起点为原点、初始时刻为 \(t = 0\)，写 \(x_A(t)\) 与 \(x_B(t)\)，令它们相等。<br>
+                    <strong>选工具</strong>：位移方程联立（代数 · 通用）或相对速度（快 · 但仅匀速）—— 两法互校。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    方法 A · 位移方程联立：
+                    \[
+                        x_A(t) = 20 t, \quad x_B(t) = \underbrace{100}_{\text{初始位置}} + 10 t.
+                    \]
+                    追上条件 \(x_A(t) = x_B(t)\)：\(20 t = 100 + 10 t \Rightarrow t = 10\) s.<br>
+                    方法 B · 相对速度：\(v_{AB} = 20 - 10 = 10\) m/s；\(t = \dfrac{100}{10} = 10\) s ✓
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法给同一答案 10 s ✓ · 相对速度视角闭环（\(A\) 每秒缩短 10 m 间距、共缩 100 m）
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求追上位置</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    已经知道追上时刻 \(t = 10\) s，只需要代进 \(A\) 或 \(B\) 的位移方程即可。<br>
+                    <strong>用哪个更好？</strong>—— 都行，但用两个分别代入再对比是最好的自查（若两个位置不相等就说明 (1) 算错了）。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \(x_A(10) = 20 \times 10 = 200\) m.<br>
+                    \(x_B(10) = 100 + 10 \times 10 = 200\) m ✓
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两车位置一致 = 200 m ✓ · 追上成立。
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">延伸 · \(B\) 加速到 \(v_B' = 20\) m/s，\(A\) 还追得上吗？</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    这里最重要的不是"算"，而是"<strong>先判断</strong>"。回到"能不能追上"的判据：<br>
+                    · 若 \(v_A &gt; v_B\) → 一定追上；<br>
+                    · 若 \(v_A = v_B\) → 距离恒定，追不上；<br>
+                    · 若 \(v_A &lt; v_B\) → 差距拉大，追不上。<br>
+                    本情境 \(v_A = v_B'\)，属于第 2 类。<strong>不需要列方程</strong>。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    相对速度 \(v_{AB}' = 20 - 20 = 0\) → 距离恒定 100 m → <strong>\(A\) 永远追不上 \(B\)</strong>。
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    物理直觉：两车以相同速度并行，间距不变 ✓<br>
+                    <strong>如果尝试列方程 \(20 t = 100 + 20 t\)</strong>，得到 \(0 = 100\)（矛盾）→ 方程无解 → 追不上，符合。
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：\(t = 10\) s · 追上时 \(A\) 走了 \(200\) m · 延伸情境（B 加速到 \(v_A\)） → 追不上，间距恒定 100 m
+            </div>
+
+            <div class="verify-box">
+                <strong>相对运动视角总结</strong>：本题是所有"匀速追及"的原型——<strong>追上时间 = 初始距离 / 相对速度</strong>。这条通用结论在 P7 双落体追及、P8 综合压轴里还会用到。理解"相对速度归零意味着距离恒定"，就掌握了追及题的判据。
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">忽略 B 的初始位移 100 m</span>，直接写 \(x_A = x_B\) 变成 \(20 t = 10 t\)（解出 \(t = 0\)）。</div>
+                <div><span class="right">正解：</span>选定统一位置原点后，\(A\) 从 \(x = 0\) 出发、\(B\) 从 \(x = 100\) m 出发 — \(B\) 的位移方程必须写作 \(x_B = 100 + 10 t\)（含初始位置）。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">相对速度写反</span> — 例如写成 \(v_{AB} = v_B - v_A = -10\) m/s，得出"负时间"就困惑了。</div>
+                <div><span class="right">正解：</span>"\(A\) 相对 \(B\) 的速度" = \(v_A - v_B\)（约定 · 后减前）；只要 \(v_{AB} > 0\) 表示 \(A\) 在靠近 \(B\)，追上时间为正。若 \(v_{AB} \le 0\) → 追不上。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">默认"能追上"就直接算</span>，不判断 \(v_A > v_B\) 的条件。延伸情境就会翻车。</div>
+                <div><span class="right">正解：</span>动手前先判"能不能追上"— 若两者速度关系已经让间距不缩小或反而拉大，无解或无穷远才是答案。这是所有追及题的第一步。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 位移与时间的定义式基础 → <a href="../运动学的描述/01_运动的描述.html">01 运动的描述 · Card 3 STEP 3 · 位移的定义式</a>
+    </div>
+</div>
+
+<!-- 例题 4 · P4 多阶段 · 加速→匀速→减速 · 中等 · 蓝 -->
+<div class="example-card" id="example-4">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 4</div>
+        <div class="example-card-title">多阶段运动 · 加速→匀速→减速</div>
+        <div class="example-card-type">P4 · 多阶段</div>
+        <div class="example-card-diff 中等">中等</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>一辆汽车从<strong>静止</strong>开始沿平直公路运动，全程分三个阶段：</p>
+        <ul>
+            <li>阶段 ①：以加速度 \(a_1 = 2\) m/s² 匀加速持续 \(t_1 = 10\) s；</li>
+            <li>阶段 ②：达到最高速度后以最高速度匀速持续 \(t_2 = 30\) s；</li>
+            <li>阶段 ③：以加速度大小 \(a_3 = 4\) m/s² 匀减速，直到停止。</li>
+        </ul>
+
+        <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 坐标轴 -->
+            <line x1="60" y1="240" x2="470" y2="240" stroke="#5C6370" stroke-width="1.5"/>
+            <line x1="60" y1="240" x2="60" y2="30" stroke="#5C6370" stroke-width="1.5"/>
+            <polygon points="470,240 462,237 462,243" fill="#5C6370"/>
+            <polygon points="60,30 57,38 63,38" fill="#5C6370"/>
+            <text x="482" y="244" font-size="12" fill="#5C6370">t / s</text>
+            <text x="42" y="24" font-size="12" fill="#5C6370">v / (m·s⁻¹)</text>
+
+            <!-- 关键节点 · t=10, 40, 45 · scale x: 1 s = 8 px（起 60，10 s → 140；40 s → 380；45 s → 420） -->
+            <line x1="140" y1="236" x2="140" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="140" y="258" font-size="11" fill="#5C6370" text-anchor="middle">10</text>
+            <line x1="380" y1="236" x2="380" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="380" y="258" font-size="11" fill="#5C6370" text-anchor="middle">40</text>
+            <line x1="420" y1="236" x2="420" y2="244" stroke="#5C6370" stroke-width="1"/>
+            <text x="420" y="258" font-size="11" fill="#5C6370" text-anchor="middle">45</text>
+
+            <!-- y 刻度 · v = 20 m/s → 240 - 100 = 140；scale 5 m/s = 25 px -->
+            <line x1="56" y1="140" x2="64" y2="140" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="144" font-size="11" fill="#5C6370" text-anchor="end">20</text>
+
+            <!-- 三段折线（梯形边界） -->
+            <line x1="60" y1="240" x2="140" y2="140" stroke="#00409A" stroke-width="2.6"/>
+            <line x1="140" y1="140" x2="380" y2="140" stroke="#00409A" stroke-width="2.6"/>
+            <line x1="380" y1="140" x2="420" y2="240" stroke="#00409A" stroke-width="2.6"/>
+
+            <!-- 关键点 -->
+            <circle cx="60" cy="240" r="4" fill="#00409A"/>
+            <circle cx="140" cy="140" r="4" fill="#00409A"/>
+            <circle cx="380" cy="140" r="4" fill="#00409A"/>
+            <circle cx="420" cy="240" r="4" fill="#00409A"/>
+
+            <!-- 虚线辅助 -->
+            <line x1="140" y1="140" x2="140" y2="236" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="380" y1="140" x2="380" y2="236" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="140" y1="140" x2="60" y2="140" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+
+            <!-- 阶段编号 -->
+            <text x="100" y="200" font-size="18" font-weight="700" fill="#00409A" text-anchor="middle">①</text>
+            <text x="260" y="130" font-size="18" font-weight="700" fill="#00409A" text-anchor="middle">②</text>
+            <text x="400" y="200" font-size="18" font-weight="700" fill="#00409A" text-anchor="middle">③</text>
+
+            <!-- v_max 标注 -->
+            <text x="72" y="134" font-size="11" fill="#8E6E2E" font-weight="600">v_max</text>
+
+            <text x="250" y="290" font-size="12" fill="#1d1d1f" text-anchor="middle">汽车三阶段 v-t 图（梯形）· 关键节点 t = 10, 40, 45 s</text>
+        </svg>
+
+        <ol>
+            <li>阶段 ② 的匀速速度 \(v_{\max}\)；</li>
+            <li>阶段 ③ 的持续时间 \(t_3\)；</li>
+            <li>三个阶段各自的位移 \(x_1, x_2, x_3\)；</li>
+            <li>全程总位移 \(x_{\text{total}}\) 和总时间 \(t_{\text{total}}\)。</li>
+        </ol>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>多阶段运动的分段处理</strong>：把整个过程按加速度变化的分界点分成若干段。每一段单独当作匀变速（或匀速）运动，独立套三大公式或用 v-t 图几何。</li>
+                <li><strong>阶段之间的连接条件</strong>：前一段的<strong>末速度</strong> = 后一段的<strong>初速度</strong>（速度是连续的）。位移则是各段位移相加。</li>
+                <li><strong>三大公式复用</strong>：
+                    <br>加速段：\(v_{\max} = v_0 + a_1 t_1\)、\(x_1 = v_0 t_1 + \tfrac{1}{2}a_1 t_1^2\)（或几何法：三角形面积 \(\tfrac{1}{2} v_{\max} \cdot t_1\)）
+                    <br>匀速段：\(x_2 = v_{\max} \cdot t_2\)（v-t 图上是矩形）
+                    <br>减速段：末速度 \(0 = v_{\max} + a_3' t_3\)（\(a_3'\) 取负值 = 减速）
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>题面明确给出三段（加速 · 匀速 · 减速）及每段的加速度大小和时间（阶段 ③ 时间需算）— <strong>题型识别 = 多阶段运动 · 分段套公式</strong>。
+                <div class="step-rule">（判读要点：画出三段 v-t 图草图 → 一个梯形 · 起点 \(v = 0\) · 顶部 \(v_{\max}\) · 末点 \(v = 0\)）</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span>问 (1) 用<strong>阶段 ① 速度公式</strong>；问 (2) 用<strong>阶段 ③ 速度公式反解 \(t_3\)</strong>；问 (3) 三段位移分别用<strong>位移公式</strong>或<strong>几何面积法</strong>（互校）；问 (4) 各段相加。
+                <div class="step-rule">（工具限定：只用三大公式 + v-t 图几何面积。分段时每段都从"该段起点"重新计时，起始速度接前一段末速度）</div>
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>阶段 ① 与 ③ 的图形都是三角形 → 位移与"底 × 高 / 2"一致；阶段 ② 位移 = 最高速度 × 匀速时间；总位移在合理量级；总时间 = 三段之和 ✓。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求阶段 ② 匀速速度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    "阶段 ② 匀速速度"= "阶段 ① 的<strong>末速度</strong>"（因为速度连续 · 阶段之间不会跳变）。<br>
+                    题面给了阶段 ① 的加速度 2 m/s² 和时长 10 s，初速度 0（静止起）——三个已知量对应哪条公式？
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    速度公式 \(v = v_0 + a_1 t_1 = 0 + 2 \times 10 = 20\) m/s.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    v-t 图梯形的"高" = 20 m/s，与图对应 ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求阶段 ③ 时间</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    阶段 ③ 的<strong>初速度</strong>不是 0 —— <strong>是前一段的末速度</strong> \(v_{\max} = 20\) m/s。这是分段处理最容易忽略的地方。<br>
+                    "减速大小 4 m/s²" → 加速度<em>方向</em>与运动方向相反 → 代入公式取 \(a_3' = -4\) m/s²。<br>
+                    减到停止 → \(v_{\text{末}} = 0\)。求时间——用速度公式反解 \(t\)。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \[
+                        0 = 20 + (-4)\,t_3 \implies t_3 = \frac{20}{4} = 5\ \text{s}.
+                    \]
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    符号自洽：正号 → \(t_3 = 5\) s 为正 ✓<br>
+                    对照 v-t 图：阶段 ③ 从 \(t = 40\) 到 \(t = 45\) 恰好 5 s ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(3) 求三段位移</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    多阶段运动 = 每段独立套三大公式，或用 v-t 图面积（对应几何图形是三角、矩形、三角）。<br>
+                    <strong>图形观察</strong>：v-t 图是一个梯形——阶段 ① 三角形、阶段 ② 矩形、阶段 ③ 三角形。<strong>面积法比公式代入快 3-5 倍且不易错</strong>。
+                </div>
+
+                <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+                    <!-- 三段面积着色 -->
+                    <polygon points="60,240 140,240 140,140" fill="#E8EEF9" stroke="#00409A" stroke-width="0.8"/>
+                    <polygon points="140,240 140,140 380,140 380,240" fill="#FBF7EC" stroke="#B8924A" stroke-width="0.8"/>
+                    <polygon points="380,240 380,140 420,240" fill="#F3F4F7" stroke="#7B8290" stroke-width="0.8"/>
+
+                    <!-- 坐标轴 -->
+                    <line x1="60" y1="240" x2="470" y2="240" stroke="#5C6370" stroke-width="1.5"/>
+                    <line x1="60" y1="240" x2="60" y2="30" stroke="#5C6370" stroke-width="1.5"/>
+                    <polygon points="470,240 462,237 462,243" fill="#5C6370"/>
+                    <polygon points="60,30 57,38 63,38" fill="#5C6370"/>
+                    <text x="482" y="244" font-size="12" fill="#5C6370">t / s</text>
+                    <text x="42" y="24" font-size="12" fill="#5C6370">v / (m·s⁻¹)</text>
+
+                    <!-- 刻度 -->
+                    <text x="140" y="258" font-size="11" fill="#5C6370" text-anchor="middle">10</text>
+                    <text x="380" y="258" font-size="11" fill="#5C6370" text-anchor="middle">40</text>
+                    <text x="420" y="258" font-size="11" fill="#5C6370" text-anchor="middle">45</text>
+                    <text x="52" y="144" font-size="11" fill="#5C6370" text-anchor="end">20</text>
+
+                    <!-- 三段折线 -->
+                    <line x1="60" y1="240" x2="140" y2="140" stroke="#00409A" stroke-width="2.6"/>
+                    <line x1="140" y1="140" x2="380" y2="140" stroke="#00409A" stroke-width="2.6"/>
+                    <line x1="380" y1="140" x2="420" y2="240" stroke="#00409A" stroke-width="2.6"/>
+
+                    <!-- 面积标注 -->
+                    <text x="118" y="205" font-size="12" fill="#00409A" font-weight="700" text-anchor="middle">S₁</text>
+                    <text x="118" y="222" font-size="10" fill="#00409A" text-anchor="middle">½·10·20</text>
+                    <text x="118" y="234" font-size="10" fill="#00409A" text-anchor="middle">= 100 m</text>
+
+                    <text x="260" y="188" font-size="12" fill="#8E6E2E" font-weight="700" text-anchor="middle">S₂ = 30 · 20 = 600 m</text>
+
+                    <text x="400" y="205" font-size="12" fill="#5C6370" font-weight="700" text-anchor="middle">S₃</text>
+                    <text x="400" y="222" font-size="10" fill="#5C6370" text-anchor="middle">½·5·20</text>
+                    <text x="400" y="234" font-size="10" fill="#5C6370" text-anchor="middle">= 50 m</text>
+
+                    <text x="250" y="290" font-size="12" fill="#1d1d1f" text-anchor="middle">辅图：三段面积着色 · 总位移 = S₁ + S₂ + S₃</text>
+                </svg>
+
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    对照辅图逐段读面积：<br>
+                    阶段 ①（三角形 · 底 10 高 20）：\(x_1 = \tfrac{1}{2} \times 10 \times 20 = 100\) m<br>
+                    阶段 ②（矩形 · 长 30 高 20）：\(x_2 = 30 \times 20 = 600\) m<br>
+                    阶段 ③（三角形 · 底 5 高 20）：\(x_3 = \tfrac{1}{2} \times 5 \times 20 = 50\) m
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    公式法互查：\(x_1 = 0 + \tfrac{1}{2} \times 2 \times 100 = 100\) m ✓ · \(x_3 = 20 \times 5 - \tfrac{1}{2} \times 4 \times 25 = 100 - 50 = 50\) m ✓（两法答案一致）
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(4) 求总位移与总时间</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    总位移 = 三段之和 · 总时间 = 三段之和。<br>
+                    <strong>但有一个更快的方法</strong>——把 v-t 图看作<strong>整个梯形</strong>，用梯形面积公式 \(\tfrac{1}{2}(上底 + 下底) \times 高\)。上底 = 匀速段时长（30 s）、下底 = 全程时长（45 s）、高 = 最高速度（20 m/s）。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    分段相加：\(x_{\text{total}} = 100 + 600 + 50 = 750\) m · \(t_{\text{total}} = 10 + 30 + 5 = 45\) s<br>
+                    梯形整体：\(x_{\text{total}} = \tfrac{1}{2}(30 + 45) \times 20 = 750\) m ✓
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法算得同一 750 m ✓ —— 梯形整体法作为答题时的快速自查通道。
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：\(v_{\max} = 20\) m/s · \(t_3 = 5\) s · \(x_1 = 100\) m · \(x_2 = 600\) m · \(x_3 = 50\) m · \(x_{\text{total}} = 750\) m · \(t_{\text{total}} = 45\) s
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">阶段 ③ 加速度符号搞错</span>，把 \(a_3\) 直接代 \(+4\) m/s² 进速度公式（得 \(0 = 20 + 4 t_3\) → \(t_3 = -5\) s），看到负数就困惑。</div>
+                <div><span class="right">正解：</span>"减速"意味着加速度方向与运动方向<strong>相反</strong>，若运动方向为正，减速时 \(a\) 取<strong>负值</strong>。题面说"大小 4 m/s²"就是 \(|a_3| = 4\) → 代入公式取 \(a_3' = -4\) m/s²。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">阶段 ③ 初速度写成 0</span>（忘记连接条件 · 把三段都当"从静止起步"）。</div>
+                <div><span class="right">正解：</span>阶段 ③ 的<strong>初速度 = 阶段 ② 的末速度 = \(v_{\max} = 20\) m/s</strong>。分段处理时必须逐段接续，速度连续但加速度突变。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">用 \(x = v_0 t + \tfrac{1}{2}a t^2\) 硬算三次 · 忘了 v-t 图梯形整体法这个更快的校验工具</span>。</div>
+                <div><span class="right">正解：</span>多阶段运动通常在 v-t 图上是<strong>规则的多边形</strong>（三角、矩形、梯形）— 面积法比公式代入快 3-5 倍且不易错。三大公式与面积法互校 → 逻辑闭合。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 分段处理的物理基础 → <a href="../运动学的描述/01_运动的描述.html">01 运动的描述 · Card 4 · 速度与加速度</a>；<a href="../幂函数的微积分/03_幂函数微积分_直线运动公式.html">03 幂函数的微积分 · 三大公式的多段应用</a>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Step 4 · 例题 5 · 列车过桥 · 较难 · 金 -->
+<!-- ============================================================ -->
+
+<div class="example-card" id="example-5">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 5</div>
+        <div class="example-card-title">列车过桥 · 匀速通过一座桥</div>
+        <div class="example-card-type">P5 · 几何+运动学</div>
+        <div class="example-card-diff 较难">较难</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>一列长 \(L_{\text{车}} = 200\) m 的列车，以 \(v = 20\) m/s 匀速通过一座长 \(L_{\text{桥}} = 800\) m 的桥。请回答：</p>
+
+        <svg viewBox="0 0 500 330" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 桥（金色矩形轮廓）· 3 个时刻共用同一座桥 -->
+
+            <!-- 时刻 1：车头进桥 · y = 40-90 -->
+            <text x="10" y="34" font-size="12" fill="#00409A" font-weight="700">时刻 1 · 车头进桥</text>
+            <rect x="180" y="60" width="220" height="20" fill="#FBF7EC" stroke="#B8924A" stroke-width="1.5"/>
+            <text x="290" y="55" font-size="10" fill="#8E6E2E" text-anchor="middle">桥 800 m</text>
+            <text x="180" y="94" font-size="9" fill="#5C6370">桥入口</text>
+            <text x="400" y="94" font-size="9" fill="#5C6370" text-anchor="end">桥出口</text>
+            <!-- 列车 · 左端为车尾，右端为车头 · 车头正好在桥入口 -->
+            <rect x="130" y="60" width="50" height="20" fill="#00409A" stroke="#002F73" stroke-width="1"/>
+            <text x="155" y="74" font-size="9" fill="#fff" text-anchor="middle">列车 200 m</text>
+            <!-- 车头/车尾标记 -->
+            <line x1="130" y1="80" x2="130" y2="98" stroke="#00409A" stroke-width="1"/>
+            <text x="130" y="108" font-size="9" fill="#00409A" text-anchor="middle">车尾</text>
+            <line x1="180" y1="80" x2="180" y2="98" stroke="#00409A" stroke-width="1"/>
+            <text x="180" y="108" font-size="9" fill="#00409A" text-anchor="middle" font-weight="700">车头</text>
+            <!-- 速度箭头 -->
+            <line x1="230" y1="50" x2="260" y2="50" stroke="#00409A" stroke-width="2"/>
+            <polygon points="260,50 253,46 253,54" fill="#00409A"/>
+            <text x="245" y="42" font-size="10" fill="#00409A" text-anchor="middle">v = 20 m/s</text>
+
+            <!-- 时刻 2：车头出桥 · y = 130-190 -->
+            <text x="10" y="130" font-size="12" fill="#00409A" font-weight="700">时刻 2 · 车头到达桥出口</text>
+            <rect x="180" y="150" width="220" height="20" fill="#FBF7EC" stroke="#B8924A" stroke-width="1.5"/>
+            <text x="290" y="145" font-size="10" fill="#8E6E2E" text-anchor="middle">桥 800 m</text>
+            <!-- 列车 · 车头在桥出口 · 车尾在桥内 -->
+            <rect x="350" y="150" width="50" height="20" fill="#00409A" stroke="#002F73" stroke-width="1"/>
+            <text x="375" y="164" font-size="9" fill="#fff" text-anchor="middle">列车 200 m</text>
+            <line x1="350" y1="170" x2="350" y2="188" stroke="#00409A" stroke-width="1"/>
+            <text x="350" y="198" font-size="9" fill="#00409A" text-anchor="middle">车尾</text>
+            <line x1="400" y1="170" x2="400" y2="188" stroke="#00409A" stroke-width="1"/>
+            <text x="400" y="198" font-size="9" fill="#00409A" text-anchor="middle" font-weight="700">车头</text>
+            <!-- 车头位移 = 桥长 = 800 m -->
+            <text x="290" y="210" font-size="10" fill="#8E6E2E" text-anchor="middle">车头位移 = 桥长 = 800 m</text>
+
+            <!-- 时刻 3：车尾出桥 · y = 230-290 -->
+            <text x="10" y="230" font-size="12" fill="#00409A" font-weight="700">时刻 3 · 车尾到达桥出口（完全过桥）</text>
+            <rect x="180" y="250" width="220" height="20" fill="#FBF7EC" stroke="#B8924A" stroke-width="1.5"/>
+            <text x="290" y="245" font-size="10" fill="#8E6E2E" text-anchor="middle">桥 800 m</text>
+            <!-- 列车 · 车尾在桥出口 · 车头在桥出口右侧一个车长 -->
+            <rect x="400" y="250" width="50" height="20" fill="#00409A" stroke="#002F73" stroke-width="1"/>
+            <text x="425" y="264" font-size="9" fill="#fff" text-anchor="middle">列车 200 m</text>
+            <line x1="400" y1="270" x2="400" y2="288" stroke="#00409A" stroke-width="1"/>
+            <text x="400" y="298" font-size="9" fill="#00409A" text-anchor="middle">车尾</text>
+            <line x1="450" y1="270" x2="450" y2="288" stroke="#00409A" stroke-width="1"/>
+            <text x="450" y="298" font-size="9" fill="#00409A" text-anchor="middle" font-weight="700">车头</text>
+            <!-- 车头位移 = 桥长 + 车长 = 1000 m -->
+            <text x="290" y="315" font-size="10" fill="#8E6E2E" text-anchor="middle">车头位移 = 桥长 + 车长 = 1000 m</text>
+        </svg>
+
+        <ol>
+            <li>从<strong>车头进桥</strong>到<strong>车尾出桥</strong>（即整个列车完全离开桥）的总时间 \(t_{\text{all}}\)；</li>
+            <li>完全过桥期间车头的位移 \(x_{\text{头}}\)；</li>
+            <li><strong>车头刚出桥</strong>（车头到达桥另一端）到<strong>车尾出桥</strong>之间的时间 \(\Delta t\)。</li>
+        </ol>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>物体自身长度不能忽略</strong>：本题的列车不是质点，而是一条<strong>长度 200 m 的刚体</strong>——车头、车尾位置不同。分析时必须区分"车头位置"和"车尾位置"，两者位置差 = 车长（恒定）。</li>
+                <li><strong>"过桥"的几何定义</strong>：
+                    <br>· 车头进桥：车头到达桥的入口端（记为 \(t = 0\)）
+                    <br>· 车头出桥：车头到达桥的另一端（此刻车尾还在桥上）
+                    <br>· 车尾出桥（"完全过桥"）：车尾也到达桥的另一端 = 车头位置比桥长再多一个车长
+                </li>
+                <li><strong>本题只用匀速运动公式</strong> \(x = v \cdot t\) + 几何关系（位移差 = 车长）。三大公式只用第一条的匀速特例（\(a = 0\)）。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>题面明确列车有长度（200 m），桥有长度（800 m），要求"过桥"的完整过程 — <strong>题型识别 = 几何 + 运动学</strong>。这是与"质点运动"最大的区别：物体自身长度成为新变量。
+                <div class="step-rule">（判读要点：画一维图 — 桥的入口在 \(x = 0\)，桥的出口在 \(x = 800\) m。\(t = 0\) 时车头在 \(x = 0\)，车尾在 \(x = -200\) m）</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span>只用 \(x = v \cdot t\)（匀速位移公式）+ 几何关系（车头位置 - 车尾位置 = 200 m 恒定）。
+                <div class="step-rule">（工具限定：本题不涉及三大公式的加速度项。所有运算都是简单代数）</div>
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>问 (3) 结果应等于"车长 / 速度" = 200 / 20 = 10 s（因为车头出桥到车尾出桥，车头正好再走一个车长的距离）→ 独立验证。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求完全过桥总时间</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    对照题面 3 个时刻的示意图 —— <strong>"完全过桥"发生在时刻 3</strong>（车尾出桥）。<br>
+                    问：<strong>从时刻 1 到时刻 3，车头一共走了多远？</strong>看图：车头初始在桥入口、最终在桥出口右侧一个车长处 → 车头位移 = 桥长 + 车长 = 1000 m。<br>
+                    <strong>陷阱预警</strong>：如果不看图直接算 \(L_{\text{桥}} / v = 40\) s，就漏了车长。图是防陷阱最好的工具。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    以桥入口为 \(x = 0\)、\(t = 0\) 时车头在原点。<br>
+                    车头位置：\(x_{\text{头}}(t) = v\,t = 20 t\).<br>
+                    车尾位置：\(x_{\text{尾}}(t) = v\,t - L_{\text{车}} = 20 t - 200\)（车尾始终在车头后方 200 m）.<br>
+                    "车尾出桥"条件：\(x_{\text{尾}}(t) = L_{\text{桥}} = 800\)：
+                    \[
+                        20 t - 200 = 800 \implies t_{\text{all}} = \frac{1000}{20} = 50\ \text{s}.
+                    \]
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    对照通用公式 \(t_{\text{all}} = \dfrac{L_{\text{桥}} + L_{\text{车}}}{v} = \dfrac{1000}{20} = 50\) s ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求完全过桥期间车头位移</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    已经知道 \(t_{\text{all}} = 50\) s，匀速运动直接 \(x = vt\)。<br>
+                    <strong>更好的物理理解</strong>：看图 —— 车头从桥入口出发，走过整座桥（800 m）+ 再走一个车长（200 m），最终使车尾正好也到桥出口。所以 \(x_{\text{头}} = L_{\text{桥}} + L_{\text{车}} = 1000\) m。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \[
+                        x_{\text{头}} = v \cdot t_{\text{all}} = 20 \times 50 = 1000\ \text{m}\ =\ L_{\text{桥}} + L_{\text{车}}.
+                    \]
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两条通道给同一答案 ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(3) 求"车头出桥"到"车尾出桥"的时间差</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    看图：<br>
+                    · 时刻 2 车头刚出桥、车尾在桥内；<br>
+                    · 时刻 3 车尾出桥、车头已在桥出口右侧一个车长处。<br>
+                    <strong>时刻 2 到时刻 3 之间，车头走了多远？</strong>—— 恰好一个车长 200 m。<br>
+                    <strong>选工具</strong>：可以求出时刻 2 与时刻 3 的时间分别相减；也可以直接用"车头再走一个车长"的时间 = \(L_{\text{车}} / v\)。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    方法 A · 分别算：车头出桥 \(x_{\text{头}}(t') = 800 \Rightarrow t' = 40\) s；车尾出桥 \(t_{\text{all}} = 50\) s. 差 \(\Delta t = 10\) s.<br>
+                    方法 B · 直接：\(\Delta t = \dfrac{L_{\text{车}}}{v} = \dfrac{200}{20} = 10\) s.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法同答案 10 s ✓ · 且这段时间车头行进 \(v \Delta t = 200\) m = 一个车长（与图上时刻 2 → 3 的车头位移一致）✓
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：\(t_{\text{all}} = 50\) s · \(x_{\text{头}} = 1000\) m · \(\Delta t = 10\) s
+            </div>
+
+            <div class="verify-box">
+                <strong>过桥类问题的两条通用结论</strong>（可迁移到"列车过隧道"、"列车过站台"等同类场景）：
+                <br>· 完全过桥（车尾出桥）总时间：\(t_{\text{all}} = \dfrac{L_{\text{桥}} + L_{\text{车}}}{v}\)
+                <br>· 车头出桥 → 车尾出桥的时间：\(\Delta t = \dfrac{L_{\text{车}}}{v}\)
+                <br>理解<strong>几何来源</strong>（"车头从入桥到最终多走了桥长+车长"）比死记公式重要——遇到"列车驶入站台的时刻到完全停靠"这类变体时能立刻类推。
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">忽略车长</span>，把过桥总时间算成 \(L_{\text{桥}} / v = 800 / 20 = 40\) s。</div>
+                <div><span class="right">正解：</span>"过桥完成"意味着<strong>整个列车</strong>都离开桥，即<strong>车尾</strong>也要走完桥。位移 = 桥长 + 车长 = 1000 m。忽略车长会漏掉 10 s（正是问 3 的答案）。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">把"车头出桥"当成"过桥完成"</span>。</div>
+                <div><span class="right">正解：</span>"车头出桥"时车尾还在桥上，列车没完全离开。<strong>严格审题</strong>：题面问的是"车尾出桥"（列车整体已经过完桥），必须严格按此判断。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">车尾初始位置写成 0</span>（忘记车尾比车头落后一个车长）。</div>
+                <div><span class="right">正解：</span>\(t = 0\) 时车头在 \(x = 0\)（桥入口），车尾在 \(x = -200\) m（还没进桥）。列车是一个刚体，车头与车尾位置差恒等于车长 \(L_{\text{车}}\)。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 位移的定义 · 起点与终点 → <a href="../运动学的描述/01_运动的描述.html">01 运动的描述 · Card 2 · 位移与路程</a>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Step 4 · 自由落体引导块 (在 P5 后、P6 前) -->
+<!-- ============================================================ -->
+
+<div class="perspective-card">
+    <h3>关于自由落体：不是新知识 · 是匀变速直线运动的特例</h3>
+    <p>接下来 P6、P7 会遇到"自由落体"和"竖直上抛"。<strong>它们不是新的物理现象</strong>——只是加速度 \(a = g\)（约 \(9.8\) m/s²，本文题面可能取 10 m/s² 简化）、方向竖直的<strong>匀变速直线运动</strong>特例。</p>
+
+    <ul>
+        <li><strong>v-t 图</strong>：从 \(v = 0\) 出发、斜率为 \(g\) 的直线（自由落体 · 加速）；或从 \(v_0 > 0\) 出发、斜率为 \(-g\) 的直线（竖直上抛 · 减速）</li>
+        <li><strong>三大公式</strong>：直接把 \(a = g\)（下落取正）或 \(a = -g\)（上抛过程取负 · 视方向约定）代入 \(v = v_0 + a t\)、\(x = v_0 t + \tfrac{1}{2}a t^2\)、\(v^2 = v_0^2 + 2 a x\) 即可</li>
+        <li><strong>追及/相遇</strong>：与水平方向的追及题<strong>完全同构</strong>——只是"距离"改叫"高度"、方向改成竖直</li>
+    </ul>
+
+    <div class="key-insight">
+        <strong>核心视角</strong>：看到"自由落体"或"竖直上抛"，第一反应应该是——<strong>这是匀变速直线运动的特例，没有新工具，只有新场景</strong>。P6 和 P7 就是让你把这个视角内化，学会用直线运动的思维处理竖直方向的运动。所有 P1-P4 里使用的工具（三大公式 + v-t 图几何 + 平均速度定理 + 相对速度）都可以照搬——只需要把 "\(a\)" 换成 "\(g\)"，"\(x\)" 换成 "\(h\)"（高度）。
+    </div>
+
+    <p style="font-size: 13px; color: var(--text-secondary); margin-top: 12px;"><strong>本文方向约定</strong>：接下来的 P6、P7 都取<strong>竖直向上为正方向</strong>。这样重力加速度 \(a = -g\)（下落时 \(v\) 减少或负，上抛时 \(v_0 > 0\) 但 \(a < 0\)），与方向约定一致。也可以约定"向下为正"→ \(a = +g\)——两种都对，关键是<strong>始终一致</strong>。</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- Step 4 · 例题 6-8 (P6 上抛对称 + P7 双落体追及 + P8 综合压轴) -->
+<!-- ============================================================ -->
+
+<!-- 例题 6 · P6 自由落体 · 上抛对称 · 较难 · 银 -->
+<div class="example-card" id="example-6">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 6</div>
+        <div class="example-card-title">自由落体 · 竖直上抛的对称性</div>
+        <div class="example-card-type">P6 · 自由落体</div>
+        <div class="example-card-diff 较难">较难</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>一小球从地面以初速 \(v_0 = 15\) m/s 竖直向上抛出。取 \(g = 10\) m/s²，忽略空气阻力，规定<strong>竖直向上为正方向</strong>。请回答：</p>
+
+        <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 500px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 顶部标题 -->
+            <text x="260" y="22" font-size="12" fill="#1d1d1f" text-anchor="middle" font-weight="600">竖直上抛轨迹示意（左 · 上升 / 右 · 下降 · 关于最高点对称）</text>
+
+            <!-- 竖直高度轴 -->
+            <line x1="150" y1="320" x2="150" y2="55" stroke="#5C6370" stroke-width="1.5"/>
+            <polygon points="150,55 147,63 153,63" fill="#5C6370"/>
+            <text x="130" y="50" font-size="12" fill="#5C6370">h / m</text>
+
+            <!-- 地面横线 -->
+            <line x1="140" y1="320" x2="420" y2="320" stroke="#5C6370" stroke-width="1.5"/>
+            <text x="146" y="336" font-size="11" fill="#5C6370">O · 抛出点（地面）</text>
+
+            <!-- 刻度 · scale: 1 m = 20 px；地面 y=320 · h_max=11.25 → y=95 · h=10 → y=120 -->
+            <line x1="146" y1="120" x2="154" y2="120" stroke="#5C6370" stroke-width="1"/>
+            <text x="142" y="124" font-size="11" fill="#5C6370" text-anchor="end">10</text>
+            <line x1="146" y1="95" x2="154" y2="95" stroke="#8E6E2E" stroke-width="1.5"/>
+            <text x="142" y="99" font-size="11" fill="#8E6E2E" text-anchor="end" font-weight="700">h_max</text>
+
+            <!-- 上升竖线 · x=220 · 拉大与下降线的间距 -->
+            <line x1="220" y1="320" x2="220" y2="95" stroke="#00409A" stroke-width="2.6"/>
+            <polygon points="220,95 216,103 224,103" fill="#00409A"/>
+            <!-- 上升标签 · 放到线的左侧、中段高度 -->
+            <text x="208" y="215" font-size="13" fill="#00409A" font-weight="700" text-anchor="end">上升</text>
+
+            <!-- 下降竖线 · x=360 -->
+            <line x1="360" y1="95" x2="360" y2="320" stroke="#B8924A" stroke-width="2.6"/>
+            <polygon points="360,320 356,312 364,312" fill="#B8924A"/>
+            <!-- 下降标签 · 放到线的右侧 -->
+            <text x="372" y="215" font-size="13" fill="#8E6E2E" font-weight="700">下降</text>
+
+            <!-- 最高点水平连接 -->
+            <line x1="220" y1="95" x2="360" y2="95" stroke="#8E6E2E" stroke-width="1" stroke-dasharray="4,3"/>
+            <circle cx="220" cy="95" r="4" fill="#8E6E2E"/>
+            <circle cx="360" cy="95" r="4" fill="#8E6E2E"/>
+            <!-- 最高点标签 · 放到两点连线正上方 · 居中 · 不与 h_max 挤 -->
+            <text x="290" y="83" font-size="11" fill="#8E6E2E" text-anchor="middle" font-weight="700">最高点 v = 0</text>
+
+            <!-- h = 10 m 水平参照虚线 -->
+            <line x1="140" y1="120" x2="410" y2="120" stroke="#7B8290" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="290" y="115" font-size="10" fill="#5C6370" text-anchor="middle">h = 10 m 参照</text>
+
+            <!-- 上升途中经过 h=10 的点 · 引线拉到左侧 -->
+            <circle cx="220" cy="120" r="4" fill="#7B8290"/>
+            <line x1="220" y1="120" x2="185" y2="145" stroke="#7B8290" stroke-width="0.8" stroke-dasharray="2,2"/>
+            <text x="180" y="160" font-size="11" fill="#5C6370" text-anchor="end">上升途中 t_a</text>
+
+            <!-- 下降途中经过 h=10 的点 · 引线拉到右侧 -->
+            <circle cx="360" cy="120" r="4" fill="#7B8290"/>
+            <line x1="360" y1="120" x2="395" y2="145" stroke="#7B8290" stroke-width="0.8" stroke-dasharray="2,2"/>
+            <text x="400" y="160" font-size="11" fill="#5C6370" text-anchor="start">下降途中 t_b</text>
+
+            <!-- v₀ 起始速度箭头 · 在上升线起点上方短箭头（表示"抛出瞬间向上"） -->
+            <line x1="220" y1="320" x2="220" y2="303" stroke="#00409A" stroke-width="2"/>
+            <polygon points="220,303 216,311 224,311" fill="#00409A"/>
+            <!-- v₀ 标签 · 引线拉到底部左侧 · 远离箭头 -->
+            <line x1="220" y1="320" x2="180" y2="360" stroke="#7B8290" stroke-width="0.8" stroke-dasharray="2,2"/>
+            <text x="175" y="378" font-size="11" fill="#00409A" text-anchor="end" font-weight="600">v₀ = +15 m/s（上抛）</text>
+
+            <!-- v_返 落回速度标签 · 引线拉到底部右侧 · 远离箭头 -->
+            <line x1="360" y1="320" x2="400" y2="360" stroke="#7B8290" stroke-width="0.8" stroke-dasharray="2,2"/>
+            <text x="405" y="378" font-size="11" fill="#8E6E2E" text-anchor="start" font-weight="600">v_返 = -15 m/s（落回）</text>
+        </svg>
+
+        <ol>
+            <li>上升的最大高度 \(h_{\max}\)；</li>
+            <li>从抛出到达到最大高度的时间 \(t_1\)；</li>
+            <li>从抛出到回到抛出点的总时间 \(t_{\text{总}}\)；</li>
+            <li>回到抛出点时的速度 \(v_{\text{返}}\)；</li>
+            <li><strong>对称性问题</strong>：小球经过 \(h = 10\) m 处的两个时刻分别是多少？两时刻的瞬时速度各是多少？</li>
+        </ol>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>竖直上抛 = 匀变速直线运动</strong>（重看引导块）：加速度 \(a = -g\)（负号来自"向下与'向上为正'相反"），初速度 \(v_0 > 0\)。整个过程（上升 + 下降）是<strong>同一条 v-t 直线</strong>——不需要把上升与下降当作两段分别处理。</li>
+                <li><strong>上抛对称性</strong>（本题核心）：以最高点时刻 \(t_1\) 为"时间对称轴"——
+                    <br>· 经过<strong>同一高度</strong>的两个时刻关于 \(t_1\) 对称：\(t_{\text{升}} + t_{\text{降}} = 2 t_1\)；
+                    <br>· 两时刻的<strong>速度大小相等、方向相反</strong>（\(v_{\text{降}} = -v_{\text{升}}\)）；
+                    <br>· 上升到某高度所用时间 = 从该高度下落回到原位置所用时间。
+                </li>
+                <li><strong>双解陷阱</strong>：位移方程 \(h = v_0 t + \tfrac{1}{2}a t^2\) 是关于 \(t\) 的<strong>二次方程</strong>，通常有两个解——对应"上升途中经过 \(h\)"和"下降途中经过 \(h\)"两个时刻。审题时若没有额外限制，必须<strong>两个解都写出</strong>。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>题面是"竖直上抛"——识别为<strong>匀变速直线运动的特例</strong>，\(a = -g\)。规定"向上为正"后 \(v_0 = +15\) m/s、\(a = -10\) m/s²。
+                <div class="step-rule">（判读要点：画 v-t 图草图 — 一条从 (0, +15) 出发、斜率 -10 的直线；交 t 轴于 \(t = 1.5\) s（最高点）；继续延伸到 (3, -15)（回到抛出点））</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span>问 (1)(4) 用<strong>速度公式</strong>与<strong>第三公式</strong>（\(v^2 = v_0^2 + 2ax\)）；问 (2)(3) 用<strong>速度公式反解 \(t\)</strong>；问 (5) 用<strong>位移公式列二次方程</strong>并解<strong>两个根</strong>。
+                <div class="step-rule">（工具限定：三大公式代 \(a = -g\) 即可，不引入任何新工具）</div>
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>问 (3) 与问 (2) 有对称关系 \(t_{\text{总}} = 2 t_1\)；问 (4) \(v_{\text{返}}\) 与 \(v_0\) 大小相等、方向相反；问 (5) 两解关于 \(t_1 = 1.5\) s 对称，两时刻速度大小相等、方向相反。这些对称关系是<strong>逻辑闭合的独立校验</strong>。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求最大高度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    <strong>最高点的物理特征</strong>是什么？—— 瞬时速度 \(v = 0\)（这一刻小球暂停，之后开始下降）。<br>
+                    已知 \(v_0 = 15\)、末速度 \(v = 0\)、加速度 \(a = -g = -10\)。求高度 \(h\) ——三大公式里哪一条同时含 \(\{v_0, v, a, h\}\) 而不含时间 \(t\)？<br>
+                    → 第三公式 \(v^2 = v_0^2 + 2 a h\)。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \[
+                        0 = 15^2 + 2 \times (-10) \times h_{\max} \implies h_{\max} = \frac{225}{20} = 11.25\ \text{m}.
+                    \]
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    对照示意图 · h_max 略高于 h = 10 m 位置 ✓ · 量级合理（15 m/s 初速的上抛高度约 11 m）
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求到达最高点时间</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    已知初末速度和加速度，求时间 → 用速度公式反解 \(t\)。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \[
+                        0 = 15 + (-10) t_1 \implies t_1 = 1.5\ \text{s}.
+                    \]
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    "每秒减速 10 m/s，15 m/s 需要 1.5 s 才归零" · 直观匹配 ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(3) 求回到抛出点总时间</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    "回到抛出点"意味着位移 \(x = 0\)（起点与终点是同一位置）。<br>
+                    <strong>用位移公式列关于 \(t\) 的方程</strong> · 二次方程有两个解：\(t = 0\)（抛出瞬间 · 自动出现的平凡解）与真正的返回时刻。<br>
+                    <strong>更聪明的做法</strong>：用<strong>上抛对称性</strong>——上升和下降是<em>时间对称</em>的，所以 \(t_{\text{总}} = 2 t_1\)。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    方法 A · 列方程：\(0 = 15 t - 5 t^2 = 5 t (3 - t) \Rightarrow t = 0\) 或 \(t = 3\) s. 取 \(t_{\text{总}} = 3\) s.<br>
+                    方法 B · 对称性：\(t_{\text{总}} = 2 t_1 = 2 \times 1.5 = 3\) s ✓
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法一致 ✓ · 对称性视角比列方程快
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(4) 求回到抛出点速度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    速度公式代入 \(t_{\text{总}} = 3\) s。<br>
+                    <strong>物理直觉预测</strong>：返回时的速度<em>大小</em>应该等于 \(v_0 = 15\) m/s，但<em>方向</em>相反（对称性）。如果算出来不是这个，说明前面某一步错了。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \[
+                        v_{\text{返}} = v_0 + a\,t_{\text{总}} = 15 + (-10)(3) = -15\ \text{m/s}.
+                    \]
+                    负号 → 向下 · 大小 15 m/s.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    大小 = \(v_0\) ✓ · 方向相反（负号）✓ · 与对称性预测完全一致
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(5) 求经过 h = 10 m 的两个时刻及各自速度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    对照题面示意图 —— 小球经过 \(h = 10\) m 的位置<strong>两次</strong>：一次是上升途中、一次是下降途中。<br>
+                    <strong>双解陷阱预警</strong>：这类题的位移方程是<em>二次方程</em>，通常有<em>两个正根</em>，必须都写出来。<br>
+                    <strong>选工具</strong>：列位移公式方程 \(h = v_0 t + \tfrac{1}{2}a t^2\)，代入 \(h = 10\) 解 \(t\)；再用速度公式算两时刻的瞬时速度。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    位移方程：\(10 = 15 t - 5 t^2\) → \(t^2 - 3 t + 2 = 0\) → \((t - 1)(t - 2) = 0\).<br>
+                    两根：\(t_a = 1\) s（上升途中）· \(t_b = 2\) s（下降途中）.<br>
+                    对应速度：\(v(t_a) = 15 + (-10)(1) = +5\) m/s；\(v(t_b) = 15 + (-10)(2) = -5\) m/s.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    <strong>对称性 3 条独立通道</strong>：<br>
+                    ① 两时刻关于 \(t_1 = 1.5\) s 对称：\((1 + 2)/2 = 1.5\) ✓<br>
+                    ② 两时刻速度大小相等、方向相反：\(v(t_a) = +5\)，\(v(t_b) = -5\) ✓<br>
+                    ③ 两时刻速度和为 0：\(5 + (-5) = 0\) ✓<br>
+                    所有对称关系互相印证 · 答案闭合
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：\(h_{\max} = 11.25\) m · \(t_1 = 1.5\) s · \(t_{\text{总}} = 3\) s · \(v_{\text{返}} = -15\) m/s · 经过 \(h = 10\) m 两时刻 \(t_a = 1\) s（\(v = +5\) m/s）与 \(t_b = 2\) s（\(v = -5\) m/s）
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">问 (5) 只写一个解</span>（"经过 10 m 处的时刻 \(t = 1\) s"），完全漏掉下降时经过同一高度的时刻。</div>
+                <div><span class="right">正解：</span>看到"经过某高度的时刻"→ 立刻警觉这是<strong>二次方程</strong>→ 通常有<strong>两个解</strong>。审题时若没有明确排除（如"上升途中"），必须<strong>两解都写</strong>。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">方向约定不一致</span>——"向上为正"但写 \(a = +g\)（错·因为 \(g\) 是重力加速度大小，方向向下与正方向相反，代入公式应取 \(a = -g\)）。</div>
+                <div><span class="right">正解：</span>方向约定后<strong>严格遵守</strong>。"向上为正" → 向下的量都取负号，包括加速度、下降速度、下方位置。若约定"向下为正"，则 \(a = +g\)、\(v_0 = -15\) m/s（因抛的方向是向上=负），结论一样但符号需重新对应。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">把上升与下降当作两段独立运动</span>——上升段先算，下降段用"从最高点自由落体"重新计时。虽然也能算对，但绕远且容易漏掉下降到抛出点以下的情况（本题恰好没有该情境，但延伸题里会有）。</div>
+                <div><span class="right">正解：</span>竖直上抛是<strong>同一条 v-t 直线</strong>贯穿整个过程（\(a = -g\) 常数）。用一条位移方程处理整个运动，通过求解得到不同时刻——比分段处理更快、更少出错。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 匀变速三公式（本题的核心工具）→ <a href="../幂函数的微积分/03_幂函数微积分_直线运动公式.html">03 幂函数的微积分与直线运动公式</a>；矢量与标量（方向约定的基础）→ <a href="../运动学的描述/01_运动的描述.html">01 运动的描述 · Card 2 · STEP 4</a>
+    </div>
+</div>
+
+<!-- 例题 7 · P7 双物体自由落体追及 · 较难 · 蓝 -->
+<div class="example-card" id="example-7">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 7</div>
+        <div class="example-card-title">双物体自由落体的追及 · 高度差场景相遇</div>
+        <div class="example-card-type">P7 · 追及竖直变体</div>
+        <div class="example-card-diff 较难">较难</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>小球 \(A\) 从高度 \(h_A = 45\) m 处由静止自由下落。小球 \(B\) 从高度 \(h_B = 25\) m 处也由静止自由下落，但 \(B\) 比 \(A\) <strong>晚 \(t_0 = 1\) s</strong> 出发。取 \(g = 10\) m/s²，忽略空气阻力。请回答：</p>
+
+        <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 高度轴 · 左边 · 从地面 0 到 50 m -->
+            <line x1="100" y1="300" x2="100" y2="30" stroke="#5C6370" stroke-width="1.5"/>
+            <polygon points="100,30 97,38 103,38" fill="#5C6370"/>
+            <text x="80" y="24" font-size="12" fill="#5C6370">y / m</text>
+            <!-- 地面线 -->
+            <line x1="100" y1="300" x2="450" y2="300" stroke="#5C6370" stroke-width="2"/>
+            <text x="280" y="316" font-size="11" fill="#5C6370" text-anchor="middle">地面</text>
+            <!-- 刻度 · scale: 1 m = 5 px（45 m → 300 - 225 = 75；25 m → 300 - 125 = 175） -->
+            <line x1="96" y1="75" x2="104" y2="75" stroke="#5C6370" stroke-width="1"/>
+            <text x="92" y="79" font-size="11" fill="#5C6370" text-anchor="end">45</text>
+            <line x1="96" y1="175" x2="104" y2="175" stroke="#5C6370" stroke-width="1"/>
+            <text x="92" y="179" font-size="11" fill="#5C6370" text-anchor="end">25</text>
+            <line x1="96" y1="231" x2="104" y2="231" stroke="#5C6370" stroke-width="1"/>
+            <text x="92" y="235" font-size="10" fill="#8E6E2E" text-anchor="end">13.75</text>
+
+            <!-- A 球 · x = 180 · 起点 y = 75 -->
+            <circle cx="180" cy="75" r="8" fill="#00409A"/>
+            <text x="180" y="79" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">A</text>
+            <text x="200" y="65" font-size="11" fill="#00409A" font-weight="700">t = 0 出发</text>
+            <text x="200" y="80" font-size="10" fill="#00409A">从 45 m</text>
+            <!-- A 向下箭头 -->
+            <line x1="180" y1="90" x2="180" y2="220" stroke="#00409A" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <polygon points="180,220 176,212 184,212" fill="#00409A"/>
+
+            <!-- B 球 · x = 340 · 起点 y = 175 -->
+            <circle cx="340" cy="175" r="8" fill="#B8924A"/>
+            <text x="340" y="179" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">B</text>
+            <text x="358" y="167" font-size="11" fill="#8E6E2E" font-weight="700">t = 1 s 出发（晚 1 秒）</text>
+            <text x="358" y="182" font-size="10" fill="#8E6E2E">从 25 m</text>
+            <!-- B 向下箭头 -->
+            <line x1="340" y1="188" x2="340" y2="220" stroke="#B8924A" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <polygon points="340,220 336,212 344,212" fill="#B8924A"/>
+
+            <!-- 相遇高度虚线 · h = 13.75 m -->
+            <line x1="100" y1="231" x2="450" y2="231" stroke="#7B8290" stroke-width="1" stroke-dasharray="4,3"/>
+            <circle cx="180" cy="231" r="6" fill="#5C6370" opacity="0.5"/>
+            <circle cx="340" cy="231" r="6" fill="#5C6370" opacity="0.5"/>
+            <text x="410" y="228" font-size="10" fill="#5C6370" text-anchor="start" font-weight="600">相遇高度</text>
+            <text x="410" y="242" font-size="10" fill="#5C6370" text-anchor="start">h* = 13.75 m</text>
+            <text x="410" y="254" font-size="10" fill="#5C6370" text-anchor="start">t* = 2.5 s</text>
+
+            <text x="255" y="24" font-size="12" fill="#1d1d1f" text-anchor="middle">竖直方向的追及 · A 晚出发就在上方 · B 早在下方</text>
+        </svg>
+
+        <ol>
+            <li>两球相遇（处于同一高度）的时刻 \(t^*\)（以 \(A\) 出发为计时零点）；</li>
+            <li>相遇时距地面的高度 \(h^*\)；</li>
+            <li>相遇瞬间 \(A\)、\(B\) 各自的速度大小。</li>
+        </ol>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>双物体自由落体 = 竖直方向的追及问题</strong>：与 P3（水平方向的汽车追公交）完全同构——只是把"距离"换成"高度"，把"匀速运动 \(x = v t\)"换成"自由落体 \(x = \tfrac{1}{2} g t^2\)"。核心思路（分别写位置方程 + 联立解相遇时间）一样。</li>
+                <li><strong>不同出发时刻的处理</strong>：如果 \(B\) 比 \(A\) 晚 \(t_0\) 出发，就以 \(A\) 的出发时刻为计时零点 \(t = 0\)，则 \(B\) 在 \(t < t_0\) 时静止不动、在 \(t \ge t_0\) 时自由下落。写 \(B\) 的位置方程时要用 <strong>\((t - t_0)\)</strong> 作为 \(B\) 的自由下落时长，不是 \(t\) 本身。</li>
+                <li><strong>合理性校验</strong>：相遇时刻 \(t^* > t_0\)（B 已开始下落）；相遇高度 \(h^* > 0\)（两球都还在空中，没落地）——两个条件都要满足。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>两个物体都做自由落体，但<strong>起点高度不同、出发时刻不同</strong>——识别为<strong>竖直方向的追及问题</strong>。规定向下为正 · 或以地面为原点、向上为正——本解答取"向上为正、地面为原点"。
+                <div class="step-rule">（判读要点：画竖直示意图 — 地面在 \(y = 0\)，\(A\) 起点 \(y = 45\) m，\(B\) 起点 \(y = 25\) m，两球都下落 · 方向向下 \(a = -g\)。<strong>时间设定</strong>：\(A\) 出发为 \(t = 0\)，\(B\) 从 \(t = t_0 = 1\) s 才开始下落）</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span>分别写<strong>位置方程</strong>（对每个球用 \(y = y_0 + v_0 t + \tfrac{1}{2}a t^2\)）；<strong>相遇条件</strong> = 两球位置相等 = \(y_A(t) = y_B(t)\)；<strong>速度公式</strong>算相遇瞬间的速度。
+                <div class="step-rule">（工具限定：三大公式代 \(a = -g\)，不涉及新工具）</div>
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>相遇时刻 \(t^* = 2.5\) s > \(t_0 = 1\) s ✓（\(B\) 已开始下落）；相遇高度 \(h^* = 13.75\) m > 0 ✓（都未落地）；两球位置代入自己的方程分别得到同一高度 ✓（联立方程的自动检查）。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求相遇时刻</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    这题在结构上就是 P3（汽车追公交）的<strong>竖直版</strong>——只是"距离"换成"高度"、"匀速"换成"自由落体"。<br>
+                    参照自由落体引导块：直接把 \(a = -g\) 代入位置公式即可，<strong>没有新工具</strong>。<br>
+                    <strong>关键细节</strong>：B 比 A 晚 1 秒出发 → B 的自由下落时长是 \((t - 1)\) 而不是 \(t\)。这是最常见的陷阱。<br>
+                    <strong>选工具</strong>：分别写 A、B 的位置方程 → 令 \(y_A(t) = y_B(t)\) 联立解 \(t\)。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    球 \(A\)：\(y_A(t) = 45 - 5 t^2\)（\(t \ge 0\)）<br>
+                    球 \(B\)：\(y_B(t) = 25 - 5 (t - 1)^2\)（\(t \ge 1\)）<br>
+                    联立 \(y_A(t) = y_B(t)\)：
+                    \[
+                        45 - 5 t^2 = 25 - 5(t - 1)^2 = 25 - 5 t^2 + 10 t - 5.
+                    \]
+                    消去 \(-5 t^2\) 后：\(45 = 20 + 10 t \Rightarrow t^* = 2.5\) s.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    时序自检：\(t^* = 2.5\) s > \(t_0 = 1\) s ✓（B 已开始下落）<br>
+                    对照示意图 · 相遇标注在 2.5 s ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求相遇高度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    代入 A 或 B 任一位置方程即可 · <strong>都算一遍</strong>是最好的自查（若不相等说明 (1) 算错）。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \(y_A(2.5) = 45 - 5 \times 6.25 = 45 - 31.25 = 13.75\) m<br>
+                    \(y_B(2.5) = 25 - 5 \times 2.25 = 25 - 11.25 = 13.75\) m ✓
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法一致 = 13.75 m ✓ · \(h^* > 0\) 说明两球都还在空中，未落地（合理性通过）
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(3) 求相遇瞬间各自速度</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    <strong>每个球用自己的下落时长</strong>算速度：<br>
+                    · A 从 \(t = 0\) 落到 \(t^* = 2.5\) → 已下落 2.5 s<br>
+                    · B 从 \(t = 1\) 落到 \(t^* = 2.5\) → 已下落 1.5 s<br>
+                    <strong>最容易错的地方</strong>：把 B 的下落时长也写成 2.5 s（忘减 \(t_0\)）。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    球 \(A\)：\(v_A = -g \cdot t^* = -10 \times 2.5 = -25\) m/s（向下 · 大小 25 m/s）<br>
+                    球 \(B\)：\(v_B = -g \cdot (t^* - t_0) = -10 \times 1.5 = -15\) m/s（向下 · 大小 15 m/s）
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    A 早下落 1 s → 累积速度更大 → \(v_A > v_B\)（大小） ✓ · 符合直觉
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：\(t^* = 2.5\) s · \(h^* = 13.75\) m · \(A\) 速度大小 \(25\) m/s（向下） · \(B\) 速度大小 \(15\) m/s（向下）
+            </div>
+
+            <div class="verify-box">
+                <strong>相对运动视角 · 一条独立通道</strong>：在 \(t \ge 1\) 时，两球以相同 \(a = -g\) 下落 → <strong>相对加速度 = 0</strong> → A 相对 B <strong>匀速</strong>！<br>
+                · \(t = 1\) s 时 A 位置 \(45 - 5 = 40\) m、B 位置 25 m → 间距 15 m<br>
+                · A 相对 B 的速度：\(v_A(1) - v_B(1) = -10 - 0 = -10\) m/s（A 向下靠近 B）<br>
+                · 追上时间：\(\Delta t = 15 / 10 = 1.5\) s → 相遇时刻 \(t^* = 1 + 1.5 = 2.5\) s ✓<br>
+                这与 P3 汽车追公交的相对速度视角<strong>一模一样</strong> —— <em>自由落体的追及本质上就是匀速追及</em>（因为相对加速度归零）。
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">B 从 \(t = 0\) 就算自由落体</span>（写成 \(y_B(t) = 25 - 5 t^2\)），忘记 B 迟 1 s 出发。</div>
+                <div><span class="right">正解：</span>B 从 \(t = 1\) 才开始下落 → 自由下落时长是 \((t - 1)\)，位置方程写作 \(y_B(t) = 25 - 5(t - 1)^2\)（\(t \ge 1\)）。若照 B 从 \(t=0\) 落，会算错相遇时刻。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">相遇高度算完不检查是否为正</span>（若相遇高度 \(< 0\) 意味着两球都已落地，题目本身"相遇"不成立）。</div>
+                <div><span class="right">正解：</span>算得相遇时刻后立即检查 \(y^* > 0\)（都未落地）+ \(t^* > t_0\)（B 已下落）。本题两个条件都满足 → 解合理。若不满足 → 说明其中一球已落地，题目应改问"落地时刻"或"未相遇"。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">相遇瞬间 B 的速度写成 \(v_B = -g \cdot t^* = -25\) m/s</span>（错用 A 的下落时长）。</div>
+                <div><span class="right">正解：</span>B 从 \(t = 1\) 才开始下落 → 到 \(t^* = 2.5\) 时 B 的下落时长为 \((t^* - t_0) = 1.5\) s，速度 \(v_B = -g \times 1.5 = -15\) m/s。每个物体用自己的下落时长计算。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 追及相遇的代数框架（本题的水平原型）→ 例题 3（本文件）；矢量方向约定 → <a href="../运动学的描述/01_运动的描述.html">01 运动的描述 · Card 2 · 矢量与标量</a>
+    </div>
+</div>
+
+<!-- 例题 8 · P8 综合压轴 · 前车制动 + 反应时间 · 综合压轴 · 金 -->
+<div class="example-card" id="example-8">
+    <div class="example-card-header">
+        <div class="example-card-no">例题 8</div>
+        <div class="example-card-title">综合压轴 · 前车紧急制动 + 后车反应</div>
+        <div class="example-card-type">P1+P3+P4 · 综合</div>
+        <div class="example-card-diff 综合压轴">综合压轴</div>
+    </div>
+
+    <div class="q-stem">
+        <span class="stem-label">题面</span>
+        <p>在平直公路上，前车 \(A\) 与后车 \(B\) 以相同速度 \(v_0 = 20\) m/s 同向匀速行驶，B 在 A 后方 \(d_0 = 25\) m 处。</p>
+        <p>某时刻 A 发现障碍<strong>立即紧急制动</strong>，加速度大小 \(a_A = 4\) m/s²（减速）。B 的司机<strong>反应时间为 \(t_r = 1.5\) s</strong>（这段时间 B 仍以 \(v_0\) 匀速），反应结束后 B 立即制动，加速度大小 \(a_B = 5\) m/s²（减速）。以 A 开始制动的时刻为 \(t = 0\)，忽略车长。请回答：</p>
+
+        <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 480px; display: block; margin: 12px auto; background: #fff; border-radius: 8px;">
+            <!-- 坐标轴 -->
+            <line x1="60" y1="270" x2="480" y2="270" stroke="#5C6370" stroke-width="1.5"/>
+            <line x1="60" y1="270" x2="60" y2="40" stroke="#5C6370" stroke-width="1.5"/>
+            <polygon points="480,270 472,267 472,273" fill="#5C6370"/>
+            <polygon points="60,40 57,48 63,48" fill="#5C6370"/>
+            <text x="492" y="274" font-size="12" fill="#5C6370">t / s</text>
+            <text x="42" y="34" font-size="12" fill="#5C6370">v / (m·s⁻¹)</text>
+
+            <!-- t 刻度 · scale 1 s = 60 px（起 60, 5 s→360, 5.5→390） -->
+            <line x1="90" y1="266" x2="90" y2="274" stroke="#5C6370" stroke-width="1"/>
+            <text x="90" y="288" font-size="11" fill="#5C6370" text-anchor="middle">0.5</text>
+            <line x1="150" y1="266" x2="150" y2="274" stroke="#5C6370" stroke-width="1"/>
+            <text x="150" y="288" font-size="11" fill="#5C6370" text-anchor="middle">1.5</text>
+            <line x1="360" y1="266" x2="360" y2="274" stroke="#5C6370" stroke-width="1"/>
+            <text x="360" y="288" font-size="11" fill="#5C6370" text-anchor="middle">5</text>
+            <line x1="390" y1="266" x2="390" y2="274" stroke="#5C6370" stroke-width="1"/>
+            <text x="390" y="288" font-size="11" fill="#5C6370" text-anchor="middle">5.5</text>
+
+            <!-- v 刻度 · scale 5 m/s = 40 px（20 m/s → 270 - 160 = 110） -->
+            <line x1="56" y1="110" x2="64" y2="110" stroke="#5C6370" stroke-width="1"/>
+            <text x="52" y="114" font-size="11" fill="#5C6370" text-anchor="end">20</text>
+
+            <!-- A 车 v-t：从 (0, 20) 一直减到 (5, 0) 单斜线 → (60, 110) 到 (360, 270) -->
+            <line x1="60" y1="110" x2="360" y2="270" stroke="#00409A" stroke-width="2.6"/>
+            <text x="200" y="130" font-size="12" fill="#00409A" font-weight="700">A · 立即制动</text>
+
+            <!-- B 车 v-t：反应期 (0-1.5) 水平 · 制动期 (1.5-5.5) 斜线 → (60, 110) 到 (150, 110) 到 (390, 270) -->
+            <line x1="60" y1="110" x2="150" y2="110" stroke="#B8924A" stroke-width="2.6"/>
+            <line x1="150" y1="110" x2="390" y2="270" stroke="#B8924A" stroke-width="2.6"/>
+            <text x="250" y="170" font-size="12" fill="#8E6E2E" font-weight="700">B · 反应 → 制动</text>
+
+            <!-- 关键点 -->
+            <circle cx="60" cy="110" r="4" fill="#5C6370"/>
+            <circle cx="150" cy="110" r="4" fill="#8E6E2E"/>
+            <circle cx="360" cy="270" r="4" fill="#00409A"/>
+            <circle cx="390" cy="270" r="4" fill="#B8924A"/>
+
+            <!-- 阶段分区虚线 · t=1.5、t=5 -->
+            <line x1="150" y1="270" x2="150" y2="60" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="360" y1="270" x2="360" y2="60" stroke="#A8AEBC" stroke-width="1" stroke-dasharray="3,3"/>
+
+            <!-- 阶段标签 -->
+            <text x="105" y="80" font-size="11" fill="#5C6370" text-anchor="middle" font-weight="600">阶段 I</text>
+            <text x="105" y="94" font-size="9" fill="#5C6370" text-anchor="middle">B 反应</text>
+            <text x="255" y="80" font-size="11" fill="#5C6370" text-anchor="middle" font-weight="600">阶段 II</text>
+            <text x="255" y="94" font-size="9" fill="#5C6370" text-anchor="middle">两车都减速</text>
+            <text x="375" y="80" font-size="11" fill="#5C6370" text-anchor="middle" font-weight="600">阶段 III</text>
+            <text x="375" y="94" font-size="9" fill="#5C6370" text-anchor="middle">A 停 · B 减</text>
+
+            <text x="255" y="316" font-size="12" fill="#1d1d1f" text-anchor="middle">两车 v-t 图 · 蓝为 A · 金为 B · 关键节点 t = 1.5, 5, 5.5 s</text>
+        </svg>
+
+        <ol>
+            <li>A 完全停下所需时间 \(t_A\) 及 A 制动过程中的位移 \(x_A\)；</li>
+            <li>B 在反应时间内的位移 \(x_{B,r}\) 及反应结束时刻 B 的位置（以初始 B 位置为原点）；</li>
+            <li>B 从制动到停下所需时间及制动过程位移 \(x_{B,b}\)；</li>
+            <li>B 是否会追上（撞上）A？<strong>如果不会</strong>，两车最终静止时的距离；<strong>如果会</strong>，何时相撞、相撞瞬间 B 的速度大小。</li>
+        </ol>
+    </div>
+
+    <div class="four-sec knowledge">
+        <div class="four-sec-title">🧠 知识点回顾</div>
+        <div class="four-sec-body">
+            <ul>
+                <li><strong>综合题的多要素识别</strong>：本题融合 <strong>反应时间的匀速段（P4 多阶段）</strong>、<strong>两车追及（P3）</strong>、<strong>v-t 图法（P1 图像综合）</strong> 三个题型骨架。压轴题的核心不是新工具，而是<strong>把多个已学工具组合起来处理复杂过程</strong>。</li>
+                <li><strong>反应时间的物理含义</strong>：司机从"看到危险"到"踩下刹车"之间的时间。这段时间车辆<strong>仍匀速</strong>（未开始制动）。反应时间是驾驶安全的关键——本题会让你算出反应期内多走了多少米。</li>
+                <li><strong>追及/相撞的判据</strong>（本题的核心难点）：
+                    <br>· 简单版：只看"最终停下时的位置" — 如果 B 最终位置 &lt; A 最终位置 → 不撞；反之相撞。
+                    <br>· 严格版：还要检查<strong>过程中</strong>两车的间距是否曾经归零（若 B 减速比 A 更快，可能"过程中不撞、终态不撞"，但也可能相反）。<strong>本题两车加速度不同 · 阶段不同 · 必须查最小间距</strong>。
+                </li>
+                <li><strong>v-t 图法互校</strong>：把 A、B 两条 v-t 曲线画在同一张图上——A 是 (0, 20) 到 (5, 0) 的直线；B 是 (0, 20) 到 (1.5, 20) 的水平段接 (1.5, 20) 到 (5.5, 0) 的直线。两曲线下的<strong>面积差</strong>反映两车间距的变化。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="four-sec approach">
+        <div class="four-sec-title">🧭 解题思路 · 三步链</div>
+        <div class="four-sec-body">
+            <div class="step"><span class="step-no">① 判读</span>题目涉及<strong>两车</strong>，且 B 分<strong>两个阶段</strong>（反应期匀速 + 制动期匀减速）、A 只有<strong>一个阶段</strong>（直接制动）。以 B 的<strong>初始位置为原点</strong>建立一维坐标，A 的初始位置为 \(+25\) m。
+                <div class="step-rule">（判读要点：画草图——数轴上 B 在 0，A 在 25。两个 v-t 曲线画在同一图上，观察面积关系）</div>
+            </div>
+            <div class="step"><span class="step-no">② 选工具</span>先分别处理 A 与 B 的运动学（三大公式或 v-t 图梯形面积），得到各自的时间 · 位移；再联合判断"是否相撞 / 最小间距"（比较两车位置函数）。
+                <div class="step-rule">（工具限定：全程只用三大公式 + v-t 图面积 + 代数比较。不涉及任何微积分符号）</div>
+            </div>
+            <div class="step"><span class="step-no">③ 校验</span>三个独立通道：<strong>(a) 两车 v-t 图法</strong>算末位置 vs 三公式算末位置一致；<strong>(b) 阶段末端的位置与速度用两种方法互校</strong>；<strong>(c) 用相对运动视角</strong>（B 相对 A 的速度和位置）独立验证结论。</div>
+        </div>
+    </div>
+
+    <div class="four-sec solution">
+        <div class="four-sec-title">✏️ 解题步骤 · 三层引导</div>
+        <div class="four-sec-body">
+
+            <div class="step">
+                <div><span class="step-no">(1) 求 A 的制动时间 + 位移</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    A 从题目开始就直接匀减速（\(v_0 = 20\) · \(a = -4\)）——这就是最基础的匀变速。<br>
+                    先算停下时间，再算位移。位移可以用位移公式或平均速度法（\(\bar{v} = (v_0 + v)/2\)）。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    停下时间：\(0 = 20 - 4 t_A \Rightarrow t_A = 5\) s.<br>
+                    位移（平均速度法）：\(x_A = \dfrac{20 + 0}{2} \times 5 = 50\) m.<br>
+                    A 停下时的绝对位置（以 B 初始位置为原点）：\(25 + 50 = 75\) m.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    对照 v-t 图 · A 的斜线在 \(t = 5\) 触地 ✓ · 三角形面积 \(\tfrac{1}{2} \times 5 \times 20 = 50\) m ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(2) 求 B 反应期位移</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    <strong>反应期是纯匀速</strong>——B 的司机还没踩刹车，车速不变 20 m/s。<br>
+                    这 1.5 s 对最终能否相撞至关重要——B 在反应期"白走了 30 m"没有减速。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    \(x_{B,r} = v_0 \cdot t_r = 20 \times 1.5 = 30\) m.<br>
+                    反应结束时 B 的位置（以初始 B 位置为原点）：\(30\) m.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    对照 v-t 图 · B 的水平段（矩形）宽 1.5、高 20 → 面积 30 m ✓<br>
+                    <strong>同一时刻 A 的位置</strong>：\(25 + 30 - \tfrac{1}{2} \times 4 \times 1.5^2 = 50.5\) m → 间距已从 25 m 缩到 \(50.5 - 30 = 20.5\) m
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(3) 求 B 的制动期时长与位移</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    <strong>B 制动期的初速度不是 0，是 20 m/s</strong>（前一阶段末速度 = 后一阶段初速度）——多阶段处理的核心接续。<br>
+                    从 20 m/s 匀减速到 0，加速度 \(-5\) m/s²。用速度公式反解 \(\tau_{\text{stop}}\)。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    停下时长（从制动开始起算）：\(\tau_{\text{stop}} = 20/5 = 4\) s.<br>
+                    B 完全停下的绝对时刻：\(t_{B,\text{stop}} = 1.5 + 4 = 5.5\) s.<br>
+                    制动位移：\(x_{B,b} = \dfrac{20 + 0}{2} \times 4 = 40\) m.<br>
+                    B 停下时的绝对位置：\(30 + 40 = 70\) m.
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    对照 v-t 图 · B 的斜线三角形宽 4、高 20 → 面积 40 m ✓
+                </div>
+            </div>
+
+            <div class="step">
+                <div><span class="step-no">(4) 判是否相撞 · 求最终距离（本题核心）</span></div>
+                <div class="think-block">
+                    <div class="think-label">🤔 想一想</div>
+                    <strong>压轴题的核心不是"算终态"，而是"过程中最小间距"</strong>——B 可能在两车都还没停下的中间时刻"追上"A。<br>
+                    <strong>选工具</strong>：直接用<strong>v-t 图整体法</strong>—— 因为它把"过程中间距如何变化"变成"两条 v-t 曲线下的面积差如何变化"，一目了然。<br>
+                    <strong>关键洞察</strong>：<br>
+                    · 在<strong>阶段 I</strong>（0 → 1.5 s，B 反应）B 面积在长（匀速 20 m/s），A 面积增速逐渐减慢（在减速）——B 追赶速度稍占优。<br>
+                    · 在<strong>阶段 II</strong>（1.5 → 5 s，两车都减速）A 减速率 4 m/s²，B 减速率 5 m/s²——B 减得更快，从某一时刻起 A 会"追回来"。<br>
+                    · 在<strong>阶段 III</strong>（5 → 5.5 s，A 已停下，B 还在减速的最后 0.5 s），A 位置不变，B 继续走，间距还在缩小。<br>
+                    <strong>用 v-t 图整体面积法</strong>：全程 A 位移 = 50 m（三角形），全程 B 位移 = 30 + 40 = 70 m（矩形+三角形）。<strong>B 总位移比 A 多 20 m</strong>——所以最终 A 领先 \(25 - 20 = 5\) m。
+                </div>
+                <div class="do-block">
+                    <div class="do-label">✏️ 动手做</div>
+                    <strong>方法 A · v-t 图整体法</strong>（快 · 推荐）：<br>
+                    · A 全程位移（v-t 三角形）：\(\tfrac{1}{2} \times 5 \times 20 = 50\) m<br>
+                    · B 全程位移（矩形 + 三角形）：\(1.5 \times 20 + \tfrac{1}{2} \times 4 \times 20 = 30 + 40 = 70\) m<br>
+                    · B 多走了 \(70 - 50 = 20\) m<br>
+                    · 最终两车间距：\(d_0 - (x_B - x_A) = 25 - 20 = 5\) m > 0 → <strong>不撞</strong> ✓<br><br>
+                    <strong>方法 B · 分阶段间距函数</strong>（严格 · 校验用）：<br>
+                    · 阶段 I 末（\(t = 1.5\)）间距：25 - 2 × 2.25 = 20.5 m<br>
+                    · 阶段 II 末（\(t = 5\)）间距：\(75 - x_B(5) = 75 - 69.375 = 5.625\) m（阶段 II 内单调递减）<br>
+                    · 阶段 III 末（\(t = 5.5\)）间距：\(75 - 70 = 5\) m<br>
+                    <strong>全程间距 &gt; 0 → 不撞 ✓</strong>
+                </div>
+                <div class="check-block">
+                    <div class="check-label">✓ 校验</div>
+                    两法答案一致（5 m）✓ · v-t 图整体法比分段代数快 3-5 倍 · 建议先用整体法给答案，再用分段法校验最小间距是否也 &gt; 0
+                </div>
+            </div>
+
+            <div class="answer-box">
+                <strong>结论</strong>：
+                <br>(1) \(t_A = 5\) s · \(x_A = 50\) m
+                <br>(2) 反应期 B 位移 \(x_{B,r} = 30\) m · 反应结束时 B 位置 \(30\) m
+                <br>(3) B 制动期时长 4 s · \(x_{B,b} = 40\) m · B 完全停下时刻 \(t = 5.5\) s
+                <br>(4) <strong>不会相撞</strong>；两车最终静止时距离为 \(5\) m
+            </div>
+
+            <div class="verify-box">
+                <strong>教学延伸 · 反应时间的物理意义</strong>：如果 B 司机反应时间从 1.5 s 增到 2 s，B 会额外多走 \(20 \times 0.5 = 10\) m —— 最终间距变为 \(5 - 10 = -5\) m，两车会相撞！<br>
+                <strong>这就是"反应时间是驾驶安全的关键"的物理定量表达</strong>——酒驾、疲劳驾驶延长反应时间就是这样直接导致追尾事故。综合大题的价值在于把日常直觉翻译成可计算的物理表述。
+            </div>
+        </div>
+    </div>
+
+    <div class="four-sec mistakes">
+        <div class="four-sec-title">⚠️ 常见错误</div>
+        <div class="four-sec-body">
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 1：</span><span class="wrong">忽略反应时间 · 直接算 B 制动</span>——得到 B 位移 = 40 m，两车间距 = \(75 - 40 = 35\) m > 25 m，得出"越拉越远"错误结论。</div>
+                <div><span class="right">正解：</span>反应时间内 B 仍匀速 30 m！这是本题最<strong>物理直觉性</strong>的部分——反应期是"安全事故的隐性杀手"。要专门处理这个阶段。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 2：</span><span class="wrong">只算终态位置 · 不查过程中间距最小值</span>。若 B 减速比 A 慢，可能出现"过程中撞、终态不撞"或反之。</div>
+                <div><span class="right">正解：</span>压轴题必须<strong>分阶段考察间距的单调性</strong>——每段间距函数是关于时间的一次或二次函数，判断在该段区间内是否有更小值。本题两阶段都是"间距单调递减"，最小值在段末，可以只查段末——但这是<strong>结论，不是免检</strong>。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 3：</span><span class="wrong">A 停下后 B 还在动的阶段被漏掉</span>（认为 A 都停了就没事，直接比较 \(x_{A,\text{停}} - x_B(5) = 75 - 69.375 = 5.625\) m）。</div>
+                <div><span class="right">正解：</span>A 在 \(t = 5\) 停下后，B 还在减速的<strong>最后 0.5 s</strong>（B 在 \(t = 5.5\) 才停）。这 0.5 s 内 B 还要走 0.625 m，最终距离 \(75 - 70 = 5\) m（不是 5.625 m）。<strong>综合题必须处理到"两车都完全停下"这个终态</strong>。</div>
+            </div>
+            <div class="mistake-item">
+                <div><span class="mistake-no">错 4：</span><span class="wrong">硬套 v-t 图整体法但没画对 B 的两段</span>——把 B 也当作单一斜线，直接从 (0, 20) 到 (5.5, 0)。</div>
+                <div><span class="right">正解：</span>B 的 v-t 图是<strong>两段</strong>：水平段（反应期 · 匀速）+ 斜线段（制动期 · 匀减速）。用 v-t 图的关键是<strong>正确画出每段的斜率变化</strong>，不能想当然。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="anchor-link">
+        📖 本题组合调用：<a href="#example-1">P1 图像综合</a>（v-t 图整体法）· <a href="#example-3">P3 追及相遇</a>（两车位置比较）· <a href="#example-4">P4 多阶段</a>（B 反应+制动分段）
+    </div>
+</div>
+
+<nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="06_直线运动综合_fluency.html">📈 熟练度检测</a>
+    <a href="../_oral-exam/newton-leibniz-chain-rule-oral-exam.html">🎤 深度口试</a>
+</nav>
+
+<footer>
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 直线运动综合 · 直线运动综合 · 例题讲解集 · example-cards Skill v0.1.31
+</footer>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
+          ],
+          throwOnError: false
+        });
+      }
+    });
+</script>
+</body>
+</html>

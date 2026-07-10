@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 深度口试 · B 进阶组 · 教师工具页</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900:#002F73; --blue-700:#00409A; --blue-500:#0055B8; --blue-100:#E8EEF9; --blue-050:#F3F6FC;
+    --gold-900:#8E6E2E; --gold-700:#B8924A; --gold-500:#C9A961; --gold-100:#F4ECD6; --gold-050:#FBF7EC;
+    --silver-900:#5C6370; --silver-700:#7B8290; --silver-500:#A8AEBC; --silver-100:#E5E7EC; --silver-050:#F3F4F7;
+    --text-primary:#1d1d1f; --text-secondary:#6e6e73; --text-light:#86868b;
+    --bg-primary:#ffffff; --bg-secondary:#FAFAFB; --border-color:#ECEDF0;
+    --radius:24px; --radius-sm:14px; --radius-btn:16px;
+    --shadow-sm:0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md:0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg-secondary); color:var(--text-primary); line-height:1.85; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container { max-width:820px; margin:0 auto; padding:32px 24px 64px; }
+
+  .breadcrumb { font-size:0.82rem; color:var(--text-secondary); margin-bottom:24px; letter-spacing:0.02em; }
+  .breadcrumb a { color:var(--blue-700); text-decoration:none; }
+  .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb .sep { margin:0 8px; color:var(--silver-500); }
+
+  .teacher-banner {
+    background:#fff; border:2px solid #B91C1C; border-left:6px solid #B91C1C;
+    border-radius:var(--radius-sm); padding:20px 24px; margin-bottom:32px;
+    color:#7B1818; font-weight:600; font-size:0.95rem; line-height:1.7;
+    box-shadow:0 2px 12px rgba(185,28,28,0.08);
+  }
+  .teacher-banner strong { color:#7B1818; display:block; margin-bottom:6px; font-size:1.02rem; }
+  .teacher-banner .tb-sub { font-weight:500; color:#5C2424; font-size:0.86rem; }
+
+  .page-header {
+    text-align:center; padding:64px 32px 56px; background:#fff; color:var(--text-primary);
+    border-radius:var(--radius); margin-bottom:48px; position:relative; overflow:hidden;
+    box-shadow:var(--shadow-sm); border:1px solid var(--border-color);
+  }
+  .page-header::before {
+    content:""; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+    width:180px; height:180px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700)); opacity:0.12; z-index:0;
+  }
+  .page-header::after {
+    content:""; position:absolute; bottom:-40px; right:-40px; width:140px; height:140px;
+    border-radius:50%; border:1px solid var(--silver-500); opacity:0.35; z-index:0;
+  }
+  .page-header h1 {
+    font-size:1.55rem; margin-bottom:14px; font-weight:700; color:var(--blue-700);
+    letter-spacing:-0.01em; line-height:1.6; position:relative; z-index:1;
+  }
+  .page-header h1 .h1-sub {
+    display:inline-block; font-size:0.85rem; font-weight:500; color:var(--silver-700);
+    letter-spacing:0.04em; margin-top:10px; padding-top:10px;
+    border-top:1px solid var(--silver-500); opacity:0.9;
+  }
+  .page-header .subtitle { font-size:0.92rem; color:var(--silver-700); line-height:1.7; position:relative; z-index:1; }
+
+  .section-title {
+    font-size:1.2rem; font-weight:700; color:var(--blue-700); margin-bottom:28px;
+    padding-bottom:18px; border-bottom:1px solid var(--silver-100);
+    display:flex; align-items:center; gap:14px;
+  }
+  .section-title::before {
+    content:""; width:14px; height:14px; border-radius:50%;
+    background:var(--blue-700); flex-shrink:0; box-shadow:0 0 0 4px var(--blue-100);
+  }
+
+  .section-card {
+    background:#fff; border:1px solid var(--border-color); border-left:3px solid var(--blue-700);
+    border-radius:var(--radius); padding:36px; margin-bottom:36px; box-shadow:var(--shadow-sm);
+  }
+  .intro-card {
+    background:var(--blue-050); border-left:3px solid var(--blue-700);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:24px 28px; margin-bottom:32px; font-size:0.92rem; line-height:1.85;
+  }
+  .intro-card strong { color:var(--blue-700); }
+
+  .info-table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .info-table td { padding:14px 16px; border-bottom:1px solid var(--border-color); vertical-align:top; line-height:1.75; }
+  .info-table td:first-child { font-weight:600; color:var(--blue-700); white-space:nowrap; width:130px; }
+  .info-table tr:last-child td { border-bottom:none; }
+
+  .flow-row { display:flex; flex-direction:column; gap:12px; margin-top:8px; }
+  .flow-step {
+    background:#fff; border:1px solid var(--border-color); border-left:3px solid var(--blue-700);
+    border-radius:var(--radius-sm); padding:18px 22px; display:flex; align-items:center; gap:14px;
+    font-size:0.92rem; line-height:1.7; flex-wrap:wrap;
+  }
+  .flow-step .ft { font-weight:700; color:var(--blue-700); flex-shrink:0; }
+  .flow-step .fm {
+    display:inline-block; background:var(--silver-050); color:var(--silver-700);
+    border-radius:999px; padding:4px 12px; font-size:0.78rem; font-weight:600;
+    border:1px solid var(--silver-100); flex-shrink:0;
+  }
+  .flow-step .fd { color:var(--text-primary); flex:1; min-width:200px; }
+
+  .picker {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:28px 32px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+  }
+  .picker h3 { font-size:1.05rem; color:var(--blue-700); margin-bottom:16px; font-weight:700; }
+  .picker-actions { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:18px; }
+  .cta-btn {
+    background:var(--blue-700); color:#fff; border:none; border-radius:var(--radius-btn);
+    padding:12px 24px; font-size:0.92rem; font-weight:600; cursor:pointer;
+    transition:var(--transition); font-family:inherit;
+  }
+  .cta-btn:hover { background:var(--blue-900); box-shadow:0 4px 14px rgba(0,64,154,0.18); }
+  .cta-btn.secondary { background:var(--silver-050); color:var(--silver-900); border:1px solid var(--silver-100); }
+  .cta-btn.secondary:hover { background:var(--silver-100); }
+  .picker-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; }
+  .picker-grid label {
+    display:flex; align-items:center; gap:10px; padding:10px 14px;
+    background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    cursor:pointer; font-size:0.88rem; transition:var(--transition);
+  }
+  .picker-grid label:hover { background:var(--blue-050); border-color:var(--blue-700); }
+  .picker-grid label.checked { background:var(--blue-050); border-color:var(--blue-700); }
+  .picker-grid input[type="checkbox"] { accent-color:var(--blue-700); }
+
+  .actions-bar {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:24px 28px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+    display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+  }
+  .actions-bar label { font-size:0.88rem; color:var(--silver-900); font-weight:600; }
+  .actions-bar input[type="text"] {
+    padding:10px 14px; border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    font-size:0.9rem; font-family:inherit; min-width:200px;
+  }
+  .actions-bar input[type="text"]:focus { outline:none; border-color:var(--blue-700); box-shadow:0 0 0 3px var(--blue-050); }
+
+  .qline {
+    --q-rich:var(--blue-900);
+    --q-mid:var(--blue-700);
+    --q-bg:var(--blue-050);
+    --q-tint:var(--blue-100);
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:40px 36px; margin-bottom:48px; box-shadow:var(--shadow-sm);
+    border-left:3px solid var(--q-mid);
+  }
+  .qline.q-blue   { --q-rich:var(--blue-900);   --q-mid:var(--blue-700);   --q-bg:var(--blue-050);   --q-tint:var(--blue-100);   }
+  .qline.q-gold   { --q-rich:var(--gold-900);   --q-mid:var(--gold-700);   --q-bg:var(--gold-050);   --q-tint:var(--gold-100);   }
+  .qline.q-silver { --q-rich:var(--silver-900); --q-mid:var(--silver-700); --q-bg:var(--silver-050); --q-tint:var(--silver-100); }
+
+  .qline-header {
+    width:240px; height:240px; border-radius:50%;
+    background:var(--q-bg); border:2px solid var(--q-mid);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:28px; margin:0 auto 36px; text-align:center;
+    box-shadow:0 4px 18px rgba(20,30,60,0.06);
+  }
+  .qline-num {
+    font-size:0.74rem; font-weight:700; color:var(--q-mid);
+    letter-spacing:0.22em; padding-bottom:8px; margin-bottom:10px;
+    border-bottom:1.5px solid var(--q-mid);
+  }
+  .qline-header h3 {
+    font-size:1rem; font-weight:700; color:var(--q-rich); line-height:1.55;
+    max-width:100%; word-break:break-word;
+  }
+  .qline-time { font-size:0.74rem; color:var(--q-mid); opacity:0.85; margin-top:8px; letter-spacing:0.02em; }
+
+  .main-q {
+    background:var(--q-bg); border-left:3px solid var(--q-mid);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:22px 26px; margin-bottom:28px;
+  }
+  .main-q .mq-tag {
+    display:inline-block; color:var(--q-mid); font-size:0.74rem; font-weight:700;
+    letter-spacing:0.18em; margin-bottom:8px;
+  }
+  .main-q p { font-size:0.95rem; line-height:1.85; color:var(--text-primary); }
+
+  .followups { margin-bottom:28px; }
+  .followups h4 {
+    font-size:0.92rem; font-weight:700; color:var(--q-rich); margin-bottom:14px;
+  }
+  .branch {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    padding:16px 20px; margin-bottom:12px; font-size:0.9rem; line-height:1.8;
+  }
+  .branch.ok    { border-left:3px solid var(--q-mid); }
+  .branch.stuck { border-left:3px solid var(--silver-700); background:var(--silver-050); }
+  .branch .b-tag {
+    display:inline-block; font-size:0.72rem; font-weight:700;
+    letter-spacing:0.14em; margin-right:10px; padding:2px 10px;
+    border-radius:999px;
+  }
+  .branch.ok .b-tag    { background:var(--q-tint); color:var(--q-rich); }
+  .branch.stuck .b-tag { background:var(--silver-100); color:var(--silver-900); }
+  .branch ul { padding-left:24px; margin-top:8px; }
+  .branch li { margin-bottom:6px; }
+
+  .listen-table { margin-bottom:24px; }
+  .listen-table h4 { font-size:0.92rem; font-weight:700; color:var(--q-rich); margin-bottom:12px; }
+  .lp {
+    display:flex; gap:14px; align-items:flex-start; padding:12px 16px;
+    background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    margin-bottom:8px; font-size:0.9rem; line-height:1.75;
+  }
+  .lp .core-star {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; flex-shrink:0;
+    font-size:0.6rem; color:#fff; font-weight:700;
+  }
+  .lp.core .core-star        { background:var(--gold-700);   box-shadow:0 0 0 2px var(--gold-100);   }
+  .lp.boundary-lp .core-star { background:var(--silver-700); box-shadow:0 0 0 2px var(--silver-100); }
+  .lp.boundary-lp { border-style:dashed; }
+  .lp-anchor {
+    display:inline-block; background:var(--q-tint); color:var(--q-rich);
+    border-radius:999px; padding:2px 10px; font-size:0.74rem; font-weight:600;
+    margin-right:8px; white-space:nowrap;
+  }
+  .lp-text { flex:1; }
+
+  .signals { margin-bottom:24px; }
+  .signals h4 { font-size:0.92rem; font-weight:700; color:#B8924A; margin-bottom:12px; }
+  .signal {
+    background:var(--gold-050); border:1px solid var(--gold-100); border-left:3px solid var(--gold-700);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:14px 18px; margin-bottom:10px; font-size:0.88rem; line-height:1.8;
+  }
+  .signal strong { color:var(--gold-900); }
+  .signal .sig-chain { display:block; margin-top:6px; color:var(--silver-900); font-size:0.84rem; }
+
+  .rescue { margin-bottom:24px; }
+  .rescue h4 { font-size:0.92rem; font-weight:700; color:var(--silver-900); margin-bottom:12px; }
+  .rescue-card {
+    background:var(--silver-050); border:1px solid var(--silver-100);
+    border-radius:var(--radius-sm); padding:14px 18px; margin-bottom:10px;
+    font-size:0.88rem; line-height:1.8; color:var(--silver-900);
+  }
+  .rescue-card em { color:var(--silver-900); font-style:normal; font-weight:600; }
+
+  .record-block { margin-top:24px; padding-top:24px; border-top:1px dashed var(--silver-100); }
+  .record-block h4 { font-size:0.88rem; font-weight:700; color:var(--silver-900); margin-bottom:12px; }
+  .record-checks { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+  .record-checks label {
+    display:flex; align-items:flex-start; gap:10px; font-size:0.88rem; line-height:1.7;
+    padding:6px 10px; border-radius:8px; cursor:pointer; transition:var(--transition);
+  }
+  .record-checks label:hover { background:var(--bg-secondary); }
+  .record-checks label.checked { background:var(--q-bg); }
+  .record-checks input[type="checkbox"] { accent-color:var(--q-mid); margin-top:5px; }
+  .record-block textarea {
+    width:100%; min-height:80px; padding:12px 14px; border:1px solid var(--border-color);
+    border-radius:var(--radius-sm); font-family:inherit; font-size:0.88rem; line-height:1.7;
+    resize:vertical; background:var(--bg-primary); color:var(--text-primary);
+  }
+  .record-block textarea:focus { outline:none; border-color:var(--q-mid); box-shadow:0 0 0 3px var(--q-bg); }
+
+  .linked-output {
+    background:#fff; border:1px solid var(--border-color); border-left:3px solid var(--gold-700);
+    border-radius:var(--radius); padding:32px 36px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+  }
+  .linked-output h2 {
+    font-size:1.15rem; color:var(--gold-900); margin-bottom:18px; font-weight:700;
+    display:flex; align-items:center; gap:12px;
+  }
+  .linked-output h2::before {
+    content:""; width:14px; height:14px; border-radius:50%; background:var(--gold-700);
+    box-shadow:0 0 0 4px var(--gold-100);
+  }
+  .linked-output p { font-size:0.92rem; line-height:1.85; margin-bottom:10px; }
+  .linked-output ul { padding-left:24px; font-size:0.92rem; line-height:1.85; }
+  .linked-output li { margin-bottom:8px; }
+
+  .rubric {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:36px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+    border-top:3px solid var(--blue-700);
+  }
+  .rubric h2 {
+    font-size:1.2rem; color:var(--blue-700); font-weight:700; margin-bottom:24px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .rubric h2::before {
+    content:""; width:14px; height:14px; border-radius:50%; background:var(--blue-700);
+    box-shadow:0 0 0 4px var(--blue-100);
+  }
+  .rubric-grid { display:flex; flex-direction:column; gap:14px; }
+  .rubric-row {
+    padding:18px 22px; border-radius:var(--radius-sm); border:1px solid var(--border-color);
+    font-size:0.9rem; line-height:1.8;
+  }
+  .rubric-row.pass { background:var(--blue-050);   border-left:3px solid var(--blue-700);   }
+  .rubric-row.hold { background:var(--gold-050);   border-left:3px solid var(--gold-700);   }
+  .rubric-row.fail { background:var(--silver-050); border-left:3px solid var(--silver-700); }
+  .rubric-row strong { display:block; margin-bottom:6px; font-size:0.96rem; }
+  .rubric-row.pass strong { color:var(--blue-900); }
+  .rubric-row.hold strong { color:var(--gold-900); }
+  .rubric-row.fail strong { color:var(--silver-900); }
+  .sign-note {
+    margin-top:22px; padding:18px 22px; background:var(--blue-050);
+    border-radius:var(--radius-sm); font-size:0.88rem; line-height:1.85; color:var(--blue-900);
+    border-left:3px solid var(--blue-700);
+  }
+
+  .coverage-table { width:100%; border-collapse:collapse; font-size:0.88rem; margin-top:18px; }
+  .coverage-table th, .coverage-table td {
+    padding:10px 14px; border-bottom:1px solid var(--border-color); vertical-align:top;
+    text-align:left; line-height:1.7;
+  }
+  .coverage-table th { font-weight:700; color:var(--blue-700); background:var(--blue-050); }
+  .coverage-table td:first-child { font-weight:600; color:var(--silver-900); width:140px; }
+
+  .footer { text-align:center; padding:32px 16px 8px; font-size:0.82rem; color:var(--silver-700); letter-spacing:0.04em; }
+
+  @media print {
+    .teacher-banner { border:1px solid #B91C1C; box-shadow:none; }
+    .picker-actions { display:none; }
+    .actions-bar .cta-btn { display:none; }
+    .qline { break-inside:avoid; box-shadow:none; }
+    .page-header::before, .page-header::after { display:none; }
+  }
+
+  @media (max-width: 640px) {
+    .container { padding:24px 16px 48px; }
+    .page-header { padding:44px 22px 36px; }
+    .page-header h1 { font-size:1.3rem; }
+    .qline { padding:28px 22px; }
+    .qline-header { width:200px; height:200px; padding:22px; }
+    .qline-header h3 { font-size:0.92rem; }
+    .flow-step { padding:14px 16px; font-size:0.86rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="#">星图物理</a><span class="sep">/</span>
+    <a href="#">经典力学 1</a><span class="sep">/</span>
+    
+    <span>深度口试 · 教师工具页</span>
+  </nav>
+
+  <div class="teacher-banner">
+    <strong>教师工具页 · 请勿向学生展示或投屏题库区</strong>
+    <span class="tb-sub">本页含追问树 / 误区信号 / 救场话术 / 判定 rubric / 记录区，仅供口试组织教师使用。学生题库页（开放主问 + 考查锚点）见 newton-leibniz-chain-rule-oral-exam.html。</span>
+  </div>
+
+  <header class="page-header">
+    <h1>深度口试 · B 进阶组 · 牛顿-莱布尼茨公式 · 导数的链式法则<br><span class="h1-sub">物理 · 经典力学 1 · advanced · 教师工具页</span></h1>
+    <p class="subtitle">建议时长 10-12 分钟 · 主问题任选 3 条 · 二试必须换未用主问题</p>
+  </header>
+
+  <section class="section-card">
+    <h2 class="section-title">口试定位与覆盖说明</h2>
+    <div class="intro-card">
+      <strong>覆盖范围</strong>：本页一次性覆盖 <strong>牛顿-莱布尼茨公式, 导数的链式法则</strong>。<br>
+      <strong>前提</strong>：学生对应 task-cards（<a href="../牛顿-莱布尼茨公式/04_牛莱公式.html">04_牛莱公式.html</a>、<a href="../导数的链式法则/05_链式法则.html">05_链式法则.html</a>）已完成且自查表全打勾；带本人推导手稿 / 错题入场。
+    </div>
+
+    <table class="info-table">
+      <tr><td>口试时长</td><td>10-12 分钟（暖场 1-2 min · 主问题 ×3 共 7-8 min · 联动+收尾 2-3 min）</td></tr>
+      <tr><td>主问题选择</td><td>6 条主问题线中现场抽 3 条（推导复述铁律：抽中组合建议至少含 Q2 或 Q4 一条）；二试换未用主问题线，防背题</td></tr>
+      <tr><td>判定方式</td><td>无机器判分；教师按 rubric 与听点勾选下结论（通过 / 暂缓 / 不通过）</td></tr>
+      <tr><td>对接教师</td><td>蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 深度口试 · B 进阶组 教师</td></tr>
+    </table>
+
+    <h3 style="font-size:1rem; font-weight:700; color:var(--blue-700); margin:32px 0 14px;">流程条</h3>
+    <div class="flow-row">
+      <div class="flow-step"><span class="ft">① 暖场 · 自述</span><span class="fm">0 – 1.5 min</span><span class="fd">学生自述本次两课最大收获 / 最初最绕的概念——开口热身，教师听口语流畅度与自我评估。</span></div>
+      <div class="flow-step"><span class="ft">② 主问题 ×3</span><span class="fm">1.5 – 9.5 min</span><span class="fd">每条 2.5-3 分钟。教师按抽签或勾选启动；答到位走深追 L1/L2，卡壳走台阶 1/2，仍不行记录后转下一条。</span></div>
+      <div class="flow-step"><span class="ft">③ 推导手稿联动</span><span class="fm">9.5 – 11 min</span><span class="fd">学生展示 04 / 05 两课推导手稿或错题，教师挑一处问「这一步你当时怎么想 / 现在怎么写」。</span></div>
+      <div class="flow-step"><span class="ft">④ 收尾判定 · 签字</span><span class="fm">11 – 12 min</span><span class="fd">教师按 rubric 下结论；通过当场签字，暂缓打印记录区作补学清单。</span></div>
+    </div>
+  </section>
+
+  <div class="actions-bar">
+    <label for="studentName">学生姓名：</label>
+    <input type="text" id="studentName" placeholder="输入学生姓名以载入/保存记录">
+    <button type="button" class="cta-btn" onclick="loadRecord()">载入记录</button>
+    <button type="button" class="cta-btn secondary" onclick="clearRecord()">清空本生记录</button>
+    <button type="button" class="cta-btn secondary" onclick="window.print()">打印</button>
+  </div>
+
+  <div class="picker">
+    <h3>选题器（从 6 条主问题中抽 3 条 · 建议至少含 Q2 或 Q4 一条推导复述题）</h3>
+    <div class="picker-actions">
+      <button type="button" class="cta-btn" onclick="randomPick()">随机抽 3 条</button>
+      <button type="button" class="cta-btn secondary" onclick="clearPick()">取消全选</button>
+    </div>
+    <div class="picker-grid" id="pickerGrid">
+      <label data-q="q1"><input type="checkbox" onchange="togglePick(this)"> Q1 · 变上限积分 S(x) 的双重身份</label>
+      <label data-q="q2"><input type="checkbox" onchange="togglePick(this)"> Q2 · 牛莱 5 段推导复述（铁律）</label>
+      <label data-q="q3"><input type="checkbox" onchange="togglePick(this)"> Q3 · 任意 F 与失效情形</label>
+      <label data-q="q4"><input type="checkbox" onchange="togglePick(this)"> Q4 · 链式 4 步推导复述（铁律）</label>
+      <label data-q="q5"><input type="checkbox" onchange="togglePick(this)"> Q5 · 三角复合 + 多次链式</label>
+      <label data-q="q6"><input type="checkbox" onchange="togglePick(this)"> Q6 · 三方法对比 + 链式恒等式</label>
+    </div>
+  </div>
+
+  <!-- ===== MAIN_QUESTIONS INJECTION POINT ===== -->
+
+  <!-- Q1 · q-blue -->
+  <section class="qline q-blue" id="q1">
+    <div class="qline-header">
+      <div class="qline-num">主问题 1</div>
+      <h3>变上限积分函数的双重身份<br>桥梁是谁</h3>
+      <div class="qline-time">约 2.5 – 3 分钟</div>
+    </div>
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>在 04 课的推导里出现了一个新对象 \(S(x) = \int_a^x f(t)\,dt\)，叫「变上限积分函数」。你<strong>用自己的话</strong>告诉我：这个 \(S(x)\) 在牛莱公式的推导里扮演什么角色？为什么 03 课只算定积分数值时不需要它，而 04 课偏偏要专门定义它？（提示：让学生先把 \(S(x)\) 写在纸上再讲，不能只口头说「它是变上限的积分」。）</p>
+    </div>
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok"><span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「如果让你给一个只看过 03 课的同学解释，\(S(x)\) 凭什么<strong>既是面积又是原函数</strong>，你会用一句话怎么说？」</li>
+          <li>「为什么被积变量必须改成 \(t\) 而不能继续用 \(x\)？这<strong>不是约定</strong>，是逻辑上的必要——你能讲清吗？」</li>
+        </ul>
+      </div>
+      <div class="branch ok"><span class="b-tag">深追 L2</span>
+        <ul>
+          <li>「如果把下限也变成变量会怎么样？为什么我们坚持下限固定？」</li>
+          <li>「\(S(a)\) 与 \(S(b)\) 两个边界值各扮演什么角色——一个用来定常数 \(C\)，一个就是要算的那个定积分，能复述吗？」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 1</span>
+        <ul>
+          <li>「还记得 Card 1 STEP 4 列出的两条边界值吗？翻你的手稿到那一页指给我看，然后口头复述。」</li>
+          <li>「03 课里你算过 \(\int_0^t (v_0 + a\tau)\,d\tau\)——那是一个数值；把上限 \(t\) 换成变量 \(x\)，就变成了……（让学生接）」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 2</span>
+        <ul>
+          <li>「取 \(f(t) = t\)、\(a = 0\)。\(S(x) = \int_0^x t\,dt = ?\)（不告诉答案，让学生算出 \(x^2/2\)）。然后问：这是一个数还是一个函数？为什么？」</li>
+          <li>仍卡 → 记录该项为「桥梁角色」未通，自然转入 Q2 不死磕。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="listen-table">
+      <h4>听点（金圆核心 · 银圆边界）</h4>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A1 · S(x) 升级</span>明确说出「把上限从一个数变成变量，定积分从数值升级为函数」——而不是只复述定义式</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A2 · 哑变量改名</span>能讲出「上限是函数自变量、被积变量是哑变量，撞名会有歧义」，不能只说「约定俗成」</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A3 · 边界值</span>主动点出 \(S(a) = 0\) 和 \(S(b)\) 就是要算的那个定积分</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">桥梁双重身份</span>能用「既是累积量又是原函数」或等价表述说明 \(S(x)\) 把「极限运算」和「求逆运算」接起来</span></div>
+    </div>
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal"><strong>信号 A · 数 vs 函数</strong>：听到「\(S(x)\) 就是定积分」。<span class="sig-chain">→ 没分清「数」与「函数」的升级；救场：「那定积分本身的结果是几个数？\(S(x)\) 是几个数？」</span></div>
+      <div class="signal"><strong>信号 B · 哑变量约定</strong>：听到「必须用 \(t\) 是约定」。<span class="sig-chain">→ 没看到「上限 vs 哑变量」的逻辑必要；救场：「如果上限和被积变量同名 \(\int_a^x f(x) dx\)，让 AI 看会读出什么？」</span></div>
+      <div class="signal"><strong>信号 C · 背诵型</strong>：能把定义式逐字写出，但问「为什么必须改名」立刻崩。<span class="sig-chain">→ 概念性「哑变量身份」没通；救场不给答案，转 Q2 看推导能不能复述。</span></div>
+      <div class="signal"><strong>信号 D · 面积 vs 函数混同</strong>：听到「\(S(x)\) 就是面积」但答不出「面积是数、函数是映射」。<span class="sig-chain">→ 没接通几何直觉与函数身份；救场：「若把 \(x\) 从小滑到大，涂色面积每一时刻是几个数？合起来是……」</span></div>
+      <div class="signal"><strong>信号 E · 下限也可变</strong>：听到「下限变量化也一样」。<span class="sig-chain">→ 没意识到「基准点漂移」会破坏 \(S(a)=0\) 这条锚定；救场：「\(S(a) = 0\) 这条边界如果 a 也在变，还能用来定 C 吗？」</span></div>
+      <div class="signal"><strong>信号 F · 只讲面积不讲原函数</strong>：能讲「面积随 x 增长」但漏「\(S'(x) = f(x)\)」这条身份。<span class="sig-chain">→ 双重身份中「原函数」端断掉；救场：「面积对 x 的变化率是什么？想想 03 课差分。」</span></div>
+      <div class="signal"><strong>信号 G · 03 vs 04 差异说不清</strong>：答不出「03 只算数值 / 04 造函数」。<span class="sig-chain">→ 两课定位模糊；救场：「03 课的结果是数字还是符号？04 课呢？」</span></div>
+      <div class="signal"><strong>信号 H · S(x) 记号含义讲反</strong>：把 \(S(x)\) 说成「\(x\) 位置处的瞬时值」。<span class="sig-chain">→ 面积累积语义丢；救场：「\(S(x)\) 是<strong>从 a 到 x</strong> 的累积面积，不是 x 处那一点的什么值——你能重新定义一遍吗？」</span></div>
+    </div>
+    <div class="rescue">
+      <h4>救场话术（给台阶不给答案）</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「翻到 04 课 Card 1 的几何示意图。涂色面积写的是什么符号？x 变了之后涂色面积怎么变？」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「03 课你算过的 \(\int_0^3 t^2 dt = 9\) 是一个数。把上限 3 改成 \(x\) 会发生什么？不要算结果，只回答数还是函数。」</div>
+    </div>
+    <div class="record-block">
+      <h4>记录区 · Q1</h4>
+      <div class="record-checks">
+        <label data-key="q1-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> A1 · S(x) 升级 命中</label>
+        <label data-key="q1-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> A2 · 哑变量改名 命中</label>
+        <label data-key="q1-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> A3 · 边界值 S(a)=0 / S(b) 命中</label>
+        <label data-key="q1-sig"><input type="checkbox" onchange="saveCheckbox(this)"> 触发误区信号</label>
+      </div>
+      <textarea data-key="q1-note" placeholder="备注：学生关键表述 / 卡点 / 后续补学指向 ……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- Q2 · q-gold · 推导复述铁律 -->
+  <section class="qline q-gold" id="q2">
+    <div class="qline-header">
+      <div class="qline-num">主问题 2 · 推导复述</div>
+      <h3>牛莱公式的 5 段严格推导<br>合上手稿口头复述</h3>
+      <div class="qline-time">约 3 – 3.5 分钟</div>
+    </div>
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>请你<strong>合上 04 课的推导手稿</strong>，用 2-3 分钟口头复述牛莱公式的完整推导主链路：从定义 \(S(x)\) 开始，到得出 \(\int_a^b f\,dx = F(b) - F(a)\) 为止。每一段都要说出<strong>这一步用到了哪件工具</strong>（积分可加性 / 积分中值定理 / 函数连续性 / 导数定义 /「导数相等差常数」），讲完后再打开手稿对照。（提示：进阶组铁律——本题是核心复述题；学生可以在纸上同步写关键式，但不能翻手稿照念。）</p>
+    </div>
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok"><span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「第 2 段你用了积分中值定理。这条定理的<strong>前提</strong>是什么？为什么本课的 \(f\) 满足？」</li>
+          <li>「第 3 段取极限那里，你说『\(\xi \to x\)』。这一步的<strong>根据</strong>是什么？光靠中值定理够吗？」（应答：还要 \(\xi\) 被夹在 \([x, x+\Delta x]\) 里的事实）</li>
+          <li>「\(f\) 在 \(x\) 处<strong>连续</strong>这条假设，在 5 段里到底在<strong>哪一步</strong>起关键作用？」</li>
+        </ul>
+      </div>
+      <div class="branch ok"><span class="b-tag">深追 L2</span>
+        <ul>
+          <li>「如果中值定理换成『平均值定理』用一句话陈述，你怎么说？」</li>
+          <li>「如果我把 \(f\) 改成在 \(x\) 处有<strong>跳跃</strong>的函数，5 段里第几步会失败？」（应答：第 3 段取极限那一步，\(f(\xi) \to f(x)\) 不成立）</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 1</span>
+        <ul>
+          <li>「还记得 Card 2 STEP 1 工具清单里第 3 件吗？翻手稿到那一页，把定理表述读一遍——然后合上手稿，用自己的话说一遍。」</li>
+          <li>「在 \([x, x+\Delta x]\) 这段上，存在某一点 \(\xi\)，使得积分等于什么？」（让学生接出 \(f(\xi) \cdot \Delta x\)）</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 2</span>
+        <ul>
+          <li>「在 03 课你已经用过的『两函数导数相等差一常数』是什么？写出 \(S'(x)\) 与 \(F'(x)\) 都等于什么。」</li>
+          <li>仍不能复述 → 记录「5 段推导无法独立复述」，该项直接列为补学指向 04 课 Card 2 STEP 5，自然转下一主线。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A4 · 5 段主链路</span>不查手稿能依次讲出：① 差分 \(S(x+\Delta x) - S(x)\) → ② 积分可加性合并为 \(\int_x^{x+\Delta x}\) → ③ 中值定理出 \(f(\xi)\Delta x\) → ④ 取极限得 \(S'(x) = f(x)\) → ⑤ 配 \(S = F + C\) + 用 \(S(a) = 0\) 定 \(C\)</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A5 · ξ 存在性</span>能说出「中值定理只断言 ξ <strong>存在</strong>，并不告诉精确值；ξ 被夹在区间内，\(\Delta x \to 0\) 时 \(\xi \to x\)」</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A6 · 连续性在哪用</span>明确指认连续性用在第 3 段取极限处（\(f(\xi) \to f(x)\)）——而不是泛泛说「连续是前提」</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">五段对应工具</span>能逐段说出用了哪件工具（导数定义 / 区间可加性 / 中值定理 / 连续性 / 导数相等差常数），不必背工具表，但要「对得上」</span></div>
+    </div>
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal"><strong>信号 A · 中值定理混淆</strong>：听到「中值定理就是 \(f(\xi) = \overline f\)」。<span class="sig-chain">→ 与算术平均混淆；救场：「你说的是哪个定理的陈述？本课 Card 2 STEP 1 工具 3 写的是什么？」</span></div>
+      <div class="signal"><strong>信号 B · 想求出 ξ</strong>：听到「想精确求出 ξ 是多少」。<span class="sig-chain">→ 没理解「存在性」够用；救场：「极限关心的是 ξ 的<strong>去向</strong>，不是 ξ 的<strong>身份</strong>——为什么去向就够？」</span></div>
+      <div class="signal"><strong>信号 C · 背诵型</strong>：能写出极限式但讲不出「为什么 \(\xi \to x\)」。<span class="sig-chain">→ 救场不给答案，引导学生在纸上画 \([x, x+\Delta x]\) 区间收缩。</span></div>
+      <div class="signal"><strong>信号 D · 连续性位置</strong>：听到「f 连续是前提，不知道哪里用到」。<span class="sig-chain">→ 概念性「假设的位置」没通；救场：「如果 f 在 x 处突然跳一下，第几段会塌？请只指出哪一段，无需修复。」</span></div>
+      <div class="signal"><strong>信号 E · 跳过差分直接写 S'</strong>：听到「因为 \(S'(x) = f(x)\) 所以\ldots」。<span class="sig-chain">→ 把结论当起点，5 段缩成 1 段；救场：「\(S'(x)\) 你怎么算出来的？从哪个差商极限开始？」</span></div>
+      <div class="signal"><strong>信号 F · 工具误配段</strong>：听到把「区间可加性」放到第 3 段而不是第 2 段。<span class="sig-chain">→ 工具与段位对应错乱；救场：「差分合并成一段积分——你用的哪件工具？名字读出来。」</span></div>
+      <div class="signal"><strong>信号 G · 定 C 步骤跳过</strong>：讲到 \(S = F + C\) 后直接令 \(x = b\)。<span class="sig-chain">→ 漏掉用 \(S(a)=0\) 定 C 这一步；救场：「\(C\) 是怎么定的？为什么令 \(x = a\)？」</span></div>
+      <div class="signal"><strong>信号 H · Δx→0 方向单侧</strong>：只考虑 \(\Delta x > 0\) 不管 \(\Delta x < 0\)。<span class="sig-chain">→ 单侧极限未论证双向；救场：「如果 \(\Delta x\) 从负方向趋 0，中值定理还能用吗？区间怎么写？」</span></div>
+      <div class="signal"><strong>信号 I · S(a)=0 视作显然</strong>：直接跳过声明 \(S(a) = 0\) 就用来定 C。<span class="sig-chain">→ 关键边界值未点明；救场：「\(S(a) = \int_a^a f\,dt\) 等于几？为什么？在 5 段的哪一段用到？」</span></div>
+    </div>
+    <div class="rescue">
+      <h4>救场话术（给台阶不给答案）</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「翻 Card 2 STEP 1 工具清单，读出 4 件工具的<strong>名字</strong>（不读内容）。然后合上手稿，对每一件想：它在 5 段里的哪一段登场？」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「我帮你起头：第 1 段是把差分写成一段积分。第 2 段你接——」</div>
+    </div>
+    <div class="record-block">
+      <h4>记录区 · Q2</h4>
+      <div class="record-checks">
+        <label data-key="q2-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> A4 · 5 段主链路完整 命中</label>
+        <label data-key="q2-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> A5 · ξ 存在性 vs 精确值 命中</label>
+        <label data-key="q2-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> A6 · 连续性用在第 3 段 命中</label>
+        <label data-key="q2-sig"><input type="checkbox" onchange="saveCheckbox(this)"> 触发误区信号</label>
+      </div>
+      <textarea data-key="q2-note" placeholder="备注：能复述几段 / 卡在哪段 / 工具对应是否正确 ……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- Q3 · q-silver -->
+  <section class="qline q-silver" id="q3">
+    <div class="qline-header">
+      <div class="qline-num">主问题 3</div>
+      <h3>任意原函数 F<br>与公式的失效情形</h3>
+      <div class="qline-time">约 2.5 分钟</div>
+    </div>
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>公式 \(\int_a^b f\,dx = F(b) - F(a)\) 里的 \(F\) 写作「<strong>任意</strong>一个原函数」。问你两件事：① 为什么「任意」在这里<strong>不</strong>产生歧义？② 这条公式在什么情形下<strong>不能用</strong>？请举一个具体反例。</p>
+    </div>
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok"><span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「如果 \(F_1 = F_2 + 100\) 都是 \(f\) 的原函数，算 \(F_1(b) - F_1(a)\) 与 \(F_2(b) - F_2(a)\)——把代数过程在纸上写一遍，让我看常数 100 怎么消掉。」</li>
+          <li>「你举的反例（如 \(\int e^{-x^2} dx\)）确实没有初等表达——但这是不是意味着<strong>定积分</strong> \(\int_0^1 e^{-x^2} dx\) 也算不出来？」（应答：能算近似值，但不能用牛莱公式给出闭式）</li>
+        </ul>
+      </div>
+      <div class="branch ok"><span class="b-tag">深追 L2</span>
+        <ul>
+          <li>「再举一类失效：\(f\) 在 \([a, b]\) 内有<strong>跳跃</strong>，比如 \(f(x) = 1\) 当 \(x &lt; 0\)、\(f(x) = 2\) 当 \(x \geq 0\)。你直接套牛莱公式会出什么问题？」（应答：找不到一个在整个区间上处处导数等于 f 的可微 F；或分段处理）</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 1</span>
+        <ul>
+          <li>「04 课学习目标第 5 条写了『识别公式失效的情形』——你手稿上 Card 5 反思 C 写了什么？翻给我看。」</li>
+          <li>「取 \(F_1(x) = x^2\) 和 \(F_2(x) = x^2 + 5\)，两者都是 \(2x\) 的原函数。算 \([F_1(x)]_0^3\) 和 \([F_2(x)]_0^3\)——结果一样吗？」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 2</span>
+        <ul>
+          <li>如果学生不能讲出「常数被减法消掉」，且讲不出任何反例：记录 A7 / A8 / A9 都未中，转 Q1 或 Q6 不死磕。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A7 · S=F+C</span>能讲出「\(C\) 由 \(S(a) = 0\) 唯一定下，得 \(C = -F(a)\)；令 \(x = b\) 得结论」</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A8 · 任意 F 消常数</span>能口头或在纸上展示 \((F_1(b) + K) - (F_1(a) + K) = F_1(b) - F_1(a)\)——常数在两端相减消掉</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A9 · 失效情形</span>至少举一例：① \(f\) 不连续（区间内跳跃）；② \(F\) 没有初等表达（\(\int e^{-x^2} dx\)、\(\int \sin x / x\,dx\)）</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">数值方法</span>边界听点：能提到「定积分不能用牛莱写闭式时还可以用数值方法逼近」是亮点；没提到不扣分</span></div>
+    </div>
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal"><strong>信号 A · 任意 F 是约定</strong>：听到「任意 F 是约定」。<span class="sig-chain">→ 没理解常数消去的代数事实；救场：「纸上具体算一遍 \(F_2 = F_1 + 5\) 的两端差值。」</span></div>
+      <div class="signal"><strong>信号 B · 无表达 vs 无原函数</strong>：听到「\(\int e^{-x^2} dx\) 没有原函数」。<span class="sig-chain">→ 误读「无初等表达」为「无原函数」；救场：「原函数是<strong>存在</strong>的（用变上限积分定义就能造一个），只是不能用初等函数<strong>表达</strong>。」</span></div>
+      <div class="signal"><strong>信号 C · 背诵型</strong>：能背「\(f\) 连续 + \(F\) 是原函数」两条件，但举不出任何反例。<span class="sig-chain">→ 救场不给答案，转 Q1。</span></div>
+      <div class="signal"><strong>信号 D · 反例只举一类</strong>：只举「无初等表达」一类失效，答不出「不连续」这一类。<span class="sig-chain">→ 失效情形分类不全；救场：「\(f\) 的<strong>假设</strong>是什么？如果这条假设崩了怎么办？」</span></div>
+      <div class="signal"><strong>信号 E · 常数消去演示错</strong>：算 \((F_1(b) + K) - (F_1(a) + K)\) 时把 K 加两次而不是相减。<span class="sig-chain">→ 代数细节丢；救场：「两端都加 K，减号一分配，K 去哪了？」</span></div>
+      <div class="signal"><strong>信号 F · 混淆定 C 与任意 F</strong>：把 Q1 的「用 \(S(a)=0\) 定 C」与本题「任意 F 差常数」当成同一件事。<span class="sig-chain">→ 两个「常数」层级混一起；救场：「Q1 定 C 是定<strong>哪一个</strong> C？本题的常数在哪出现？」</span></div>
+      <div class="signal"><strong>信号 G · 跳跃反例算错</strong>：举跳跃函数反例，但硬用牛莱得出一个「看起来对」的差值。<span class="sig-chain">→ 未看出 F 不可微；救场：「跳跃点处的 F 存在导数吗？F 都不可微，牛莱前提在吗？」</span></div>
+    </div>
+    <div class="rescue">
+      <h4>救场话术（给台阶不给答案）</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「翻 04 课 Card 5 反思 C，你写过的卡点是什么？读出来。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「\(2x\) 的原函数你能列几个？至少 3 个不同的。」</div>
+    </div>
+    <div class="record-block">
+      <h4>记录区 · Q3</h4>
+      <div class="record-checks">
+        <label data-key="q3-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> A7 · S=F+C 与 C=−F(a) 命中</label>
+        <label data-key="q3-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> A8 · 任意 F 常数消去 命中</label>
+        <label data-key="q3-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> A9 · 失效情形举例 命中</label>
+        <label data-key="q3-sig"><input type="checkbox" onchange="saveCheckbox(this)"> 触发误区信号</label>
+      </div>
+      <textarea data-key="q3-note" placeholder="备注：举出的反例 / 常数消去演示是否到位 ……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- Q4 · q-blue · 推导复述铁律 -->
+  <section class="qline q-blue" id="q4">
+    <div class="qline-header">
+      <div class="qline-num">主问题 4 · 推导复述</div>
+      <h3>链式法则的极限版严格推导<br>合上手稿口头复述</h3>
+      <div class="qline-time">约 3 – 3.5 分钟</div>
+    </div>
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>请你<strong>合上 05 课的手稿</strong>，用 2-3 分钟口头推导链式法则：从导数定义 \(\dfrac{dy}{dx} = \lim_{\Delta x \to 0} \dfrac{\Delta y}{\Delta x}\) 出发，推到 \(\dfrac{dy}{dx} = \dfrac{dy}{du} \cdot \dfrac{du}{dx}\)。每一步要说出<strong>这一步在做什么 + 用到什么前提</strong>（重点：\(\Delta x \to 0 \Rightarrow \Delta u \to 0\) 这一桥梁<strong>靠什么</strong>支撑）。</p>
+    </div>
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok"><span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「你刚刚说『\(\Delta x \to 0\) 时 \(\Delta u \to 0\)』。这一步靠的<strong>不是</strong>极限定义本身——它依赖什么？」（应答：g 可导 ⇒ g 连续；\(\Delta u = (du/dx) \cdot \Delta x + o(\Delta x) \to 0\)）</li>
+          <li>「为什么需要专门论证『可导 ⇒ 连续』？写在纸上：\(\Delta u = \dfrac{\Delta u}{\Delta x} \cdot \Delta x\)，当 \(\Delta x \to 0\) 时这两个因子各趋向什么？」</li>
+        </ul>
+      </div>
+      <div class="branch ok"><span class="b-tag">深追 L2</span>
+        <ul>
+          <li>「你在第 1 步写了 \(\dfrac{\Delta y}{\Delta x} = \dfrac{\Delta y}{\Delta u} \cdot \dfrac{\Delta u}{\Delta x}\)。这一步成立的<strong>显式前提</strong>是什么？」（应答：\(\Delta u \ne 0\)；边界情况要单独论证）</li>
+          <li>「如果 g 在 x 附近某些点输出与 g(x) 相同（即 \(\Delta u = 0\)）会怎么办？能讲个修补思路吗？」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 1</span>
+        <ul>
+          <li>「导数定义里分子分母只有 \(\Delta y\) 和 \(\Delta x\)。我们想<strong>把 \(\Delta u\) 引进来</strong>——最朴素的代数操作是什么？」（让学生接出「上下同乘 \(\Delta u\)」）</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 2</span>
+        <ul>
+          <li>「已经有 \(\dfrac{\Delta y}{\Delta u} \cdot \dfrac{\Delta u}{\Delta x}\) 两个分数。第一个分数当 \(\Delta x \to 0\) 时如何处理？提示：让 \(\Delta u \to 0\) 然后用 \(f\) 的导数定义。」</li>
+          <li>仍卡 → 记录 B3 未中，转 Q5 看应用层是否完整。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B1 · 内外拆分</span>能讲出「复合 = 内函数 \(u = g(x)\) + 外函数 \(y = f(u)\)」，并知道「非平凡」复合</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B2 · 可导前提</span>不漏写 \(\dfrac{dy}{dx} = \dfrac{dy}{du} \cdot \dfrac{du}{dx}\) 且主动声明「两个函数都<strong>可导</strong>」</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B3 · 4 步推导</span>能依次讲：① 上下同乘 \(\Delta u\)（前提 \(\Delta u \ne 0\)） → ② \(\Delta x \to 0\) 时由 g 可导 ⇒ g 连续，\(\Delta u \to 0\) → ③ 拆乘积极限 → ④ 边界 \(\Delta u = 0\) 单独处理</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">可导 ⇒ 连续</span>能在纸上写出 \(\Delta u = \dfrac{\Delta u}{\Delta x} \cdot \Delta x \to g'(x) \cdot 0 = 0\)</span></div>
+    </div>
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal"><strong>信号 A · Δu→0 缺根据</strong>：听到「\(\Delta u \to 0\) 是因为 \(\Delta x \to 0\)」。<span class="sig-chain">→ 没分辨「连续性」作为隐藏桥梁；救场：「这是<strong>蕴含</strong>关系吗？连续函数才有这条蕴含——是哪条性质？」</span></div>
+      <div class="signal"><strong>信号 B · 漏 Δu≠0</strong>：听到「上下同乘 \(\Delta u\) 不需要前提」。<span class="sig-chain">→ 救场：「如果 \(\Delta u\) 真等于零，分母为零你能除吗？」</span></div>
+      <div class="signal"><strong>信号 C · 连续 vs 可导</strong>：听到「链式法则要求两个函数都连续就够」。<span class="sig-chain">→ 误把「连续」当「可导」前提；救场：「你能找一个连续但不可导的函数（如 \(|x|\) 在 0 处）吗？链式在那里能用吗？」</span></div>
+      <div class="signal"><strong>信号 D · 背诵型</strong>：能流利写出 4 步表达式但讲不出 \(\Delta u \to 0\) 的依据。<span class="sig-chain">→ 救场不给答案，要求纸上分解 \(\Delta u = (\Delta u / \Delta x) \cdot \Delta x\)。</span></div>
+      <div class="signal"><strong>信号 E · 拆乘积极限缺条件</strong>：直接把 \(\lim(A \cdot B) = \lim A \cdot \lim B\) 拆，不声明两极限都存在。<span class="sig-chain">→ 极限运算律前提丢；救场：「拆乘积极限要满足什么？两个因子的极限各存在吗？」</span></div>
+      <div class="signal"><strong>信号 F · 内外函数指认反</strong>：把 \(y = f(g(x))\) 的内函数说成 \(f\)、外函数说成 \(g\)。<span class="sig-chain">→ 复合方向搞反；救场：「先算的是哪个？被套进去的那个是内还是外？」</span></div>
+      <div class="signal"><strong>信号 G · 边界 Δu=0 忽略</strong>：讲到边界情况说「直接令 0」而不讨论修补。<span class="sig-chain">→ 严格性未达进阶要求；救场：「\(\Delta u = 0\) 时你分母为 0，前面那条式子成立吗？需要什么修补？」</span></div>
+      <div class="signal"><strong>信号 H · 把 dy/du 当独立除法</strong>：把 \(\dfrac{dy}{du}\) 当作真的除法「dy 除以 du」。<span class="sig-chain">→ 微分符号语义误读；救场：「\(dy/du\) 是极限得到的整体符号，还是分子除以分母？两种理解会导致哪种错？」</span></div>
+    </div>
+    <div class="rescue">
+      <h4>救场话术（给台阶不给答案）</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「翻 05 课 Card 1 STEP 2 思考点 2——你写过的两行是什么？读出来再合上。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「导数的定义里只有 \(\Delta y / \Delta x\)。要把 \(\Delta u\) 引进来，做什么最简单的代数变形？」</div>
+    </div>
+    <div class="record-block">
+      <h4>记录区 · Q4</h4>
+      <div class="record-checks">
+        <label data-key="q4-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> B1 · 内外拆分 命中</label>
+        <label data-key="q4-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> B2 · 法则陈述 + 可导前提 命中</label>
+        <label data-key="q4-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> B3 · 极限推导 4 步 命中</label>
+        <label data-key="q4-sig"><input type="checkbox" onchange="saveCheckbox(this)"> 触发误区信号</label>
+      </div>
+      <textarea data-key="q4-note" placeholder="备注：4 步走到第几步 / 桥梁是否点出 / 手稿是否显式写连续性 ……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- Q5 · q-gold -->
+  <section class="qline q-gold" id="q5">
+    <div class="qline-header">
+      <div class="qline-num">主问题 5</div>
+      <h3>三角复合 + 多次链式<br>「多出来的 ω」在哪里</h3>
+      <div class="qline-time">约 2.5 分钟</div>
+    </div>
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>在直线运动里，某物体的位移是 \(x(t) = A\sin(\omega t)\)（\(A, \omega\) 是常数）。请你<strong>口头</strong>把速度 \(v(t)\) 和加速度 \(a(t)\) 推出来，并讲出每一步用到了几次链式法则、各自的内函数是什么。最后回答：你能否得到 \(a(t)\) 与 \(x(t)\) 的关系？是什么？</p>
+    </div>
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok"><span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「加速度的系数为什么是 \(\omega^2\) 而不是 \(\omega\) 或 \(2\omega\)？请用『两次链式都贡献了一个 \(\omega\)』来解释。」</li>
+          <li>「如果你只算了 \(v(t)\) 就漏了一次链式，会得到什么错误形式？」（应答：\(v = A\cos t\)，漏了 ω）</li>
+        </ul>
+      </div>
+      <div class="branch ok"><span class="b-tag">深追 L2</span>
+        <ul>
+          <li>「换一个：\(x(t) = (3t + 5)^4\)，求 \(v(t)\) 内函数 \(u\) 是什么？\(du/dt\) 等于多少？写出 \(v(t)\) 的形式（不算具体数值）。」（应答：\(v(t) = 12(3t+5)^3\)）</li>
+          <li>「再加一层：\(y = \sin^2(\omega t)\) 三层嵌套，怎么剥？」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 1</span>
+        <ul>
+          <li>「\(\sin u\) 关于 \(u\) 的导数是什么？OK。那 \(u = \omega t\) 关于 \(t\) 的导数是什么？把两个相乘——多出的因子是谁？」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 2</span>
+        <ul>
+          <li>「链式法则和乘法法则的<strong>触发条件</strong>不同——前者用于『函数套函数』，后者用于『两个函数相乘』。\(\sin(\omega t)\) 是哪种？」</li>
+          <li>仍卡 → 记录 B4 / B5 中至少 1 项未通，转 Q6。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B4 · 三角内导</span>能写出 \(v(t) = A\omega \cos(\omega t)\)，并指认「多出来的 ω = 内函数导数」</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B5 · 两次链式</span>能讲出「二阶求导调用了两次链式法则，每次贡献一个 ω，所以系数是 \(\omega^2\)；负号来自 \(\cos\) 求导一次后变 \(-\sin\)」，最终得到 \(a = -\omega^2 x\)</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B6 · 幂复合内导</span>在追问中能正确得到 \((at+b)^n\) 求导的内导因子 \(a\)，不漏</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B8 · 多层剥洋葱</span>在 L2 追问中能正确处理三层嵌套（如 \(\sin^2(\omega t)\)），「从外到内」分段写出</span></div>
+    </div>
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal"><strong>信号 A · 漏 ω</strong>：听到 \(v(t) = A\cos(\omega t)\)。<span class="sig-chain">→ 漏了一次链式；救场：「\(\sin(\omega t)\) 是不是复合？内函数是谁？它对 t 的导数是什么？」</span></div>
+      <div class="signal"><strong>信号 B · 漏负号 / 漏第二次链式</strong>：听到 \(a(t) = A\omega \sin(\omega t)\)。<span class="sig-chain">→ 救场：「cos 求导后符号变了吗？这次链式只用了一次还是两次？」</span></div>
+      <div class="signal"><strong>信号 C · 链式当相加</strong>：听到 \(a(t) = -2A\omega \sin\)。<span class="sig-chain">→ 把两次链式当加法；救场：「两次链式法则是相加还是相乘？想想 05 课 Card 2 STEP 3 你画的那个『两次调用』示意。」</span></div>
+      <div class="signal"><strong>信号 D · 背诵型</strong>：能立刻报出 \(a = -\omega^2 x\) 但讲不出哪次链式贡献了哪个 ω。<span class="sig-chain">→ 救场不给答案，让学生在纸上分两步求导，把每一步内导显式圈出。</span></div>
+      <div class="signal"><strong>信号 E · A 也被求导</strong>：听到「\(A\) 是常数系数，但也贡献一次求导」。<span class="sig-chain">→ 常数与变量求导混淆；救场：「A 对 t 的导数是几？常数因子在乘法法则里怎么处理？」</span></div>
+      <div class="signal"><strong>信号 F · 幂复合漏内导 a</strong>：算 \((3t+5)^4\) 时得 \(4(3t+5)^3\)。<span class="sig-chain">→ 漏内导因子 3；救场：「内函数 \(3t+5\) 对 t 的导数是什么？内导等于多少？」</span></div>
+      <div class="signal"><strong>信号 G · 二阶当二次求导独立</strong>：算 \(a(t)\) 时把 \(v(t)\) 表达式重新对 \(x\) 求导而不是对 \(t\)。<span class="sig-chain">→ 二阶时求导变量走偏；救场：「加速度是对什么求导？t 还是 x？」</span></div>
+      <div class="signal"><strong>信号 H · 直接背 SHM 公式</strong>：一开口就报「简谐运动 \(a = -\omega^2 x\)」但不复现求导过程。<span class="sig-chain">→ 结论化背诵；救场：「先别管结论，你能不能<strong>先算 \(v\)、再算 \(a\)</strong>，一步步给我看？」</span></div>
+    </div>
+    <div class="rescue">
+      <h4>救场话术（给台阶不给答案）</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「翻 05 课 Card 2 STEP 3 推导 3——看你写的『对 v(t) 求导』分了几行，每一行的内导是什么。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「\(\dfrac{d}{du}\sin u = ?\) \(\dfrac{du}{dt} = ?\) 只确认两件事的拆分方向，不告诉答案。」</div>
+    </div>
+    <div class="record-block">
+      <h4>记录区 · Q5</h4>
+      <div class="record-checks">
+        <label data-key="q5-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> B4 · 三角内导 命中</label>
+        <label data-key="q5-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> B5 · 两次链式 → a=−ω²x 命中</label>
+        <label data-key="q5-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> B6 · 幂复合不漏 a 命中</label>
+        <label data-key="q5-sig"><input type="checkbox" onchange="saveCheckbox(this)"> 触发误区信号</label>
+      </div>
+      <textarea data-key="q5-note" placeholder="备注：v / a 推出过程 / 系数符号 / 多层嵌套追问情况 ……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- Q6 · q-silver -->
+  <section class="qline q-silver" id="q6">
+    <div class="qline-header">
+      <div class="qline-num">主问题 6</div>
+      <h3>三方法对比 + 4 类触发信号<br>+ 链式恒等式 a = v·dv/ds</h3>
+      <div class="qline-time">约 2.5 – 3 分钟</div>
+    </div>
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>综合两课问你三件事：① 算同一个积分 \(\int_0^t (v_0 + a\tau)\,d\tau\)，「面积法 / 不定积分+初值 / 牛莱公式」三种方法各自的舒适圈与风险点是什么？② 在直线运动里，看到题面就<strong>触发链式法则警觉</strong>的 4 类信号你能列几个？③ 已知 \(v(s) = \sqrt{2as}\)，求加速度 \(\dfrac{dv}{dt}\)——你会用什么<strong>链式恒等式</strong>，不要直接算结果，先说思路。</p>
+    </div>
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok"><span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「恒等式 \(a = v \dfrac{dv}{ds}\) 是怎么从链式法则推出来的？写一行式子。」（应答：\(\dfrac{dv}{dt} = \dfrac{dv}{ds} \cdot \dfrac{ds}{dt} = \dfrac{dv}{ds} \cdot v\)）</li>
+          <li>「你列的 4 类信号里，哪一类<strong>最不直观</strong>？」（应答：变量替换，因为题面不显式出现「复合」两字）</li>
+        </ul>
+      </div>
+      <div class="branch ok"><span class="b-tag">深追 L2</span>
+        <ul>
+          <li>「换情境：如果 \(v\) 是 \(s\) 的函数但<strong>不</strong>是 \(\sqrt{2as}\) 形式（比如 \(v(s) = e^{-s}\)），你的恒等式 \(a = v\,dv/ds\) 还成立吗？」（应答：成立，恒等式本身和函数形式无关）</li>
+          <li>「链式法则和<strong>乘法法则</strong>的触发条件，能用一句话说出区别吗？」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 1</span>
+        <ul>
+          <li>「04 课 Card 4 STEP 5 三方法对比表你写过——翻到那一页，对照每种方法的『适用 / 主要工具 / 主要风险』三栏。」</li>
+        </ul>
+      </div>
+      <div class="branch stuck"><span class="b-tag">台阶 2</span>
+        <ul>
+          <li>「05 课 Card 4 STEP 1 表格四行你写过——能列<strong>哪几类</strong>就列哪几类，不强求 4 个。」</li>
+          <li>仍卡 → 记录 B9 部分中，其他项由其他追问决定。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A10 · 三方法对比</span>能讲出「面积法适合 v-t 图简单时；不定积分+初值要会写函数表达 + 定 C；牛莱公式适合原函数好找」——三方法舒适圈各异，风险点也各异</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B9 · 4 类触发信号</span>能列出至少 3 类（位移含三角 / 位移含一次内函数的幂 / 变量替换 / 动量含速度复合）；4 类全列出最佳</span></div>
+      <div class="lp core"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B10 · 链式恒等式</span>能写出 \(\dfrac{dv}{dt} = v\,\dfrac{dv}{ds}\)（即 \(a = v\,dv/ds\)），并讲出「\(\dfrac{ds}{dt} = v\) 来自 01 运动的描述」</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">A11 · 三大公式重算</span>能口头描述用牛莱公式重算 \(v = v_0 + at\) / \(x = v_0 t + \frac{1}{2}at^2\) / \(v^2 = v_0^2 + 2ax\) 中至少一例的步骤</span></div>
+      <div class="lp boundary-lp"><span class="core-star">★</span><span class="lp-text"><span class="lp-anchor">B11 · 链式 vs 乘法</span>在 L2 追问中能用一句话区分两条法则的触发条件</span></div>
+    </div>
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal"><strong>信号 A · 三方法不分</strong>：听到「三方法都一样」。<span class="sig-chain">→ 没有方法学意识；救场：「那原函数没有初等表达时（如 \(\int e^{-x^2}\)），哪种方法直接失败？」</span></div>
+      <div class="signal"><strong>信号 B · t² 误判链式</strong>：听到「看到 \(t^2\) 就要链式」。<span class="sig-chain">→ 没分辨「复合」与「基本幂函数」；救场：「\(t^2\) 是不是把 \(t\) 套进了某个非平凡的内函数？内函数到底是什么？」</span></div>
+      <div class="signal"><strong>信号 C · dv/ds 当加速度</strong>：听到「\(\dfrac{dv}{ds}\) 就是加速度」。<span class="sig-chain">→ 混淆「对位置导数」与「对时间导数」；救场：「恒等式 \(a = v\,dv/ds\) 中间那个 \(v\) 在做什么？为什么不能省？」</span></div>
+      <div class="signal"><strong>信号 D · 背诵型</strong>：能列出 4 类信号但讲不出哪一类最常漏。<span class="sig-chain">→ 救场不给答案，转问 Q5 的应用层。</span></div>
+      <div class="signal"><strong>信号 E · 恒等式来源模糊</strong>：能写 \(a = v\,dv/ds\) 但答不出「\(ds/dt = v\) 从哪来」。<span class="sig-chain">→ 与 01 板块脱节；救场：「\(ds/dt\) 这个符号——位置对时间的导数——你怎么读？」</span></div>
+      <div class="signal"><strong>信号 F · 三方法界定失准</strong>：把「面积法」和「牛莱公式」当成同一件事。<span class="sig-chain">→ 面积几何法 vs 符号运算法未分；救场：「v-t 图能不能画时，你用面积法。你能画 \(e^{-t^2}\) 的图算面积吗？」</span></div>
+      <div class="signal"><strong>信号 G · 变量替换类不识别</strong>：4 类信号里独漏「变量替换」。<span class="sig-chain">→ 隐式复合识别弱；救场：「\(v(s)\) 求 \(dv/dt\)，题面看不到复合两个字——但你换变量了吗？换了几次？」</span></div>
+      <div class="signal"><strong>信号 H · 不定积分法漏定 C</strong>：讲不定积分+初值法时省掉「用初始条件定 C」。<span class="sig-chain">→ 不定积分族失去唯一性；救场：「不定积分给出一族函数，你怎么锁到那一条？初值给了什么？」</span></div>
+    </div>
+    <div class="rescue">
+      <h4>救场话术（给台阶不给答案）</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「04 课 Card 4 STEP 5 三方法对比表你写过，翻到那一页对照三栏。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「05 课 Card 4 STEP 1 四类信号表读出每一行的第一列，不读后两列。」</div>
+      <div class="rescue-card"><em>指路型 3：</em>「\(\dfrac{dv}{dt} = \dfrac{dv}{ds} \cdot ?\)？等号右边第二个因子是什么？」</div>
+    </div>
+    <div class="record-block">
+      <h4>记录区 · Q6</h4>
+      <div class="record-checks">
+        <label data-key="q6-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> A10 · 三方法对比 命中</label>
+        <label data-key="q6-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> B9 · 4 类信号 命中</label>
+        <label data-key="q6-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> B10 · 链式恒等式 a=v dv/ds 命中</label>
+        <label data-key="q6-sig"><input type="checkbox" onchange="saveCheckbox(this)"> 触发误区信号</label>
+      </div>
+      <textarea data-key="q6-note" placeholder="备注：三方法是否讲到位 / 信号列了几类 / 恒等式推法 ……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- 推导手稿 / 错题联动 -->
+  <section class="linked-output">
+    <h2>推导手稿 / 错题联动环节</h2>
+    <p>联动是「<strong>讲自己的工作</strong>」——学生从书包里掏出实物，教师挑一处问「当时为什么这么写 / 现在怎么想」。</p>
+    <ul>
+      <li><strong>04 课 5 段推导手稿</strong>（进阶组核心）：翻到 Card 2 STEP 5 骨架对照表，抽其中 1-2 段问「这一步你在手稿上用的<strong>记号</strong>是什么？」——检验手稿严谨性。</li>
+      <li><strong>05 课链式推导手稿</strong>：翻 Card 1 STEP 2 极限推导，问「\(\Delta u \to 0\)」为什么成立，检验手稿上有没有显式写出「可导 ⇒ 连续」这条桥梁。</li>
+      <li><strong>mock-check 错题</strong>（如有）：让学生指出错在哪个概念，并用自己的话讲一遍正确推理。</li>
+    </ul>
+    <div class="record-block">
+      <h4>联动环节记录</h4>
+      <div class="record-checks">
+        <label data-key="link-04"><input type="checkbox" onchange="saveCheckbox(this)"> 04 课手稿：能在 5 段任一段指着记号讲工具来源</label>
+        <label data-key="link-05"><input type="checkbox" onchange="saveCheckbox(this)"> 05 课手稿：能显式指出「可导 ⇒ 连续」桥梁</label>
+        <label data-key="link-mock"><input type="checkbox" onchange="saveCheckbox(this)"> mock-check 错题能讲清概念错位</label>
+      </div>
+      <textarea data-key="link-note" placeholder="联动环节备注（学生展示了什么 / 讲清了什么 / 卡在哪一步）" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- rubric 判定 -->
+  <section class="rubric">
+    <h2>判定 rubric（教师拥有最终判断权）</h2>
+    <div class="rubric-grid">
+      <div class="rubric-row pass">
+        <strong>通过</strong>
+        所抽 3 条主问题线里：① 至少 <strong>2 条核心听点全中 + 深追 L1 接得住</strong>；② 如抽中 Q2 或 Q4，其至少一条达到「5 段 / 4 步完整独立复述」（推导复述铁律）；③ <strong>联动环节</strong>能在 04 / 05 推导手稿上现场指出一处「当时怎么想」。
+      </div>
+      <div class="rubric-row hold">
+        <strong>暂缓</strong>
+        1 条主问题线核心听点缺失，或两级台阶后仍卡壳；或 Q2 / Q4 推导复述只能凭手稿照念、合上手稿讲不完整。补学清单按命中失败的主问题指向对应 task-cards（04 或 05 课的具体 Card / STEP）。预约二试时间；二试<strong>必须换未用过的主问题线</strong>。
+      </div>
+      <div class="rubric-row fail">
+        <strong>不通过</strong>
+        ≥2 条主问题线核心听点混乱，或<strong>背诵型信号贯穿 ≥2 条主问题</strong>（术语全对但被换情境立刻崩 / 推导只能从记忆中报答案），或 Q2 / Q4 均无法独立复述任一整段。回学习阶段重学 04 / 05 两课的 Card 2 / Card 1 推导块。
+      </div>
+    </div>
+    <div class="sign-note">
+      <strong>签字说明</strong>：通过档当场签字（日期 + 教师姓名）；暂缓 / 不通过不签字，仅留本页记录区勾选与备注作补学清单（建议打印一份给学生）。真实签字在纸面口试单上，本页只做提示文案。
+    </div>
+  </section>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 深度口试 · B 进阶组 · 教师工具页 · oral-exam Skill v0.1.0
+  </footer>
+
+</div>
+
+<script>
+  // KaTeX auto-render
+  document.addEventListener("DOMContentLoaded", function() {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+    restoreState();
+  });
+
+  // ---------- 选题器 ----------
+  function togglePick(cb) {
+    cb.parentElement.classList.toggle('checked', cb.checked);
+  }
+  function randomPick() {
+    var all = document.querySelectorAll('#pickerGrid label');
+    var ids = Array.from(all);
+    ids.forEach(function(lb){ var c = lb.querySelector('input'); c.checked = false; lb.classList.remove('checked'); });
+    var shuffled = ids.sort(function(){ return Math.random() - 0.5; });
+    for (var i = 0; i < 3 && i < shuffled.length; i++) {
+      var c = shuffled[i].querySelector('input');
+      c.checked = true;
+      shuffled[i].classList.add('checked');
+    }
+    var first = document.querySelectorAll('#pickerGrid label.checked')[0];
+    if (first) {
+      var q = first.getAttribute('data-q');
+      var target = document.getElementById(q);
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+  function clearPick() {
+    document.querySelectorAll('#pickerGrid label').forEach(function(lb){
+      var c = lb.querySelector('input');
+      c.checked = false; lb.classList.remove('checked');
+    });
+  }
+
+  // ---------- 记录区 localStorage ----------
+  function recordKey() {
+    var name = (document.getElementById('studentName').value || '').trim();
+    if (!name) return null;
+    return 'oral-exam-advanced-newton-leibniz-chain-rule-' + name;
+  }
+  function saveCheckbox(cb) {
+    cb.parentElement.classList.toggle('checked', cb.checked);
+    var key = recordKey();
+    if (!key) return;
+    var data = JSON.parse(localStorage.getItem(key) || '{}');
+    data[cb.parentElement.getAttribute('data-key')] = cb.checked ? '1' : '0';
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  function saveNote(ta) {
+    var key = recordKey();
+    if (!key) return;
+    var data = JSON.parse(localStorage.getItem(key) || '{}');
+    data[ta.getAttribute('data-key')] = ta.value;
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  function loadRecord() {
+    var key = recordKey();
+    if (!key) { alert('请先输入学生姓名'); return; }
+    var data = JSON.parse(localStorage.getItem(key) || '{}');
+    document.querySelectorAll('.record-checks input[type="checkbox"]').forEach(function(cb){
+      var k = cb.parentElement.getAttribute('data-key');
+      var v = data[k] === '1';
+      cb.checked = v;
+      cb.parentElement.classList.toggle('checked', v);
+    });
+    document.querySelectorAll('.record-block textarea').forEach(function(ta){
+      var k = ta.getAttribute('data-key');
+      ta.value = data[k] || '';
+    });
+  }
+  function clearRecord() {
+    var key = recordKey();
+    if (!key) { alert('请先输入学生姓名'); return; }
+    if (!confirm('确认清空「' + document.getElementById('studentName').value + '」的本次口试记录？')) return;
+    localStorage.removeItem(key);
+    document.querySelectorAll('.record-checks input[type="checkbox"]').forEach(function(cb){
+      cb.checked = false;
+      cb.parentElement.classList.remove('checked');
+    });
+    document.querySelectorAll('.record-block textarea').forEach(function(ta){
+      ta.value = '';
+    });
+  }
+  function restoreState() {
+    // 仅初始化 picker 视觉, 不主动 load 学生记录
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 直线运动综合 · 直线运动综合 · 熟练度检测</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900: #002F73; --blue-700: #00409A; --blue-500: #0055B8; --blue-100: #E8EEF9; --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E; --gold-700: #B8924A; --gold-500: #C9A961; --gold-100: #F4ECD6; --gold-050: #FBF7EC;
+    --silver-900: #5C6370; --silver-700: #7B8290; --silver-500: #A8AEBC; --silver-100: #E5E7EC; --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f; --text-secondary: #6e6e73;
+    --bg-primary: #ffffff; --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px; --radius-sm: 14px; --radius-btn: 16px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md: 0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  /* v0.1.21 banner · fluency-test 语境 · 唯一允许"高考"措辞 */
+  .v021-banner {
+    background: var(--gold-050);
+    border-left: 3px solid var(--gold-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px 18px 56px;
+    margin-bottom: 28px;
+    font-size: 0.86rem;
+    color: var(--gold-900);
+    line-height: 1.75;
+    position: relative;
+  }
+  .v021-banner::before {
+    content: "i"; position: absolute; left: 16px; top: 18px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--gold-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .v021-banner strong { color: var(--gold-900); }
+  .v021-banner-title { font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; }
+
+  .header {
+    text-align: center; padding: 56px 32px 48px;
+    background: #fff; color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 36px;
+    position: relative; overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%;
+    transform: translateX(-50%); width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.45rem; margin-bottom: 12px;
+    color: var(--blue-700); font-weight: 700;
+    line-height: 1.5; position: relative; z-index: 1;
+  }
+  .header h1 .h1-sub {
+    display: inline-block; font-size: 0.82rem; font-weight: 500;
+    color: var(--silver-700); margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--silver-500);
+  }
+  .header .subtitle {
+    font-size: 0.9rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  .screen {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    border-top: 3px solid var(--blue-700);
+  }
+  .screen.hidden { display: none; }
+
+  .entry-title { font-size: 1.15rem; font-weight: 700; color: var(--blue-700); margin-bottom: 18px; }
+  .entry-info { font-size: 0.9rem; color: var(--text-primary); line-height: 1.85; margin-bottom: 22px; padding-left: 22px; list-style: disc; }
+  .entry-info li { margin-bottom: 6px; }
+  .entry-info strong { color: var(--blue-700); }
+
+  .name-input {
+    width: 100%; padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-btn);
+    font-family: inherit; font-size: 0.95rem;
+    margin: 14px 0 8px; background: #fff;
+    transition: var(--transition);
+  }
+  .name-input:focus { outline: none; border-color: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+
+  /* 方案 A · 知识点清单折叠区 (fluency-test 特有) */
+  .knowledge-points {
+    margin-top: 22px;
+    background: var(--blue-050);
+    border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px;
+  }
+  .knowledge-points summary { cursor: pointer; font-weight: 700; color: var(--blue-700); font-size: 0.92rem; outline: none; padding: 4px 0; }
+  .kp-list { margin-top: 14px; }
+  .kp-card {
+    background: #fff; border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px; margin: 10px 0;
+    font-size: 0.86rem; line-height: 1.75;
+  }
+  .kp-card .kp-no {
+    display: inline-block;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--blue-700); color: #fff;
+    text-align: center; line-height: 28px;
+    font-size: 0.78rem; font-weight: 700;
+    margin-right: 10px;
+  }
+  .kp-card .kp-title { font-weight: 700; color: var(--blue-700); display: inline; }
+  .kp-card .kp-meta { color: var(--silver-700); font-size: 0.8rem; margin-top: 4px; }
+
+  .last-attempt-note {
+    background: var(--blue-050); border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 16px; font-size: 0.85rem; color: var(--blue-700);
+    margin: 10px 0 18px;
+  }
+  .last-attempt-note.honor { background: var(--gold-050); border-left-color: var(--gold-700); color: var(--gold-900); }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--blue-700); color: #fff;
+    padding: 14px 32px;
+    border-radius: var(--radius-btn);
+    border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.95rem; font-weight: 600;
+    transition: var(--transition);
+  }
+  .btn-primary:hover { background: var(--blue-900); }
+  .btn-secondary {
+    display: inline-block;
+    background: var(--silver-050); color: var(--silver-900);
+    padding: 14px 24px;
+    border-radius: var(--radius-btn);
+    border: 1px solid var(--border-color); cursor: pointer;
+    font-family: inherit; font-size: 0.9rem; font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+  }
+  .btn-secondary:hover { background: var(--silver-100); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+
+  .progress-bar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem; color: var(--silver-700);
+  }
+  .progress-name { font-weight: 600; color: var(--blue-700); }
+
+  .questions-list { }
+
+  /* 按题号循环三色 · v0.1.7 铁律 */
+  .question {
+    --q-rich: var(--blue-900);
+    --q-mid:  var(--blue-700);
+    --q-bg:   var(--blue-050);
+    --q-tint: var(--blue-100);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--q-mid);
+  }
+  .questions-list > .question:nth-of-type(3n+2),
+  .result-questions-list > .question:nth-of-type(3n+2) {
+    --q-rich: var(--gold-900); --q-mid: var(--gold-700);
+    --q-bg: var(--gold-050); --q-tint: var(--gold-100);
+  }
+  .questions-list > .question:nth-of-type(3n),
+  .result-questions-list > .question:nth-of-type(3n) {
+    --q-rich: var(--silver-900); --q-mid: var(--silver-700);
+    --q-bg: var(--silver-050); --q-tint: var(--silver-100);
+  }
+
+  .q-header-circle {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--q-bg);
+    border: 2px solid var(--q-mid);
+    margin: 0 auto 32px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 22px;
+    box-sizing: border-box;
+  }
+  .q-h-num { font-size: 0.74rem; font-weight: 700; color: var(--q-rich); letter-spacing: 0.22em; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1.5px solid var(--q-mid); }
+  .q-h-type { font-size: 0.95rem; font-weight: 700; color: var(--q-rich); line-height: 1.5; }
+  .q-h-diff { font-size: 0.78rem; color: var(--q-mid); margin-top: 6px; }
+  .q-h-id { font-size: 0.75rem; color: var(--silver-700); margin-top: 6px; letter-spacing: 0.04em; }
+
+  .q-stem { font-size: 0.95rem; line-height: 1.85; margin-bottom: 20px; color: var(--text-primary); }
+  .q-stem strong { color: var(--q-rich); }
+
+  .q-options { margin: 14px 0 18px; }
+  .q-options label {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 0.92rem; line-height: 1.75;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .q-options label:hover { background: var(--q-bg); border-color: var(--q-mid); }
+  .q-options input { margin-top: 5px; flex-shrink: 0; accent-color: var(--q-mid); }
+  .opt-letter { font-weight: 700; color: var(--q-rich); flex-shrink: 0; }
+
+  .q-fillin, .q-textarea {
+    width: 100%; padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.92rem;
+    background: #fff; margin: 4px 0 12px;
+    line-height: 1.75;
+  }
+  .q-textarea { min-height: 110px; resize: vertical; }
+  .q-fillin:focus, .q-textarea:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .q-feedback {
+    margin-top: 18px; padding: 22px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--q-bg);
+    border-left: 3px solid var(--q-mid);
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.wrong { background: var(--gold-050); border-left-color: var(--gold-700); }
+  .q-feedback-title { font-weight: 700; color: var(--q-rich); font-size: 0.95rem; margin-bottom: 10px; }
+  .q-feedback.wrong .q-feedback-title { color: var(--gold-900); }
+  .q-feedback-section { margin: 12px 0; }
+  .q-feedback-section-title { font-weight: 700; color: var(--q-rich); font-size: 0.86rem; margin-bottom: 4px; }
+  .q-feedback.wrong .q-feedback-section-title { color: var(--gold-900); }
+  .q-feedback-section p { font-size: 0.88rem; line-height: 1.8; }
+  .q-export-label {
+    display: inline-block;
+    padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--q-tint); color: var(--q-rich);
+    border-radius: 999px; font-size: 0.78rem;
+    border: 1px solid var(--q-mid);
+  }
+
+  /* 反思引导段 · 跟随当题循环色 (v0.1.7 铁律) */
+  .q-reflection {
+    background: var(--q-bg);
+    border-left: 3px solid var(--q-mid);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 18px 22px 18px 56px;
+    margin: 16px 0; position: relative;
+    font-size: 0.88rem; color: var(--text-primary);
+    line-height: 1.8;
+  }
+  .q-reflection::before {
+    content: "↗"; position: absolute; left: 14px; top: 18px;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--q-mid); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.95rem; font-weight: 700;
+  }
+  .q-reflection .q-reflection-title { font-weight: 700; color: var(--q-rich); margin-bottom: 8px; }
+  .q-reflection ol { padding-left: 20px; margin-bottom: 10px; }
+  .q-reflection li { margin-bottom: 4px; }
+  .q-reflection .q-reflection-input {
+    width: 100%; min-height: 100px;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.9rem;
+    background: #fff; color: var(--text-primary);
+    resize: vertical; line-height: 1.75;
+  }
+  .q-reflection .q-reflection-input:focus { outline: none; border-color: var(--q-mid); box-shadow: 0 0 0 3px var(--q-tint); }
+
+  .result-summary { text-align: center; padding: 28px 0; }
+  .result-score { font-size: 3rem; font-weight: 800; color: var(--blue-700); line-height: 1.1; }
+  .result-score .total { font-size: 1.2rem; color: var(--silver-700); font-weight: 500; }
+  .result-pass {
+    margin-top: 12px; padding: 10px 18px; border-radius: 999px;
+    display: inline-block; font-size: 0.9rem; font-weight: 600;
+  }
+  .result-pass.pass { background: var(--blue-050); color: var(--blue-700); border: 1px solid var(--blue-700); }
+  .result-pass.honor { background: var(--gold-050); color: var(--gold-900); border: 1px solid var(--gold-700); }
+  .result-pass.fail { background: var(--silver-050); color: var(--silver-900); border: 1px solid var(--silver-500); }
+  .result-message { font-size: 0.9rem; color: var(--text-primary); margin-top: 14px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  /* 方案 C · 考点掌握度热图 (fluency-test 特有) */
+  .mastery-map { margin: 28px 0; }
+  .mastery-map-title { font-size: 1rem; color: var(--blue-700); margin: 28px 0 14px; font-weight: 700; }
+  .mastery-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+  }
+  .mastery-dot { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; font-weight: 700; }
+  .mastery-dot.full { background: var(--blue-700); }
+  .mastery-dot.partial { background: var(--gold-700); }
+  .mastery-dot.miss { background: var(--silver-700); }
+  .mastery-tid { font-weight: 700; color: var(--blue-700); min-width: 32px; }
+  .mastery-name { flex-grow: 1; color: var(--text-primary); }
+  .mastery-score { color: var(--silver-700); font-size: 0.84rem; }
+
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px; text-align: center;
+    padding: 16px 18px; border-radius: 999px;
+    background: var(--silver-050); color: var(--silver-500);
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 40px 22px 36px; }
+    .header h1 { font-size: 1.18rem; }
+    .screen { padding: 24px 20px; }
+    .question { padding: 24px 22px; }
+    .q-header-circle { width: 200px; height: 200px; padding: 18px; }
+    .q-h-type { font-size: 0.85rem; }
+    .v021-banner { padding-left: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>直线运动综合</span>
+    <span class="sep">&gt;</span>
+    <span>直线运动综合 · 熟练度检测</span>
+  </nav>
+
+  <div class="v021-banner">
+    <div class="v021-banner-title">关于本页的练习形态 · v0.1.21</div>
+    本页是<strong>HTML 模拟练习</strong>——题型对标<strong>高考</strong>熟练度检测，用于学完《直线运动综合》例题卡之后，模拟纸笔熟练度检测的题型节奏。<strong>真实的纸笔熟练度检测</strong>由学科导师线下组织、由教师批改，不在本页面内完成。本页给出自动判分仅作即时反馈用；综合大题用关键字命中率判分，不做语义判分。
+  </div>
+
+  <div class="header">
+    <h1>直线运动综合 · 熟练度检测<br><span class="h1-sub">题库版 · 每考点 4 变体随机抽 1 · 总分 100 · 推荐 30-40 分钟</span></h1>
+    <div class="subtitle">题型对标高考：单选 / 多选 + 综合大题 · 70% 通过 · 90% 荣誉 · 不强制限时</div>
+  </div>
+
+  <div class="screen" id="entry-screen">
+    <div class="entry-title">开始练习</div>
+    <p style="font-size: 0.9rem; margin-bottom: 10px;">请先填写你的姓名（仅本地保存，用于显示与你的提交记录）：</p>
+    <input id="student-name" class="name-input" type="text" placeholder="请输入你的姓名" maxlength="20">
+    <div id="last-attempt-slot"></div>
+    <ul class="entry-info">
+      <li>共抽 <strong>N 道题</strong>（每个考点从 4 个变体中随机抽 1，N = 考点数）</li>
+      <li>题型分布：T1-T3 单/多选 各 16 分 / T4 计算 22 分 / T5 综合简答 30 分（总分 100）</li>
+      <li>通过：<strong>70 分</strong> · 荣誉：<strong>90 分</strong></li>
+      <li>建议用时：<strong>30-40 分钟</strong>（不强制限时）</li>
+      <li>每错题底部有<strong>反思引导段</strong>（引导问题 + textarea，本地保存、不判分）</li>
+      <li>多选严格相等判分；综合简答用关键字命中率判分（不做语义判分）</li>
+      <li>可重新抽题继续练，通过 / 荣誉一次达成永不撤销</li>
+    </ul>
+    <details class="knowledge-points">
+      <summary>📋 本次将考查的考点（练前扫一眼，确认是否已准备好）</summary>
+      <div class="kp-list" id="kp-list"></div>
+    </details>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="startTest()">开始练习</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="test-screen">
+    <div class="progress-bar">
+      <div>👤 <span class="progress-name" id="progress-name">—</span> · 本次抽题 <span id="picked-ids">—</span></div>
+      <div>已答 <span id="answered-count">0</span> / <span id="total-count">0</span></div>
+    </div>
+    <div class="questions-list" id="questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-primary" onclick="submitTest()">提交本次抽题</button>
+    </div>
+  </div>
+
+  <div class="screen hidden" id="result-screen">
+    <div class="result-summary">
+      <div class="result-score"><span id="result-total">0</span><span class="total"> / 100</span></div>
+      <div id="result-pass-pill" class="result-pass">—</div>
+      <div class="result-message" id="result-message">—</div>
+    </div>
+    <h3 class="mastery-map-title">📊 考点掌握度热图</h3>
+    <div class="mastery-map" id="mastery-map"></div>
+    <div class="result-questions-list" id="result-questions-list"></div>
+    <div class="btn-row" style="justify-content: center;">
+      <button class="btn-secondary" onclick="reshuffleAndStart()">🎲 重新抽题再练</button>
+      <a class="btn-secondary" href="06_直线运动综合-example-cards.html">⬅ 返回例题卡复习</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="06_直线运动综合-example-cards.html">📘 返回例题卡</a>
+    <span>🎤 板块口试请联系导师</span>
+    <span>📈 纸笔熟练度检测请联系导师</span>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 直线运动综合 · 直线运动综合 · 熟练度检测 · fluency-test Skill v0.1.11
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+// ===== MOCK_DATA INJECTION POINT =====
+// agent 在下一行注入: const MOCK_DATA = { EXPORT_NAMES: {...}, KNOWLEDGE_POINTS: [...], QUESTION_BANK: {...} };
+// 数据 schema 见文件顶部 HTML 注释。
+const MOCK_DATA = {
+  "EXPORT_NAMES": {
+    "KIN-VTGRAPH": "v-t 图像综合（斜率=加速度 · 面积=位移）",
+    "KIN-3FORMULA": "匀变速三大公式的应用",
+    "KIN-CHASE": "追及相遇的代数框架",
+    "KIN-MULTISTAGE": "多阶段运动的分段处理",
+    "KIN-GEOMETRY": "几何+运动学（列车过桥类）",
+    "KIN-FREEFALL": "自由落体·竖直上抛（匀变速特例）",
+    "KIN-CAPSTONE": "综合压轴（反应时间+多阶段+追及）"
+  },
+  "KNOWLEDGE_POINTS": [
+    {
+      "tid": "T1",
+      "name": "v-t 图像综合（斜率=加速度 · 面积=位移）",
+      "type": "单选",
+      "score": 12,
+      "exports": ["KIN-VTGRAPH"],
+      "back": "P1 · v-t 图像综合",
+      "examFreq": "高频·必考"
+    },
+    {
+      "tid": "T2",
+      "name": "匀变速三大公式的应用",
+      "type": "单选",
+      "score": 12,
+      "exports": ["KIN-3FORMULA"],
+      "back": "P2 · 匀变速三大公式",
+      "examFreq": "高频·基础"
+    },
+    {
+      "tid": "T3",
+      "name": "追及相遇 / 多阶段运动（多选）",
+      "type": "多选",
+      "score": 16,
+      "exports": ["KIN-CHASE", "KIN-MULTISTAGE"],
+      "back": "P3 + P4 · 追及+多阶段",
+      "examFreq": "常考·多选高频"
+    },
+    {
+      "tid": "T4",
+      "name": "几何 · 自由落体综合大题",
+      "type": "综合大题",
+      "score": 30,
+      "exports": ["KIN-GEOMETRY", "KIN-FREEFALL"],
+      "back": "P5 + P6 + P7 · 几何+自由落体",
+      "examFreq": "压轴·主战场"
+    },
+    {
+      "tid": "T5",
+      "name": "综合压轴（反应时间+多阶段+追及）",
+      "type": "综合大题",
+      "score": 30,
+      "exports": ["KIN-CAPSTONE"],
+      "back": "P8 · 前车制动+后车反应",
+      "examFreq": "压轴·主战场"
+    }
+  ],
+  "QUESTION_BANK": {
+    "T1": [
+      {
+        "id": "T1-1",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "基础",
+        "exportIds": ["KIN-VTGRAPH"],
+        "stem": "一列高铁的 \\(v\\)-\\(t\\) 图分三段：0-30 s 从静止匀加速到 \\(60\\) m/s；30-90 s 匀速 \\(60\\) m/s；90-120 s 匀减速到停止。\\(v\\)-\\(t\\) 图如下：<br><svg viewBox=\"0 0 460 260\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:460px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"210\" x2=\"440\" y2=\"210\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"440,210 432,206 432,214\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"210\" x2=\"50\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,30 46,38 54,38\" fill=\"#1e40af\"/><text x=\"445\" y=\"225\" font-size=\"14\">t/s</text><text x=\"20\" y=\"35\" font-size=\"14\">v/(m·s⁻¹)</text><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"215\" stroke=\"#1e40af\"/><text x=\"128\" y=\"228\" font-size=\"12\">30</text><line x1=\"320\" y1=\"210\" x2=\"320\" y2=\"215\" stroke=\"#1e40af\"/><text x=\"308\" y=\"228\" font-size=\"12\">90</text><line x1=\"410\" y1=\"210\" x2=\"410\" y2=\"215\" stroke=\"#1e40af\"/><text x=\"396\" y=\"228\" font-size=\"12\">120</text><text x=\"40\" y=\"228\" font-size=\"12\">0</text><line x1=\"50\" y1=\"90\" x2=\"45\" y2=\"90\" stroke=\"#1e40af\"/><text x=\"22\" y=\"95\" font-size=\"12\">60</text><line x1=\"140\" y1=\"90\" x2=\"320\" y2=\"90\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><line x1=\"140\" y1=\"210\" x2=\"140\" y2=\"90\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><line x1=\"320\" y1=\"210\" x2=\"320\" y2=\"90\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><polygon points=\"50,210 140,90 320,90 410,210\" fill=\"#fef3c7\" stroke=\"none\"/><polyline points=\"50,210 140,90 320,90 410,210\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2.2\"/><circle cx=\"50\" cy=\"210\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"140\" cy=\"90\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"320\" cy=\"90\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"410\" cy=\"210\" r=\"3\" fill=\"#dc2626\"/></svg>则高铁全程<strong>总位移</strong>为：",
+        "explanation": {
+          "knowledge": "v-t 图曲线下面积 = 位移。三段图形分别是三角形、矩形、三角形——分别用几何面积公式。",
+          "approach": "① 三段面积分别算；② 相加。也可用梯形整体法：上底=匀速时长、下底=全程时长、高=最高速度。",
+          "solution": "三角形 S₁ = ½ × 30 × 60 = 900 m；矩形 S₂ = 60 × 60 = 3600 m；三角形 S₃ = ½ × 30 × 60 = 900 m；合计 5400 m。梯形整体法：½ × (60 + 120) × 60 = 5400 m ✓"
+        },
+        "cardAnchor": "P1 · v-t 图像综合<br>v-t 图面积 = 位移",
+        "reflectionPrompts": [
+          "把 v-t 图分成三段面积相加，与直接用梯形整体面积公式，两种方法哪个更快？",
+          "若阶段 ② 匀速段延长到 90 s，全程总位移会增加多少？（考察对面积法的敏感度）",
+          "为什么图形斜率对应加速度、面积对应位移？请用一句话给同学讲清楚。"
+        ],
+        "options": {
+          "A": "\\(3600\\) m",
+          "B": "\\(4500\\) m",
+          "C": "\\(5400\\) m",
+          "D": "\\(6600\\) m"
+        },
+        "answer": "C"
+      },
+      {
+        "id": "T1-2",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "基础",
+        "exportIds": ["KIN-VTGRAPH"],
+        "stem": "一辆汽车的 \\(v\\)-\\(t\\) 图是一条直线：\\(t=0\\) 时 \\(v=20\\) m/s，\\(t=4\\) s 时 \\(v=0\\)。\\(v\\)-\\(t\\) 图如下：<br><svg viewBox=\"0 0 380 240\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:360px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"200\" x2=\"350\" y2=\"200\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"350,200 342,196 342,204\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,30 46,38 54,38\" fill=\"#1e40af\"/><text x=\"355\" y=\"215\" font-size=\"14\">t/s</text><text x=\"20\" y=\"35\" font-size=\"14\">v/(m·s⁻¹)</text><line x1=\"290\" y1=\"200\" x2=\"290\" y2=\"205\" stroke=\"#1e40af\"/><text x=\"284\" y=\"218\" font-size=\"12\">4</text><text x=\"40\" y=\"218\" font-size=\"12\">0</text><line x1=\"50\" y1=\"80\" x2=\"45\" y2=\"80\" stroke=\"#1e40af\"/><text x=\"22\" y=\"85\" font-size=\"12\">20</text><line x1=\"50\" y1=\"80\" x2=\"290\" y2=\"200\" stroke=\"#dc2626\" stroke-width=\"2.2\"/><circle cx=\"50\" cy=\"80\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"290\" cy=\"200\" r=\"3\" fill=\"#dc2626\"/></svg>则该汽车的加速度大小为：",
+        "explanation": {
+          "knowledge": "v-t 图斜率 = 加速度。斜率 = 纵坐标变化量 / 横坐标变化量。",
+          "approach": "读起末两点：(0, 20) 和 (4, 0)。斜率 = (0 − 20) / (4 − 0) = −5 m/s²。取绝对值即为大小。",
+          "solution": "|a| = 5 m/s²。负号表示与运动方向相反（减速）。"
+        },
+        "cardAnchor": "P1 · v-t 图像综合<br>斜率 = 加速度",
+        "reflectionPrompts": [
+          "\"加速度大小 5 m/s²\" 与 \"加速度 −5 m/s²\" 两种表达在物理上有何区别？",
+          "若图上再画一条 \\(t=0\\) 时 \\(v=15\\) m/s、\\(t=4\\) s 时 \\(v=−5\\) m/s 的直线，加速度还是 −5 m/s² 吗？为什么？",
+          "本题若用 \\(v = v_0 + at\\) 反解加速度，答案会与图像法一致吗？"
+        ],
+        "options": {
+          "A": "\\(2.5\\) m/s²",
+          "B": "\\(4\\) m/s²",
+          "C": "\\(5\\) m/s²",
+          "D": "\\(20\\) m/s²"
+        },
+        "answer": "C"
+      },
+      {
+        "id": "T1-3",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "中等",
+        "exportIds": ["KIN-VTGRAPH"],
+        "stem": "一辆出租车的 \\(v\\)-\\(t\\) 图分三段：0-10 s 从静止匀加速到 \\(20\\) m/s；10-20 s 匀速 \\(20\\) m/s；20-25 s 匀减速到停止。\\(v\\)-\\(t\\) 图如下（金色矩形为待求段）：<br><svg viewBox=\"0 0 400 240\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:400px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"200\" x2=\"380\" y2=\"200\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"380,200 372,196 372,204\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,30 46,38 54,38\" fill=\"#1e40af\"/><text x=\"383\" y=\"215\" font-size=\"14\">t/s</text><text x=\"20\" y=\"35\" font-size=\"14\">v/(m·s⁻¹)</text><line x1=\"170\" y1=\"200\" x2=\"170\" y2=\"205\" stroke=\"#1e40af\"/><text x=\"162\" y=\"218\" font-size=\"12\">10</text><line x1=\"290\" y1=\"200\" x2=\"290\" y2=\"205\" stroke=\"#1e40af\"/><text x=\"282\" y=\"218\" font-size=\"12\">20</text><line x1=\"350\" y1=\"200\" x2=\"350\" y2=\"205\" stroke=\"#1e40af\"/><text x=\"342\" y=\"218\" font-size=\"12\">25</text><text x=\"40\" y=\"218\" font-size=\"12\">0</text><line x1=\"50\" y1=\"80\" x2=\"45\" y2=\"80\" stroke=\"#1e40af\"/><text x=\"22\" y=\"85\" font-size=\"12\">20</text><rect x=\"170\" y=\"80\" width=\"120\" height=\"120\" fill=\"#fef3c7\" stroke=\"none\"/><text x=\"200\" y=\"145\" font-size=\"13\" fill=\"#a16207\" font-weight=\"bold\">Δx₂ = ?</text><polyline points=\"50,200 170,80 290,80 350,200\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2.2\"/><circle cx=\"50\" cy=\"200\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"170\" cy=\"80\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"290\" cy=\"80\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"350\" cy=\"200\" r=\"3\" fill=\"#dc2626\"/></svg>则该出租车在<strong>10-20 s 内</strong>的位移为：",
+        "explanation": {
+          "knowledge": "阶段 ② 是匀速——v-t 图上是矩形，面积 = 长 × 高 = 时长 × 速度。",
+          "approach": "读匀速段的时长与速度直接相乘。",
+          "solution": "\\(x_2 = v \\cdot \\Delta t = 20 \\times (20 − 10) = 200\\) m."
+        },
+        "cardAnchor": "P1 · v-t 图像综合<br>矩形面积（匀速段）",
+        "reflectionPrompts": [
+          "本题只问阶段 ② 位移——需要用到阶段 ①、③ 的信息吗？为什么？",
+          "若把匀速段的速度从 20 m/s 改为 25 m/s（其余不变），阶段 ② 位移变成多少？",
+          "常见陷阱：把\"10-20 s 内位移\"当成\"前 20 s 总位移\"。你如何在审题时避免？"
+        ],
+        "options": {
+          "A": "\\(100\\) m",
+          "B": "\\(200\\) m",
+          "C": "\\(300\\) m",
+          "D": "\\(400\\) m"
+        },
+        "answer": "B"
+      },
+      {
+        "id": "T1-4",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "较难",
+        "exportIds": ["KIN-VTGRAPH"],
+        "stem": "甲、乙两辆车从同一起点同向出发。甲车从静止起匀加速，\\(t=5\\) s 时速度达 \\(20\\) m/s；乙车全程以 \\(v=10\\) m/s 匀速。\\(v\\)-\\(t\\) 图如下（红=甲，绿=乙）：<br><svg viewBox=\"0 0 380 240\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:380px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"200\" x2=\"360\" y2=\"200\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"360,200 352,196 352,204\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"200\" x2=\"50\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,30 46,38 54,38\" fill=\"#1e40af\"/><text x=\"363\" y=\"215\" font-size=\"14\">t/s</text><text x=\"20\" y=\"35\" font-size=\"14\">v/(m·s⁻¹)</text><line x1=\"300\" y1=\"200\" x2=\"300\" y2=\"205\" stroke=\"#1e40af\"/><text x=\"294\" y=\"218\" font-size=\"12\">5</text><text x=\"40\" y=\"218\" font-size=\"12\">0</text><line x1=\"50\" y1=\"130\" x2=\"45\" y2=\"130\" stroke=\"#1e40af\"/><text x=\"22\" y=\"135\" font-size=\"12\">10</text><line x1=\"50\" y1=\"60\" x2=\"45\" y2=\"60\" stroke=\"#1e40af\"/><text x=\"22\" y=\"65\" font-size=\"12\">20</text><line x1=\"50\" y1=\"200\" x2=\"300\" y2=\"60\" stroke=\"#dc2626\" stroke-width=\"2.2\"/><text x=\"200\" y=\"115\" font-size=\"13\" fill=\"#dc2626\" font-weight=\"bold\">甲</text><line x1=\"50\" y1=\"130\" x2=\"300\" y2=\"130\" stroke=\"#059669\" stroke-width=\"2.2\"/><text x=\"200\" y=\"148\" font-size=\"13\" fill=\"#059669\" font-weight=\"bold\">乙</text><circle cx=\"50\" cy=\"200\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"300\" cy=\"60\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"50\" cy=\"130\" r=\"3\" fill=\"#059669\"/><circle cx=\"300\" cy=\"130\" r=\"3\" fill=\"#059669\"/></svg>则 \\(t=5\\) s 时，甲相对乙的位置关系是：",
+        "explanation": {
+          "knowledge": "同起点同向 → 谁位移更多，谁在前方。用 v-t 图面积对比或三大公式算各自位移。",
+          "approach": "① 甲：v-t 三角形面积 = ½ × 5 × 20 = 50 m；② 乙：矩形面积 = 5 × 10 = 50 m；③ 比较：50 = 50，位置相同。",
+          "solution": "两者位移都是 50 m → 甲、乙位置<strong>恰好相同</strong>。这也是甲追上乙的时刻（同起点情境下 = 位移相等时刻）。"
+        },
+        "cardAnchor": "P1 · v-t 图像综合<br>甲乙 v-t 面积对比",
+        "reflectionPrompts": [
+          "为什么甲末速度是乙的 2 倍，但 \\(t=5\\) s 时位置却相同？（对比 v-t 图三角形与矩形的面积）",
+          "若 \\(t\\) 继续增大到 6 s，甲、乙谁在前面？请用 v-t 面积法解释。",
+          "若把甲改为\"从 \\(v_0 = 5\\) m/s 匀加速到 20 m/s\"（其他不变），\\(t=5\\) s 时的比较会变吗？"
+        ],
+        "options": {
+          "A": "甲在乙前方",
+          "B": "甲在乙后方",
+          "C": "甲、乙位置相同",
+          "D": "无法判断"
+        },
+        "answer": "C"
+      }
+    ],
+    "T2": [
+      {
+        "id": "T2-1",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "基础",
+        "exportIds": ["KIN-3FORMULA"],
+        "stem": "一辆汽车从<strong>静止</strong>开始沿平直公路做匀加速直线运动，第 \\(8\\) 秒末速度达 \\(16\\) m/s。则第 \\(5\\) 秒末的速度为：",
+        "explanation": {
+          "knowledge": "从静止起 → \\(v_0 = 0\\)。速度公式 \\(v = v_0 + at\\)——已知 \\(v_0, v, t\\) 时反解 \\(a\\)，再代入求任意时刻速度。",
+          "approach": "① 由 \\(v = at\\) 反解 \\(a = v/t = 16/8 = 2\\) m/s²；② 代 \\(t = 5\\) 求 \\(v_5 = 2 \\times 5 = 10\\) m/s.",
+          "solution": "\\(v_5 = 10\\) m/s. 匀变速中速度与时间成正比（起点为 0 时），5/8 = 10/16 恰好比例一致。"
+        },
+        "cardAnchor": "P2 · 匀变速三大公式<br>速度公式 v = v₀ + at",
+        "reflectionPrompts": [
+          "匀加速运动中，速度与时间是什么函数关系？为什么可以用比例法快速验证 \\(v_5/v_8 = 5/8\\)？",
+          "若题目改为「从 \\(v_0 = 2\\) m/s 起匀加速」，比例法还成立吗？如何改造？",
+          "如果你只记住 \\(v = v_0 + at\\) 一条公式，本题用几步就够？"
+        ],
+        "options": {
+          "A": "\\(8\\) m/s",
+          "B": "\\(10\\) m/s",
+          "C": "\\(12\\) m/s",
+          "D": "\\(16\\) m/s"
+        },
+        "answer": "B"
+      },
+      {
+        "id": "T2-2",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "基础",
+        "exportIds": ["KIN-3FORMULA"],
+        "stem": "一物体以初速 \\(v_0 = 4\\) m/s 做匀加速直线运动，加速度 \\(a = 2\\) m/s²。当其速度达到 \\(20\\) m/s 时，共用时：",
+        "explanation": {
+          "knowledge": "速度公式 \\(v = v_0 + at\\)——已知 \\(v_0, v, a\\) 时反解 \\(t\\)。",
+          "approach": "由 \\(v = v_0 + at\\) 反解：\\(t = (v - v_0) / a = (20 - 4) / 2 = 8\\) s.",
+          "solution": "\\(t = 8\\) s. 一定注意 \\(v_0 = 4\\)（不是 0！），起点若写成 0 会算出 10 s（错答 D）。"
+        },
+        "cardAnchor": "P2 · 匀变速三大公式<br>反解时间",
+        "reflectionPrompts": [
+          "本题最常见的陷阱是什么？（提示：审题时是否看到「初速度 \\(v_0 = 4\\)」而不是「从静止起」）",
+          "若把「\\(v_0 = 4\\) m/s」改成「从静止起」，答案会变成多少？两者差多少秒？",
+          "如何用 v-t 图像法快速验证本题答案？（画从 (0,4) 出发斜率为 2 的直线，交 v=20 于哪一时刻）"
+        ],
+        "options": {
+          "A": "\\(4\\) s",
+          "B": "\\(6\\) s",
+          "C": "\\(8\\) s",
+          "D": "\\(10\\) s"
+        },
+        "answer": "C"
+      },
+      {
+        "id": "T2-3",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "中等",
+        "exportIds": ["KIN-3FORMULA"],
+        "stem": "一物体做匀加速直线运动，某段时间内位移为 \\(24\\) m，用时 \\(4\\) s。则该段时间的<strong>中间时刻</strong>的瞬时速度为：",
+        "explanation": {
+          "knowledge": "匀变速运动的重要结论：某段时间内的<strong>平均速度</strong>恰等于<strong>中间时刻</strong>的<strong>瞬时速度</strong>。（即 \\(\\bar{v} = v_{中}\\)）",
+          "approach": "① 算平均速度 \\(\\bar{v} = x / t = 24 / 4 = 6\\) m/s；② 由结论直接得到中间时刻瞬时速度 = 6 m/s.",
+          "solution": "\\(v_{中} = 6\\) m/s. 这条结论适用于所有匀变速运动，是「化时间平均为中间瞬时」的强力工具。"
+        },
+        "cardAnchor": "P2 · 匀变速三大公式<br>中间时刻速度定理",
+        "reflectionPrompts": [
+          "为什么「平均速度 = 中间时刻瞬时速度」只对匀变速运动成立？（对非匀变速会怎样？）",
+          "若已知起末速度 \\(v_0 = 2\\) m/s 与 \\(v = 10\\) m/s，你能用此定理算平均速度吗？（\\(\\bar{v} = (v_0 + v)/2\\)）",
+          "本题若改问「中间位置的瞬时速度」，答案会与中间时刻相同吗？（提示：一般不同——中间位置速度略大）"
+        ],
+        "options": {
+          "A": "\\(3\\) m/s",
+          "B": "\\(6\\) m/s",
+          "C": "\\(8\\) m/s",
+          "D": "\\(12\\) m/s"
+        },
+        "answer": "B"
+      },
+      {
+        "id": "T2-4",
+        "type": "choice",
+        "score": 12,
+        "difficulty": "较难",
+        "exportIds": ["KIN-3FORMULA"],
+        "stem": "一辆汽车从<strong>静止</strong>起匀加速，加速度 \\(a = 4\\) m/s²。则在<strong>第 3 秒内</strong>（即从 \\(t = 2\\) s 到 \\(t = 3\\) s 那一秒钟内）的位移为：",
+        "explanation": {
+          "knowledge": "「第 N 秒内」 = 从 \\(t = N-1\\) s 到 \\(t = N\\) s 那一秒钟的位移 = \\(x(N) - x(N-1)\\)。不是「前 N 秒总位移」！",
+          "approach": "方法 A · 分段减法：\\(x(2) = \\tfrac{1}{2}at^2 = \\tfrac{1}{2} \\times 4 \\times 4 = 8\\) m；\\(x(3) = \\tfrac{1}{2} \\times 4 \\times 9 = 18\\) m；\\(\\Delta x = 18 - 8 = 10\\) m. 方法 B · 中间时刻速度定理：第 3 秒内的中间时刻是 \\(t = 2.5\\) s，此时瞬时速度 \\(v = 0 + 4 \\times 2.5 = 10\\) m/s；一秒内位移 = \\(10\\) m.",
+          "solution": "\\(\\Delta x_3 = 10\\) m. 陷阱选项 D = 18 m 是「前 3 秒总位移」——审题不清就会误选。"
+        },
+        "cardAnchor": "P2 · 匀变速三大公式<br>第 N 秒内位移 vs 前 N 秒",
+        "reflectionPrompts": [
+          "「第 3 秒内位移」与「前 3 秒位移」区别在哪里？如何在审题时避免混淆？",
+          "本题用中间时刻速度定理（方法 B）比分段减法（方法 A）更快——但你能保证结果一致吗？",
+          "若把题目改为「第 5 秒内位移」，你会用哪种方法？"
+        ],
+        "options": {
+          "A": "\\(4\\) m",
+          "B": "\\(8\\) m",
+          "C": "\\(10\\) m",
+          "D": "\\(18\\) m"
+        },
+        "answer": "C"
+      }
+    ],
+    "T3": [
+      {
+        "id": "T3-1",
+        "type": "multi",
+        "score": 16,
+        "difficulty": "基础",
+        "exportIds": ["KIN-CHASE"],
+        "stem": "汽车 \\(A\\) 以 \\(v_A = 20\\) m/s 沿平直公路匀速行驶，公交车 \\(B\\) 在 \\(A\\) 前方 \\(\\Delta x_0 = 100\\) m 处以 \\(v_B = 10\\) m/s 匀速同向前进。忽略车长与制动过程。下列说法<strong>正确</strong>的是（多选）：",
+        "explanation": {
+          "knowledge": "同向追及的判据：\\(v_A > v_B\\) 一定能追上；相对速度 \\(v_{AB} = v_A - v_B\\)；追上时间 \\(t = \\Delta x_0 / v_{AB}\\)；追上时 \\(A\\) 的位移 = \\(v_A \\times t\\)。",
+          "approach": "① 相对速度 = 20 − 10 = 10 m/s > 0 → A 能追上；② 追上时间 = 100 / 10 = 10 s；③ 追上时 \\(A\\) 走了 \\(v_A t = 20 \\times 10 = 200\\) m（不是 100 m！）",
+          "solution": "A、B、C 正确；D 错（追上时 A 走了 200 m，不是 100 m——100 m 只是「相对间距」，不是 A 的绝对位移）"
+        },
+        "cardAnchor": "P3 · 追及相遇的代数框架<br>相对速度 = 追赶速度",
+        "reflectionPrompts": [
+          "为什么 D 选项常被误选？它把「相对间距 100 m」与「A 走的绝对距离」混淆了——你如何在审题时避免？",
+          "若 A 与 B 的速度对调（A 慢 B 快），本题四个选项还有哪些成立？",
+          "「相对速度 = 相对追赶速度」这条通用结论在什么情境下不适用？（提示：加速运动时相对速度会变化）"
+        ],
+        "options": {
+          "A": "\\(A\\) 能追上 \\(B\\)（因 \\(v_A > v_B\\)）",
+          "B": "相对速度 \\(v_{AB} = 10\\) m/s",
+          "C": "\\(A\\) 追上 \\(B\\) 用时 \\(10\\) s",
+          "D": "追上时 \\(A\\) 从起点走了 \\(100\\) m"
+        },
+        "answer": ["A", "B", "C"]
+      },
+      {
+        "id": "T3-2",
+        "type": "multi",
+        "score": 16,
+        "difficulty": "中等",
+        "exportIds": ["KIN-MULTISTAGE"],
+        "stem": "一辆汽车从<strong>静止</strong>起，分三个阶段运动：① 以 \\(a_1 = 2\\) m/s² 匀加速 \\(10\\) s；② 以最高速度匀速 \\(30\\) s；③ 以大小 \\(a_3 = 4\\) m/s² 匀减速到停止。下列<strong>正确</strong>的是（多选）：",
+        "explanation": {
+          "knowledge": "多阶段运动：每段独立用三大公式或 v-t 图面积。段末速度 = 下段初速度（连接条件）。",
+          "approach": "① 最高速度 \\(v_{max} = 0 + 2 \\times 10 = 20\\) m/s；② 减速时长 = 20/4 = 5 s；③ 三段位移：\\(x_1 = \\tfrac{1}{2} \\times 10 \\times 20 = 100\\) m、\\(x_2 = 20 \\times 30 = 600\\) m、\\(x_3 = \\tfrac{1}{2} \\times 5 \\times 20 = 50\\) m → 总 750 m；④ 总时长 10+30+5 = 45 s（不是 40 s）",
+          "solution": "A、B、C 正确；D 错（漏算减速阶段 5 s，总时长应为 45 s）"
+        },
+        "cardAnchor": "P4 · 多阶段运动的分段处理<br>v-t 梯形面积法",
+        "reflectionPrompts": [
+          "D 选项 40 s 是最常见错——为什么容易漏计减速阶段的时长？",
+          "本题若用 v-t 图梯形整体法算总位移：\\(\\tfrac{1}{2}(30 + 45) \\times 20 = 750\\) m ✓——比分段求和快在哪里？",
+          "若阶段 ③ 的减速度从 4 m/s² 减小到 2 m/s²，全程总时间会变成多少？"
+        ],
+        "options": {
+          "A": "最高速度 \\(v_{\\max} = 20\\) m/s",
+          "B": "减速阶段时长 \\(t_3 = 5\\) s",
+          "C": "全程总位移 \\(x_{\\text{总}} = 750\\) m",
+          "D": "全程总时长 \\(t_{\\text{总}} = 40\\) s"
+        },
+        "answer": ["A", "B", "C"]
+      },
+      {
+        "id": "T3-3",
+        "type": "multi",
+        "score": 16,
+        "difficulty": "中等",
+        "exportIds": ["KIN-MULTISTAGE"],
+        "stem": "一辆汽车以 \\(v_0 = 20\\) m/s 匀速行驶。司机发现前方危险，反应时间 \\(t_r = 1.5\\) s（这段时间车仍匀速）；反应结束后立即制动，加速度大小 \\(a = 5\\) m/s²。下列<strong>正确</strong>的是（多选）：",
+        "explanation": {
+          "knowledge": "\"看到危险 → 停下\" 的过程分两阶段：反应期匀速 + 制动期匀减速。总位移 = 反应距离 + 制动距离。",
+          "approach": "① 反应期位移 = \\(v_0 t_r = 20 \\times 1.5 = 30\\) m；② 制动时长 = \\(v_0 / a = 20 / 5 = 4\\) s；③ 制动位移 = \\(\\tfrac{v_0}{2} \\times 4 = 40\\) m；④ 总位移 = 30 + 40 = 70 m",
+          "solution": "四项全部正确。这是驾驶安全的核心结论——「反应距离 + 制动距离」共同决定安全跟车距离。"
+        },
+        "cardAnchor": "P4/P8 · 反应时间 + 制动<br>安全距离的物理基础",
+        "reflectionPrompts": [
+          "本题四项全对——你能用一张 v-t 图（矩形+三角形）同时展示这四个结论吗？",
+          "若反应时间从 1.5 s 增到 2 s（如疲劳驾驶），总位移会增加多少 m？",
+          "「反应距离 + 制动距离」这个通用结论如何指导你判断行车安全距离？"
+        ],
+        "options": {
+          "A": "反应期内位移 \\(x_r = 30\\) m",
+          "B": "制动过程时长 \\(t_b = 4\\) s",
+          "C": "制动过程位移 \\(x_b = 40\\) m",
+          "D": "从看到危险到停下的总位移 = 70 m"
+        },
+        "answer": ["A", "B", "C", "D"]
+      },
+      {
+        "id": "T3-4",
+        "type": "multi",
+        "score": 16,
+        "difficulty": "较难",
+        "exportIds": ["KIN-CHASE", "KIN-MULTISTAGE"],
+        "stem": "甲车以 \\(v_甲 = 20\\) m/s 匀速前进，乙车在甲后方 \\(30\\) m 处<strong>从静止</strong>起以 \\(a = 2\\) m/s² 匀加速追赶。下列<strong>正确</strong>的是（多选）：",
+        "explanation": {
+          "knowledge": "追及+加速运动：初期乙比甲慢 → 间距先增大；甲乙速度相等时间距达最大；之后乙比甲快 → 间距减小直到追上。",
+          "approach": "① 乙的速度 \\(v_乙(t) = 2t\\)，甲乙同速时 \\(2t = 20 \\Rightarrow t = 10\\) s——此时间距最大；② 之前甲更快、间距在增大；之后乙更快、间距减小 → B 正确；③ 乙一直加速，最终 \\(v_乙 > v_甲\\)，一定能追上 → C 正确；④ 追上瞬间乙已加速较长时间，\\(v_乙 > 20\\) m/s → D 正确。",
+          "solution": "四项全部正确。这是「追及+加速」的经典综合判断题。"
+        },
+        "cardAnchor": "P3+P4 · 追及与加速运动的复合<br>速度相等 = 间距极值",
+        "reflectionPrompts": [
+          "为什么「甲乙速度相等」的时刻恰好是「间距极值」？（提示：从相对速度 = 0 想）",
+          "若初始乙比甲快（例如乙 25 m/s 匀速、甲 20 m/s 匀速），本题四项还成立几项？",
+          "本题追上时间不好算（一元二次方程），但四项判断都不依赖具体时间——你能只用「相对速度 = 0 时距离极值」这一条判据就把四项都判断出来吗？"
+        ],
+        "options": {
+          "A": "甲乙<strong>速度相等</strong>时，两车间距达最大",
+          "B": "从出发到追上的过程中，两车间距先增大后减小",
+          "C": "乙最终能追上甲（因乙一直加速）",
+          "D": "追上瞬间，乙的速度大于甲的速度"
+        },
+        "answer": ["A", "B", "C", "D"]
+      }
+    ],
+    "T4": [
+      {
+        "id": "T4-1",
+        "type": "short",
+        "score": 30,
+        "difficulty": "中等",
+        "exportIds": ["KIN-GEOMETRY", "KIN-3FORMULA"],
+        "stem": "<strong>综合大题（列车过桥）</strong> · 一列长 \\(L_{车} = 200\\) m 的列车以 \\(v_0 = 15\\) m/s 匀速经过一座长 \\(L_{桥} = 400\\) m 的大桥。情境示意图如下：<br><svg viewBox=\"0 0 520 210\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:520px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"30\" y1=\"150\" x2=\"495\" y2=\"150\" stroke=\"#78716c\" stroke-width=\"2\"/><line x1=\"100\" y1=\"150\" x2=\"100\" y2=\"120\" stroke=\"#1e40af\" stroke-width=\"3\"/><line x1=\"420\" y1=\"150\" x2=\"420\" y2=\"120\" stroke=\"#1e40af\" stroke-width=\"3\"/><line x1=\"100\" y1=\"120\" x2=\"420\" y2=\"120\" stroke=\"#1e40af\" stroke-width=\"3\"/><text x=\"84\" y=\"115\" font-size=\"11\" fill=\"#1e40af\">桥头</text><text x=\"407\" y=\"115\" font-size=\"11\" fill=\"#1e40af\">桥尾</text><line x1=\"105\" y1=\"180\" x2=\"415\" y2=\"180\" stroke=\"#1e40af\" stroke-width=\"1.2\"/><polygon points=\"100,180 108,176 108,184\" fill=\"#1e40af\"/><polygon points=\"420,180 412,176 412,184\" fill=\"#1e40af\"/><text x=\"215\" y=\"196\" font-size=\"13\" fill=\"#1e40af\" font-weight=\"bold\">桥长 400 m</text><rect x=\"40\" y=\"126\" width=\"160\" height=\"22\" fill=\"#fef3c7\" stroke=\"#a16207\" stroke-width=\"1.5\" rx=\"3\"/><circle cx=\"60\" cy=\"150\" r=\"4\" fill=\"#78716c\"/><circle cx=\"180\" cy=\"150\" r=\"4\" fill=\"#78716c\"/><text x=\"38\" y=\"120\" font-size=\"11\" fill=\"#a16207\">车尾</text><text x=\"178\" y=\"120\" font-size=\"11\" fill=\"#a16207\">车头</text><line x1=\"45\" y1=\"95\" x2=\"195\" y2=\"95\" stroke=\"#a16207\" stroke-width=\"1\"/><polygon points=\"40,95 48,91 48,99\" fill=\"#a16207\"/><polygon points=\"200,95 192,91 192,99\" fill=\"#a16207\"/><text x=\"78\" y=\"87\" font-size=\"12\" fill=\"#a16207\" font-weight=\"bold\">车长 200 m</text><line x1=\"265\" y1=\"55\" x2=\"345\" y2=\"55\" stroke=\"#dc2626\" stroke-width=\"2\"/><polygon points=\"345,55 337,50 337,60\" fill=\"#dc2626\"/><text x=\"238\" y=\"46\" font-size=\"13\" fill=\"#dc2626\" font-weight=\"bold\">前进方向</text></svg>请回答（共 30 分）：<br><br>（1）从”车头进桥”到”车尾出桥”经过的时间 \\(t_1\\)。<br>（2）“整列车都在桥上”的时长 \\(t_2\\)。<br>（3）若列车从”车头进桥”开始以 \\(a = 0.5\\) m/s² 匀加速前进，则”车尾出桥”时列车的速度是多少？（用 \\(v^2 = v_0^2 + 2ax\\)）",
+        "explanation": {
+          "knowledge": "列车过桥的关键：把”过桥距离”翻译成车头位移。① 车头进桥→车尾出桥：车头位移 = 桥长 + 车长；② 整列车都在桥上（车尾进桥→车头出桥）：车头位移 = 桥长 − 车长（需桥长 ≥ 车长）。第（3）问是匀加速情境下的三大公式直接调用。",
+          "approach": "① 明确”过桥距离”到底指哪段——画一条线：车头、车尾、桥头、桥尾四个位置；② 用位移 = 车头走过的距离；③ 匀速用 \\(t = x/v_0\\)；匀加速用 \\(v^2 = v_0^2 + 2ax\\)。",
+          "solution": "（1）车头位移 = 400 + 200 = 600 m；\\(t_1 = 600 / 15 = 40\\) s。<br>（2）“整列车在桥上”的车头位移 = 400 − 200 = 200 m；\\(t_2 = 200 / 15 ≈ 13.3\\) s。<br>（3）车尾出桥 = 车头走过 400 + 200 = 600 m；用 \\(v^2 = v_0^2 + 2ax = 15^2 + 2·0.5·600 = 225 + 600 = 825\\) → \\(v = \\sqrt{825} ≈ 28.7\\) m/s。"
+        },
+        "cardAnchor": "P5 · 几何+运动学<br>过桥距离 = 桥长 ± 车长",
+        "reflectionPrompts": [
+          "为什么”车头进桥→车尾出桥”车头走了”桥长+车长”，而”整列车在桥上”的时长对应车头只走了”桥长−车长”？请对着图重述一次。",
+          "若列车比桥还长（如 \\(L_{车} = 500\\) m、\\(L_{桥} = 400\\) m），“整列车在桥上”这个状态还存在吗？为什么？",
+          "第（3）问用了 \\(v^2 = v_0^2 + 2ax\\) 而没用 \\(v = v_0 + at\\)——这两条路径都能算出末速度吗？你会选哪个？为什么？"
+        ],
+        "keywords": [
+          "车头位移",
+          "桥长加车长",
+          "桥长减车长",
+          "40",
+          "200",
+          "600",
+          "28.7",
+          "√825",
+          "三大公式"
+        ]
+      },
+      {
+        "id": "T4-2",
+        "type": "short",
+        "score": 30,
+        "difficulty": "中等",
+        "exportIds": ["KIN-FREEFALL", "KIN-3FORMULA"],
+        "stem": "<strong>综合大题（竖直上抛的对称性）</strong> · 从地面竖直向上抛出一小球，初速度 \\(v_0 = 30\\) m/s。取 \\(g = 10\\) m/s²，忽略空气阻力，规定竖直向上为正方向。请回答（共 30 分）：<br><br>（1）小球上升的最大高度 \\(H\\)。<br>（2）小球从抛出到落回抛出点的总时间 \\(T\\)。<br>（3）小球两次经过距地面 \\(h = 25\\) m 处的时刻 \\(t_a\\) 与 \\(t_b\\)。<br>（4）从”第一次经过 25 m 处（上升途中）“到”第二次经过 25 m 处（下降途中）“所经历的时长 \\(\\Delta t = t_b - t_a\\)。请解释为什么 \\(\\Delta t\\) 与”25 m 处的瞬时速度大小”相关（写出关系式）。",
+        "explanation": {
+          "knowledge": "竖直上抛 = 匀变速直线运动的特例，\\(a = -g\\) 代入三大公式即可。对称性表现：上升到最高点用时 = 从最高点下落回同一位置用时；同一高度上升与下降的瞬时速度大小相等、方向相反。",
+          "approach": "① 用 \\(v = v_0 + at\\) 与 \\(v^2 = v_0^2 + 2ax\\) 直接调用（把 \\(a\\) 设为 \\(-g\\)）；② 求两次经过同一高度：用 \\(x = v_0 t + \\tfrac{1}{2}at^2\\) 解一元二次方程；③ \\(\\Delta t\\) 与该高度处速度大小的关系：由对称性 \\(\\Delta t = 2|v_h|/g\\)。",
+          "solution": "（1）到最高点 \\(v = 0\\)，用 \\(v^2 = v_0^2 - 2gH\\) → \\(H = v_0^2/(2g) = 900/20 = 45\\) m。<br>（2）到最高点时间 \\(t_↑ = v_0/g = 3\\) s；由对称性 \\(T = 2t_↑ = 6\\) s。<br>（3）\\(x = v_0 t - \\tfrac{1}{2}g t^2\\) → \\(25 = 30 t - 5 t^2\\) → \\(t^2 - 6t + 5 = 0\\) → \\(t_a = 1\\) s（上升途中）、\\(t_b = 5\\) s（下降途中）。<br>（4）\\(\\Delta t = t_b - t_a = 4\\) s。25 m 处瞬时速度：由 \\(v^2 = v_0^2 - 2gh = 900 - 500 = 400\\) → \\(|v_h| = 20\\) m/s。对称性给出 \\(\\Delta t = 2|v_h|/g = 40/10 = 4\\) s ✓。"
+        },
+        "cardAnchor": "P6 · 自由落体·竖直上抛<br>a = -g 代入三大公式",
+        "reflectionPrompts": [
+          "本题的”对称性”体现在哪三处？（提示：时长、高度、速度大小）",
+          "为什么”竖直上抛”不需要引入新的”上抛三公式”？它与匀变速三大公式的关系是什么？",
+          "若把方向规定改为”竖直向下为正”，第（1）（3）问的方程会怎么变？答案数值会变吗？"
+        ],
+        "keywords": [
+          "45",
+          "6",
+          "1",
+          "5",
+          "4",
+          "20",
+          "对称性",
+          "特例",
+          "三大公式"
+        ]
+      },
+      {
+        "id": "T4-3",
+        "type": "short",
+        "score": 30,
+        "difficulty": "较难",
+        "exportIds": ["KIN-FREEFALL", "KIN-CHASE"],
+        "stem": "<strong>综合大题（自由落体追及）</strong> · 小球 A 从距地面高 \\(H = 80\\) m 处静止释放做自由落体；1 s 之后，小球 B 从同一位置以初速度 \\(v_0 = 25\\) m/s 竖直下抛。取 \\(g = 10\\) m/s²，规定竖直向下为正方向。请回答（共 30 分）：<br><br>（1）A 落地的时间（从 A 释放开始计时）。<br>（2）B 追上 A 时距释放点的距离。<br>（3）B 追上 A 是否发生在 A 落地之前？（请以 t 时刻为准比较）<br>（4）若把 B 的初速度 \\(v_0\\) 改为 15 m/s（其他不变），B 还能在 A 落地之前追上 A 吗？请给出判断依据（不必解出精确时刻，用不等式或临界分析）。",
+        "explanation": {
+          "knowledge": "自由落体 = 匀变速（\\(a = g\\)）。同一竖直线上先后释放的两物追及：把位移方程写出，联立求相遇时刻。判断”追上是否在落地前”= 比较相遇时刻与落地时刻。",
+          "approach": "① 以 A 释放为 \\(t = 0\\)，位置以释放点为原点、向下为正；② A：\\(x_A = \\tfrac{1}{2} g t^2\\)；B（从 \\(t = 1\\) s 起）：\\(x_B = v_0(t-1) + \\tfrac{1}{2}g(t-1)^2\\)；③ 追上 = \\(x_A = x_B\\)；④ 判断 \\(t_{追} < t_{A落地}\\)？",
+          "solution": "（1）\\(80 = \\tfrac{1}{2} · 10 · t^2\\) → \\(t_{A落地} = 4\\) s。<br>（2）\\(x_A = x_B\\)：\\(\\tfrac{1}{2}·10·t^2 = 25(t-1) + \\tfrac{1}{2}·10·(t-1)^2\\) → \\(5t^2 = 25t - 25 + 5(t^2 - 2t + 1) = 5t^2 + 15t - 20\\) → \\(15t = 20\\) → \\(t = 4/3 ≈ 1.33\\) s。此时 \\(x_A = \\tfrac{1}{2}·10·(4/3)^2 = 80/9 ≈ 8.89\\) m。<br>（3）\\(t_{追} ≈ 1.33 < 4\\)，追上发生在 A 落地之前 ✓。<br>（4）用 \\(v_0 = 15\\) m/s 重解：\\(5t^2 = 15(t-1) + 5(t-1)^2\\) → \\(5t^2 = 15t - 15 + 5t^2 - 10t + 5\\) → \\(0 = 5t - 10\\) → \\(t = 2\\) s。因 \\(2 < 4\\)，B 仍能在 A 落地前追上（\\(t_{追} = 2\\) s < \\(t_{A落地} = 4\\) s）。"
+        },
+        "cardAnchor": "P7 · 自由落体追及<br>位移方程联立",
+        "reflectionPrompts": [
+          "本题写位移方程时，为什么 B 的时间要用 \\((t-1)\\) 而不是 \\(t\\)？请用一句话讲清楚。",
+          "为什么”追上时刻”这里可以用位移相等来求？——这个方法背后要满足什么前提？（提示：同起点、同方向）",
+          "若把 B 的初速度改为 5 m/s（其他不变），B 还能追上 A 吗？请写出你的判断依据。（提示：从（4）的思路出发，看联立方程有没有 \\(t \\le 4\\) 的解）"
+        ],
+        "keywords": [
+          "4",
+          "1.33",
+          "8.89",
+          "80/9",
+          "2",
+          "位移方程",
+          "自由落体",
+          "追及",
+          "落地前"
+        ]
+      },
+      {
+        "id": "T4-4",
+        "type": "short",
+        "score": 30,
+        "difficulty": "较难",
+        "exportIds": ["KIN-FREEFALL", "KIN-MULTISTAGE"],
+        "stem": "<strong>综合大题（竖直下抛的分段处理）</strong> · 从楼顶（距地面 \\(H = 40\\) m）以初速度 \\(v_0 = 10\\) m/s 竖直下抛一小球。取 \\(g = 10\\) m/s²，规定竖直向下为正方向。请回答（共 30 分）：<br><br>（1）小球落地所用时间 \\(t_1\\) 与落地瞬间速度大小 \\(v_1\\)。<br>（2）小球下落到距抛出点 15 m 处所用时间 \\(t_2\\)。<br>（3）小球在下落”最后 1 s 内”的位移是多少？（提示：最后 1 s 起点在 \\(t_1 - 1\\) 时刻）<br>（4）小球在下落”最后 1 s 内”的平均速度是多少？请用两种方法计算并互相验证：<br>&nbsp;&nbsp;&nbsp;&nbsp;方法 A：平均速度 = 位移 / 时间；<br>&nbsp;&nbsp;&nbsp;&nbsp;方法 B：匀变速中间时刻瞬时速度定理（\\(\\bar v = v_{中间时刻}\\)）。",
+        "explanation": {
+          "knowledge": "竖直下抛 = 匀变速（\\(a = g\\)，初速度非零）。分段处理：“最后 1 s 内”= 从 \\(t_1 - 1\\) 到 \\(t_1\\) 的这一段位移或速度。中间时刻定理：匀变速中一段时间的平均速度 = 该段中间时刻的瞬时速度（几何上对应 v-t 图梯形的中位数）。",
+          "approach": "① 用 \\(x = v_0 t + \\tfrac{1}{2}g t^2\\) 反解落地时间；② 到 15 m 处同样用位移公式；③ 最后 1 s 位移 = 总位移 − 前 \\(t_1 - 1\\) 秒位移；④ 用两种方法验证平均速度。",
+          "solution": "（1）\\(40 = 10 t + 5 t^2\\) → \\(t^2 + 2t - 8 = 0\\) → \\((t + 4)(t - 2) = 0\\) → \\(t_1 = 2\\) s。<br>&nbsp;&nbsp;&nbsp;&nbsp;\\(v_1 = v_0 + g t_1 = 10 + 10·2 = 30\\) m/s。<br>（2）\\(15 = 10 t_2 + 5 t_2^2\\) → \\(t_2^2 + 2 t_2 - 3 = 0\\) → \\((t_2 + 3)(t_2 - 1) = 0\\) → \\(t_2 = 1\\) s。<br>（3）最后 1 s 起点在 \\(t_1 - 1 = 1\\) s。前 1 s 位移 \\(= 10·1 + 5·1^2 = 15\\) m；最后 1 s 位移 = 40 − 15 = 25 m。<br>（4）方法 A：\\(\\bar v = 25 / 1 = 25\\) m/s。方法 B：最后 1 s 的中间时刻在 \\(t = 1.5\\) s，瞬时速度 \\(v_{1.5} = 10 + 10·1.5 = 25\\) m/s。两种方法一致 ✓。"
+        },
+        "cardAnchor": "P6 变体 · 竖直下抛分段<br>中间时刻定理",
+        "reflectionPrompts": [
+          "本题（4）小问两种方法给出同一答案——这说明”中间时刻定理”在匀变速中是必然成立的吗？请复述其几何含义（v-t 图上”梯形高的平均 = 中间时刻瞬时速度”）。",
+          "为什么”最后 1 s 位移 = 25 m”远大于”前 1 s 位移 15 m”？请用速度增长的角度解释。",
+          "若把题设改成”从楼顶自由释放（\\(v_0 = 0\\)），落地用时 3 s”，那么最后 1 s 位移是多少？请用同一”总位移减去前段位移”的思路算出。"
+        ],
+        "keywords": [
+          "2",
+          "30",
+          "25",
+          "15",
+          "中间时刻",
+          "平均速度",
+          "分段",
+          "竖直下抛",
+          "40"
+        ]
+      }
+    ],
+    "T5": [
+      {
+        "id": "T5-1",
+        "type": "short",
+        "score": 30,
+        "difficulty": "综合",
+        "exportIds": ["KIN-CAPSTONE", "KIN-CHASE"],
+        "stem": "<strong>综合压轴（前车制动+后车反应）</strong> · 甲车以 \\(v_甲 = 20\\) m/s 匀速在平直公路上前进，乙车在甲后方 \\(d_0 = 25\\) m 处以 \\(v_乙 = 30\\) m/s 匀速同向行驶。突然乙车驾驶员看见甲车，经过反应时间 \\(t_反 = 0.5\\) s 后开始以 \\(a = 5\\) m/s² 匀减速刹车（甲车始终保持 20 m/s 匀速）。取正方向沿运动方向。请回答（共 30 分）：<br><br>（1）反应时间 \\(t_反 = 0.5\\) s 内，两车间距如何变化？请给出反应期末的两车间距。<br>（2）乙开始刹车后，乙的速度何时下降到 20 m/s（与甲同速）？此时两车间距是多少？（用速度相等判据）<br>（3）判断乙是否会撞上甲。若不会，最小间距是多少；若会，撞击发生的时刻（从乙看见甲的时刻起算）。<br>（4）若乙的反应时间延长到 \\(t_反 = 1.0\\) s（其他不变），乙还能避免撞上甲吗？请写出判断步骤。",
+        "explanation": {
+          "knowledge": "综合压轴 = 反应时间 + 匀减速 + 追及 三阶段合成。反应期两车都匀速，间距按相对速度变化；刹车期用三大公式；判断”是否追尾”用”速度相等时刻的间距”作为极值判据（同向追及中，相对速度=0 时间距取极值）。",
+          "approach": "① 反应期分析（0.5 s 内乙相对甲以 +10 m/s 靠近）；② 刹车期：\\(v_乙 = 30 - 5(t - 0.5)\\)；③ 找速度相等时刻 → 此时刻间距 = 反应期末间距 + \\(x_甲 - x_乙\\)（刹车段位移差）；④ 若最小间距 > 0 则不追尾。",
+          "solution": "（1）反应期两车都匀速，相对速度 \\(v_乙 - v_甲 = 10\\) m/s（乙靠近甲）。0.5 s 内相对位移 = 10·0.5 = 5 m。反应期末间距 \\(d_1 = 25 - 5 = 20\\) m。<br>（2）设从看见甲起 \\(t\\) 秒后 \\(v_乙 = v_甲 = 20\\) m/s：\\(30 - 5(t - 0.5) = 20\\) → \\(t - 0.5 = 2\\) → \\(t = 2.5\\) s。<br>&nbsp;&nbsp;&nbsp;&nbsp;刹车段 2 秒内：\\(x_乙 = 30·2 - \\tfrac{1}{2}·5·2^2 = 60 - 10 = 50\\) m；\\(x_甲 = 20·2 = 40\\) m。<br>&nbsp;&nbsp;&nbsp;&nbsp;间距变化 = \\(x_甲 - x_乙 = -10\\) m（乙继续靠近甲 10 m）。<br>&nbsp;&nbsp;&nbsp;&nbsp;\\(t = 2.5\\) s 时刻间距 = 20 − 10 = <strong>10 m</strong>。<br>（3）速度相等时刻是相对速度符号翻转点 → 也是间距极小值时刻。最小间距 = 10 m > 0，<strong>不会追尾</strong>。<br>（4）反应期若延长到 1.0 s，反应期相对位移 = 10·1.0 = 10 m，反应期末间距 = 25 − 10 = 15 m；速度相等时刻仍需刹车 2 s，刹车段间距损失 10 m；最小间距 = 15 − 10 = 5 m > 0，<strong>仍能避免追尾</strong>（但极其危险）。"
+        },
+        "cardAnchor": "P8 · 综合压轴<br>反应+刹车+追及三合",
+        "reflectionPrompts": [
+          "为什么”速度相等时刻”就是”两车间距的极小值时刻”？请用相对速度符号翻转的角度解释一次。",
+          "若第（3）问的答案是”会追尾”，你会怎么求”撞击时刻”？（提示：写位移方程 \\(x_乙 = x_甲 + d_0\\)）",
+          "第（4）问的边界情形——如果反应时间恰好使最小间距 = 0，反应时间的临界值是多少？你能用一个不等式描述”能避免追尾”的反应时间上限吗？"
+        ],
+        "keywords": [
+          "20",
+          "10",
+          "2.5",
+          "5",
+          "15",
+          "不追尾",
+          "速度相等",
+          "最小间距",
+          "反应时间"
+        ]
+      },
+      {
+        "id": "T5-2",
+        "type": "short",
+        "score": 30,
+        "difficulty": "综合",
+        "exportIds": ["KIN-CAPSTONE", "KIN-CHASE"],
+        "stem": "<strong>综合压轴（追及不上的最小距离）</strong> · 甲、乙两车沿同一方向在同一直道上行驶，起始时刻乙在甲前方 \\(d_0 = 10\\) m 处。甲以 \\(v_甲 = 6\\) m/s 匀速前进；乙从静止起以 \\(a = 2\\) m/s² 匀加速前进。取正方向沿运动方向。请回答（共 30 分）：<br><br>（1）甲、乙速度相等的时刻 \\(t_*\\) 与此时两车间距。<br>（2）判断甲是否能追上乙。若能，给出追上时刻及此刻乙的速度；若不能，给出两车最大间距。<br>（3）在（2）情境下，若把甲的初速度提高到 \\(v_甲 = 10\\) m/s（其他不变），甲能追上乙吗？追上时刻是多少？<br>（4）总结：“同向追及”问题中，“追上/不追上”的判据是什么？请用”速度相等时刻的相对位置”给出一句话规则。",
+        "explanation": {
+          "knowledge": "同向追及经典情境：后方物体速度可能与前方物体在某时刻相等（相对速度=0）——这是相对位移的极值时刻。若相等时刻后方仍未追上前方，则永远追不上（因后方从此速度更慢）；若已经追上或超过，则中途必然相遇。",
+          "approach": "① 求速度相等时刻；② 比较此时”甲位移”与”乙位移 + d₀”；③ 相等时刻甲仍在乙后方 → 追不上 → 此刻两车间距即最大值；④ 追上时刻用位移方程联立求解。",
+          "solution": "（1）\\(v_甲 = v_乙\\)：\\(6 = 2 t_*\\) → \\(t_* = 3\\) s。此时 \\(x_甲 = 18\\) m，\\(x_乙 = \\tfrac{1}{2}·2·3^2 = 9\\) m。两车间距 = \\(x_乙 + d_0 - x_甲 = 9 + 10 - 18 = 1\\) m。<br>（2）\\(t_*\\) 时刻甲仍在乙后方 1 m → 甲追不上。之后乙速度大于甲 → 差距只会扩大 → 最大间距 = 1 m（发生在 \\(t = 3\\) s）。<br>（3）\\(v_甲 = 10\\)：速度相等时刻 \\(t_* = 5\\) s，\\(x_甲 = 50\\) m，\\(x_乙 = 25\\) m。此刻 \\(x_甲 - x_乙 = 25 > d_0 = 10\\) → 甲早已追上。追上方程：\\(10 t = t^2 + 10\\) → \\(t^2 - 10 t + 10 = 0\\) → \\(t = 5 - \\sqrt{15} ≈ 1.13\\) s（取较早根）。此刻 \\(v_乙 = 2·1.13 ≈ 2.26\\) m/s。<br>（4）<strong>规则</strong>：设速度相等时刻为 \\(t_*\\)。若 \\(x_甲(t_*) \\ge x_乙(t_*) + d_0\\) → 之前已追上；若 \\(x_甲(t_*) < x_乙(t_*) + d_0\\) → 追不上，最大间距 = \\(x_乙(t_*) + d_0 - x_甲(t_*)\\)。"
+        },
+        "cardAnchor": "P3 变体 · 同向追及<br>速度相等作判据",
+        "reflectionPrompts": [
+          "为什么”追不上”时的”最大间距”发生在”速度相等时刻”？请用相对速度符号翻转的角度解释。",
+          "本题（1）和（3）实质是同一算法（速度相等时刻 → 位置比较），只是参数变化。你能用一个”通用流程”描述完整算法吗？",
+          "若乙的初速度不是 0（如 \\(v_{乙,0} = 4\\) m/s），(1)-(2) 的推导会怎么变？"
+        ],
+        "keywords": [
+          "3",
+          "1",
+          "5",
+          "追不上",
+          "追上",
+          "1.13",
+          "速度相等",
+          "最大间距",
+          "同向追及"
+        ]
+      },
+      {
+        "id": "T5-3",
+        "type": "short",
+        "score": 30,
+        "difficulty": "综合",
+        "exportIds": ["KIN-CAPSTONE", "KIN-MULTISTAGE", "KIN-VTGRAPH"],
+        "stem": "<strong>综合压轴（多阶段 v-t 图整体法）</strong> · 一辆汽车沿平直公路行驶，全程分四段：<br>&nbsp;&nbsp;&nbsp;&nbsp;① 0-4 s 从静止匀加速至 \\(v_1 = 12\\) m/s；<br>&nbsp;&nbsp;&nbsp;&nbsp;② 4-10 s 匀速 \\(12\\) m/s；<br>&nbsp;&nbsp;&nbsp;&nbsp;③ 10-14 s 匀加速至 \\(v_3 = 20\\) m/s；<br>&nbsp;&nbsp;&nbsp;&nbsp;④ 14-24 s 匀减速至停止。<br>\\(v\\)-\\(t\\) 图如下：<br><svg viewBox=\"0 0 540 280\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width:540px;display:block;margin:8px auto;background:#fff;border:1px solid #e5e7eb;border-radius:6px\"><line x1=\"50\" y1=\"220\" x2=\"510\" y2=\"220\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"510,220 502,216 502,224\" fill=\"#1e40af\"/><line x1=\"50\" y1=\"220\" x2=\"50\" y2=\"30\" stroke=\"#1e40af\" stroke-width=\"1.6\"/><polygon points=\"50,30 46,38 54,38\" fill=\"#1e40af\"/><text x=\"513\" y=\"235\" font-size=\"14\">t/s</text><text x=\"20\" y=\"35\" font-size=\"14\">v/(m·s⁻¹)</text><line x1=\"122\" y1=\"220\" x2=\"122\" y2=\"225\" stroke=\"#1e40af\"/><text x=\"117\" y=\"238\" font-size=\"12\">4</text><line x1=\"230\" y1=\"220\" x2=\"230\" y2=\"225\" stroke=\"#1e40af\"/><text x=\"220\" y=\"238\" font-size=\"12\">10</text><line x1=\"302\" y1=\"220\" x2=\"302\" y2=\"225\" stroke=\"#1e40af\"/><text x=\"292\" y=\"238\" font-size=\"12\">14</text><line x1=\"482\" y1=\"220\" x2=\"482\" y2=\"225\" stroke=\"#1e40af\"/><text x=\"472\" y=\"238\" font-size=\"12\">24</text><text x=\"40\" y=\"238\" font-size=\"12\">0</text><line x1=\"50\" y1=\"124\" x2=\"45\" y2=\"124\" stroke=\"#1e40af\"/><text x=\"22\" y=\"128\" font-size=\"12\">12</text><line x1=\"50\" y1=\"60\" x2=\"45\" y2=\"60\" stroke=\"#1e40af\"/><text x=\"22\" y=\"64\" font-size=\"12\">20</text><line x1=\"122\" y1=\"124\" x2=\"122\" y2=\"220\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><line x1=\"230\" y1=\"124\" x2=\"230\" y2=\"220\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><line x1=\"302\" y1=\"60\" x2=\"302\" y2=\"220\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><line x1=\"50\" y1=\"124\" x2=\"230\" y2=\"124\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><line x1=\"50\" y1=\"60\" x2=\"302\" y2=\"60\" stroke=\"#94a3b8\" stroke-width=\"0.8\" stroke-dasharray=\"3,3\"/><polygon points=\"50,220 122,124 230,124 302,60 482,220\" fill=\"#fef3c7\" stroke=\"none\"/><polyline points=\"50,220 122,124 230,124 302,60 482,220\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2.2\"/><circle cx=\"50\" cy=\"220\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"122\" cy=\"124\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"230\" cy=\"124\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"302\" cy=\"60\" r=\"3\" fill=\"#dc2626\"/><circle cx=\"482\" cy=\"220\" r=\"3\" fill=\"#dc2626\"/><text x=\"78\" y=\"190\" font-size=\"11\" fill=\"#a16207\" font-weight=\"bold\">①</text><text x=\"170\" y=\"180\" font-size=\"11\" fill=\"#a16207\" font-weight=\"bold\">②</text><text x=\"258\" y=\"115\" font-size=\"11\" fill=\"#a16207\" font-weight=\"bold\">③</text><text x=\"380\" y=\"170\" font-size=\"11\" fill=\"#a16207\" font-weight=\"bold\">④</text></svg>请回答（共 30 分）：<br><br>（1）用”v-t 图斜率法”求四段加速度 \\(a_1, a_2, a_3, a_4\\)。<br>（2）用”v-t 图面积法”求全程总位移。<br>（3）用”三大公式代数法”独立算出①②③④四段位移后相加，与（2）互相验证。<br>（4）如果只关心全程平均速度，能用平均速度定理 \\(\\bar v = \\tfrac{v_0 + v_末}{2}\\) 一步算出吗？为什么？请给出正确的求法。",
+        "explanation": {
+          "knowledge": "v-t 图”整体法”（面积一次算全程）远比”三大公式段段算”高效——梯形/三角形/矩形四种基本图形累加即可。第（4）问的关键：\\(\\bar v = (v_0 + v_末)/2\\) 只在”整段匀变速”时成立；本题是多段拼接（先加后匀后加后减），故不成立。",
+          "approach": "① 用 \\(a = \\Delta v / \\Delta t\\) 分段读斜率；② 分四块几何图形求面积；③ 用三大公式独立验算；④ 讨论平均速度定理的适用边界。",
+          "solution": "（1）\\(a_1 = 12/4 = 3\\) m/s²；\\(a_2 = 0\\)；\\(a_3 = (20-12)/(14-10) = 2\\) m/s²；\\(a_4 = (0-20)/(24-14) = -2\\) m/s²。<br>（2）v-t 面积法：<br>&nbsp;&nbsp;&nbsp;&nbsp;段①（三角形）= ½·4·12 = 24 m；<br>&nbsp;&nbsp;&nbsp;&nbsp;段②（矩形）= 6·12 = 72 m；<br>&nbsp;&nbsp;&nbsp;&nbsp;段③（梯形）= ½·(12+20)·4 = 64 m；<br>&nbsp;&nbsp;&nbsp;&nbsp;段④（三角形）= ½·10·20 = 100 m；<br>&nbsp;&nbsp;&nbsp;&nbsp;总位移 = 24 + 72 + 64 + 100 = <strong>260 m</strong>。<br>（3）三大公式：段① \\(x = ½·3·4^2 = 24\\) m ✓；段② \\(x = 12·6 = 72\\) m ✓；段③ \\(x = 12·4 + ½·2·4^2 = 48 + 16 = 64\\) m ✓；段④ \\(x = 20·10 + ½·(-2)·10^2 = 200 - 100 = 100\\) m ✓。合计 260 m ✓。<br>（4）不能。\\(\\bar v = (v_0 + v_末)/2\\) 只在<strong>整段匀变速</strong>时成立；本题四段拼接非整段匀变速。正确求法：\\(\\bar v = \\text{总位移} / \\text{总时间} = 260 / 24 ≈ 10.83\\) m/s。"
+        },
+        "cardAnchor": "P4 · 多阶段整体法<br>v-t 面积一次算全程",
+        "reflectionPrompts": [
+          "为什么”v-t 图整体面积法”比”三大公式分段算”更高效？——你是否在改成折线图后能一眼看出四块几何？",
+          "本题（4）小问是一个常见陷阱：什么样的运动 \\(\\bar v = (v_0 + v_末)/2\\) 才成立？请用一句话规则回答。",
+          "如果第③段（匀加速至 20 m/s）改成先减速再加速回 12（依然是折线），面积法怎么处理？平均速度公式是否仍不适用？"
+        ],
+        "keywords": [
+          "3",
+          "0",
+          "2",
+          "-2",
+          "24",
+          "72",
+          "64",
+          "100",
+          "260",
+          "10.83",
+          "整段匀变速",
+          "整体法",
+          "面积法"
+        ]
+      },
+      {
+        "id": "T5-4",
+        "type": "short",
+        "score": 30,
+        "difficulty": "综合",
+        "exportIds": ["KIN-CAPSTONE", "KIN-MULTISTAGE"],
+        "stem": "<strong>综合压轴（驾驶安全综合应用）</strong> · 一位驾驶员在城市道路上以 \\(v_0 = 20\\) m/s 匀速行驶。他的反应时间约 \\(t_反 = 0.6\\) s，急刹车时车轮抱死后的匀减速度大小为 \\(a = 8\\) m/s²。<br><br>请回答（共 30 分）：<br>（1）该驾驶员从”看见前方障碍”到”车辆完全停止”经过的总时长与总位移（“安全距离”）。<br>（2）若该驾驶员的车速改为 \\(v_0 = 30\\) m/s（提速 50%）而其他参数不变，安全距离变为多少？“提速 50%“导致”安全距离”增大的比例是多少？<br>（3）若该驾驶员喝酒后反应时间延长到 \\(t_反 = 1.5\\) s（车速仍 20 m/s，减速度不变），安全距离变为多少？相比清醒状态多出多少米？<br>（4）结合（2）（3）两组数据，用一句话总结：“影响安全距离的两个主要变量是什么，其贡献分别以怎样的方式（线性/平方）体现在安全距离上？“",
+        "explanation": {
+          "knowledge": "安全距离 = 反应距离 + 制动距离。反应距离 \\(x_反 = v_0 t_反\\)（线性依赖于 \\(v_0\\)）；制动距离由 \\(v^2 = v_0^2 - 2ax_制\\) → \\(x_制 = v_0^2/(2a)\\)（二次依赖于 \\(v_0\\)）。故提速对安全距离的影响是”反应项线性 + 制动项平方”复合的。",
+          "approach": "① 反应期 + 制动期分别算位移，相加得安全距离；② 参数变化后重算并比较比例；③ 归纳变量的贡献方式。",
+          "solution": "（1）反应距离 = 20·0.6 = 12 m；制动距离 = \\(20^2/(2·8) = 400/16 = 25\\) m；安全距离 = 12 + 25 = <strong>37 m</strong>。总时长：反应 0.6 s + 制动时长 \\(t_制 = v_0/a = 20/8 = 2.5\\) s → 总时长 = 3.1 s。<br>（2）反应距离 = 30·0.6 = 18 m；制动距离 = \\(30^2/(2·8) = 900/16 = 56.25\\) m；安全距离 = 18 + 56.25 = <strong>74.25 m</strong>。相比 37 m 增大 100.7%（约翻倍）——车速仅提高 50%，安全距离增大约 1 倍。<br>（3）反应距离 = 20·1.5 = 30 m；制动距离仍为 25 m；安全距离 = 30 + 25 = <strong>55 m</strong>。相比清醒状态 37 m 多出 <strong>18 m</strong>（正好等于反应距离的增量 20·(1.5-0.6) = 18 m）。<br>（4）<strong>规则</strong>：反应时间的贡献是”线性”（\\(v_0 t_反\\)），车速的贡献含”平方项”（\\(v_0^2/(2a)\\)）。故车速变化对安全距离影响远大于反应时间变化——这也是超速比酒驾在”距离维度”上更具风险的物理原因（但两者都危险且违法）。"
+        },
+        "cardAnchor": "P8 变体 · 驾驶安全综合<br>反应+制动两阶段",
+        "reflectionPrompts": [
+          "为什么”车速提高 50%“导致安全距离几乎翻倍？——请把”反应部分（线性）“和”制动部分（平方）“两块的增长率各自算出来。",
+          "本题引出了一个通用观察：\\(v_0^2\\) 项在制动距离中的出现，本质来自哪条三大公式？（提示：\\(v^2 = v_0^2 - 2ax\\)）",
+          "若把（3）中的反应时间延长写成”从 0.6 到 1.5 s 每增加 0.1 s”，安全距离每次增加多少 m？为什么是等增长？"
+        ],
+        "keywords": [
+          "12",
+          "25",
+          "37",
+          "18",
+          "56.25",
+          "74.25",
+          "30",
+          "55",
+          "平方",
+          "线性",
+          "反应距离",
+          "制动距离"
+        ]
+      }
+    ]
+  }
+};
+
+// ===== 常量 =====
+const ATOMIC_SLUG  = "linear_motion_综合";
+const KEY_STATE    = "fluencytest_" + ATOMIC_SLUG + "_state";
+const KEY_NAME     = "fluencytest_student_name";
+const KEY_REFLECT  = "fluencytest_" + ATOMIC_SLUG + "_reflections";
+const PASS_SCORE   = 70;
+const HONOR_SCORE  = 90;
+
+const EXPORT_NAMES     = MOCK_DATA.EXPORT_NAMES     || {};
+const KNOWLEDGE_POINTS = MOCK_DATA.KNOWLEDGE_POINTS || [];
+const QUESTION_BANK    = MOCK_DATA.QUESTION_BANK    || {};
+
+// 单位归一 (calc 题)
+const UNIT_TO_SI = {
+  "m": 1, "km": 1000, "cm": 0.01, "mm": 0.001,
+  "s": 1, "min": 60, "h": 3600,
+  "m/s": 1, "km/h": 1/3.6,
+  "m/s²": 1, "m/s^2": 1,
+  "kg": 1, "g": 0.001,
+  "N": 1, "kN": 1000,
+  "J": 1, "kJ": 1000,
+  "J/mol": 1, "kJ/mol": 1000, "kcal/mol": 4184,
+  "mol": 1, "L": 1, "mL": 0.001,
+  "": 1
+};
+
+// ===== 状态 =====
+let pickedQuestions = [];
+let pickedTids = [];
+let results = [];
+
+// ===== 抽题 (每 T 从 4 变体随机抽 1) =====
+function pickQuestions() {
+  pickedQuestions = [];
+  pickedTids = [];
+  Object.keys(QUESTION_BANK).sort().forEach(function(tKey) {
+    const pool = QUESTION_BANK[tKey];
+    if (!Array.isArray(pool) || pool.length === 0) return;
+    pickedQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+    pickedTids.push(tKey);
+  });
+}
+
+// ===== 归一化 (short 用) =====
+function normalizeText(s) {
+  return (s || "")
+    .replace(/[\s　]+/g, "")
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+    .replace(/[₀-₉]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2080]; })
+    .replace(/[⁰-⁹]/g, function(c) { return "0123456789"[c.charCodeAt(0) - 0x2070]; })
+    .toLowerCase();
+}
+
+// ===== 4 题型判分 =====
+function gradeQuestion(q, ua) {
+  if (q.type === "choice") return gradeChoice(q, ua);
+  if (q.type === "multi")  return gradeMulti(q, ua);
+  if (q.type === "calc")   return gradeCalc(q, ua);
+  if (q.type === "short")  return gradeShort(q, ua);
+  return { score: 0, isCorrect: false, userAnswer: ua };
+}
+
+function gradeChoice(q, ua) {
+  const isCorrect = ua === q.answer;
+  return { score: isCorrect ? q.score : 0, isCorrect: isCorrect, userAnswer: ua };
+}
+
+function gradeMulti(q, ua) {
+  if (!Array.isArray(ua)) ua = [];
+  const ans = q.answer || [];
+  const same = ua.length === ans.length && ua.every(function(x) { return ans.indexOf(x) !== -1; });
+  return { score: same ? q.score : 0, isCorrect: same, userAnswer: ua };
+}
+
+// calc: 多空题, 每空必须都对才满分; 部分对给按空比例的分
+function gradeCalc(q, ua) {
+  if (typeof ua !== "object" || ua == null) {
+    return { score: 0, isCorrect: false, userAnswer: ua };
+  }
+  const answer = q.answer || {};
+  const keys = Object.keys(answer);
+  if (keys.length === 0) return { score: 0, isCorrect: false, userAnswer: ua };
+  let hit = 0;
+  const detail = {};
+  keys.forEach(function(k) {
+    const exp = answer[k];
+    const uv = parseFloat(ua[k]);
+    if (isNaN(uv)) { detail[k] = { user: ua[k] || "", ok: false, expect: exp }; return; }
+    const uSI = uv * (UNIT_TO_SI[exp.unit] || 1);
+    const aSI = exp.value * (UNIT_TO_SI[exp.unit] || 1);
+    const tol = typeof exp.tolerance === "number" ? exp.tolerance : 0.01;
+    const rel = Math.abs(uSI - aSI) / Math.abs(aSI || 1);
+    const abs = Math.abs(uSI - aSI);
+    const ok = rel <= tol || abs <= tol;
+    detail[k] = { user: ua[k], ok: ok, expect: exp };
+    if (ok) hit++;
+  });
+  const per = q.score / keys.length;
+  const score = Math.round(hit * per);
+  return { score: score, isCorrect: hit === keys.length, userAnswer: ua, detail: detail };
+}
+
+function gradeShort(q, ua) {
+  const text = normalizeText(ua || "");
+  const kws = q.keywords || [];
+  const hits = kws.filter(function(k) { return text.indexOf(normalizeText(k)) !== -1; });
+  const ratio = kws.length > 0 ? hits.length / kws.length : 0;
+  let score = 0;
+  if (ratio >= 1.0)      score = q.score;
+  else if (ratio >= 0.5) score = Math.round(q.score * 0.5);
+  else                   score = 0;
+  return { score: score, isCorrect: ratio >= 1.0, userAnswer: ua, hits: hits, ratio: ratio };
+}
+
+// ===== 考点清单渲染 (方案 A · entry-screen) =====
+function renderKnowledgePoints() {
+  const list = document.getElementById("kp-list");
+  if (!list) return;
+  list.innerHTML = KNOWLEDGE_POINTS.map(function(kp, i) {
+    const exps = (kp.exports || []).map(function(e) { return EXPORT_NAMES[e] || e; }).join(" · ");
+    return `
+      <div class="kp-card">
+        <span class="kp-no">${i + 1}</span><span class="kp-title">${kp.name}</span>
+        <div class="kp-meta">${kp.tid} · ${kp.type} · ${kp.score} 分 · 锚: ${exps}${kp.back ? " · 回 " + kp.back : ""}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+// ===== 题目渲染 (test-screen · Nova 契约: data-q-id / data-q-type / .q-feedback) =====
+function renderQuestions() {
+  const list = document.getElementById("questions-list");
+  list.innerHTML = pickedQuestions.map(function(q, idx) {
+    const num = idx + 1;
+    return `
+      <div class="question" data-q-id="q${num}" data-q-type="${q.type}" data-q-original="${q.id}" id="q-${num}">
+        <div class="q-header-circle">
+          <div class="q-h-num">第 ${num} 题</div>
+          <div class="q-h-type">${typeLabel(q.type)}</div>
+          <div class="q-h-diff">${q.difficulty || ""}</div>
+          <div class="q-h-id">${q.id} · ${q.score} 分</div>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        ${renderInput(q, num)}
+        <div class="q-feedback" data-q-id="q${num}"></div>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("total-count").textContent = pickedQuestions.length;
+  document.getElementById("picked-ids").textContent = pickedQuestions.map(function(q) { return q.id; }).join(" / ");
+  attachAnswerListeners();
+  renderKatex(list);
+}
+
+function typeLabel(t) {
+  return { choice: "单选题", multi: "多选题", calc: "计算题", short: "综合简答" }[t] || t;
+}
+
+function renderInput(q, num) {
+  if (q.type === "choice") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="radio" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "multi") {
+    return `<div class="q-options">` + Object.keys(q.options).map(function(k) {
+      return `<label><input type="checkbox" name="q${num}" value="${k}"><span class="opt-letter">${k}.</span><span>${q.options[k]}</span></label>`;
+    }).join("") + `</div>`;
+  }
+  if (q.type === "calc") {
+    const blanks = q.blanks || Object.keys(q.answer || {});
+    return blanks.map(function(b) {
+      return `<input class="q-fillin" data-q-id="q${num}" data-blank="${b}" type="text" placeholder="${b}（数值，单位见题）">`;
+    }).join("");
+  }
+  if (q.type === "short") {
+    return `<textarea class="q-textarea" data-q-id="q${num}" placeholder="请用 2-4 段写完整解答（含步骤 + 单位 + 方向）"></textarea>`;
+  }
+  return "";
+}
+
+function attachAnswerListeners() {
+  document.querySelectorAll(".question input, .question textarea").forEach(function(el) {
+    el.addEventListener("input", updateAnsweredCount);
+    el.addEventListener("change", updateAnsweredCount);
+  });
+}
+
+function updateAnsweredCount() {
+  let n = 0;
+  pickedQuestions.forEach(function(q, idx) {
+    if (readUserAnswer(q, idx + 1) != null) n++;
+  });
+  document.getElementById("answered-count").textContent = n;
+}
+
+function readUserAnswer(q, num) {
+  if (q.type === "choice") {
+    const el = document.querySelector('input[name="q' + num + '"]:checked');
+    return el ? el.value : null;
+  }
+  if (q.type === "multi") {
+    const arr = Array.prototype.slice.call(document.querySelectorAll('input[name="q' + num + '"]:checked')).map(function(e) { return e.value; });
+    return arr.length ? arr : null;
+  }
+  if (q.type === "calc") {
+    const inputs = document.querySelectorAll('.q-fillin[data-q-id="q' + num + '"]');
+    const obj = {};
+    let any = false;
+    inputs.forEach(function(el) {
+      const key = el.getAttribute("data-blank");
+      if (el.value !== "") { obj[key] = el.value; any = true; }
+    });
+    return any ? obj : null;
+  }
+  if (q.type === "short") {
+    const el = document.querySelector('.q-textarea[data-q-id="q' + num + '"]');
+    return el && el.value.trim().length > 0 ? el.value : null;
+  }
+  return null;
+}
+
+// ===== 反馈渲染 (result-screen · result-questions-list) =====
+function renderResultQuestions() {
+  const list = document.getElementById("result-questions-list");
+  list.innerHTML = results.map(function(r, idx) {
+    const q = r.q;
+    const num = idx + 1;
+    const correctLabel = r.score === q.score ? "✓ 满分" : (r.score > 0 ? "◐ 部分（" + r.score + "/" + q.score + "）" : "✗ 未得分");
+    const fbCls = r.score === q.score ? "q-feedback show" : "q-feedback show wrong";
+    const stdAns = formatStdAnswer(q, r);
+    const userAnsHtml = formatUserAnswer(q, r);
+
+    const exportHtml = (q.exportIds || []).map(function(eid) {
+      const cn = EXPORT_NAMES[eid];
+      return cn ? `<span class="q-export-label">${cn}</span>` : `<span class="q-export-label">${eid}</span>`;
+    }).join(" ");
+
+    const exp = q.explanation || {};
+    const isObj = exp && typeof exp === "object";
+    const knowledge = isObj ? (exp.knowledge || "") : String(exp || "");
+    const approach  = isObj ? (exp.approach  || "") : "";
+    const solution  = isObj ? (exp.solution  || "") : "";
+
+    const savedReflection = loadReflection(q.id);
+    const promptsHtml = (q.reflectionPrompts || []).map(function(p) { return `<li>${p}</li>`; }).join("");
+
+    return `
+      <div class="question" data-q-id="q${num}" data-q-type="${q.type}" data-q-original="${q.id}">
+        <div class="q-header-circle">
+          <div class="q-h-num">第 ${num} 题 · ${correctLabel}</div>
+          <div class="q-h-type">${typeLabel(q.type)}</div>
+          <div class="q-h-diff">${q.difficulty || ""}</div>
+          <div class="q-h-id">${q.id} · ${r.score}/${q.score} 分</div>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        <div class="${fbCls}" data-q-id="q${num}">
+          <div class="q-feedback-title">${correctLabel}</div>
+          <div class="q-feedback-section">
+            <div class="q-feedback-section-title">📌 你的答案 · 标准答案</div>
+            <div>${userAnsHtml}</div>
+            <div style="margin-top:6px;">标准答案：${stdAns}</div>
+          </div>
+          <div class="q-feedback-section">
+            <div class="q-feedback-section-title">🎯 本题考查</div>
+            <p>${exportHtml}</p>
+          </div>
+          ${knowledge ? `<div class="q-feedback-section"><div class="q-feedback-section-title">🔬 知识点</div><p>${knowledge}</p></div>` : ""}
+          ${approach  ? `<div class="q-feedback-section"><div class="q-feedback-section-title">🧩 解题思路</div><p>${approach}</p></div>`  : ""}
+          ${solution  ? `<div class="q-feedback-section"><div class="q-feedback-section-title">📐 详细解题过程</div><p>${solution}</p></div>` : ""}
+          ${q.mistakes  ? `<div class="q-feedback-section"><div class="q-feedback-section-title">⚠️ 常见误区</div><p>${q.mistakes}</p></div>`   : ""}
+          ${q.extension ? `<div class="q-feedback-section"><div class="q-feedback-section-title">📚 扩展</div><p>${q.extension}</p></div>` : ""}
+          ${q.cardAnchor ? `<div class="q-feedback-section"><div class="q-feedback-section-title">📖 回锚例题卡</div><p><a href="06_直线运动综合-example-cards.html">${q.cardAnchor}</a></p></div>` : ""}
+        </div>
+        ${(q.reflectionPrompts && q.reflectionPrompts.length > 0) ? `
+        <div class="q-reflection">
+          <div class="q-reflection-title">反思引导（本地保存 · 不判分）</div>
+          <ol>${promptsHtml}</ol>
+          <textarea class="q-reflection-input" data-reflect-key="${q.id}" placeholder="可以分段回答上述问题，或自由写反思...">${savedReflection}</textarea>
+        </div>
+        ` : ""}
+      </div>
+    `;
+  }).join("");
+  attachReflectionListeners();
+  renderKatex(list);
+}
+
+function formatStdAnswer(q, r) {
+  if (q.type === "choice") return `<strong>${q.answer}</strong>`;
+  if (q.type === "multi")  return `<strong>${(q.answer || []).slice().sort().join(" · ")}</strong>`;
+  if (q.type === "calc") {
+    return Object.keys(q.answer || {}).map(function(k) {
+      const v = q.answer[k];
+      return `${k} = <strong>${v.value} ${v.unit || ""}</strong>`;
+    }).join(" · ");
+  }
+  if (q.type === "short") {
+    const kws = (q.keywords || []).join(" / ");
+    const hits = r && r.hits ? r.hits.length : 0;
+    const total = (q.keywords || []).length;
+    return `关键字：${kws}（命中 ${hits} / ${total}）`;
+  }
+  return "";
+}
+
+function formatUserAnswer(q, r) {
+  const ua = r.userAnswer;
+  if (ua == null) return `你的答案：<em>（未作答）</em>`;
+  if (q.type === "choice") return `你的答案：<strong>${ua}</strong>`;
+  if (q.type === "multi") {
+    if (!Array.isArray(ua) || ua.length === 0) return `你的答案：<em>（未作答）</em>`;
+    return `你的答案：<strong>${ua.slice().sort().join(" · ")}</strong>`;
+  }
+  if (q.type === "calc") {
+    if (typeof ua !== "object") return `你的答案：<em>（未作答）</em>`;
+    return `你的答案：` + Object.keys(ua).map(function(k) { return `${k} = <strong>${ua[k]}</strong>`; }).join(" · ");
+  }
+  if (q.type === "short") {
+    const safeText = String(ua).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return `你的答案：<pre style="white-space:pre-wrap; background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:10px; font-family:inherit; font-size:0.86rem; margin-top:6px;">${safeText}</pre>`;
+  }
+  return "";
+}
+
+// ===== 反思引导 · localStorage =====
+function loadReflection(qid) {
+  try {
+    const rec = JSON.parse(localStorage.getItem(KEY_REFLECT) || "{}");
+    return rec[qid] || "";
+  } catch (e) { return ""; }
+}
+
+function saveReflection(el) {
+  const key = el.getAttribute("data-reflect-key");
+  let rec;
+  try { rec = JSON.parse(localStorage.getItem(KEY_REFLECT) || "{}"); } catch (e) { rec = {}; }
+  rec[key] = el.value;
+  try { localStorage.setItem(KEY_REFLECT, JSON.stringify(rec)); } catch (e) { /* ignore */ }
+}
+
+function attachReflectionListeners() {
+  document.querySelectorAll(".q-reflection-input").forEach(function(el) {
+    el.addEventListener("input", function() { saveReflection(el); });
+  });
+}
+
+// ===== 提交 / 结果 =====
+function submitTest() {
+  results = pickedQuestions.map(function(q, idx) {
+    const ua = readUserAnswer(q, idx + 1);
+    const r = gradeQuestion(q, ua);
+    r.q = q; r.idx = idx; r.tid = pickedTids[idx];
+    return r;
+  });
+  const total = results.reduce(function(s, r) { return s + r.score; }, 0);
+  const passed  = total >= PASS_SCORE;
+  const honored = total >= HONOR_SCORE;
+  showResult(total, passed, honored);
+  saveState(total, passed, honored);
+}
+
+function showResult(total, passed, honored) {
+  // v0.1.11 · 学 mock-check v0.1.12 教训: 不隐藏 test-screen
+  // 反思引导段 + 答案回显都在 result-screen 的 result-questions-list 渲染, 但保留 test-screen
+  // 可见, 学生可回看自己的原始输入, 交叉参照。
+  document.getElementById("result-screen").classList.remove("hidden");
+  document.getElementById("result-total").textContent = total;
+  const pill = document.getElementById("result-pass-pill");
+  const msg  = document.getElementById("result-message");
+  if (honored) {
+    pill.className = "result-pass honor"; pill.textContent = "⭐ 荣誉档（90+）";
+    msg.textContent = "纸笔熟练度检测通过可能性高 · 推荐去星图 /student/requests 预约。建议把反思引导段全部写完，再去预约纸笔熟练度检测。";
+  } else if (passed) {
+    pill.className = "result-pass pass"; pill.textContent = "✓ 通过（70+）";
+    msg.textContent = "已具备纸笔熟练度检测的应试水平 · 去星图 /student/requests 预约。建议针对错题回任务卡复习对应 Card 段落。";
+  } else {
+    pill.className = "result-pass fail"; pill.textContent = "✗ 暂未通过";
+    msg.textContent = "距通过还差 " + (PASS_SCORE - total) + " 分。请按下方\"考点掌握度热图\"找出薄弱点，回任务卡复习对应 Card 段落，然后重新抽题再练。";
+  }
+  renderMasteryMap();
+  renderResultQuestions();
+  document.getElementById("result-screen").scrollIntoView({ behavior: "smooth" });
+}
+
+// ===== 掌握度热图 (方案 C) =====
+function renderMasteryMap() {
+  const heatEl = document.getElementById("mastery-map");
+  heatEl.innerHTML = results.map(function(r) {
+    const kp = KNOWLEDGE_POINTS.find(function(k) { return k.tid === r.tid; });
+    let dotCls, dotChar;
+    if (r.score === r.q.score) { dotCls = "full"; dotChar = "✓"; }
+    else if (r.score > 0)      { dotCls = "partial"; dotChar = "◐"; }
+    else                        { dotCls = "miss"; dotChar = "✗"; }
+    return `<div class="mastery-row">
+      <div class="mastery-dot ${dotCls}">${dotChar}</div>
+      <div class="mastery-tid">${r.tid || ""}</div>
+      <div class="mastery-name">${kp ? kp.name : "—"}</div>
+      <div class="mastery-score">${r.score} / ${r.q.score} 分</div>
+    </div>`;
+  }).join("");
+}
+
+// ===== localStorage · 状态持久化 =====
+function saveState(total, passed, honored) {
+  try {
+    const prev = JSON.parse(localStorage.getItem(KEY_STATE) || "{}");
+    const state = {
+      studentName: document.getElementById("student-name").value.trim(),
+      submittedAt: Date.now(),
+      totalScore: total,
+      passed: passed || prev.passed || false,
+      honored: honored || prev.honored || false,
+      pickedIds: pickedQuestions.map(function(q) { return q.id; }),
+      attemptCount: (prev.attemptCount || 0) + 1
+    };
+    localStorage.setItem(KEY_STATE, JSON.stringify(state));
+    localStorage.setItem(KEY_NAME, state.studentName);
+  } catch (e) { /* localStorage 不可用 */ }
+}
+
+function loadState() {
+  try {
+    const nameEl = document.getElementById("student-name");
+    const savedName = localStorage.getItem(KEY_NAME);
+    if (savedName) nameEl.value = savedName;
+    const raw = localStorage.getItem(KEY_STATE);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    const slot = document.getElementById("last-attempt-slot");
+    const cls = s.honored ? "last-attempt-note honor" : "last-attempt-note";
+    const badge = s.honored ? "⭐ 荣誉" : (s.passed ? "✓ 已通过" : "✗ 未通过");
+    slot.innerHTML = `<div class="${cls}">上次提交: ${s.totalScore} 分 · ${badge} · 累计 ${s.attemptCount} 次 · 鼓励你重新抽题再练。</div>`;
+  } catch (e) { /* ignore */ }
+}
+
+// ===== 流程 =====
+function startTest() {
+  const name = document.getElementById("student-name").value.trim();
+  if (!name) { alert("请先填写你的姓名"); return; }
+  document.getElementById("progress-name").textContent = name;
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("entry-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  document.getElementById("result-screen").classList.add("hidden");
+  window.scrollTo(0, 0);
+}
+
+function reshuffleAndStart() {
+  pickQuestions();
+  renderQuestions();
+  document.getElementById("result-screen").classList.add("hidden");
+  document.getElementById("test-screen").classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function renderKatex(root) {
+  if (typeof renderMathInElement !== "function") return;
+  try {
+    renderMathInElement(root || document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$",  right: "$",  display: false }
+      ],
+      throwOnError: false
+    });
+  } catch (e) { /* ignore */ }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  loadState();
+  renderKnowledgePoints();
+});
+window.addEventListener("load", function() {
+  renderKatex(document.body);
+});
+</script>
+
+</body>
+</html>

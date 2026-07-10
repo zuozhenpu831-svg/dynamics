@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 深度口试 · A 基础组</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900:#002F73; --blue-700:#00409A; --blue-500:#0055B8; --blue-100:#E8EEF9; --blue-050:#F3F6FC;
+    --gold-900:#8E6E2E; --gold-700:#B8924A; --gold-500:#C9A961; --gold-100:#F4ECD6; --gold-050:#FBF7EC;
+    --silver-900:#5C6370; --silver-700:#7B8290; --silver-500:#A8AEBC; --silver-100:#E5E7EC; --silver-050:#F3F4F7;
+    --text-primary:#1d1d1f; --text-secondary:#6e6e73; --text-light:#7B8290;
+    --bg-primary:#ffffff; --bg-secondary:#FAFAFB; --border-color:#ECEDF0;
+    --radius:24px; --radius-sm:14px; --radius-btn:16px;
+    --shadow-sm:0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md:0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg-secondary); color:var(--text-primary); line-height:1.85; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container { max-width:820px; margin:0 auto; padding:32px 24px 64px; }
+
+  /* 面包屑 */
+  .breadcrumb { font-size:0.82rem; color:var(--text-secondary); margin-bottom:24px; letter-spacing:0.02em; }
+  .breadcrumb a { color:var(--blue-700); text-decoration:none; }
+  .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb strong { color:var(--text-primary); }
+
+  /* Header · 极简 + 大金圆装饰 */
+  .page-header {
+    text-align:center; padding:64px 32px 56px; background:#fff; color:var(--text-primary);
+    border-radius:var(--radius); margin-bottom:36px; position:relative; overflow:hidden;
+    box-shadow:var(--shadow-sm); border:1px solid var(--border-color);
+  }
+  .page-header::before {
+    content:""; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+    width:180px; height:180px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700)); opacity:0.12; z-index:0;
+  }
+  .page-header::after {
+    content:""; position:absolute; bottom:-40px; right:-40px; width:140px; height:140px;
+    border-radius:50%; border:1px solid var(--silver-500); opacity:0.35; z-index:0;
+  }
+  .page-header h1 {
+    font-size:1.5rem; margin-bottom:14px; font-weight:700; color:var(--blue-700);
+    letter-spacing:-0.01em; line-height:1.55; position:relative; z-index:1;
+  }
+  .page-header .subtitle { font-size:0.92rem; color:var(--silver-700); line-height:1.7; position:relative; z-index:1; }
+
+  /* intro-card / section-card · 蓝边引导块 */
+  .intro-card,
+  .section-card {
+    background:var(--bg-primary); border-radius:var(--radius);
+    padding:36px; margin-bottom:28px; box-shadow:var(--shadow-sm);
+    border:1px solid var(--border-color); border-left:3px solid var(--blue-700);
+  }
+  .intro-card h2,
+  .section-card h2 {
+    color:var(--blue-700); font-size:1.2rem; font-weight:700;
+    margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--silver-100);
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  }
+  .intro-card h2::before,
+  .section-card h2::before {
+    content:""; width:14px; height:14px; border-radius:50%;
+    background:var(--blue-700); flex-shrink:0; box-shadow:0 0 0 4px var(--blue-100);
+  }
+  .section-card h2 .tag {
+    font-size:0.72rem; background:var(--blue-050); color:var(--blue-700);
+    border-radius:999px; padding:3px 12px; font-weight:500;
+    letter-spacing:0.02em; margin-left:auto;
+  }
+  .intro-card p,
+  .section-card p { font-size:0.94rem; margin-bottom:12px; line-height:1.85; color:var(--text-primary); }
+  .intro-card p:last-child,
+  .section-card p:last-child { margin-bottom:0; }
+  .intro-card .key {
+    background:var(--blue-050); color:var(--blue-700);
+    padding:16px 20px; border-radius:var(--radius-sm);
+    font-size:0.9rem; line-height:1.8; margin-top:16px;
+    border-left:3px solid var(--blue-700);
+  }
+
+  /* flow-bar 4 阶段水平 pill 行 */
+  .flow-bar { display:flex; flex-direction:column; gap:12px; padding:8px 0; }
+  .flow-step {
+    width:100%; border-radius:var(--radius-sm);
+    background:var(--blue-050); border:1px solid var(--blue-100);
+    border-left:3px solid var(--blue-700);
+    padding:14px 18px; font-size:0.9rem; line-height:1.7; color:var(--text-primary);
+  }
+  .flow-step .ft {
+    display:inline-block; font-weight:700; color:var(--blue-700);
+    font-size:0.92rem; margin-right:10px; letter-spacing:0.02em;
+  }
+  .flow-step .fm {
+    display:inline-block; color:var(--silver-700); font-weight:600; font-size:0.78rem;
+    margin-right:12px; padding:2px 10px; border-radius:999px;
+    background:#fff; border:1px solid var(--silver-100); letter-spacing:0.04em;
+  }
+
+  /* qline · 主问题块 · 循环色 + 大圆标题 */
+  .qline {
+    --q-rich:var(--blue-900);
+    --q-mid:var(--blue-700);
+    --q-bg:var(--blue-050);
+    --q-tint:var(--blue-100);
+    background:var(--bg-primary); border-radius:var(--radius);
+    padding:36px; margin-bottom:28px; box-shadow:var(--shadow-sm);
+    border:1px solid var(--border-color); border-left:3px solid var(--q-mid);
+  }
+  .qline.q-blue   { --q-rich:var(--blue-900);   --q-mid:var(--blue-700);   --q-bg:var(--blue-050);   --q-tint:var(--blue-100);   }
+  .qline.q-gold   { --q-rich:var(--gold-900);   --q-mid:var(--gold-700);   --q-bg:var(--gold-050);   --q-tint:var(--gold-100);   }
+  .qline.q-silver { --q-rich:var(--silver-900); --q-mid:var(--silver-700); --q-bg:var(--silver-050); --q-tint:var(--silver-100); }
+
+  .qline-header {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    width:240px; height:240px; border-radius:50%;
+    background:var(--q-bg); border:2px solid var(--q-mid);
+    box-shadow:0 4px 18px rgba(20,30,60,0.06);
+    padding:28px 24px; margin:0 auto 28px; text-align:center;
+  }
+  .qline-num {
+    color:var(--q-mid); font-size:0.74rem; font-weight:700;
+    line-height:1.2; padding:0 0 8px; margin:0 0 12px;
+    letter-spacing:0.22em; white-space:nowrap;
+    border-bottom:1.5px solid var(--q-mid);
+  }
+  .qline-header h3 {
+    font-size:1rem; color:var(--q-rich); font-weight:700;
+    line-height:1.55; text-align:center;
+    word-break:break-word; overflow-wrap:anywhere;
+    max-width:100%; margin-bottom:12px;
+  }
+  .qline-time {
+    font-size:0.74rem; color:var(--q-mid); opacity:0.85;
+    margin-top:4px; letter-spacing:0.04em;
+  }
+
+  /* 开放主问 */
+  .main-q {
+    background:var(--q-bg); border-left:3px solid var(--q-mid);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:18px 22px; font-size:0.95rem; margin-bottom:20px;
+    line-height:1.85; color:var(--text-primary);
+  }
+  .main-q .mq-tag { font-weight:700; color:var(--q-mid); margin-right:6px; }
+
+  /* 考查锚点 key-points */
+  .key-points { font-size:0.92rem; }
+  .key-points .kp-title {
+    font-weight:700; color:var(--q-rich);
+    margin-bottom:12px; font-size:0.92rem; letter-spacing:0.01em;
+  }
+  .key-points ul { padding-left:4px; list-style:none; }
+  .key-points li { margin:10px 0; line-height:1.85; padding-left:0; }
+
+  /* 听点徽标 (⭐⭐核心金圆 / ⭐边界银圆) */
+  .lp {
+    background:var(--silver-050); color:var(--silver-900);
+    padding:4px 10px; border-radius:999px;
+    font-size:0.82rem; margin:3px 6px 3px 0;
+    display:inline-block; line-height:1.6;
+    border:1px solid var(--silver-100); font-weight:600;
+  }
+  .lp.core        { background:var(--gold-050);   color:var(--gold-900);   border:1px solid var(--gold-500); }
+  .lp.boundary-lp { background:var(--silver-050); color:var(--silver-900); border:1px dashed var(--silver-500); }
+  .core-star {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--gold-700); color:#fff;
+    font-size:0.62rem; font-weight:700;
+    margin-right:4px; vertical-align:middle;
+    box-shadow:0 0 0 2px var(--gold-100);
+  }
+  .lp.boundary-lp .core-star {
+    background:var(--silver-700);
+    box-shadow:0 0 0 2px var(--silver-100);
+  }
+
+  /* prep-card · 金色 · 顶层独立块 */
+  .prep-card {
+    background:var(--gold-050); border:none;
+    border-left:3px solid var(--gold-700);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:28px 32px 28px 64px;
+    margin:24px 0; font-size:0.92rem; line-height:1.85;
+    color:var(--text-primary); position:relative;
+  }
+  .prep-card::before {
+    content:"📝"; position:absolute; left:18px; top:26px;
+    width:32px; height:32px; border-radius:50%;
+    background:var(--gold-700); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:0.88rem;
+  }
+  .prep-card h3 {
+    color:var(--gold-900); font-size:1.05rem; font-weight:700;
+    margin-bottom:12px; letter-spacing:0.01em;
+  }
+  .prep-card ul { margin-left:22px; }
+  .prep-card li { margin:8px 0; line-height:1.85; }
+  .prep-card strong { color:var(--gold-900); }
+
+  /* CTA · 蓝品牌 · 16 px */
+  .btn-primary {
+    background:var(--blue-700); color:#fff; border:none;
+    padding:14px 28px; font-size:0.92rem; border-radius:var(--radius-btn);
+    cursor:pointer; font-weight:600;
+    box-shadow:0 4px 14px rgba(0,64,154,0.18);
+    transition:var(--transition); letter-spacing:0.02em;
+    font-family:inherit; text-decoration:none;
+    display:inline-block;
+  }
+  .btn-primary:hover {
+    background:var(--blue-900);
+    box-shadow:0 6px 18px rgba(0,64,154,0.24);
+  }
+  .btn-primary.silver { background:var(--silver-700); }
+  .btn-primary.silver:hover { background:var(--silver-900); }
+
+  /* details / summary */
+  details {
+    background:var(--blue-050); border:1px solid var(--blue-100);
+    border-radius:var(--radius-sm); padding:14px 18px; margin:14px 0;
+  }
+  details summary {
+    cursor:pointer; font-weight:600; color:var(--blue-700); font-size:0.95rem;
+  }
+  details.silver { background:var(--silver-050); border-color:var(--silver-100); }
+  details.silver summary { color:var(--silver-700); }
+  details code {
+    background:var(--blue-050); padding:4px 10px; border-radius:6px;
+    display:inline-block; margin:4px 0; font-size:0.88rem;
+  }
+  details.silver code { background:var(--silver-050); }
+
+  /* bottom-nav */
+  .bottom-nav {
+    display:flex; flex-wrap:wrap; gap:12px;
+    margin-top:28px; padding:22px 24px;
+    background:var(--bg-primary); border-radius:var(--radius);
+    border:1px solid var(--border-color); box-shadow:var(--shadow-sm);
+  }
+  .bottom-nav a {
+    flex:1; min-width:140px; text-align:center;
+    padding:12px 16px; border-radius:999px;
+    background:var(--blue-050); color:var(--blue-700);
+    text-decoration:none; font-size:0.88rem; font-weight:500;
+    transition:var(--transition); border:1px solid var(--blue-100);
+  }
+  .bottom-nav a:hover {
+    background:var(--blue-100); border-color:var(--blue-500);
+  }
+
+  footer {
+    text-align:center; color:var(--silver-700); font-size:0.78rem;
+    padding:24px 16px; letter-spacing:0.04em;
+  }
+
+  /* 移动端 */
+  @media (max-width: 640px) {
+    .container { padding:20px 14px 40px; }
+    .page-header { padding:44px 22px 36px; }
+    .page-header h1 { font-size:1.22rem; }
+    .intro-card, .section-card, .qline { padding:24px 22px; }
+    .qline-header { width:200px; height:200px; padding:22px 18px; }
+    .qline-num { font-size:0.66rem; padding:0 0 6px; margin:0 0 10px; }
+    .qline-header h3 { font-size:0.9rem; margin-bottom:10px; }
+    .qline-time { font-size:0.68rem; }
+    .flow-step { padding:12px 14px; font-size:0.84rem; }
+    .prep-card { padding:22px 20px 22px 56px; }
+    .prep-card::before { left:14px; top:22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<nav class="breadcrumb">
+  <a href="../../../index.html">主页</a> &raquo; 星图物理 &raquo; 经典力学 1 &raquo;
+  <strong>深度口试 · A 基础组</strong>
+</nav>
+
+<header class="page-header">
+  <h1>深度口试 · A 基础组 · 运动的描述 · 极限 · 幂函数微积分<br>深度口试 · 题库</h1>
+  <div class="subtitle">面对面 12 分钟内 · 主问题中抽 3 条 · 当场签字 = 真实通关</div>
+</header>
+
+<section class="intro-card">
+  <h2>关于深度口试</h2>
+  <p>口试是 <strong>运动的描述, 极限（物理引入）, 幂函数微积分与直线运动公式</strong> 的<strong>真实通关环节</strong>：先把学习任务卡学完、基础检测练熟，再预约口试。本页是 <strong>完整题库</strong>，公开给所有学生 —— 你可以提前准备每一条主问题。</p>
+  <p>口试由教师当面进行，从下方主问题中<strong>抽 3 条</strong>。每条主问题先开放讲，再由教师根据你的回答追问。<strong>讲思路</strong>比报出唯一正确数值更重要 —— 教师听的是因果重建。</p>
+  <div class="key">📌 通关条件：抽中的 3 条里，<strong>至少 2 条把核心要点讲清楚并能回应一层「为什么」</strong>，且联动环节能在错题或推导手稿上现场指出一处「当时怎么想」。</div>
+</section>
+
+<section class="section-card">
+  <h2>口试流程 <span class="tag">总时长 12 分钟内</span></h2>
+  <div class="flow-bar">
+    <div class="flow-step"><span class="ft">① 暖场 · 自述</span><span class="fm">0-2 分钟</span>你先讲：「这几课里，让你印象最深的一句结论是什么？为什么重要？」—— 不卡时间，讲到能切入主问题就行。</div>
+    <div class="flow-step"><span class="ft">② 主问题 ×3</span><span class="fm">2-10 分钟</span>从下方主问题中由教师抽 3 条，每条约 3 分钟左右。先开放讲，再回答追问。</div>
+    <div class="flow-step"><span class="ft">③ 联动 · 收尾</span><span class="fm">10-11 分钟</span>带 1-2 道自己曾经做错的题或一份推导手稿，现场讲「当时为什么错、现在怎么想」。</div>
+    <div class="flow-step"><span class="ft">④ 判定 · 签字</span><span class="fm">11-12 分钟</span>通过 = 当场签字；暂缓 = 给补学方向 + 预约二试（二试<strong>必须换未用过的主问题</strong>）；不通过 = 回到学习阶段重学。</div>
+  </div>
+</section>
+
+<!-- ===== MAIN_QUESTIONS INJECTION POINT ===== -->
+
+<!-- ==================== 主问题 1 · 蓝 ==================== -->
+<section class="qline q-blue">
+  <div class="qline-header">
+    <span class="qline-num">主问题 1</span>
+    <h3>五概念束区分 · 哪些是矢量 / 哪些是标量</h3>
+    <span class="qline-time">约 3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>描述一个物体的运动，我们需要的最少概念是哪几个？为什么仅凭「路程和速率」不够？请你举一个例子说明<strong>位移和路程会得到完全不同的数</strong>，并指出在这个例子里「加速度」是否一定为零。</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>参考系</span> 运动的描述必须先选参考系；同一物体在不同参考系下可呈现不同运动。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>质点抽象</span> 物体大小相对研究问题可以忽略 / 或物体上各点运动状态相同时才能抽象为质点。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>位移 vs 路程</span> 位移是矢量（起点→终点有向线段）/ 路程是标量（实际轨迹总长）；往返时位移可为 0 而路程不为 0。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>速度 vs 速率</span> 平均速度 = 位移 / 时间（矢量）；平均速率 = 路程 / 时间（标量）。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>加速度独立性</span> 加速度大小与速度大小无关；匀速运动 a = 0；静止物体也可有大 a（如刚启动的火箭瞬间）。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>v-t 图直觉</span> 能口头说出「v-t 图斜率就是加速度」是亮点；主动谈到不展开也行。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 2 · 金 ==================== -->
+<section class="qline q-gold">
+  <div class="qline-header">
+    <span class="qline-num">主问题 2</span>
+    <h3>平均速度为什么答不了「此刻多快」</h3>
+    <span class="qline-time">约 3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>一辆小车从 \(t = 0\) 到 \(t = 4\) s 走了 80 m，平均速度是 20 m/s。现在问你：在 \(t = 2\) s 这一<strong>瞬间</strong>，它的速度是多少？为什么平均速度的 20 m/s 不能直接当作答案？你打算怎么把「一段时间的平均」变成「某一时刻的瞬时」？</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>平均的局限</span> 平均速度只描述一段时间内的整体快慢，不描述某一瞬间。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>数表法直觉</span> 取 Δt 越来越小的几组数值，观察 \(\Delta x / \Delta t\) 趋近某个确定值，这个值就是瞬时速度。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>0/0 困惑解套</span> 不能令 Δt = 0（会得到无意义的 0/0），但能让 Δt「无限接近 0」——这正是<strong>极限</strong>的核心。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>极限记号</span> 能口头读出 \(\displaystyle v(t) = \lim_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\) 的含义。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>不展开严格定义</span> 本组不要求 ε-δ 严格定义；主动谈「无限接近≠等于」是亮点。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 3 · 银 ==================== -->
+<section class="qline q-silver">
+  <div class="qline-header">
+    <span class="qline-num">主问题 3</span>
+    <h3>x-t 图上 · 割线如何变成切线</h3>
+    <span class="qline-time">约 3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>你画一张 x-t 图（曲线随便画一条向上凸的）。在图上取两点 \(P_1\) 和 \(P_2\)，连成一条<strong>割线</strong>——这条割线的斜率在物理上等于什么？现在你让 \(P_2\) 沿曲线<strong>向 P<sub>1</sub> 逼近</strong>，这条割线会变成什么？它的斜率又等于什么？请你边在纸上画边讲。</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>割线斜率 = 平均速度</span> x-t 图两点连成的割线，其斜率 \(\dfrac{x_2 - x_1}{t_2 - t_1} = \bar v\)。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>切线斜率 = 瞬时速度</span> 当 \(P_2 \to P_1\) 时，割线的极限位置就是切线；切线斜率等于瞬时速度。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>几何与代数对应</span> 能口头讲「逼近过程」在代数上对应 \(\lim_{\Delta t \to 0}\)，在几何上对应割线压向切线。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>特殊情形</span> 匀速时 x-t 是直线 / 割线即切线 / 全程斜率相同；主动谈到是亮点。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 4 · 蓝 ==================== -->
+<section class="qline q-blue">
+  <div class="qline-header">
+    <span class="qline-num">主问题 4</span>
+    <h3>幂函数求导 · 从极限定义推 (x<sup>n</sup>)′</h3>
+    <span class="qline-time">约 3 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>请你<strong>不要直接报结论</strong>。从极限定义出发，推一遍 \((x^2)' = 2x\)——讲思路就行，关键代数步骤口头说，纸上写 1-2 行最关键的展开式。推完后告诉我：这个结论怎么从 \(n = 2\) 推广到一般的 \(x^n\)？</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>导数定义</span> 能口头说出 \(f'(x) = \lim_{\Delta x \to 0} \dfrac{f(x + \Delta x) - f(x)}{\Delta x}\) 的物理与几何含义。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>代数四步</span> 能口头讲清 \((x + \Delta x)^2 = x^2 + 2 x \Delta x + (\Delta x)^2\) 的展开 / 抵消 \(x^2\) / 除 \(\Delta x\) / 取极限四步。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>(x<sup>n</sup>)′ 结论</span> (x<sup>n</sup>)′ = n x<sup>n−1</sup>；至少对 n = 2 能现场重推。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>∫ x<sup>n</sup> dx 反求导</span> 能用「求导的反过程」解释 \(\int x^n dx = \dfrac{x^{n+1}}{n+1} + C\)；知道 n = −1 要排除。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>二项式直觉</span> 能口头点出「高阶项 \((\Delta x)^k\) 在 Δx→0 时被吃掉」是亮点。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 主问题 5 · 金 ==================== -->
+<section class="qline q-gold">
+  <div class="qline-header">
+    <span class="qline-num">主问题 5</span>
+    <h3>三公式独立推导 · v = v<sub>0</sub> + at / x = v<sub>0</sub>t + ½at<sup>2</sup> / v<sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2ax</h3>
+    <span class="qline-time">约 3-4 分钟</span>
+  </div>
+  <div class="main-q"><span class="mq-tag">🎤 开放主问：</span>请你从<strong>加速度的定义</strong> \(a = \dfrac{dv}{dt}\) 出发（\(a\) 为常数），<strong>不用记忆中的成品</strong>，独立推导匀加速直线运动的三个公式：先推 \(v\)，再推 \(x\)，最后推不显含 \(t\) 的公式。每一步告诉我「为什么能这么写」。</div>
+  <div class="key-points">
+    <div class="kp-title">🎯 教师会重点听这些考查锚点</div>
+    <ul>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>v 的推导</span> 由 \(a = dv/dt\) 对 \(t\) 积分；\(a\) 是常数提出；得 \(v = v_0 + a t\)。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>x 的推导</span> 由 \(v = dx/dt\) 代入上式再对 \(t\) 积分；得 \(x = v_0 t + \dfrac{1}{2} a t^2\)；能口头解释 ½ 的几何来源（v-t 图三角形面积）。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>v² 公式两路径</span> 能讲清「代数消 t」 或 「\(a \, dx = v \, dv\) 直接积分」两条路径之一（任一即可）。</li>
+      <li><span class="lp core"><span class="core-star">⭐⭐</span>适用前提</span> 三公式仅对 \(a\) = 常数（匀加速直线运动）成立；变力 / 变 a 不再适用。</li>
+      <li><span class="lp boundary-lp"><span class="core-star">⭐</span>正方向与符号</span> 一维问题先定正方向；\(v_0, v, a, x\) 按矢量代正负；刹车时 \(a < 0\)。主动谈到是亮点。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="prep-card">
+  <h3>怎么准备</h3>
+  <ul>
+    <li><strong>不要背口诀</strong>。教师追问的第一刀往往就是「为什么」—— 把每个核心结论的<strong>来源 + 一句话理由</strong>想清楚（例如：瞬时速度的 0/0 困惑不是真分母为 0，而是「让 Δt 无限接近 0 时 Δx/Δt 趋近的那个确定值」）。</li>
+    <li><strong>带纸和笔</strong>。主问题 2、3、4、5 都涉及在纸上写公式或画图：x-t 图割线→切线、(x²)′ 的代数四步、三公式的独立推导。</li>
+    <li><strong>提前挑 1-2 道自己错过的题</strong>（基础检测里的、或学习任务卡 checkpoint 失分项），准备讲「当时为什么错、现在怎么想」。这是流程第 ③ 步。</li>
+    <li><strong>边界标 ⭐（银）的不强求</strong>：v-t 图直觉、ε-δ 严格定义、x-t 直线特殊情形、二项式直觉、刹车 \(a<0\) 符号约定 —— 主动谈到是亮点，没提到也不扣分。</li>
+    <li><strong>讲思路 ＞ 算对答案</strong>。教师听的是因果重建：你能不能把「为什么这样、不那样」讲清楚，比报出唯一正确数值更重要。</li>
+  </ul>
+</section>
+
+<nav class="bottom-nav">
+  <a href="../index.html">⬅ 返回主页</a>
+  <a href="../运动学的描述/01_运动的描述.html">📖 运动的描述</a>
+  <a href="../极限/02_极限_物理引入.html">📖 极限（物理引入）</a>
+  <a href="../幂函数的微积分/03_幂函数微积分_直线运动公式.html">📖 幂函数微积分与直线运动公式</a>
+</nav>
+
+<footer>蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 深度口试 · A 基础组 · oral-exam Skill v0.1.0</footer>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+</script>
+</body>
+</html>

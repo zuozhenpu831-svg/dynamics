@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 极限 · 极限（物理引入） · 学习任务卡</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* ===== 蓝色诺瓦 · 三色制（蓝 / 金 / 银）· 圆形锚点 · 大留白 v0.1.29 ===== */
+  :root {
+    --blue-900: #002F73;
+    --blue-700: #00409A;
+    --blue-500: #0055B8;
+    --blue-100: #E8EEF9;
+    --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E;
+    --gold-700: #B8924A;
+    --gold-500: #C9A961;
+    --gold-100: #F4ECD6;
+    --gold-050: #FBF7EC;
+    --silver-900: #5C6370;
+    --silver-700: #7B8290;
+    --silver-500: #A8AEBC;
+    --silver-100: #E5E7EC;
+    --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-light: #86868b;
+    --bg-primary: #ffffff;
+    --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px;
+    --radius-sm: 14px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md: 0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --primary-blue: var(--blue-700);
+    --secondary-blue: var(--blue-500);
+    --bright-blue: var(--blue-500);
+    --light-blue: var(--blue-100);
+    --bg-light: var(--bg-secondary);
+    --accent-orange: var(--gold-700);
+    --accent-purple: var(--silver-700);
+    --accent-green: var(--silver-700);
+    --success: var(--silver-700);
+    --danger: var(--gold-900);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* 面包屑 */
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  /* 头部 */
+  .header {
+    text-align: center;
+    padding: 64px 32px 56px;
+    background: #fff;
+    color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 180px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header::after {
+    content: ""; position: absolute; bottom: -40px; right: -40px;
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 1px solid var(--silver-500); opacity: 0.35; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.55rem; margin-bottom: 14px; font-weight: 700;
+    color: var(--blue-700); letter-spacing: -0.01em; line-height: 1.5;
+    position: relative; z-index: 1;
+  }
+  .header h1 .h1-sub {
+    display: inline-block; font-size: 0.85rem; font-weight: 500;
+    color: var(--silver-700); letter-spacing: 0.04em;
+    margin-top: 8px; padding-top: 10px;
+    border-top: 1px solid var(--silver-500); opacity: 0.9;
+  }
+  .header .subtitle {
+    font-size: 0.92rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  /* 跨主题警示 · 蓝色品牌 */
+  .cross-topic-warning {
+    background: var(--blue-050);
+    border: 1px solid var(--blue-700);
+    border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 22px 26px 22px 64px;
+    margin: 28px 0;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+    position: relative;
+  }
+  .cross-topic-warning::before {
+    content: "!"; position: absolute; left: 18px; top: 22px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--blue-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .cross-topic-warning .ctw-title { font-weight: 700; color: var(--blue-700); margin-bottom: 10px; font-size: 0.95rem; }
+  .cross-topic-warning strong { color: var(--blue-700); }
+
+  /* 主卡片 */
+  .card {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    border-top: 3px solid var(--blue-700);
+  }
+  .info-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .info-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-color); vertical-align: top; line-height: 1.75; }
+  .info-table td:first-child { font-weight: 600; color: var(--blue-700); white-space: nowrap; width: 130px; }
+  .info-table tr:last-child td { border-bottom: none; }
+
+  /* 章节标题 */
+  .section-title {
+    font-size: 1.2rem; font-weight: 700; color: var(--blue-700);
+    margin-bottom: 28px; padding-bottom: 18px;
+    border-bottom: 1px solid var(--silver-100);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-title::before {
+    content: ""; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--blue-700); flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--blue-100);
+  }
+
+  .objectives-list { padding-left: 24px; font-size: 0.94rem; }
+  .objectives-list li { margin-bottom: 14px; line-height: 1.85; }
+  .objectives-list li::marker { color: var(--blue-700); font-weight: 700; }
+  .card .objectives-list li strong { color: var(--blue-700); }
+
+  /* 驱动问题 */
+  .driving-question {
+    background: var(--blue-050);
+    border: none; border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 32px 32px 32px 72px;
+    margin-bottom: 40px; position: relative;
+  }
+  .driving-question::before {
+    content: "?"; position: absolute; left: 22px; top: 30px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--blue-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .driving-question .dq-title { font-size: 1.1rem; font-weight: 700; color: var(--blue-700); margin-bottom: 16px; }
+  .driving-question p { font-size: 0.94rem; margin-bottom: 12px; line-height: 1.85; }
+  .driving-question p:last-child { margin-bottom: 0; }
+  .driving-question .hint { font-size: 0.85rem; color: var(--silver-700); margin-top: 10px; }
+
+  /* 任务卡 */
+  .task-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+  }
+  .task-card-header {
+    background: #fff; color: var(--text-primary);
+    padding: 28px 32px; display: flex; align-items: center; gap: 20px;
+    cursor: pointer; user-select: none;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+  }
+  .task-card-header:hover { background: var(--blue-050); }
+  .task-card-number {
+    background: var(--blue-700); color: #fff;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700; flex-shrink: 0;
+    box-shadow: 0 0 0 6px var(--blue-100);
+  }
+  .task-card-header h3 { font-size: 1.1rem; font-weight: 600; flex-grow: 1; color: var(--text-primary); line-height: 1.6; }
+  .task-card-chevron { font-size: 1.1rem; transition: transform 0.3s; opacity: 0.5; color: var(--silver-700); }
+  .task-card-header.collapsed .task-card-chevron { transform: rotate(-90deg); }
+  .task-card-body { padding: 40px 36px; }
+  .task-card-body.collapsed { display: none; }
+
+  .task-objective {
+    background: var(--blue-050);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px; font-size: 0.9rem;
+    color: var(--blue-700); line-height: 1.85;
+    margin-bottom: 36px;
+    border-left: 3px solid var(--blue-700);
+  }
+
+  /* STEP 圆形头 260×260 */
+  .step { margin-bottom: 40px; }
+  .step:last-of-type { margin-bottom: 16px; }
+  .step-header {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: var(--blue-050);
+    border: 2px solid var(--blue-700);
+    box-shadow: 0 4px 18px rgba(20,30,60,0.06);
+    box-sizing: border-box;
+    padding: 32px 28px;
+    margin: 0 auto 36px;
+    text-align: center;
+    gap: 0;
+  }
+  .step-header .step-badge {
+    background: transparent; color: var(--blue-700);
+    width: auto; height: auto; border-radius: 0;
+    font-size: 0.74rem; font-weight: 700;
+    padding: 0 0 8px; margin: 0 0 14px;
+    letter-spacing: 0.22em; line-height: 1.2;
+    display: inline-block;
+    border-bottom: 1.5px solid var(--blue-700);
+    flex-shrink: 1;
+  }
+  .step-header .step-title {
+    font-size: 1rem; font-weight: 700;
+    color: var(--step-rich);
+    line-height: 1.55;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+  .step-header .step-title .step-sub {
+    display: inline-block;
+    font-size: 0.78rem; font-weight: 500;
+    color: var(--step-mid); opacity: 0.8;
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  /* STEP 节奏色（每 task-card 内独立计数） */
+  .step {
+    --step-rich: var(--blue-900);
+    --step-mid:  var(--blue-700);
+    --step-bg:   var(--blue-050);
+    --step-tint: var(--blue-100);
+  }
+  .task-card-body > .step:nth-child(3n+2 of .step) {
+    --step-rich: var(--gold-900);
+    --step-mid:  var(--gold-700);
+    --step-bg:   var(--gold-050);
+    --step-tint: var(--gold-100);
+  }
+  .task-card-body > .step:nth-child(3n of .step) {
+    --step-rich: var(--silver-900);
+    --step-mid:  var(--silver-700);
+    --step-bg:   var(--silver-050);
+    --step-tint: var(--silver-100);
+  }
+  .step {
+    --primary-blue:   var(--step-rich);
+    --secondary-blue: var(--step-mid);
+    --bright-blue:    var(--step-mid);
+    --light-blue:     var(--step-bg);
+  }
+  .step .step-header {
+    background: var(--step-bg);
+    border-color: var(--step-mid);
+  }
+  .step .step-header .step-badge {
+    color: var(--step-rich);
+    border-bottom-color: var(--step-mid);
+  }
+
+  .step-content { font-size: 0.92rem; padding-left: 0; }
+  .step-content p { margin-bottom: 12px; }
+  .step-content ul, .step-content ol { padding-left: 22px; margin-bottom: 12px; }
+  .step-content li { margin-bottom: 8px; }
+
+  /* 引用 / 前置回顾 / 推导块 */
+  .quote-block {
+    background: var(--step-bg);
+    border-left: 3px solid var(--step-mid);
+    padding: 22px 26px; margin: 18px 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem; color: var(--text-primary); line-height: 1.85;
+  }
+  .prereq-recap {
+    background: #fff;
+    border: 1px solid var(--silver-100);
+    border-left: 3px solid var(--step-mid);
+    padding: 22px 26px; margin: 20px 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem; color: var(--text-primary); line-height: 1.8;
+  }
+  .prereq-recap strong { color: var(--step-rich); }
+  .derivation-block {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 28px 30px; margin: 22px 0;
+    font-size: 0.92rem; position: relative;
+  }
+  .derivation-block::before {
+    content: ""; position: absolute;
+    left: -1px; top: -1px; bottom: -1px;
+    width: 4px; background: var(--step-mid);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  }
+  .derivation-block .derivation-title {
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--step-rich); margin-bottom: 18px;
+    letter-spacing: 0.01em;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .derivation-block .derivation-title::before {
+    content: ""; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--step-mid);
+    box-shadow: 0 0 0 3px var(--step-tint);
+    flex-shrink: 0;
+  }
+  .derivation-block .step-line {
+    margin: 12px 0; padding-left: 18px;
+    border-left: 1px solid var(--silver-100);
+    line-height: 1.85;
+  }
+  .derivation-block .step-line strong { color: var(--step-rich); }
+
+  /* 思考点 */
+  .thinking-point {
+    background: var(--step-bg); border: none;
+    border-left: 3px solid var(--step-mid);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 24px 28px 24px 64px;
+    margin: 24px 0; position: relative;
+  }
+  .thinking-point::before {
+    content: "💭"; position: absolute;
+    left: 16px; top: 22px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #fff; border: 1px solid var(--step-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .thinking-point .tp-title { font-weight: 700; color: var(--step-rich); font-size: 0.98rem; margin-bottom: 14px; }
+  .thinking-point .tp-pause { background: #fff; padding: 12px 16px; border-radius: var(--radius-sm); margin: 10px 0; font-size: 0.88rem; border: 1px solid var(--step-tint); }
+  .thinking-point .tp-pause::before { content: '🤔 '; margin-right: 4px; }
+  .thinking-point .tp-ask { background: #fff; border-left: 3px solid var(--step-mid); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 10px 0; font-size: 0.88rem; color: var(--step-rich); }
+  .thinking-point .tp-ask::before { content: '💬 问 AI：'; font-weight: 700; color: var(--step-rich); margin-right: 4px; }
+  .thinking-point .tp-write { background: #fff; border-left: 3px solid var(--step-mid); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 10px 0; font-size: 0.88rem; color: var(--step-rich); }
+  .thinking-point .tp-write::before { content: '✍️ 自己写：'; font-weight: 700; color: var(--step-rich); margin-right: 4px; }
+  .thinking-point .tp-hint { font-size: 0.82rem; color: var(--silver-700); font-style: italic; margin: 6px 0 2px 0; }
+
+  /* 数据表 */
+  .data-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.88rem; }
+  .data-table th { background: var(--step-bg); color: var(--step-rich); padding: 12px 14px; text-align: center; border: 1px solid var(--border-color); font-weight: 600; }
+  .data-table td { padding: 12px 14px; border: 1px solid var(--border-color); text-align: center; vertical-align: middle; line-height: 1.7; font-variant-numeric: tabular-nums; }
+  .data-table tr:nth-child(even) td { background: var(--step-bg); }
+  .data-table td:last-child { color: var(--step-rich); font-weight: 600; }
+
+  /* 图示块 */
+  .diagram-block { margin: 32px 0; text-align: center; }
+  .diagram-block svg {
+    max-width: 100%; height: auto;
+    background: #fff; border-radius: var(--radius-sm);
+    padding: 20px 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+  }
+  .diagram-caption { font-size: 0.83rem; color: var(--silver-700); margin-top: 12px; font-style: italic; line-height: 1.7; }
+
+  /* 检查点 */
+  .checkpoint {
+    background: var(--step-bg);
+    border: 1px solid var(--step-tint);
+    border-radius: var(--radius-sm);
+    padding: 24px 26px 22px 26px;
+    margin-top: 28px; position: relative;
+  }
+  .checkpoint-title {
+    font-size: 0.92rem; font-weight: 700;
+    color: var(--step-rich); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .checkpoint-title::before {
+    content: "✓"; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--step-mid); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; font-weight: 700; flex-shrink: 0;
+  }
+  .checkpoint label { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; margin-bottom: 12px; cursor: pointer; line-height: 1.7; }
+  .checkpoint label:last-child { margin-bottom: 0; }
+  .checkpoint input[type="checkbox"] { margin-top: 5px; flex-shrink: 0; accent-color: var(--step-mid); width: 16px; height: 16px; }
+  .checkpoint label.checked span { text-decoration: line-through; color: var(--silver-700); }
+
+  .literacy-tag { font-size: 0.82rem; color: var(--silver-700); margin-top: 20px; padding-top: 14px; border-top: 1px dashed var(--silver-100); }
+
+  /* 学习产出表 */
+  .output-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.9rem; }
+  .output-table th, .output-table td { padding: 14px 16px; border: 1px solid var(--border-color); vertical-align: top; line-height: 1.75; }
+  .output-table th { background: var(--blue-050); color: var(--blue-700); text-align: left; font-weight: 600; }
+
+  /* 底部导航 */
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px;
+    text-align: center;
+    padding: 16px 18px;
+    border-radius: 999px;
+    background: var(--silver-050);
+    color: var(--silver-500);
+    text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 48px 24px 40px; }
+    .header h1 { font-size: 1.3rem; }
+    .header::before { width: 140px; height: 140px; top: -50px; }
+    .card { padding: 28px 22px; }
+    .task-card-header { padding: 20px 22px; gap: 14px; }
+    .task-card-number { width: 44px; height: 44px; font-size: 1.15rem; box-shadow: 0 0 0 4px var(--blue-100); }
+    .task-card-header h3 { font-size: 1rem; }
+    .task-card-body { padding: 28px 22px; }
+    .step-header { width: 220px; height: 220px; padding: 22px 20px; }
+    .step-header .step-title { font-size: 0.88rem; }
+    .step-header .step-badge { font-size: 0.65rem; letter-spacing: 0.18em; }
+    .driving-question { padding: 24px 22px 24px 64px; }
+    .cross-topic-warning { padding-left: 56px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>极限</span>
+    <span class="sep">&gt;</span>
+    <span>极限（物理引入）</span>
+  </nav>
+
+  <div class="header">
+    <h1>极限（物理引入）<br><span class="h1-sub">从平均速度到瞬时速度</span></h1>
+    <div class="subtitle">直线运动 · 第 2 课（桥课）<br>Δt → 0 · 割线 → 切线 · 为求导铺路</div>
+  </div>
+
+  <div class="cross-topic-warning">
+    <div class="ctw-title">本课定位 · 桥课</div>
+    本课是<strong>"运动的描述（第 1 课）" → "导数与瞬时速度（第 3 课）"</strong>之间的过渡。目的只有一个：用"平均速度回答不了'此刻多快'"这件事，把<strong>"Δt 越来越小，结果越来越接近某个确定值"</strong>这条直觉刻进脑子，为下一课"瞬时速度 = lim Δx/Δt = 位移函数的导数"做心理准备。<br>
+    本课<strong>不</strong>讲数列极限的严格定义、<strong>不</strong>讲极限四则运算法则、<strong>不</strong>讲两个重要极限。极限作为数学工具的完整体系会在大学微积分课程中系统展开；本课只取"无限接近"这一条直觉。
+  </div>
+
+  <div class="card">
+    <table class="info-table">
+      <tr><td>板块名称</td><td>极限（物理引入）</td></tr>
+      <tr><td>所属大主题</td><td>星图物理 · 经典力学 · 直线运动</td></tr>
+      <tr><td>预计学习时间</td><td>1 h - 1 h 20 min（Card 1 约 18-22 min · Card 2 约 22-28 min · Card 3 约 18-22 min · 含 buffer 10-15 min）</td></tr>
+      <tr><td>前置板块</td><td><strong>01 · 运动的描述</strong>（位移 Δx · 时间间隔 Δt · 平均速度 \(\bar v = \dfrac{\Delta x}{\Delta t}\) · v-t 图的读法）</td></tr>
+      <tr><td>所需工具</td><td>AI 工具、纸笔、计算器；草稿本（推荐 1-2 张 A4，分段写"数表计算 + 极限符号阅读 + 割线斜率变化"）</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2 class="section-title">学习目标</h2>
+    <ol class="objectives-list">
+      <li><strong>说清楚</strong>：为什么"平均速度"无法回答"小车在 \(t = 2\) s 这一<em>瞬间</em>有多快"——平均速度只描述一段时间内的整体快慢，不描述某一时刻的快慢</li>
+      <li><strong>用 Δt 越来越小的数表</strong>，观察 \(\dfrac{\Delta x}{\Delta t}\) 如何越来越接近某个确定值（如 20 m/s），并能在草稿上自己重复一次这个数表实验</li>
+      <li><strong>读懂</strong>记号 \(\displaystyle\lim_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\) 的物理含义：让时间间隔无限缩小、缩小过程中比值趋近的那个确定值，就定义为<strong>瞬时速度</strong></li>
+      <li><strong>能在 v-t 图（或 x-t 图）上画出</strong>：随着 Δt 缩小，<strong>割线</strong>越来越像某条<strong>切线</strong>；说出"割线斜率 = 平均速度 / 切线斜率 = 瞬时速度"这条几何对应</li>
+      <li><strong>明确边界</strong>：本课只用"无限接近"这一直觉，<strong>不</strong>纠结"Δt 到底等不等于 0"的严格数学定义；为下一课"瞬时速度 = 位移对时间的导数"做好心理准备</li>
+      <li><strong>避开 3 个常见误区</strong>：① 把"Δt = 0"代入比值得 \(\tfrac{0}{0}\) 就放弃 ② 把"无限接近"读成"等于" ③ 用某一小段平均速度的数值直接报作瞬时速度而不取极限</li>
+    </ol>
+  </div>
+
+  <div class="driving-question">
+    <div class="dq-title">驱动问题</div>
+    <p>第 1 课里我们用 \(\bar v = \dfrac{\Delta x}{\Delta t}\) 描述一段时间内的<strong>平均</strong>快慢。现在追问一句：</p>
+    <p style="margin-top: 6px;"><strong>一辆沿直线行驶的小车，它在 \(t = 2\) s 这一<em>瞬间</em>到底有多快？</strong>这个问题在公式 \(\bar v = \dfrac{\Delta x}{\Delta t}\) 的框架里能不能直接回答？如果不能，需要在公式里加点什么、改点什么？</p>
+    <p class="hint">（提示：本课不要求一上来就回答"瞬时速度是什么"。先去试着写——写到走不通的那一步，再来读 Card 2、Card 3。"走不通的位置"本身就是这一课最重要的收获。）</p>
+  </div>
+
+  <!-- ==================== Card 1 · 平均速度回答不了"此刻多快" ==================== -->
+  <div class="task-card" id="card1">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">1</div>
+      <h3>Card 1 · 为什么平均速度回答不了"此刻多快"</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>任务目标</strong>：把"平均速度的局限"用一个具体例子掐死。给出位移函数 \(x(t) = 5t^2\)（单位 m / s），追问"\(t = 2\) s 这一瞬间到底有多快"，看看为什么用公式 \(\bar v = \dfrac{\Delta x}{\Delta t}\) 怎么都写不出"瞬间"的答案。<br>
+        <strong>建议时长</strong>：18-22 分钟
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">先自己想<br><span class="step-sub">5 分钟 · 不查任何资料</span></span></div>
+        <div class="step-content">
+          <div class="prereq-recap">
+            <strong>前置回顾（第 1 课）</strong>：位移 \(\Delta x = x(t_2) - x(t_1)\)；时间间隔 \(\Delta t = t_2 - t_1\)；平均速度 \(\bar v = \dfrac{\Delta x}{\Delta t}\)；它描述的是<strong>一段时间</strong>内位移随时间的<strong>整体</strong>快慢——而不是某一个时刻的快慢。
+          </div>
+
+          <p>设一辆小车沿直线行驶，位移随时间变化的规律为</p>
+          <p style="text-align: center; margin: 8px 0 12px;">\[ x(t) = 5\, t^2 \quad (x \text{ 单位 m},\ t \text{ 单位 s}) \]</p>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 用平均速度"逼近"瞬间，能逼到哪里</div>
+            <div class="tp-pause">问题：题目问"\(t = 2\) s 这一瞬间小车有多快"。你目前手里只有一个工具：平均速度 \(\bar v = \dfrac{\Delta x}{\Delta t}\)。它要求<strong>两个</strong>时刻，可"瞬间"只有<strong>一个</strong>时刻——这就出现了卡点。你会怎么试着绕过？把 \(t_2\) 取得离 \(t_1 = 2\) s 多近你都可以，但 \(t_2 = t_1\) 这一步能不能直接取？取了会发生什么？</div>
+            <div class="tp-ask">我手里只有公式 \(\bar v = \dfrac{\Delta x}{\Delta t}\) 和位移函数 \(x(t) = 5t^2\)，想问 "\(t = 2\) s 的瞬间速度"。我直觉是想让 \(t_2\) 越来越靠近 2 s，可如果 \(t_2 = 2\) s，分子分母都变成 0。请不要直接给我"极限"或"导数"这种术语；先用反问帮我看清——"让 \(t_2\) 越来越靠近 2 s 但不等于 2 s" 这种做法，到底是物理上合理的，还是只是"硬绕过 \(\tfrac{0}{0}\) 的把戏"？</div>
+            <div class="tp-write">在草稿上分两栏写：左栏"\(t_2 = t_1\) 直接代入"会得到什么数学形式；右栏"\(t_2\) 趋近 \(t_1\) 但不等于"在物理上对应什么操作。最后用一句话总结："直接代不行，因为 ___ ；趋近不等于，对应物理上 ___ "。</div>
+            <div class="tp-hint">卡住的话：先把 \(\Delta t = 1, 0.5, 0.1, 0.01\) 几个数代进来试试，看分子分母的趋势——分母在变小，分子也在变小，比值会乱跑还是会稳住？</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">和 AI 对话推导<br><span class="step-sub">核心 · 8-10 分钟</span></span></div>
+        <div class="step-content">
+          <p>用平均速度的公式，写出"从 \(t = 2\) s 起、经历 \(\Delta t\) 时间后"的平均速度：</p>
+
+          <div class="derivation-block">
+            <div class="derivation-title">从 \(t = 2\) 到 \(t = 2 + \Delta t\) 的平均速度推导</div>
+            <div class="step-line"><strong>位移变化</strong>：\(\Delta x = x(2 + \Delta t) - x(2) = 5(2 + \Delta t)^2 - 5 \cdot 2^2\)</div>
+            <div class="step-line"><strong>展开</strong>：\(5(2 + \Delta t)^2 = 5\,[\,4 + 4\Delta t + (\Delta t)^2\,] = 20 + 20\,\Delta t + 5\,(\Delta t)^2\)</div>
+            <div class="step-line"><strong>所以</strong>：\(\Delta x = (20 + 20\,\Delta t + 5\,(\Delta t)^2) - 20 = 20\,\Delta t + 5\,(\Delta t)^2\)</div>
+            <div class="step-line"><strong>平均速度</strong>：\(\bar v = \dfrac{\Delta x}{\Delta t} = \dfrac{20\,\Delta t + 5\,(\Delta t)^2}{\Delta t}\)</div>
+            <div class="step-line">这个表达式里 \(\Delta t\) 仍然是<strong>分母</strong>。如果直接取 \(\Delta t = 0\)，会得到 \(\tfrac{0}{0}\)——一种数学上的<strong>不确定形式</strong>，没有意义。<strong>"瞬间"这一物理需求，在平均速度的公式框架里直接代入就崩了</strong>。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · 让 Δt 不为零，但小到任意小，可不可以？</div>
+            <div class="tp-pause">从上面表达式看，<strong>只要 \(\Delta t \neq 0\)</strong>，我们就能放心地约分（分子的 \(\Delta t\) 可以提出来，与分母约掉）。但物理上让 Δt 越来越小，对应的是什么操作？是"测量的时间窗口越来越短"还是"小车真的瞬间停了"？哪一种贴合"瞬时速度"的物理含义？</div>
+            <div class="tp-ask">请帮我对照两件事：① "\(\Delta t = 0\) 直接代入" 在数学上等价于什么？ ② "\(\Delta t \to 0\) 但 \(\Delta t \neq 0\)" 在物理上对应什么实验操作？用反问帮我把两件事区分清楚；不要立刻给我"极限的严格定义"。</div>
+            <div class="tp-write">用一句话把"瞬时速度的物理含义"写在草稿顶部：<strong>"瞬时速度 = 让测量时间窗口 Δt 越来越短，平均速度趋近的那个稳定值。"</strong> 把这句话当作下面 Card 2 的入口。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 3</span><span class="step-title">应用与反思<br><span class="step-sub">5-7 分钟</span></span></div>
+        <div class="step-content">
+          <div class="thinking-point">
+            <div class="tp-title">思考点 3 · 平均速度在哪些问题里够用，在哪些问题里不够</div>
+            <div class="tp-pause">列两个具体场景：（A）"一辆车 8:00 出发，9:00 到达，全程 60 km"——这种问题平均速度够不够用？（B）"测速摄像头要判定某车<strong>经过门架那一瞬间</strong>是否超速"——这种问题用平均速度够不够用？两者的本质差别是什么？</div>
+            <div class="tp-write">把两个场景的判断 + 理由写在草稿上。提示：差别在"被问的量是'某段时间的总体'还是'某一时刻的局部'"。能区分这两类问题，是判断"该用平均速度还是该用瞬时速度"的核心能力。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 1 自查</div>
+            <label data-key="c1-1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能说出："平均速度描述一段时间，瞬时速度描述一个时刻"——这是两类不同物理量</span></label>
+            <label data-key="c1-2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我推出过 \(\bar v = \dfrac{20\,\Delta t + 5\,(\Delta t)^2}{\Delta t}\)，并理解直接取 \(\Delta t = 0\) 会得到 \(\tfrac{0}{0}\) 这种不确定形式</span></label>
+            <label data-key="c1-3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能区分"\(\Delta t = 0\)（直接代入）"与"\(\Delta t \to 0\) 但 \(\Delta t \neq 0\)（无限趋近）"两件事</span></label>
+            <label data-key="c1-4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能举出一个"平均速度够用"和一个"平均速度不够用"的具体场景</span></label>
+          </div>
+
+          <div class="literacy-tag">素养标签 · 物理观念：运动与时间的尺度意识 / 科学思维：从有限近似到无限趋近的过渡</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Card 2 · Δt 越来越小，结果越来越稳 ==================== -->
+  <div class="task-card" id="card2">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">2</div>
+      <h3>Card 2 · Δt 越来越小，结果越来越接近——数表 + 极限符号</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>任务目标</strong>：亲手算一张"Δt 由大到小、\(\dfrac{\Delta x}{\Delta t}\) 逐行收敛"的数表；通过观察这张数表，把"无限趋近"这一直觉从感觉升级为可以读、可以写的符号 \(\displaystyle\lim_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\)；并理解"先化简、再令 Δt 趋于 0"为何能绕开 \(\tfrac{0}{0}\)。<br>
+        <strong>建议时长</strong>：22-28 分钟
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">先自己想<br><span class="step-sub">5 分钟 · 先填表</span></span></div>
+        <div class="step-content">
+          <p>用 Card 1 的位移函数 \(x(t) = 5t^2\)，仍取起点 \(t = 2\) s。请你<strong>不要先看下面的答案表</strong>——先在草稿上自己填：取 \(\Delta t = 1,\ 0.5,\ 0.1,\ 0.01,\ 0.001\)，分别算 \(x(2 + \Delta t)\)、\(\Delta x\) 与 \(\bar v = \dfrac{\Delta x}{\Delta t}\)。</p>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 4 · 填表过程中，你看到了什么趋势</div>
+            <div class="tp-pause">先盯着自己填出来的 \(\bar v\) 这一列：它会"乱跳"还是会"逼近某个数"？如果会逼近，逼近的那个数是多少？你怎么"看"出来它会逼近——是因为表里数字越来越接近，还是因为它们的差值越来越小？</div>
+            <div class="tp-write">在数表下方写一句话：<strong>"\(\Delta t\) 越小，\(\bar v\) 越接近 ___ m/s。"</strong>（数字自己填）</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">和 AI 对话推导<br><span class="step-sub">核心 · 10-12 分钟</span></span></div>
+        <div class="step-content">
+          <p>核对一下：你填出来的数表应该长这样——</p>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>区间</th>
+                <th>\(\Delta t\) (s)</th>
+                <th>\(x(2)\) (m)</th>
+                <th>\(x(2+\Delta t)\) (m)</th>
+                <th>\(\Delta x\) (m)</th>
+                <th>\(\bar v = \dfrac{\Delta x}{\Delta t}\) (m/s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>[2, 3]</td><td>1</td><td>20</td><td>45</td><td>25</td><td>25</td></tr>
+              <tr><td>[2, 2.5]</td><td>0.5</td><td>20</td><td>31.25</td><td>11.25</td><td>22.5</td></tr>
+              <tr><td>[2, 2.1]</td><td>0.1</td><td>20</td><td>22.05</td><td>2.05</td><td>20.5</td></tr>
+              <tr><td>[2, 2.01]</td><td>0.01</td><td>20</td><td>20.2005</td><td>0.2005</td><td>20.05</td></tr>
+              <tr><td>[2, 2.001]</td><td>0.001</td><td>20</td><td>20.020005</td><td>0.020005</td><td>20.005</td></tr>
+              <tr><td>[2, 2.0001]</td><td>0.0001</td><td>20</td><td>20.00200005</td><td>0.00200005</td><td>20.0005</td></tr>
+            </tbody>
+          </table>
+
+          <p><strong>看最右一列</strong>：\(\bar v\) 的数值是 25 → 22.5 → 20.5 → 20.05 → 20.005 → 20.0005——越来越逼近一个稳定值 <strong>20 m/s</strong>，而且<strong>越往后越稳</strong>（每行的"修正量"自己也在缩小）。这就是"无限趋近"在表格里的具体长相。</p>
+
+          <div class="derivation-block">
+            <div class="derivation-title">用符号写下这件事：极限</div>
+            <div class="step-line">数表给我们的直觉是：随着 \(\Delta t\) 越来越小，\(\dfrac{\Delta x}{\Delta t}\) 越来越接近一个确定值。这件事写成符号就是</div>
+            <div class="step-line" style="text-align: center; padding-left: 0; border-left: none; margin: 8px 0;">\[ \lim_{\Delta t \to 0}\ \dfrac{\Delta x}{\Delta t} \]</div>
+            <div class="step-line"><strong>读法</strong>：\(\lim\) 是 limit（极限）的缩写；\(\Delta t \to 0\) 读作"\(\Delta t\) 趋于 0"，表示"让 \(\Delta t\) 越来越接近 0 但不等于 0"；整个式子读作"当 \(\Delta t\) 趋于 0 时，\(\dfrac{\Delta x}{\Delta t}\) 的极限"。</div>
+            <div class="step-line"><strong>物理含义</strong>：让测量时间窗口越来越短、短到任意短，平均速度趋近的那个稳定值——就把它定义为<strong>\(t = 2\) s 时刻的瞬时速度 \(v(2)\)</strong>。</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">为什么"先化简、再趋于 0"能绕开 \(\tfrac{0}{0}\)</div>
+            <div class="step-line">回到 Card 1 推出来的表达式 \(\bar v = \dfrac{20\,\Delta t + 5\,(\Delta t)^2}{\Delta t}\)。直接代 \(\Delta t = 0\) 得 \(\tfrac{0}{0}\) 走不通。但只要 <strong>\(\Delta t \neq 0\)</strong>，就可以提出 \(\Delta t\) 并约分：</div>
+            <div class="step-line" style="text-align: center; padding-left: 0; border-left: none; margin: 8px 0;">\[ \dfrac{20\,\Delta t + 5\,(\Delta t)^2}{\Delta t} = \dfrac{\Delta t\,(20 + 5\,\Delta t)}{\Delta t} = 20 + 5\,\Delta t \]</div>
+            <div class="step-line"><strong>关键</strong>：在"\(\Delta t \to 0\) 但 \(\Delta t \neq 0\)"这个口径下，约分是<strong>合法</strong>的（因为没有"除以 0"发生）。化简之后，再让 \(\Delta t \to 0\)：</div>
+            <div class="step-line" style="text-align: center; padding-left: 0; border-left: none; margin: 8px 0;">\[ v(2) = \lim_{\Delta t \to 0}\ (20 + 5\,\Delta t) = 20 + 5 \times 0 = 20\ \text{m/s} \]</div>
+            <div class="step-line">现在表达式里<strong>没有</strong> \(\Delta t\) 在分母了，代入 \(\Delta t = 0\) 不会出问题——所以才能"放心"地把 \(\Delta t\) 真的取 0。这就是<strong>"先化简、再求极限"</strong>的物理意义：先用 \(\Delta t \neq 0\) 把分母拿掉，再让 \(\Delta t\) 缩到 0。</div>
+            <div class="step-line"><strong>对照数表</strong>：表里第 5 行 \(\bar v = 20.005\) 与第 6 行 \(\bar v = 20.0005\)，正好与 \(20 + 5\,\Delta t\) 在 \(\Delta t = 0.001\) 与 \(\Delta t = 0.0001\) 处的取值完全一致——这说明"化简 + 取极限"和"数表逐行逼近"是<strong>同一件事的两种说法</strong>。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 5 · "无限接近"≠"等于"</div>
+            <div class="tp-pause">数表里 \(\bar v\) 越来越接近 20，但表里<strong>哪一行都没真的等于</strong> 20。可我们最后说"瞬时速度 = 20 m/s"，这里的"="到底是怎么成立的？是因为人类决定"接近得足够近就当作相等"，还是因为某种更精确的数学规定？</div>
+            <div class="tp-ask">请帮我把"无限趋近"和"等于"区分开。我现在的理解是：表里每一行的 \(\bar v\) 都<strong>不等于</strong> 20，但它们<strong>趋近</strong>的那个值是 20，所以我们把 20 这个值<strong>命名为</strong>瞬时速度。这种理解对不对？不要立刻拉出"ε-δ"那一套，先用类比帮我把直觉稳住。</div>
+            <div class="tp-write">用一句话把结论写下来：<strong>"\(\Delta t \to 0\) 时 \(\bar v\) 趋近的那个值，被<u>定义</u>为瞬时速度；这个'='是<u>定义</u>，不是直接代入 \(\Delta t = 0\) 的结果。"</strong></div>
+            <div class="tp-hint">你可以这样类比：地平线在远方"看上去"和大海相连，但你<strong>永远走不到</strong>地平线那个点；可数学允许你给"走过去的目标点"起个名字——这就是极限的命名权。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 3</span><span class="step-title">批判性审查<br><span class="step-sub">5-7 分钟</span></span></div>
+        <div class="step-content">
+          <div class="thinking-point">
+            <div class="tp-title">思考点 6 · 数表本身能否"证明"极限存在</div>
+            <div class="tp-pause">假设你只填了 \(\Delta t = 1,\ 0.5,\ 0.1\) 三行，看到 \(\bar v\) 从 25 → 22.5 → 20.5。能不能凭这三行就断言极限是 20？如果不能，至少还要补什么？反过来说：填到第 100 行算不算"证明"？</div>
+            <div class="tp-write">在草稿上写一句话：<strong>"数表只能给极限<u>提供证据</u>，不能<u>证明</u>极限；真正的证明需要 ___ 。"</strong>（横线先空着；下一课我们会把这条线填上——用"化简后的代数表达式取极限"来给出严格答案。）</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 2 自查</div>
+            <label data-key="c2-1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我自己填出了 \(\Delta t = 1, 0.5, 0.1, 0.01, 0.001\) 的数表，并看到 \(\bar v\) 逼近 20 m/s</span></label>
+            <label data-key="c2-2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能正确读出 \(\displaystyle\lim_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\)，并说出其物理含义（=瞬时速度）</span></label>
+            <label data-key="c2-3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能解释"先化简（约掉 Δt）再令 Δt → 0"为什么能避开 \(\tfrac{0}{0}\)</span></label>
+            <label data-key="c2-4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能区分"无限趋近"和"等于"——前者是描述过程，后者是把趋近的目标值<u>定义</u>为新量</span></label>
+            <label data-key="c2-5"><input type="checkbox" onchange="saveCheckbox(this)"><span>我意识到数表只给"证据"不给"证明"，下一课会用代数方法补上严格的一步</span></label>
+          </div>
+
+          <div class="literacy-tag">素养标签 · 数学工具：极限符号的读写 / 科学思维：从数据观察到符号抽象</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Card 3 · 几何直观：割线变切线 ==================== -->
+  <div class="task-card" id="card3">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">3</div>
+      <h3>Card 3 · 几何直观：x-t 图上的"割线 → 切线"</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>任务目标</strong>：把 Card 2 的代数"\(\Delta t \to 0\) 时 \(\bar v\) 趋近某个稳定值"翻译成 x-t 图上的几何图景——"取两点连一根<strong>割线</strong>；让两点不断靠近，割线越来越像一条<strong>切线</strong>"。建立"<strong>割线斜率 = 平均速度 / 切线斜率 = 瞬时速度</strong>"的几何对应，为下一课"导数的几何含义"铺垫。<br>
+        <strong>建议时长</strong>：18-22 分钟
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 1</span><span class="step-title">先自己想<br><span class="step-sub">5 分钟</span></span></div>
+        <div class="step-content">
+          <div class="prereq-recap">
+            <strong>前置回顾（第 1 课）</strong>：x-t 图的纵轴是位移 \(x\)、横轴是时间 \(t\)；图像上任取两点 \(P_1(t_1, x_1)\) 与 \(P_2(t_2, x_2)\)，连成的直线段叫<strong>割线</strong>；这条割线的<strong>斜率</strong>正是 \(\dfrac{x_2 - x_1}{t_2 - t_1} = \dfrac{\Delta x}{\Delta t} = \bar v\)——也就是这段时间的平均速度。
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 7 · 让 \(P_2\) 沿曲线滑向 \(P_1\)，割线会变成什么</div>
+            <div class="tp-pause">在 x-t 图上固定 \(P_1 = (2, 20)\)（对应 \(t = 2\) s）。让 \(P_2\) 沿曲线 \(x = 5t^2\) 从右边向 \(P_1\) 慢慢靠近——\(P_2\) 在曲线上的位置依次是 \((3, 45) \to (2.5, 31.25) \to (2.1, 22.05) \to (2.01, 20.2005)\)。每次连一条 \(P_1 P_2\) 割线。问：随着 \(P_2 \to P_1\)，这一系列割线在视觉上呈现出什么趋势？它们的极限位置是什么？</div>
+            <div class="tp-write">在草稿上画两根坐标轴，画出 \(x = 5t^2\) 这条抛物线的局部（\(t\) 在 1 到 3 之间），标出 \(P_1\) 与几个 \(P_2\) 的位置，并依次画出 \(P_1 P_2\) 的割线。然后回答："这些割线越来越像 ___ "。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 2</span><span class="step-title">读图与对应<br><span class="step-sub">核心 · 8-10 分钟</span></span></div>
+        <div class="step-content">
+          <p>下面这张图把这一系列"割线 → 切线"的过程画了出来。曲线是 \(x = 5t^2\) 在 \(t \in [1.0, 3.0]\) 这一段；红点是固定的 \(P_1 = (2, 20)\)；从右侧自远到近的三个黑点是 \(P_2 = (3, 45),\ (2.5, 31.25),\ (2.1, 22.05)\)；与之对应的三条灰色割线斜率依次是 25、22.5、20.5；最贴着曲线的那条深蓝实线，是 \(P_1\) 处的<strong>切线</strong>——它的斜率就是 \(t = 2\) s 时刻的<strong>瞬时速度</strong> \(v(2) = 20\)。</p>
+
+          <div class="diagram-block">
+            <svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="x-t 图上的割线变切线示意">
+              <defs>
+                <marker id="ax-arr-l2" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L9,5 L0,10 z" fill="#1d1d1f"/>
+                </marker>
+              </defs>
+
+              <!--
+                坐标系
+                · t 轴：t=0 → x_px=90；t=3 → x_px=510； 比例 140 px/s
+                  → t=1 → 230； t=2 → 370； t=3 → 510； t=2.5 → 440； t=2.1 → 384
+                · x 轴：x=0 → y_px=340；x=45 → y_px=70； 比例 6 px/m
+                  → x=5  → 310； x=20 → 220； x=22.05 → 207.7； x=31.25 → 152.5； x=45 → 70
+                · 切线（P1=(2,20)，斜率 20 m/s）：像素斜率 = 20×6/140 = 0.857 → 在 t=[1,3] 内端点
+                  左：(230, 220 + 0.857·140) = (230, 340)
+                  右：(510, 220 − 0.857·140) = (510, 100)
+              -->
+
+              <!-- 坐标轴（轴线远离画面边） -->
+              <line x1="90" y1="340" x2="560" y2="340" stroke="#1d1d1f" stroke-width="1.5" marker-end="url(#ax-arr-l2)"/>
+              <line x1="90" y1="340" x2="90" y2="40" stroke="#1d1d1f" stroke-width="1.5" marker-end="url(#ax-arr-l2)"/>
+              <text x="566" y="345" font-size="12" fill="#1d1d1f">t (s)</text>
+              <text x="98" y="34" font-size="12" fill="#1d1d1f">x (m)</text>
+              <text x="80" y="358" text-anchor="end" font-size="11" fill="#1d1d1f">O</text>
+
+              <!-- 横轴刻度（短刻度线只在轴下方 · 标签下移到刻度下方 ≥ 10 px） -->
+              <line x1="230" y1="340" x2="230" y2="346" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="230" y="370" text-anchor="middle" font-size="11" fill="#1d1d1f">1.0</text>
+              <line x1="370" y1="340" x2="370" y2="346" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="370" y="370" text-anchor="middle" font-size="11" fill="#1d1d1f">2.0</text>
+              <line x1="510" y1="340" x2="510" y2="346" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="510" y="370" text-anchor="middle" font-size="11" fill="#1d1d1f">3.0</text>
+
+              <!-- 纵轴刻度 -->
+              <line x1="85" y1="310" x2="95" y2="310" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="74" y="314" text-anchor="end" font-size="11" fill="#1d1d1f">5</text>
+              <line x1="85" y1="220" x2="95" y2="220" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="74" y="224" text-anchor="end" font-size="11" fill="#1d1d1f">20</text>
+              <line x1="85" y1="70" x2="95" y2="70" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="74" y="74" text-anchor="end" font-size="11" fill="#1d1d1f">45</text>
+
+              <!--
+                抛物线 x = 5 t² · 在像素空间采样 t∈[0, 3]
+                每个 t 对应 (90 + 140 t,  340 − 6·5 t²) = (90+140t, 340−30t²)
+                t=0    →(90, 340)
+                t=0.5  →(160, 332.5)
+                t=1.0  →(230, 310)
+                t=1.25 →(265, 293.1)
+                t=1.5  →(300, 272.5)
+                t=1.75 →(335, 248.1)
+                t=2.0  →(370, 220)
+                t=2.1  →(384, 207.7)
+                t=2.25 →(405, 188.1)
+                t=2.5  →(440, 152.5)
+                t=2.75 →(475, 113.1)
+                t=3.0  →(510, 70)
+              -->
+              <polyline fill="none" stroke="#0055B8" stroke-width="2.4"
+                points="90,340 125,338.1 160,332.5 195,323.1 230,310 265,293.1 300,272.5 335,248.1 370,220 405,188.1 440,152.5 475,113.1 510,70"/>
+
+              <!-- 切线（P1 处斜率 20）·t∈[1,3] 段 -->
+              <line x1="230" y1="340" x2="510" y2="100" stroke="#00409A" stroke-width="2.4"/>
+
+              <!-- 割线（虚线）：P1=(370,220)
+                   P2A=(510, 70)  斜率 = (45-20)/(3-2) = 25
+                   P2B=(440,152.5) 斜率 = (31.25-20)/(2.5-2) = 22.5
+                   P2C=(384,207.7) 斜率 = (22.05-20)/(2.1-2) = 20.5 -->
+              <line x1="370" y1="220" x2="510" y2="70" stroke="#A8AEBC" stroke-width="1.4" stroke-dasharray="6,4"/>
+              <line x1="370" y1="220" x2="440" y2="152.5" stroke="#7B8290" stroke-width="1.4" stroke-dasharray="6,4"/>
+              <line x1="370" y1="220" x2="384" y2="207.7" stroke="#5C6370" stroke-width="1.8" stroke-dasharray="6,4"/>
+
+              <!-- 重描曲线置顶 -->
+              <polyline fill="none" stroke="#0055B8" stroke-width="2.4" opacity="0.95"
+                points="90,340 125,338.1 160,332.5 195,323.1 230,310 265,293.1 300,272.5 335,248.1 370,220 405,188.1 440,152.5 475,113.1 510,70"/>
+
+              <!-- 关键点 -->
+              <circle cx="370" cy="220" r="5.5" fill="#B8924A" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="510" cy="70" r="4" fill="#1d1d1f"/>
+              <circle cx="440" cy="152.5" r="4" fill="#1d1d1f"/>
+              <circle cx="384" cy="207.7" r="4" fill="#1d1d1f"/>
+
+              <!-- 标签全部外置到右侧空白区，dashed 引线（不穿轴 / 不穿切线 / 不穿曲线） -->
+              <!-- P1 标签：放在 P1 左上方避开切线（切线在 P1 上方往右上延伸；切线斜率正，所以 P1 左上方安全） -->
+              <line x1="370" y1="220" x2="320" y2="190" stroke="#B8924A" stroke-width="1" stroke-dasharray="3,3"/>
+              <text x="316" y="186" text-anchor="end" font-size="12" fill="#8E6E2E" font-weight="700">P₁(2.0, 20)</text>
+
+              <!-- 右侧标签布局（从上到下，组间间距 ≥ 24 px，避免堆叠）：
+                   P₂ₐ  : 60-74
+                   切线 : 116-130
+                   P₂ᵦ  : 168-182
+                   P₂c  : 220-234 -->
+
+              <!-- P2A 标签 -->
+              <line x1="510" y1="70" x2="544" y2="66" stroke="#7B8290" stroke-width="0.9" stroke-dasharray="3,3"/>
+              <text x="548" y="64" font-size="11" fill="#5C6370">P₂ₐ(3.0, 45)</text>
+              <text x="548" y="78" font-size="11" fill="#5C6370">割线斜率 25</text>
+
+              <!-- 切线标签（放在 P₂ₐ 与 P₂ᵦ 之间） -->
+              <line x1="498" y1="110" x2="538" y2="118" stroke="#00409A" stroke-width="0.9" stroke-dasharray="3,3"/>
+              <text x="548" y="120" font-size="12" fill="#00409A" font-weight="700">P₁ 处切线</text>
+              <text x="548" y="134" font-size="11" fill="#00409A">斜率 = 20 = v(2)</text>
+
+              <!-- P2B 标签 -->
+              <line x1="440" y1="152.5" x2="544" y2="170" stroke="#7B8290" stroke-width="0.9" stroke-dasharray="3,3"/>
+              <text x="548" y="172" font-size="11" fill="#5C6370">P₂ᵦ(2.5, 31.25)</text>
+              <text x="548" y="186" font-size="11" fill="#5C6370">割线斜率 22.5</text>
+
+              <!-- P2C 标签 -->
+              <line x1="384" y1="207.7" x2="544" y2="222" stroke="#7B8290" stroke-width="0.9" stroke-dasharray="3,3"/>
+              <text x="548" y="224" font-size="11" fill="#5C6370">P₂c(2.1, 22.05)</text>
+              <text x="548" y="238" font-size="11" fill="#5C6370">割线斜率 20.5</text>
+
+              <!-- 曲线标签 -->
+              <line x1="195" y1="323.1" x2="160" y2="304" stroke="#0055B8" stroke-width="0.8" stroke-dasharray="3,3"/>
+              <text x="156" y="300" text-anchor="end" font-size="12" fill="#0055B8" font-style="italic">x = 5 t²</text>
+
+              <!-- 趋势注释 · 放底部空白区 -->
+              <text x="325" y="402" text-anchor="middle" font-size="11" fill="#5C6370">P₂ → P₁ 时，灰色割线趋向深蓝切线</text>
+            </svg>
+            <div class="diagram-caption">图 1 · 从 P₁(2.0, 20) 向远处取 P₂ₐ、P₂ᵦ、P₂c，三条灰色虚线为割线（斜率分别 25 / 22.5 / 20.5）；P₂ 越靠近 P₁，割线越倾向那条深蓝实线——P₁ 处的切线，斜率 20，即 t = 2 s 时刻的瞬时速度 v(2)</div>
+          </div>
+
+          <div class="derivation-block">
+            <div class="derivation-title">几何与代数的对应表</div>
+            <div class="step-line"><strong>割线斜率</strong> \(= \dfrac{\Delta x}{\Delta t}\) \(=\) <strong>平均速度</strong> \(\bar v\)（一段时间内的快慢）</div>
+            <div class="step-line"><strong>切线斜率</strong> \(= \displaystyle\lim_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\) \(=\) <strong>瞬时速度</strong> \(v(t)\)（一个时刻的快慢）</div>
+            <div class="step-line">数表里的"\(\bar v\) 越来越接近 20"，对应几何上"割线越来越像切线"——同一件事的两种说法。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 8 · 切线为什么"只与那一个时刻有关"</div>
+            <div class="tp-pause">割线需要两个点才能画出来，而切线"看上去"也是一条直线，可它只对应曲线上的<strong>一个点</strong>。这是怎么做到的？回想数表：每一行还都是两个时刻的差，可极限抹掉了"两个时刻"这件事——为什么？</div>
+            <div class="tp-write">在草稿上写一句话：<strong>"切线只与一个时刻有关，是因为我们让另一个时刻无限趋近这个时刻，二者在极限意义下重合，但极限值仍然存在；这个存在的极限值，被定义为该时刻的瞬时速度，等于该点切线的斜率。"</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step">
+        <div class="step-header"><span class="step-badge">STEP 3</span><span class="step-title">承接下一课<br><span class="step-sub">5 分钟</span></span></div>
+        <div class="step-content">
+          <p>到这里，"瞬时速度"这件事已经站住了：</p>
+          <ul>
+            <li><strong>物理上</strong>，它回答"某一时刻有多快"——而不是"某段时间的整体快慢"</li>
+            <li><strong>代数上</strong>，它等于 \(\displaystyle\lim_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\)——一个让分母趋于 0 但绝不等于 0 的"无限趋近"过程</li>
+            <li><strong>几何上</strong>，它等于 x-t 图上该时刻处的<strong>切线斜率</strong>——割线在 \(P_2 \to P_1\) 时的极限位置</li>
+          </ul>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 9 · 下一课要回答的真问题</div>
+            <div class="tp-pause">现在我们知道：\(v(2) = 20\) m/s 是怎么算出来的。但如果题目改成"求 \(v(t)\) 在<strong>任意时刻</strong> \(t\) 的瞬时速度"，每次都重新填一张数表显然不现实。能不能找到一个<strong>普适</strong>的运算规则——对任何位移函数 \(x(t)\)，一步直接算出它的瞬时速度函数 \(v(t)\)？</div>
+            <div class="tp-write">在草稿底部写一行预告："下一课·导数 —— 把<strong>"取极限"</strong>这件事提炼成一个对任意函数都能用的运算规则，并把它命名为<strong>"位移对时间的导数"</strong>，写作 \(v(t) = \dfrac{\mathrm{d}x}{\mathrm{d}t}\)。"</div>
+            <div class="tp-hint">不要求现在能写出导数的定义。只要带着"瞬时速度 = lim Δx/Δt = 切线斜率"这三句话进入第 3 课，导数的引入就会非常自然。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 3 自查</div>
+            <label data-key="c3-1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能在 x-t 图上画出"割线 → 切线"的过程，并标出 P₁、P₂</span></label>
+            <label data-key="c3-2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能说出"割线斜率 = 平均速度 / 切线斜率 = 瞬时速度"这条几何与代数的对应</span></label>
+            <label data-key="c3-3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能解释为什么切线"只与一个时刻有关"——P₂ 在极限下与 P₁ 重合，但极限值仍存在</span></label>
+            <label data-key="c3-4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我已经准备好下一课的入口：把"取极限"提炼成对任意位移函数都能用的运算规则——导数</span></label>
+          </div>
+
+          <div class="literacy-tag">素养标签 · 物理观念：瞬时量与几何切线的对应 / 科学思维：代数 ↔ 几何的双语转译</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 学习产出要求 ==================== -->
+  <div class="card">
+    <h2 class="section-title">学习产出要求</h2>
+    <table class="output-table">
+      <tr>
+        <th style="width: 28%;">手写推导稿</th>
+        <td>1-2 张 A4：含 Card 1 的 Δx 展开、Card 2 的数表 6 行 + 化简后的 \(20 + 5\Delta t\)、Card 3 的"割线 → 切线"草图</td>
+      </tr>
+      <tr>
+        <th>反思日志</th>
+        <td>用自己的话写 ≤ 100 字：本课让你"看清"了哪一件原本模糊的事？哪一处仍然觉得绕？把"仍然觉得绕的地方"带去下一课</td>
+      </tr>
+      <tr>
+        <th>自评清单</th>
+        <td>三张 Card 的自查全部勾选完成（共 13 条）；任何一条勾不上 = 回该 Card 重做对应 STEP</td>
+      </tr>
+      <tr>
+        <th>下一课入口卡</th>
+        <td>能在 30 秒内向 AI 复述三句话：① 瞬时速度 = lim Δx/Δt（Δt → 0）② 它等于 x-t 图上的切线斜率 ③ 我现在想知道：对任意位移函数 \(x(t)\)，怎样一步算出瞬时速度函数 \(v(t)\)</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ==================== 底部导航 · 基础不含熟练度 → 2 链 ==================== -->
+  <div class="card">
+    <nav class="bottom-nav">
+      <a href="../../../index.html">返回主页</a>
+      <a href="02_极限_物理引入_mock-check.html">基础检测</a>
+    </nav>
+  </div>
+
+  <div class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 极限 · 极限（物理引入） · task-cards Skill v0.1.29
+  </div>
+
+</div>
+
+<script>
+  // KaTeX 自动渲染
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+    // 复选框持久化
+    document.querySelectorAll('.checkpoint input[type="checkbox"]').forEach(function(cb) {
+      var key = cb.parentElement.getAttribute('data-key');
+      if (key) {
+        var saved = localStorage.getItem('limit-physics-intro-' + key);
+        if (saved === '1') {
+          cb.checked = true;
+          cb.parentElement.classList.add('checked');
+        }
+      }
+    });
+  });
+
+  function toggleCard(headerEl) {
+    headerEl.classList.toggle('collapsed');
+    var body = headerEl.nextElementSibling;
+    if (body) body.classList.toggle('collapsed');
+  }
+
+  function saveCheckbox(cb) {
+    var key = cb.parentElement.getAttribute('data-key');
+    if (key) {
+      localStorage.setItem('limit-physics-intro-' + key, cb.checked ? '1' : '0');
+      cb.parentElement.classList.toggle('checked', cb.checked);
+    }
+  }
+</script>
+
+</body>
+</html>

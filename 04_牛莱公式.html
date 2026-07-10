@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 牛顿-莱布尼茨公式 · 牛顿-莱布尼茨公式 · 学习任务卡</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+  /* ===== 蓝色诺瓦 · 三色制（蓝 / 金 / 银）· 视觉系统 v0.1.30 ===== */
+  :root {
+    --blue-900: #002F73;
+    --blue-700: #00409A;
+    --blue-500: #0055B8;
+    --blue-100: #E8EEF9;
+    --blue-050: #F3F6FC;
+    --gold-900: #8E6E2E;
+    --gold-700: #B8924A;
+    --gold-500: #C9A961;
+    --gold-100: #F4ECD6;
+    --gold-050: #FBF7EC;
+    --silver-900: #5C6370;
+    --silver-700: #7B8290;
+    --silver-500: #A8AEBC;
+    --silver-100: #E5E7EC;
+    --silver-050: #F3F4F7;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-light: #86868b;
+    --bg-primary: #ffffff;
+    --bg-secondary: #FAFAFB;
+    --border-color: #ECEDF0;
+    --radius: 24px;
+    --radius-sm: 14px;
+    --shadow-sm: 0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md: 0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --primary-blue: var(--blue-700);
+    --secondary-blue: var(--blue-500);
+    --bright-blue: var(--blue-500);
+    --light-blue: var(--blue-100);
+    --bg-light: var(--bg-secondary);
+    --accent-orange: var(--gold-700);
+    --accent-purple: var(--silver-700);
+    --accent-green: var(--silver-700);
+    --success: var(--silver-700);
+    --danger: var(--gold-900);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .breadcrumb { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 24px; letter-spacing: 0.02em; }
+  .breadcrumb a { color: var(--blue-700); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { margin: 0 8px; color: var(--silver-500); }
+
+  .header {
+    text-align: center;
+    padding: 64px 32px 56px;
+    background: #fff;
+    color: var(--text-primary);
+    border-radius: var(--radius);
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+  }
+  .header::before {
+    content: ""; position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 180px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700));
+    opacity: 0.12; z-index: 0;
+  }
+  .header::after {
+    content: ""; position: absolute;
+    bottom: -40px; right: -40px;
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 1px solid var(--silver-500); opacity: 0.35; z-index: 0;
+  }
+  .header h1 {
+    font-size: 1.55rem; margin-bottom: 14px;
+    font-weight: 700; color: var(--blue-700);
+    letter-spacing: -0.01em; line-height: 1.5;
+    position: relative; z-index: 1;
+  }
+  .header h1 .h1-sub {
+    display: inline-block;
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--silver-700); letter-spacing: 0.04em;
+    margin-top: 8px; padding-top: 10px;
+    border-top: 1px solid var(--silver-500); opacity: 0.9;
+  }
+  .header .subtitle {
+    font-size: 0.92rem; color: var(--silver-700);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+  .advanced-badge {
+    display: inline-block;
+    background: var(--silver-100); color: var(--silver-900);
+    padding: 4px 12px; border-radius: 999px;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.12em; margin-bottom: 14px;
+    border: 1px solid var(--silver-500);
+    position: relative; z-index: 1;
+  }
+
+  .cross-topic-warning {
+    background: var(--blue-050);
+    border: 1px solid var(--blue-700);
+    border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 22px 26px 22px 64px;
+    margin: 28px 0;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+    position: relative;
+  }
+  .cross-topic-warning::before {
+    content: "!"; position: absolute;
+    left: 18px; top: 22px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--blue-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .cross-topic-warning .ctw-title { font-weight: 700; color: var(--blue-700); margin-bottom: 10px; font-size: 0.95rem; }
+  .cross-topic-warning strong { color: var(--blue-700); }
+
+  .card {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    border-top: 3px solid var(--blue-700);
+  }
+  .info-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .info-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-color); vertical-align: top; line-height: 1.75; }
+  .info-table td:first-child { font-weight: 600; color: var(--blue-700); white-space: nowrap; width: 130px; }
+  .info-table tr:last-child td { border-bottom: none; }
+
+  .section-title {
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--blue-700);
+    margin-bottom: 28px; padding-bottom: 18px;
+    border-bottom: 1px solid var(--silver-100);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-title::before {
+    content: ""; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--blue-700); flex-shrink: 0;
+    box-shadow: 0 0 0 4px var(--blue-100);
+  }
+  .objectives-list { padding-left: 24px; font-size: 0.94rem; }
+  .objectives-list li { margin-bottom: 14px; line-height: 1.85; }
+  .objectives-list li::marker { color: var(--blue-700); font-weight: 700; }
+  .card .objectives-list li strong { color: var(--blue-700); }
+
+  .driving-question {
+    background: var(--blue-050);
+    border: none;
+    border-left: 3px solid var(--blue-700);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 32px 32px 32px 72px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .driving-question::before {
+    content: "?"; position: absolute;
+    left: 22px; top: 30px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--blue-700); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700; font-family: Georgia, serif;
+  }
+  .driving-question .dq-title { font-size: 1.1rem; font-weight: 700; color: var(--blue-700); margin-bottom: 16px; }
+  .driving-question p { font-size: 0.94rem; margin-bottom: 12px; line-height: 1.85; }
+  .driving-question p:last-child { margin-bottom: 0; }
+  .driving-question .hint { font-size: 0.85rem; color: var(--silver-700); margin-top: 10px; }
+
+  .task-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+  }
+  .task-card-header {
+    background: #fff; color: var(--text-primary);
+    padding: 28px 32px;
+    display: flex; align-items: center; gap: 20px;
+    cursor: pointer; user-select: none;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+  }
+  .task-card-header:hover { background: var(--blue-050); }
+  .task-card-number {
+    background: var(--blue-700); color: #fff;
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700; flex-shrink: 0;
+    box-shadow: 0 0 0 6px var(--blue-100);
+  }
+  .task-card-header h3 { font-size: 1.1rem; font-weight: 600; flex-grow: 1; color: var(--text-primary); line-height: 1.6; }
+  .task-card-chevron { font-size: 1.1rem; transition: transform 0.3s; opacity: 0.5; color: var(--silver-700); }
+  .task-card-header.collapsed .task-card-chevron { transform: rotate(-90deg); }
+  .task-card-body { padding: 40px 36px; }
+  .task-card-body.collapsed { display: none; }
+
+  .task-objective {
+    background: var(--blue-050);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    font-size: 0.9rem;
+    color: var(--blue-700);
+    line-height: 1.85;
+    margin-bottom: 36px;
+    border-left: 3px solid var(--blue-700);
+  }
+
+  .step { margin-bottom: 40px; }
+  .step:last-of-type { margin-bottom: 16px; }
+  .step-header {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: var(--blue-050);
+    border: 2px solid var(--blue-700);
+    box-shadow: 0 4px 18px rgba(20,30,60,0.06);
+    box-sizing: border-box;
+    padding: 32px 28px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+  .step-header .step-badge {
+    background: transparent; color: var(--blue-700);
+    font-size: 0.74rem; font-weight: 700;
+    padding: 0 0 8px; margin: 0 0 14px;
+    letter-spacing: 0.22em; line-height: 1.2;
+    display: inline-block;
+    border-bottom: 1.5px solid var(--blue-700);
+  }
+  .step-header .step-title {
+    font-size: 1rem; font-weight: 700;
+    color: var(--step-rich);
+    line-height: 1.55;
+    max-width: 100%;
+    word-break: break-word;
+    text-align: center;
+  }
+  .step-header .step-title .step-sub {
+    display: inline-block;
+    font-size: 0.78rem; font-weight: 500;
+    color: var(--step-mid); opacity: 0.8;
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  /* ===== STEP 节奏色系统（原则 27） ===== */
+  .step {
+    --step-rich: var(--blue-900);
+    --step-mid:  var(--blue-700);
+    --step-bg:   var(--blue-050);
+    --step-tint: var(--blue-100);
+  }
+  .task-card-body > .step:nth-child(3n+2 of .step) {
+    --step-rich: var(--gold-900);
+    --step-mid:  var(--gold-700);
+    --step-bg:   var(--gold-050);
+    --step-tint: var(--gold-100);
+  }
+  .task-card-body > .step:nth-child(3n of .step) {
+    --step-rich: var(--silver-900);
+    --step-mid:  var(--silver-700);
+    --step-bg:   var(--silver-050);
+    --step-tint: var(--silver-100);
+  }
+  .step {
+    --primary-blue:   var(--step-rich);
+    --secondary-blue: var(--step-mid);
+    --bright-blue:    var(--step-mid);
+    --light-blue:     var(--step-bg);
+  }
+  .step .step-header {
+    background: var(--step-bg);
+    border-color: var(--step-mid);
+  }
+  .step .step-header .step-badge {
+    color: var(--step-rich);
+    border-bottom-color: var(--step-mid);
+  }
+
+  .step-content { font-size: 0.92rem; padding-left: 0; }
+  .step-content p { margin-bottom: 12px; }
+  .step-content ul, .step-content ol { padding-left: 22px; margin-bottom: 12px; }
+  .step-content li { margin-bottom: 8px; }
+
+  .quote-block {
+    background: var(--step-bg);
+    border-left: 3px solid var(--step-mid);
+    padding: 22px 26px;
+    margin: 18px 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.85;
+  }
+
+  .prereq-recap {
+    background: #fff;
+    border: 1px solid var(--silver-100);
+    border-left: 3px solid var(--step-mid);
+    padding: 22px 26px;
+    margin: 20px 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+  }
+  .prereq-recap strong { color: var(--step-rich); }
+
+  .derivation-block {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 28px 30px;
+    margin: 22px 0;
+    font-size: 0.92rem;
+    position: relative;
+  }
+  .derivation-block::before {
+    content: ""; position: absolute;
+    left: -1px; top: -1px; bottom: -1px;
+    width: 4px;
+    background: var(--step-mid);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  }
+  .derivation-block .derivation-title {
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--step-rich);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .derivation-block .derivation-title::before {
+    content: ""; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--step-mid);
+    box-shadow: 0 0 0 3px var(--step-tint);
+    flex-shrink: 0;
+  }
+  .derivation-block .step-line {
+    margin: 12px 0;
+    padding-left: 18px;
+    border-left: 1px solid var(--silver-100);
+    line-height: 1.85;
+  }
+  .derivation-block .step-line strong { color: var(--step-rich); }
+
+  /* STEP 0 骨架卡 derivation-block 循环色（原则 29） */
+  .card > .derivation-block::before { background: var(--blue-700); }
+  .card > .derivation-block .derivation-title { color: var(--blue-700); }
+  .card > .derivation-block .derivation-title::before { background: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .card > .derivation-block .step-line strong { color: var(--blue-700); }
+  .card > .derivation-block:nth-of-type(3n+2)::before { background: var(--gold-700); }
+  .card > .derivation-block:nth-of-type(3n+2) .derivation-title { color: var(--gold-900); }
+  .card > .derivation-block:nth-of-type(3n+2) .derivation-title::before { background: var(--gold-700); box-shadow: 0 0 0 3px var(--gold-100); }
+  .card > .derivation-block:nth-of-type(3n+2) .step-line strong { color: var(--gold-900); }
+  .card > .derivation-block:nth-of-type(3n)::before { background: var(--silver-700); }
+  .card > .derivation-block:nth-of-type(3n) .derivation-title { color: var(--silver-900); }
+  .card > .derivation-block:nth-of-type(3n) .derivation-title::before { background: var(--silver-700); box-shadow: 0 0 0 3px var(--silver-100); }
+  .card > .derivation-block:nth-of-type(3n) .step-line strong { color: var(--silver-900); }
+
+  .thinking-point {
+    background: var(--step-bg);
+    border: none;
+    border-left: 3px solid var(--step-mid);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 24px 28px 24px 64px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .thinking-point::before {
+    content: "💭"; position: absolute;
+    left: 16px; top: 22px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #fff; border: 1px solid var(--step-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .thinking-point .tp-title { font-weight: 700; color: var(--step-rich); font-size: 0.98rem; margin-bottom: 14px; }
+  .thinking-point .tp-pause { background: #fff; padding: 12px 16px; border-radius: var(--radius-sm); margin: 10px 0; font-size: 0.88rem; border: 1px solid var(--step-tint); }
+  .thinking-point .tp-pause::before { content: '🤔 '; margin-right: 4px; }
+  .thinking-point .tp-ask { background: #fff; border-left: 3px solid var(--step-mid); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 10px 0; font-size: 0.88rem; color: var(--step-rich); }
+  .thinking-point .tp-ask::before { content: '💬 问 AI：'; font-weight: 700; color: var(--step-rich); margin-right: 4px; }
+  .thinking-point .tp-write { background: #fff; border-left: 3px solid var(--step-mid); padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 10px 0; font-size: 0.88rem; color: var(--step-rich); }
+  .thinking-point .tp-write::before { content: '✍️ 自己写：'; font-weight: 700; color: var(--step-rich); margin-right: 4px; }
+  .thinking-point .tp-hint { font-size: 0.82rem; color: var(--silver-700); font-style: italic; margin: 6px 0 2px 0; }
+
+  .diagram-block { margin: 32px 0; text-align: center; }
+  .diagram-block svg {
+    max-width: 100%; height: auto;
+    background: #fff; border-radius: var(--radius-sm);
+    padding: 20px 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+  }
+  .diagram-caption { font-size: 0.83rem; color: var(--silver-700); margin-top: 12px; font-style: italic; line-height: 1.7; }
+
+  .checkpoint {
+    background: var(--step-bg);
+    border: 1px solid var(--step-tint);
+    border-radius: var(--radius-sm);
+    padding: 24px 26px 22px 26px;
+    margin-top: 28px;
+    position: relative;
+  }
+  .checkpoint-title {
+    font-size: 0.92rem; font-weight: 700;
+    color: var(--step-rich);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .checkpoint-title::before {
+    content: "✓"; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--step-mid); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; font-weight: 700; flex-shrink: 0;
+  }
+  .checkpoint label { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; margin-bottom: 12px; cursor: pointer; line-height: 1.7; }
+  .checkpoint label:last-child { margin-bottom: 0; }
+  .checkpoint input[type="checkbox"] { margin-top: 5px; flex-shrink: 0; accent-color: var(--step-mid); width: 16px; height: 16px; }
+  .checkpoint label.checked span { text-decoration: line-through; color: var(--silver-700); }
+
+  .literacy-tag { font-size: 0.82rem; color: var(--silver-700); margin-top: 20px; padding-top: 14px; border-top: 1px dashed var(--silver-100); }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.88rem; }
+  .compare-table th { background: var(--step-bg); color: var(--step-rich); padding: 14px 16px; text-align: left; border: 1px solid var(--border-color); font-weight: 600; }
+  .compare-table td { padding: 14px 16px; border: 1px solid var(--border-color); vertical-align: top; line-height: 1.75; }
+  .compare-table tr:nth-child(even) td { background: var(--step-bg); }
+  .compare-table td:first-child { font-weight: 600; color: var(--step-rich); white-space: nowrap; }
+
+  .reflect-area { width: 100%; min-height: 100px; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.9rem; line-height: 1.75; resize: vertical; background: #fff; margin-top: 8px; transition: var(--transition); }
+  .reflect-area:focus { outline: none; border-color: var(--blue-700); box-shadow: 0 0 0 3px var(--blue-100); }
+  .reflect-q { font-size: 0.9rem; margin: 16px 0 6px; color: var(--text-primary); font-weight: 600; }
+
+  .bottom-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; padding-top: 28px; border-top: 1px solid var(--border-color); }
+  .bottom-nav a, .bottom-nav span {
+    flex: 1; min-width: 140px;
+    text-align: center;
+    padding: 16px 18px;
+    border-radius: 999px;
+    background: var(--silver-050);
+    color: var(--silver-500);
+    text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: var(--transition);
+  }
+  .bottom-nav a { background: var(--blue-050); color: var(--blue-700); }
+  .bottom-nav a:hover { background: var(--blue-700); color: #fff; }
+
+  .footer { text-align: center; padding: 32px 16px 8px; font-size: 0.82rem; color: var(--silver-700); }
+
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 48px; }
+    .header { padding: 48px 24px 40px; }
+    .header h1 { font-size: 1.3rem; }
+    .card { padding: 28px 22px; }
+    .task-card-header { padding: 20px 22px; gap: 14px; }
+    .task-card-number { width: 44px; height: 44px; font-size: 1.15rem; }
+    .task-card-body { padding: 28px 22px; }
+    .step-header { width: 220px; height: 220px; padding: 22px 20px; }
+    .step-header .step-title { font-size: 0.88rem; }
+    .step-header .step-badge { font-size: 0.65rem; letter-spacing: 0.18em; }
+    .cross-topic-warning { padding-left: 56px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">主页</a>
+    <span class="sep">&gt;</span>
+    <span>星图物理</span>
+    <span class="sep">&gt;</span>
+    <span>经典力学 1</span>
+    <span class="sep">&gt;</span>
+    <span>牛顿-莱布尼茨公式</span>
+    <span class="sep">&gt;</span>
+    <span>牛顿-莱布尼茨公式</span>
+  </nav>
+
+  <div class="header">
+    <div class="advanced-badge">⚡ 进阶模块</div>
+    <h1>04 · 牛顿-莱布尼茨公式<br>
+      微分与积分的桥梁<br>
+      <span class="h1-sub">严格推导 + 应用对照 · 5 张任务卡 + 综合反思</span>
+    </h1>
+    <div class="subtitle">变上限积分函数 · S'(x) = f(x) · ∫<sub>a</sub><sup>b</sup> f(x)dx = F(b) − F(a)<br>从"面积法"走向"原函数差"</div>
+  </div>
+
+  <div class="cross-topic-warning">
+    <div class="ctw-title">⚠️ 跨主题前置 · 从物理课突入数学定理证明</div>
+    本板块讨论的<strong>牛顿-莱布尼茨公式</strong>是<strong>微积分基本定理</strong>的核心，本质上属于<strong>数学分析</strong>领域的定理。证明过程会用到 <strong>02 极限</strong>建立的极限思想 + <strong>积分中值定理</strong>（数学分析）+ 函数的<strong>连续性</strong>。本课会在 Card 2 STEP 1 用 3-5 分钟的<strong>速复习段</strong>对照应急——但这<strong>不能</strong>替代正规数学分析对极限、连续、积分中值定理的训练。本课的目标是让你<strong>看懂这条桥梁怎么搭起来</strong>，并能把它用回 03 课的运动学积分；若你对"\(\lim_{\Delta x \to 0}\)"、"连续函数在闭区间上的性质"非常陌生，请<strong>先回 02 极限</strong>板块回顾一遍，再回到本课主路径继续。
+  </div>
+
+  <div class="card">
+    <table class="info-table">
+      <tr><td>板块名称</td><td>牛顿-莱布尼茨公式（进阶 · 直线运动子板块 04）</td></tr>
+      <tr><td>所属大主题</td><td>经典力学 1 · 牛顿-莱布尼茨公式</td></tr>
+      <tr><td>预计学习时间</td><td>2 h 30 min - 3 h（Card 0 约 12-15 min · Card 1 约 22-28 min · Card 2 约 35-45 min · Card 3 约 22-28 min · Card 4 约 30-38 min · Card 5 综合反思 12-18 min · 含 buffer 30-45 min）</td></tr>
+      <tr><td>前置板块</td>
+        <td><strong>01 · 运动的描述</strong>（位置 / 速度 / 加速度的微分定义）<br>
+            <strong>02 · 极限（物理引入）</strong>（\(\lim_{\Delta x \to 0}\) 的物理含义 + 连续函数的极限性质）<br>
+            <strong>03 · 幂函数微积分与直线运动公式</strong>（不定积分 \(\int x^n dx\) + 定积分的面积法 + 匀变速三大公式的积分推导）</td></tr>
+      <tr><td>所需工具</td><td>AI 工具、纸笔、草稿本（每张 Card 准备 2-3 张 A4 用于推导）、彩色笔（分色标记"已知函数 / 原函数 / 变上限"三层）；不需要计算器</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2 class="section-title">学习目标</h2>
+    <ol class="objectives-list">
+      <li><strong>严格陈述</strong>牛顿-莱布尼茨公式 \(\int_a^b f(x)\,dx = F(b) - F(a)\) 的成立条件（\(f\) 在 \([a, b]\) 上连续 + \(F\) 是 \(f\) 的任意原函数）</li>
+      <li><strong>分四步推导</strong>本公式：① 定义变上限积分函数 \(S(x) = \int_a^x f(t)\,dt\) → ② 用积分中值定理证明 \(S'(x) = f(x)\) → ③ 由"两函数导数相等差常数"得 \(S(x) = F(x) + C\) → ④ 用 \(S(a) = 0\) 定 \(C\)，令 \(x = b\) 得结论</li>
+      <li><strong>对比</strong> 03 课"面积法"与本课"原函数差法"：前者把定积分理解为黎曼和的极限（直观、几何），后者把定积分理解为原函数在两端点的差值（代数、可计算）。同一个 \(\int_0^t (v_0 + a\tau)\,d\tau\) 用两种方法做出来，结果完全一致</li>
+      <li><strong>应用</strong>本公式直接计算定积分：\(\int_a^b x^n\,dx = \frac{b^{n+1} - a^{n+1}}{n+1}\)（\(n \neq -1\)），并能<strong>逐步重算</strong> 03 课的匀变速三大公式</li>
+      <li><strong>识别</strong>本公式失效的情形：\(f\) 在 \([a, b]\) 内有间断点（如 \(1/x^2\) 在 \(x = 0\)）、\(F\) 不存在初等表达（如 \(\int e^{-x^2}\,dx\)）—— 这些边界让你明白"公式不是万能的"</li>
+      <li><strong>建立</strong> 直觉：本公式之所以"魔法般"地把"面积"换成"差值"，是因为变上限积分函数 \(S(x)\) 同时承担了"累积量"与"原函数"两种身份 —— 这是微积分的"通灵时刻"</li>
+    </ol>
+  </div>
+
+  <div class="driving-question">
+    <div class="dq-title">驱动问题</div>
+    <p>在 03 课你已经知道：匀变速直线运动的位移 \(x = v_0 t + \frac{1}{2}at^2\)，可以由 \(v - t\) 图像"梯形面积"得到，也可以由不定积分 \(\int (v_0 + a\tau)\,d\tau\) 加初始条件得到。<strong>但这两条路径，在数学上是同一回事吗？</strong></p>
+    <p><strong>更深的问题</strong>：定积分 \(\int_a^b f(x)\,dx\) 的原始定义是"分割 + 求和 + 取极限"（黎曼和），是一个<strong>极限运算</strong>；而原函数 \(F(x)\) 是一个<strong>求逆运算</strong>（找一个函数其导数等于 \(f\)）。<strong>为什么"极限 = 求逆"？这两件看起来八竿子打不着的事情，凭什么能用 \(F(b) - F(a)\) 这一个简洁公式连起来？</strong></p>
+    <p class="hint">（提示：本课的关键不是"记住公式"，而是<strong>把"为什么能这么算"想通</strong>。把过程拆成 4 步，每步独立成 Card，慢慢推。）</p>
+  </div>
+
+  <!-- ==================== Card 0 · STEP 0 · 牛莱公式的三段叙事 ==================== -->
+  <div class="card">
+    <h2 class="section-title">STEP 0 · 牛莱公式的三段叙事</h2>
+
+    <p style="font-size: 0.92rem; margin-bottom: 12px;">在动手推导之前，先用 5-8 分钟把"这条公式到底解决了什么问题、凭什么解决"想清楚。下面 3 段是骨架，不是技巧——技巧在后面 4 张 Card 里。</p>
+
+    <div class="derivation-block">
+      <div class="derivation-title">骨架 1 · 公式的"What" · 两种身份的同一个量</div>
+      <div class="step-line">设 \(f(x)\) 在 \([a, b]\) 上<strong>连续</strong>，\(F(x)\) 是 \(f(x)\) 的<strong>任意一个原函数</strong>（即 \(F'(x) = f(x)\)）。<strong>牛顿-莱布尼茨公式</strong>断言：</div>
+      <div class="step-line">$$\int_a^b f(x)\,dx = F(b) - F(a)$$</div>
+      <div class="step-line">左边是<strong>定积分</strong>，按定义是"黎曼和的极限"（面积、累积量）；右边是<strong>原函数</strong>在两端点的差。公式说：这两件事数值上必相等。</div>
+      <div class="step-line">这条公式有时被记作 \([F(x)]_a^b = F(b) - F(a)\)，方括号是"代入上限减代入下限"的速写。</div>
+    </div>
+
+    <div class="derivation-block">
+      <div class="derivation-title">骨架 2 · 公式的"Why" · 微分与积分互为逆运算</div>
+      <div class="step-line">微分把函数"局部化"（取斜率 / 瞬时变化率）；积分把函数"整体化"（累加微元 / 求面积）。<strong>表面上是两件事，骨子里互为逆运算</strong>。</div>
+      <div class="step-line">"逆运算"意思是：先积后微 → 回到原函数（\(\frac{d}{dx}\int_a^x f(t)\,dt = f(x)\)，这是 Card 2 要证的核心）；先微后积 → 回到原函数加常数（\(\int F'(x)\,dx = F(x) + C\)，这是 03 课讲过的不定积分定义）。</div>
+      <div class="step-line">本公式 = 把这两条"逆运算性质"用<strong>连续性 + 中值定理</strong>钉死后，自然得到的结论。<strong>不是约定，是定理</strong>。</div>
+    </div>
+
+    <div class="derivation-block">
+      <div class="derivation-title">骨架 3 · 公式的"How" · 推导的 4 步主链路</div>
+      <div class="step-line"><strong>第 1 步（Card 1）</strong>：定义<strong>变上限积分函数</strong> \(S(x) = \int_a^x f(t)\,dt\)。注意：被积变量改名为 \(t\) 是为了避免和上限 \(x\) 撞符号；\(S(x)\) 是上限 \(x\) 的函数。</div>
+      <div class="step-line"><strong>第 2 步（Card 2）</strong>：证明 \(S'(x) = f(x)\)。这一步用到积分的区间可加性 + 积分中值定理 + 函数连续性，是整条推导<strong>最数学的一步</strong>。证完这一步，你就把"\(S\) 是 \(f\) 的一个原函数"建立了。</div>
+      <div class="step-line"><strong>第 3 步（Card 3）</strong>：由 \(S'(x) = F'(x) = f(x)\)，根据"两函数导数处处相等差一常数"得 \(S(x) = F(x) + C\)。</div>
+      <div class="step-line"><strong>第 4 步（Card 3 末）</strong>：用 \(S(a) = \int_a^a f(t)\,dt = 0\) 定出 \(C = -F(a)\)；再令 \(x = b\)，得 \(\int_a^b f(x)\,dx = S(b) = F(b) - F(a)\)。<strong>证毕</strong>。</div>
+    </div>
+
+    <p style="font-size: 0.9rem; margin: 12px 0 0; color: var(--text-secondary);">读完这 3 段，先合上页面，在草稿上把"定义 \(S(x)\) → 证 \(S'=f\) → 配 \(S = F+C\) → 用 \(S(a)=0\) 定 \(C\)"这条主链路<strong>默写一遍</strong>。能默出来，再进入 Card 1；默不出来，再回上面读一次。</p>
+
+    <div class="checkpoint">
+      <div class="checkpoint-title">STEP 0 自查</div>
+      <label data-key="s0-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能不看页面，复述牛莱公式 \(\int_a^b f\,dx = F(b) - F(a)\) 与它成立的两个条件</span></label>
+      <label data-key="s0-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能用 1-2 句话解释"微分与积分互为逆运算"</span></label>
+      <label data-key="s0-c3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能口述推导的 4 步主链路（定义 S → 证 S'=f → 配 S=F+C → 定 C）</span></label>
+      <label data-key="s0-c4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我明白整条推导<strong>最数学</strong>的一步是 Card 2 证明 \(S'(x) = f(x)\)</span></label>
+    </div>
+  </div>
+
+  <!-- ==================== Card 1 · 变上限积分函数 ==================== -->
+  <div class="task-card" id="card1">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">1</div>
+      <h3>Card 1 · 变上限积分函数 \(S(x) = \int_a^x f(t)\,dt\) 的定义与几何意义</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：理解"变上限积分函数"是把<strong>定积分</strong>这个数值升级成<strong>函数</strong>的关键构造；能在 \(v - t\) 图、\(f - x\) 图上画出 \(S(x)\) 的图像；能说出"为什么被积变量必须改名"<br>
+        <strong>建议时长</strong>：22-28 分钟（自己想 5-8 + 推导 + 思考点 8-10 + 自查 4-6）
+      </div>
+
+      <!-- STEP 1 · 先自己想 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 1</span>
+          <span class="step-title">先自己想<br>什么是"变上限"<br>
+            <span class="step-sub">5-8 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p>合上页面，在草稿上画一条曲线 \(y = f(t)\)（你可以画一条简单的递增正函数，比如 \(f(t) = t\)），\(t\) 从 \(a\) 到 \(b\)。</p>
+          <ol>
+            <li>把 \(a\) 到某个中间点 \(x_0\) 之间的曲边面积涂色。这个数值是多少？用积分符号怎么写？</li>
+            <li>现在让 \(x_0\) 移动（从 \(a\) 慢慢往 \(b\) 滑），面积会怎么变？</li>
+            <li>如果把"涂色面积"看成关于"右端点位置"的函数，应该写成什么样？</li>
+          </ol>
+          <p>想完后再往下看。</p>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 把"定积分"升级成"函数"</div>
+            <div class="tp-pause">在 03 课，你算过的定积分都是<strong>具体数值</strong>，比如 \(\int_0^3 t^2\,dt = 9\)。如果把上限换成一个变量 \(x\)，会发生什么？</div>
+            <div class="tp-ask">为什么我们把上限从一个数 \(b\) 改成一个变量 \(x\) 之后，整个积分就从"数"变成了"函数"？这种"升级"在物理里有没有对应？（比如：累计位移随时间的变化）</div>
+            <div class="tp-write">在草稿上写出 \(S(x) = \int_a^x f(t)\,dt\) 的几何意义（一句话）+ 物理对应（一句话）。</div>
+            <div class="tp-hint">提示：累计量 / 当前时刻 / 函数 vs 数值。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 · 严格定义 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 2</span>
+          <span class="step-title">严格定义<br>变上限积分函数<br>
+            <span class="step-sub">8-10 分钟 · 核心</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">定义 1 · 变上限积分函数 \(S(x)\)</div>
+            <div class="step-line"><strong>设</strong> \(f(t)\) 在闭区间 \([a, b]\) 上<strong>连续</strong>，对任意 \(x \in [a, b]\)，定义：</div>
+            <div class="step-line">$$S(x) = \int_a^x f(t)\,dt$$</div>
+            <div class="step-line">称 \(S(x)\) 为 \(f\) 在 \([a, b]\) 上的<strong>变上限积分函数</strong>（或<strong>上限函数</strong>）。它把"积分上限位置"作为自变量，把"从 \(a\) 到 \(x\) 的累计积分值"作为函数值。</div>
+            <div class="step-line"><strong>三个关键约定</strong>：① 被积变量改名为 \(t\)，避免与上限 \(x\) 撞符号；② 下限 \(a\) 固定不动；③ \(x\) 在闭区间 \([a, b]\) 内任意取值（包括端点）。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · 为什么被积变量必须改名</div>
+            <div class="tp-pause">如果保留原来的 \(x\)，写成 \(S(x) = \int_a^x f(x)\,dx\)，会出现什么问题？</div>
+            <div class="tp-ask">在表达式 \(\int_a^x f(x)\,dx\) 中，\(x\) 既是积分上限又是被积变量，对一个数学家来说这意味着什么？AI 你不要直接告诉我"约定俗成"，请用一个反问引导我自己看出歧义。</div>
+            <div class="tp-write">在草稿上写出"被积变量必须改名"的至少一个具体理由（一句话）。</div>
+            <div class="tp-hint">提示：被积变量是<strong>哑变量</strong>（只在求和过程中临时存在），上限是<strong>函数自变量</strong>（要参与求导）。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 · 几何示意 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 3</span>
+          <span class="step-title">几何示意<br>面积随上限的变化<br>
+            <span class="step-sub">5-7 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p>下图是 \(y = f(t)\) 的示意：随着上限 \(x\) 从 \(a\) 向 \(b\) 滑动，曲边梯形阴影面积在变大。这个面积值就是 \(S(x)\)。</p>
+
+          <div class="diagram-block">
+            <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="变上限积分函数 S(x) 的几何示意">
+              <defs>
+                <marker id="arr-axis-c1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#1d1d1f"/></marker>
+              </defs>
+              <!-- 坐标轴 -->
+              <line x1="60" y1="220" x2="430" y2="220" stroke="#1d1d1f" stroke-width="1.5" marker-end="url(#arr-axis-c1)"/>
+              <line x1="60" y1="240" x2="60" y2="40" stroke="#1d1d1f" stroke-width="1.5" marker-end="url(#arr-axis-c1)"/>
+              <text x="445" y="225" font-size="13" fill="#1d1d1f">t</text>
+              <text x="45" y="38" font-size="13" fill="#1d1d1f">y</text>
+              <!-- 曲线 y=f(t) (一条简单递增正函数) -->
+              <path d="M 80,200 Q 200,150 280,110 T 410,70" fill="none" stroke="#00409A" stroke-width="2"/>
+              <text x="395" y="55" font-size="13" fill="#00409A" font-weight="600">y = f(t)</text>
+              <!-- 阴影面积 a 到 x -->
+              <path d="M 80,220 L 80,200 Q 200,150 280,110 L 280,220 Z" fill="#B8924A" fill-opacity="0.15"/>
+              <!-- a 端点（刻度线下伸） -->
+              <line x1="80" y1="220" x2="80" y2="234" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="80" y="258" text-anchor="middle" font-size="14" fill="#1d1d1f" font-weight="600">a</text>
+              <!-- x 端点（移动） -->
+              <line x1="280" y1="220" x2="280" y2="234" stroke="#B8924A" stroke-width="1.5"/>
+              <text x="280" y="258" text-anchor="middle" font-size="14" fill="#8E6E2E" font-weight="700">x</text>
+              <!-- b 端点 -->
+              <line x1="400" y1="220" x2="400" y2="234" stroke="#1d1d1f" stroke-width="1.2"/>
+              <text x="400" y="258" text-anchor="middle" font-size="14" fill="#1d1d1f" font-weight="600">b</text>
+              <!-- S(x) 标注（放在阴影内的下方空白区，远离曲线） -->
+              <text x="170" y="210" text-anchor="middle" font-size="15" fill="#8E6E2E" font-weight="700">S(x)</text>
+              <text x="245" y="300" text-anchor="middle" font-size="11" fill="#7B8290" font-style="italic">阴影面积 = S(x)（从 a 累积到 x）</text>
+            </svg>
+            <div class="diagram-caption">变上限积分函数 S(x) 的几何示意：阴影是 a 到 x 之间 y=f(t) 曲线下方的面积；x 向右滑动时阴影变大。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 3 · S(x) 与 03 课"面积法"的关系</div>
+            <div class="tp-pause">03 课你用"梯形面积"算位移；本课的 \(S(x)\) 也是一个面积。它们有什么共同点和不同点？</div>
+            <div class="tp-ask">03 课算具体面积是"给定 \(t\) 算一个数"，本课定义 \(S(x)\) 是"把上限留成变量，得到一个函数"。AI 请用一个比喻帮我体会这种"从快照到函数"的升级。</div>
+            <div class="tp-write">在草稿上写出"从 03 课面积到 \(S(x)\) 函数"的升级关系（一句话即可）。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 · 边界值 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 4</span>
+          <span class="step-title">边界值<br>S(a) 与 S(b)<br>
+            <span class="step-sub">4-6 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p>\(S(x)\) 有两个特殊取值：</p>
+          <ul>
+            <li>\(S(a) = \int_a^a f(t)\,dt = 0\) —— 区间长度为零，积分为零（直觉：右端点还没离开左端点，累计面积还没攒起来）。<strong>这一条在 Card 3 第 4 步定常数 C 时是关键</strong>。</li>
+            <li>\(S(b) = \int_a^b f(t)\,dt\) —— 这是原本要算的<strong>那个定积分</strong>。换句话说：要算 \(\int_a^b f\,dx\)，等价于要算 \(S(b)\)。</li>
+          </ul>
+
+          <div class="prereq-recap">
+            <strong>前置回顾 · 来自 03 课</strong>：03 课你已经认识了定积分的"面积法"——把 \(\int_a^b f\,dx\) 看成黎曼和的极限。本课的 \(S(x)\) 把上限留成变量，做的就是"把这个黎曼和极限的结果，看成 \(x\) 的函数"。它不是新概念，是 03 课定积分的"参数化版本"。
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 1 自查</div>
+            <label data-key="c1-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能写出 \(S(x) = \int_a^x f(t)\,dt\) 的定义，并知道为什么被积变量改名 \(t\)</span></label>
+            <label data-key="c1-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能口述 \(S(x)\) 的几何意义（曲线下从 \(a\) 到 \(x\) 的面积）</span></label>
+            <label data-key="c1-c3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我知道 \(S(a) = 0\) 与 \(S(b) = \int_a^b f\,dx\) 这两个边界值</span></label>
+            <label data-key="c1-c4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能说出"从 03 课具体定积分 → \(S(x)\) 函数"是怎样的升级</span></label>
+          </div>
+
+          <div class="literacy-tag">
+            素养标签：数学抽象（从数到函数的升级）/ 符号意识（哑变量 vs 自变量）/ 直观与代数的双轨理解
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== Card 2 · 推导 S'(x) = f(x) ==================== -->
+  <div class="task-card" id="card2">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">2</div>
+      <h3>Card 2 · 推导 \(S'(x) = f(x)\) · 整条主链路最数学的一步</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：把"\(S(x)\) 是 \(f(x)\) 的一个原函数"用<strong>定义 + 中值定理 + 极限</strong>三步严格证出来；理解每一步用到的前置概念；能复现整段证明<br>
+        <strong>建议时长</strong>：35-45 分钟（速复习 6-8 + 5 段推导 18-22 + 思考点 8-10 + 自查 4-6）
+      </div>
+
+      <!-- STEP 1 · 核心知识速复习（跨主题前置应急） -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 1</span>
+          <span class="step-title">核心知识速复习<br>
+            <span class="step-sub">6-8 分钟 · 跨主题前置应急</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p>本卡的推导用到 4 件工具，列在下面。先合上页面回忆，再对照。</p>
+          <div class="derivation-block">
+            <div class="derivation-title">推导前必备 · 4 件工具速查清单</div>
+            <div class="step-line"><strong>工具 1 · 导数的定义</strong>：\(g'(x) = \lim_{\Delta x \to 0} \dfrac{g(x + \Delta x) - g(x)}{\Delta x}\)。本卡要把它套到 \(g = S\) 上。</div>
+            <div class="step-line"><strong>工具 2 · 定积分的区间可加性</strong>：若 \(a \leq c \leq b\)，则 \(\int_a^b f\,dt = \int_a^c f\,dt + \int_c^b f\,dt\)。这条把 \(S(x + \Delta x) - S(x)\) 化简成 \(\int_x^{x + \Delta x} f(t)\,dt\)。</div>
+            <div class="step-line"><strong>工具 3 · 积分中值定理</strong>：若 \(f\) 在 \([\alpha, \beta]\) 上连续，则<strong>存在</strong> \(\xi \in [\alpha, \beta]\)，使得 \(\int_\alpha^\beta f(t)\,dt = f(\xi) \cdot (\beta - \alpha)\)。直觉：连续函数在一段区间上的积分等于该函数在某一中间点的值乘以区间长度（"平均值定理"）。</div>
+            <div class="step-line"><strong>工具 4 · 函数连续性</strong>：\(f\) 在 \(x\) 处连续意味着 \(\lim_{t \to x} f(t) = f(x)\)。即"\(t\) 靠近 \(x\) 时，\(f(t)\) 也靠近 \(f(x)\)"。本卡用它从 \(f(\xi)\)（\(\xi\) 在 \([x, x+\Delta x]\) 之间）取极限到 \(f(x)\)。</div>
+            <div class="step-line"><strong>本课对每件工具的态度</strong>：工具 1 来自 02 极限板块；工具 2 是 03 课讲过的"积分可加性"；工具 3 是<strong>数学分析的定理</strong>（本课直接引用，不证明）；工具 4 是 02 极限板块的"连续函数极限性质"。</div>
+          </div>
+
+          <div class="prereq-recap">
+            <strong>前置回顾 · 来自 02 与 03 课</strong>：02 课 \(\lim_{\Delta x \to 0}\) 是把瞬时速度从平均速度逼近出来的工具；03 课你用极限把"梯形面积近似 → 定积分精确值"。本卡是把"极限"用在<strong>变上限积分函数</strong>上 —— 同样的极限工具，作用在新对象。
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 · 推导分步骤 1：写出 S(x+Δx) - S(x) -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 2</span>
+          <span class="step-title">推导 · 第 1 段<br>差分 S(x+Δx) − S(x)<br>
+            <span class="step-sub">3-4 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">推导 1 · 把差分变成一段积分</div>
+            <div class="step-line">由变上限积分函数的定义，对充分小的 \(\Delta x &gt; 0\)：</div>
+            <div class="step-line">$$S(x + \Delta x) = \int_a^{x + \Delta x} f(t)\,dt, \quad S(x) = \int_a^x f(t)\,dt$$</div>
+            <div class="step-line">作差，并用<strong>工具 2（积分可加性）</strong>合并：</div>
+            <div class="step-line">$$S(x + \Delta x) - S(x) = \int_a^{x + \Delta x} f(t)\,dt - \int_a^x f(t)\,dt = \int_x^{x + \Delta x} f(t)\,dt$$</div>
+            <div class="step-line"><strong>这一步的物理意义</strong>：\(S(x+\Delta x) - S(x)\) 表示"上限从 \(x\) 走到 \(x+\Delta x\)"那段新增的面积；可加性告诉我们这等于"从 \(x\) 到 \(x+\Delta x\)" 上 \(f\) 的积分。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 差分与新增面积</div>
+            <div class="tp-pause">把 \(S(x + \Delta x) - S(x)\) 写成 \(\int_x^{x+\Delta x} f(t)\,dt\) 之后，几何上对应什么？</div>
+            <div class="tp-ask">为什么"可加性"在这里这么自然就把差分化简了？AI 请用一个反问让我意识到——如果没有可加性，这步推导会卡在哪里？</div>
+            <div class="tp-write">在草稿上画一张图：原来的阴影 \(S(x)\) + 新增的细长条 \(\int_x^{x+\Delta x} f\,dt\) = 扩大后的阴影 \(S(x+\Delta x)\)。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">STEP 2 自查 · 能不能复现第 1 段</div>
+            <label data-key="c2-s2-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能不看页面写出 \(S(x+\Delta x) - S(x) = \int_x^{x+\Delta x} f(t)\,dt\) 的两步推导（差分 → 可加性）</span></label>
+            <label data-key="c2-s2-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能用一句话解释这一步对应的几何意义（新增小段面积）</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 · 推导分步骤 2：积分中值定理 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 3</span>
+          <span class="step-title">推导 · 第 2 段<br>积分中值定理<br>
+            <span class="step-sub">5-7 分钟 · 关键</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">推导 2 · 套用积分中值定理</div>
+            <div class="step-line">由<strong>工具 3（积分中值定理）</strong>，\(f\) 在 \([x, x+\Delta x]\) 上连续，所以<strong>存在</strong>一点 \(\xi \in [x, x+\Delta x]\)，使得：</div>
+            <div class="step-line">$$\int_x^{x+\Delta x} f(t)\,dt = f(\xi) \cdot \Delta x$$</div>
+            <div class="step-line">把它代回第 1 段的结果：</div>
+            <div class="step-line">$$S(x + \Delta x) - S(x) = f(\xi) \cdot \Delta x$$</div>
+            <div class="step-line"><strong>请记住 ξ 的两个性质</strong>：① 它的存在是中值定理保证的（连续函数的性质），不需要也无法精确求出；② 它<strong>夹在 \(x\) 与 \(x+\Delta x\) 之间</strong>，所以当 \(\Delta x \to 0\) 时，\(\xi \to x\)。第 ② 条是第 3 段取极限的关键。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · "存在 ξ" vs "找到 ξ"</div>
+            <div class="tp-pause">中值定理只<strong>断言 ξ 存在</strong>，并不告诉你 ξ 具体是多少。这种"只知道存在、不知道具体值"的定理，在数学里很常见。它够用吗？</div>
+            <div class="tp-ask">如果中值定理只说"\(\int = f(\xi) \cdot \Delta x\) 中的某个 ξ 存在"，却不给出 ξ 的具体表达式，AI 请反问我：在接下来要做的事（取极限 \(\Delta x \to 0\)）里，<strong>我们其实需要知道 ξ 的具体值吗</strong>？</div>
+            <div class="tp-write">在草稿上写一句话：为什么不需要知道 ξ 的精确表达，只需要知道 ξ ∈ \([x, x+\Delta x]\)。</div>
+            <div class="tp-hint">提示：极限关心的是"\(\Delta x \to 0\) 时 ξ 的去向"，而被压在 \([x, x+\Delta x]\) 里的 ξ 必然去向 x。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 · 推导分步骤 3：取极限 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 4</span>
+          <span class="step-title">推导 · 第 3 段<br>取极限 Δx → 0<br>
+            <span class="step-sub">5-7 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">推导 3 · 由导数定义取极限</div>
+            <div class="step-line">由<strong>工具 1（导数定义）</strong>，\(S\) 在 \(x\) 点的导数为：</div>
+            <div class="step-line">$$S'(x) = \lim_{\Delta x \to 0} \dfrac{S(x + \Delta x) - S(x)}{\Delta x}$$</div>
+            <div class="step-line">把第 2 段的结果代入：</div>
+            <div class="step-line">$$S'(x) = \lim_{\Delta x \to 0} \dfrac{f(\xi) \cdot \Delta x}{\Delta x} = \lim_{\Delta x \to 0} f(\xi)$$</div>
+            <div class="step-line">现在用<strong>工具 4（连续性）</strong>：当 \(\Delta x \to 0\) 时，\(\xi \to x\)（因为 \(\xi \in [x, x+\Delta x]\) 被夹住了）；又因为 \(f\) 在 \(x\) 处连续，所以 \(\lim_{\xi \to x} f(\xi) = f(x)\)。综合：</div>
+            <div class="step-line">$$\boxed{S'(x) = f(x)}$$</div>
+            <div class="step-line"><strong>这就是本课最核心的中间结论</strong>：变上限积分函数 \(S(x)\) 是被积函数 \(f(x)\) 的<strong>一个原函数</strong>。</div>
+            <div class="step-line"><strong>记号</strong>：这一结论常写成 \(\dfrac{d}{dx} \int_a^x f(t)\,dt = f(x)\)，即"先积后微等于原函数"。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 3 · "夹逼 + 连续性"的双轨</div>
+            <div class="tp-pause">取极限那一步，其实用了两件事：① ξ 被 \([x, x+\Delta x]\) 夹着，所以 ξ → x；② \(f\) 连续，所以 \(f(\xi) \to f(x)\)。两件事缺一不可。</div>
+            <div class="tp-ask">如果 \(f\) <strong>不连续</strong>（比如在 \(x\) 处有跳跃），第 ② 步会失败吗？AI 请反问我：如果 \(f\) 在 \(x\) 处跳跃，\(f(\xi)\) 在 \(\xi \to x\) 时的极限值还存在吗？</div>
+            <div class="tp-write">在草稿上写一句话：本课的"\(f\) 连续"假设在哪一步起关键作用。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">STEP 4 自查 · 能不能复现第 3 段</div>
+            <label data-key="c2-s4-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能口述 \(S'(x) = \lim_{\Delta x \to 0} f(\xi) = f(x)\) 这一连串等号的依据（导数定义 / 代入 / 夹逼 + 连续性）</span></label>
+            <label data-key="c2-s4-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能说出"\(f\) 连续"假设在哪一步用到，以及不连续时会发生什么</span></label>
+            <label data-key="c2-s4-c3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能把 \(\dfrac{d}{dx}\int_a^x f(t)\,dt = f(x)\) 这个结论用自然语言读出来（"对变上限积分求导，等于把上限代进被积函数"）</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 · 整体回顾 + 自己复现 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 5</span>
+          <span class="step-title">整体复现<br>合上页面默写<br>
+            <span class="step-sub">6-8 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p>现在合上页面，在草稿上完整地写一遍从 \(S(x) = \int_a^x f(t)\,dt\) 推到 \(S'(x) = f(x)\) 的全部过程。下面是骨架对照（写完后再来对）：</p>
+          <ol>
+            <li>写出 \(S(x+\Delta x) - S(x)\) 的差分式</li>
+            <li>用积分可加性合并成 \(\int_x^{x+\Delta x} f(t)\,dt\)</li>
+            <li>用积分中值定理：存在 \(\xi \in [x, x+\Delta x]\)，使得它 \(= f(\xi)\,\Delta x\)</li>
+            <li>代入导数定义：\(S'(x) = \lim_{\Delta x \to 0} f(\xi)\)</li>
+            <li>用夹逼 + 连续性：极限 = \(f(x)\)</li>
+          </ol>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 4 · 哪一步最难复现</div>
+            <div class="tp-pause">默写一遍后，回顾哪一步最容易卡住？是中值定理的应用，还是最后的取极限？</div>
+            <div class="tp-ask">如果我在第 3 步"中值定理"那里卡住了，是因为不熟悉这条定理的表述，还是因为不理解为什么它在这里能用？AI 请反问我，区分这两种卡点。</div>
+            <div class="tp-write">在草稿上记一行："我卡在第 ___ 步，原因是 ___"。这条诚实的记录比"全部都懂了"更值钱。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 2 自查 · 整体复现</div>
+            <label data-key="c2-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能不看任何资料，在 5 分钟内完整写出从 \(S(x)\) 到 \(S'(x) = f(x)\) 的 5 步推导</span></label>
+            <label data-key="c2-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能解释每一步用到了 4 件工具中的哪一件</span></label>
+            <label data-key="c2-c3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能定位整段推导<strong>对我个人</strong>最难的一步，并诚实记下原因</span></label>
+            <label data-key="c2-c4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能口述结论 \(\dfrac{d}{dx}\int_a^x f(t)\,dt = f(x)\) 的自然语言意义</span></label>
+          </div>
+
+          <div class="literacy-tag">
+            素养标签：数学推理（多步骤定理链接）/ 工具意识（每步可追溯前置）/ 极限思想的高阶运用 / 诚实复盘
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== Card 3 · 建立 S 与 F 的关系 ==================== -->
+  <div class="task-card" id="card3">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">3</div>
+      <h3>Card 3 · 建立 \(S(x) = F(x) - F(a)\) · 推导收尾的两步</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：用"两函数导数相等差常数"把 \(S\) 与任意原函数 \(F\) 桥接起来；用 \(S(a) = 0\) 把常数 \(C\) 定下来；令 \(x = b\) 得到牛莱公式<br>
+        <strong>建议时长</strong>：22-28 分钟（第 1 段 6-8 + 第 2 段 5-7 + 思考点 6-8 + 自查 4-6）
+      </div>
+
+      <!-- STEP 1 · 配 S = F + C -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 1</span>
+          <span class="step-title">推导 · 第 4 段<br>S(x) = F(x) + C<br>
+            <span class="step-sub">6-8 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">推导 4 · 用"导数相等差常数"桥接 S 与 F</div>
+            <div class="step-line">设 \(F(x)\) 是 \(f(x)\) 的<strong>任意</strong>一个原函数，即 \(F'(x) = f(x)\)。又由 Card 2 已证 \(S'(x) = f(x)\)。所以：</div>
+            <div class="step-line">$$S'(x) = F'(x), \quad \forall x \in [a, b]$$</div>
+            <div class="step-line">由<strong>03 课的不定积分基本定理</strong>（"若两个可导函数在区间上导数处处相等，则它们相差一个常数"），存在常数 \(C\)，使得：</div>
+            <div class="step-line">$$S(x) = F(x) + C$$</div>
+            <div class="step-line"><strong>注意</strong>：这里的 \(C\) 是<strong>等待确定的</strong>常数，不是 03 课不定积分末尾那个抽象的 \(C\)。本课的 \(C\) 必须由<strong>具体的边界条件</strong>定下来——这个边界条件就是 Card 1 STEP 4 留下来的 \(S(a) = 0\)。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 为什么 F 可以是"任意"原函数</div>
+            <div class="tp-pause">公式里写"\(F\) 是 \(f\) 的<strong>任意</strong>一个原函数"。这个"任意"是不是有点诡异？换不同的 \(F\) 不会得到不同的 \(F(b) - F(a)\) 吗？</div>
+            <div class="tp-ask">如果 \(F_1\) 和 \(F_2\) 都是 \(f\) 的原函数，那 \(F_1 = F_2 + K\)（K 是某个常数）。算 \(F_1(b) - F_1(a)\) 与算 \(F_2(b) - F_2(a)\) 结果会相同吗？AI 请反问我：常数 K 在差值里去哪了？</div>
+            <div class="tp-write">在草稿上算一遍：\(F_1(b) - F_1(a) = (F_2(b) + K) - (F_2(a) + K) = F_2(b) - F_2(a)\)。</div>
+            <div class="tp-hint">提示：常数在两端各出现一次，相减消掉。所以"任意原函数都行"在差值层面没有歧义。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 · 定 C，令 x = b -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 2</span>
+          <span class="step-title">推导 · 第 5 段<br>定 C 并令 x = b<br>
+            <span class="step-sub">5-7 分钟 · 收尾</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">推导 5 · 由 S(a) = 0 定 C，再令 x = b</div>
+            <div class="step-line">回顾 Card 1 STEP 4：\(S(a) = \int_a^a f(t)\,dt = 0\)。把它代进 \(S(x) = F(x) + C\)：</div>
+            <div class="step-line">$$0 = S(a) = F(a) + C \quad \Rightarrow \quad C = -F(a)$$</div>
+            <div class="step-line">所以：</div>
+            <div class="step-line">$$S(x) = F(x) - F(a)$$</div>
+            <div class="step-line">最后令 \(x = b\)，由 \(S(b) = \int_a^b f(t)\,dt\)，得到：</div>
+            <div class="step-line">$$\boxed{\int_a^b f(x)\,dx = F(b) - F(a)}$$</div>
+            <div class="step-line"><strong>证毕</strong> ✓ —— 这就是<strong>牛顿-莱布尼茨公式</strong>。我们用了 5 段推导：① 差分 → ② 中值定理 → ③ 取极限 → ④ 配 S = F + C → ⑤ 定 C 并令 x = b。</div>
+          </div>
+
+          <div class="diagram-block">
+            <svg viewBox="0 0 540 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="牛莱公式的两种身份示意">
+              <!-- 左侧：定积分（面积） -->
+              <rect x="20" y="40" width="220" height="160" rx="10" fill="#F3F6FC" stroke="#00409A" stroke-width="1.5"/>
+              <text x="130" y="68" text-anchor="middle" font-size="13" fill="#002F73" font-weight="700">定积分（黎曼和极限）</text>
+              <text x="130" y="110" text-anchor="middle" font-size="15" fill="#1d1d1f">∫</text>
+              <text x="138" y="120" text-anchor="middle" font-size="10" fill="#1d1d1f">a</text>
+              <text x="138" y="98" text-anchor="middle" font-size="10" fill="#1d1d1f">b</text>
+              <text x="170" y="110" text-anchor="middle" font-size="14" fill="#1d1d1f">f(x) dx</text>
+              <text x="130" y="150" text-anchor="middle" font-size="12" fill="#7B8290" font-style="italic">几何：曲线下面积</text>
+              <text x="130" y="170" text-anchor="middle" font-size="12" fill="#7B8290" font-style="italic">物理：累积量</text>
+              <!-- 等号 -->
+              <text x="270" y="125" text-anchor="middle" font-size="28" fill="#B8924A" font-weight="700">=</text>
+              <!-- 右侧：原函数差 -->
+              <rect x="300" y="40" width="220" height="160" rx="10" fill="#FBF7EC" stroke="#B8924A" stroke-width="1.5"/>
+              <text x="410" y="68" text-anchor="middle" font-size="13" fill="#8E6E2E" font-weight="700">原函数差（代数）</text>
+              <text x="410" y="115" text-anchor="middle" font-size="15" fill="#1d1d1f">F(b) − F(a)</text>
+              <text x="410" y="150" text-anchor="middle" font-size="12" fill="#7B8290" font-style="italic">代数：两端点函数值差</text>
+              <text x="410" y="170" text-anchor="middle" font-size="12" fill="#7B8290" font-style="italic">可直接计算</text>
+            </svg>
+            <div class="diagram-caption">牛莱公式连接的两种身份：左侧是定积分的原始定义（黎曼和极限 / 面积），右侧是原函数差；公式说这两个数值必相等。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · 公式的"魔法"在哪里</div>
+            <div class="tp-pause">看完这条公式，魔法点不在公式本身（左 = 右），而在于：你<strong>不再需要</strong>用黎曼和的极限去算定积分，只需要找个原函数 F，代两个数减一下。</div>
+            <div class="tp-ask">把"极限运算"换成"求逆运算 + 减法"——这种降维的本质是什么？AI 请反问我：是 \(S(x)\) 这个变上限积分函数充当了什么角色，把"极限"和"求逆"接起来？</div>
+            <div class="tp-write">在草稿上用一句话回答："桥梁 = \(S(x)\)，因为它同时是 ___ 和 ___"。（提示：累积量 / 原函数）</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 3 自查 · 推导收尾</div>
+            <label data-key="c3-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能口述"两函数导数相等 → 差一常数"在本课的具体用法</span></label>
+            <label data-key="c3-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能用 \(S(a) = 0\) 解出 \(C = -F(a)\)，并令 \(x = b\) 得到 \(F(b) - F(a)\)</span></label>
+            <label data-key="c3-c3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能解释为什么"\(F\) 是<strong>任意</strong>原函数"在结论里不产生歧义（常数项被减法消掉）</span></label>
+            <label data-key="c3-c4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能完整复述 5 段推导（差分 / 中值 / 极限 / 配 S=F+C / 定 C 并代 x=b）</span></label>
+          </div>
+
+          <div class="literacy-tag">
+            素养标签：数学推理（多步定理链接收尾）/ 代数细节（消常数）/ 直觉与严谨的统一
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== Card 4 · 应用 · 重算 03 课的匀变速积分 ==================== -->
+  <div class="task-card" id="card4">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">4</div>
+      <h3>Card 4 · 应用 · 用牛莱公式重算 03 课的匀变速直线运动积分</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：把本课公式直接套到 03 课算过的 3 个匀变速积分上，观察"原函数差"与"面积法"结果完全一致；体会"严格的代数计算"vs"几何直观"的两种风味<br>
+        <strong>建议时长</strong>：30-38 分钟（速复习 4-6 + 三例题 18-22 + 反思对比 6-8 + 自查 4-6）
+      </div>
+
+      <!-- STEP 1 · 工具速复习 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 1</span>
+          <span class="step-title">应用工具速复习<br>
+            <span class="step-sub">4-6 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="derivation-block">
+            <div class="derivation-title">应用准备 · 3 件工具</div>
+            <div class="step-line"><strong>工具 A · 牛莱公式</strong>：\(\int_a^b f(x)\,dx = F(b) - F(a)\)，其中 \(F'(x) = f(x)\)。</div>
+            <div class="step-line"><strong>工具 B · 幂函数原函数（03 课已建）</strong>：\(\int x^n\,dx = \dfrac{x^{n+1}}{n+1} + C\)（\(n \neq -1\)）。所以 \(x^n\) 的原函数是 \(\dfrac{x^{n+1}}{n+1}\)。</div>
+            <div class="step-line"><strong>工具 C · 积分线性性（03 课已建）</strong>：\(\int (\alpha f + \beta g)\,dx = \alpha \int f\,dx + \beta \int g\,dx\)，常数 \(\alpha, \beta\) 可提到积分号外。</div>
+            <div class="step-line"><strong>速写记号</strong>：原函数在 \(a, b\) 处的差常写成方括号 \([F(x)]_a^b = F(b) - F(a)\)。</div>
+          </div>
+          <div class="prereq-recap">
+            <strong>前置回顾 · 来自 03 课</strong>：你在 03 课已经用"面积法"算过 \(v - t\) 图下的位移（梯形面积 / 三角形面积加起来）；也用"不定积分 + 初值"算过位移。本卡把第三种工具——<strong>牛莱公式</strong>——加进来，让你看出三种方法的等价性。
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 · 应用 1：匀变速速度公式（其实是验证） -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 2</span>
+          <span class="step-title">应用 1<br>v − t 关系<br>
+            <span class="step-sub">6-8 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="quote-block">
+            <strong>题面 1</strong>：质点做匀加速直线运动，加速度 \(a\) 为常数，\(\tau = 0\) 时刻的速度为 \(v_0\)。已知 \(a = \dfrac{dv}{d\tau}\)，用牛莱公式算从 0 到 \(t\) 这段时间内速度的变化 \(v - v_0\)，并写出 \(v(t)\)。
+          </div>
+          <div class="derivation-block">
+            <div class="derivation-title">推导 · 用牛莱公式</div>
+            <div class="step-line"><strong>识别函数</strong>：被积函数是 \(a(\tau) = a\)（常数函数）；它的原函数是 \(F(\tau) = a\tau\)（因为 \(\dfrac{d}{d\tau}(a\tau) = a\)）。</div>
+            <div class="step-line"><strong>套牛莱公式</strong>：</div>
+            <div class="step-line">$$\int_0^t a\,d\tau = [a\tau]_0^t = a \cdot t - a \cdot 0 = a t$$</div>
+            <div class="step-line"><strong>结合速度定义 \(a = dv/d\tau\)</strong>，等价地有 \(\int_0^t \dfrac{dv}{d\tau}\,d\tau = v(t) - v(0)\)（再次用牛莱公式，以 \(v(\tau)\) 为原函数）。于是：</div>
+            <div class="step-line">$$v(t) - v_0 = at \quad \Rightarrow \quad \boxed{v(t) = v_0 + at}$$</div>
+            <div class="step-line"><strong>对照 03 课</strong>：03 课你用"\(v - \tau\) 图下的矩形面积 = \(a \cdot t\)"得到同样结果。两条路径数值一致。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 · 应用 2：位移公式 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 3</span>
+          <span class="step-title">应用 2<br>位移 x − t 关系<br>
+            <span class="step-sub">7-9 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="quote-block">
+            <strong>题面 2</strong>：仍是匀加速直线运动，初速度 \(v_0\)、加速度 \(a\) 均为常数。已知 \(v = \dfrac{dx}{d\tau}\) 且由应用 1 知 \(v(\tau) = v_0 + a\tau\)。用牛莱公式算从 0 到 \(t\) 这段时间的位移 \(x(t) - x(0)\)；若取 \(x(0) = 0\)，写出 \(x(t)\)。
+          </div>
+          <div class="derivation-block">
+            <div class="derivation-title">推导 · 用牛莱公式</div>
+            <div class="step-line"><strong>识别函数</strong>：被积函数是 \(v(\tau) = v_0 + a\tau\)。由积分线性性 + 幂函数原函数（工具 B 与 C），它的一个原函数是：</div>
+            <div class="step-line">$$F(\tau) = v_0 \tau + \dfrac{1}{2} a \tau^2$$</div>
+            <div class="step-line">验算：\(F'(\tau) = v_0 + a\tau = v(\tau)\) ✓。</div>
+            <div class="step-line"><strong>套牛莱公式</strong>：</div>
+            <div class="step-line">$$\int_0^t (v_0 + a\tau)\,d\tau = \left[v_0 \tau + \dfrac{1}{2} a \tau^2\right]_0^t = v_0 t + \dfrac{1}{2} a t^2 - 0$$</div>
+            <div class="step-line">取 \(x(0) = 0\)：</div>
+            <div class="step-line">$$\boxed{x(t) = v_0 t + \dfrac{1}{2} a t^2}$$</div>
+            <div class="step-line"><strong>对照 03 课</strong>：03 课你用"\(v - \tau\) 梯形面积 = \(\dfrac{1}{2}(v_0 + v) \cdot t = v_0 t + \dfrac{1}{2}a t^2\)"得到同样结果。两条路径数值一致。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 1 · 面积法 vs 原函数差法</div>
+            <div class="tp-pause">同一个 \(\int_0^t (v_0 + a\tau)\,d\tau\)，用 03 课的几何面积法和本课的原函数差法，过程完全不同，结果完全一致。</div>
+            <div class="tp-ask">几何面积法适合什么场景？原函数差法适合什么场景？AI 请反问我：如果被积函数是 \(v(\tau) = v_0 + a\tau + b\tau^2\)（三次多项式），用哪种方法会更顺手？为什么？</div>
+            <div class="tp-write">在草稿上写出两种方法各自的"舒适圈"（一句话即可）。</div>
+            <div class="tp-hint">提示：面积法依赖几何形状好画；原函数差法只要原函数好找就能算。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 · 应用 3：v²-v₀² = 2ax -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 4</span>
+          <span class="step-title">应用 3<br>v² − v₀² = 2ax<br>
+            <span class="step-sub">6-8 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <div class="quote-block">
+            <strong>题面 3</strong>：03 课你用"链式法则 + 微分"得到 \(a\,dx = v\,dv\)，进而 \(\int_0^x a\,dx = \int_{v_0}^v v\,dv\)。请用牛莱公式分别算左右两侧定积分，得到 \(v^2 - v_0^2 = 2ax\)。
+          </div>
+          <div class="derivation-block">
+            <div class="derivation-title">推导 · 用牛莱公式分别算左右</div>
+            <div class="step-line"><strong>左侧</strong> \(\int_0^x a\,dx\)：被积函数是常数 \(a\)，原函数是 \(F(x') = a x'\)（这里 \(x'\) 是积分哑变量，与上限 \(x\) 区别）。由牛莱公式：</div>
+            <div class="step-line">$$\int_0^x a\,dx' = [a x']_0^x = a x - 0 = a x$$</div>
+            <div class="step-line"><strong>右侧</strong> \(\int_{v_0}^v v'\,dv'\)：被积函数是 \(v'\)（一次幂），原函数是 \(F(v') = \dfrac{1}{2}(v')^2\)（由工具 B：\(n = 1\) 时 \(\int v'\,dv' = \dfrac{(v')^2}{2}\)）。由牛莱公式：</div>
+            <div class="step-line">$$\int_{v_0}^v v'\,dv' = \left[\dfrac{(v')^2}{2}\right]_{v_0}^v = \dfrac{v^2}{2} - \dfrac{v_0^2}{2} = \dfrac{v^2 - v_0^2}{2}$$</div>
+            <div class="step-line"><strong>两侧相等</strong>：</div>
+            <div class="step-line">$$a x = \dfrac{v^2 - v_0^2}{2} \quad \Rightarrow \quad \boxed{v^2 = v_0^2 + 2ax}$$</div>
+            <div class="step-line"><strong>对照 03 课</strong>：03 课你用"消去时间 \(t\) + 代数化简"得到同一结果。本课直接套牛莱公式，<strong>少了消元这一步</strong>，过程更线性。</div>
+          </div>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 2 · 这三个公式都是"积分一步搞定"</div>
+            <div class="tp-pause">回顾应用 1、2、3：匀变速三大公式都被"识别原函数 + 套牛莱"两步出来了。这种"流水线"感觉是怎么形成的？</div>
+            <div class="tp-ask">如果以后看到一个新的积分题（被积函数是某个多项式 / 三角函数 / 指数函数），是不是只要能"找到原函数"，就能用牛莱公式秒算？AI 请反问我：找原函数本身有时也很难，有没有反例？</div>
+            <div class="tp-write">在草稿上记一行："牛莱公式的难点不在公式本身，而在 ___"。</div>
+            <div class="tp-hint">提示：原函数不总好找。比如 \(\int e^{-x^2}\,dx\)、\(\int \dfrac{\sin x}{x}\,dx\) 没有初等表达式。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 · 自查 + 反思 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">STEP 5</span>
+          <span class="step-title">三方法对比<br>+ 自查<br>
+            <span class="step-sub">6-8 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <table class="compare-table">
+            <tr>
+              <th>方法</th><th>适用场景</th><th>主要工具</th><th>主要风险</th>
+            </tr>
+            <tr>
+              <td>面积法（03 课）</td>
+              <td>\(v - t\) 图简单（矩形 / 梯形 / 三角形）；几何直观需要</td>
+              <td>初等几何面积公式</td>
+              <td>图形复杂时面积算不动</td>
+            </tr>
+            <tr>
+              <td>不定积分 + 初值（03 课）</td>
+              <td>需要写出"位置（速度）作为时间的函数"</td>
+              <td>不定积分公式 + 边界条件定 C</td>
+              <td>忘代初值；常数 C 没定</td>
+            </tr>
+            <tr>
+              <td>牛莱公式（本课）</td>
+              <td>要算"从 a 到 b 的累积量"；原函数好找</td>
+              <td>找原函数 \(F\) + 算 \(F(b) - F(a)\)</td>
+              <td>原函数不存在初等表达；漏代下限</td>
+            </tr>
+          </table>
+
+          <div class="thinking-point">
+            <div class="tp-title">思考点 3 · 同一个问题三种打法</div>
+            <div class="tp-pause">匀变速直线运动的三大公式，可以用上面 3 种方法分别推一遍。这种"同一结果多种推法"在物理学习里是常态。</div>
+            <div class="tp-ask">如果让你给学弟学妹解释 \(x = v_0 t + \dfrac{1}{2} a t^2\) 是怎么来的，你会优先选哪种方法？为什么？AI 请反问我：选择背后是不是有"先讲直观再讲严格"或"先讲严格再讲直观"这两种教学价值观？</div>
+            <div class="tp-write">在草稿上写出你的选择 + 理由（2-3 句）。</div>
+          </div>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 4 自查 · 应用</div>
+            <label data-key="c4-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能用牛莱公式独立推出 \(v = v_0 + at\)、\(x = v_0 t + \dfrac{1}{2} a t^2\)、\(v^2 = v_0^2 + 2ax\) 三大公式</span></label>
+            <label data-key="c4-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能对照 03 课的"面积法 / 不定积分法"指出本课"原函数差法"在过程上的差别</span></label>
+            <label data-key="c4-c3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能给出至少一个"原函数没有初等表达"的反例（比如 \(\int e^{-x^2}\,dx\)），说明牛莱公式不是万能的</span></label>
+            <label data-key="c4-c4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能在三方法对比表里看出每种方法的"舒适圈"与"风险点"</span></label>
+          </div>
+
+          <div class="literacy-tag">
+            素养标签：知识迁移（公式回用到旧情境）/ 方法对比（多解法的好坏）/ 边界意识（公式失效情形）
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== Card 5 · 综合反思 ==================== -->
+  <div class="task-card" id="card5">
+    <div class="task-card-header" onclick="toggleCard(this)">
+      <div class="task-card-number">5</div>
+      <h3>Card 5 · 综合反思 · 公式背后的数学品味</h3>
+      <span class="task-card-chevron">&#9660;</span>
+    </div>
+    <div class="task-card-body">
+      <div class="task-objective">
+        <strong>学习目标</strong>：从整体回顾本课的逻辑骨架；写下"我学到了什么 / 还有什么没想透 / 这条公式在数学和物理里的位置"<br>
+        <strong>建议时长</strong>：12-18 分钟（A 反思 4-6 + B 反思 4-6 + C 反思 4-6）
+      </div>
+
+      <!-- A 反思 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">A</span>
+          <span class="step-title">逻辑骨架反思<br>
+            <span class="step-sub">4-6 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p class="reflect-q">回顾本课 4 张推导卡（Card 1 → Card 2 → Card 3 → Card 4），把"5 段推导"画成一张简易流程图（手画在草稿即可）：</p>
+          <ol>
+            <li>定义 \(S(x) = \int_a^x f(t)\,dt\)</li>
+            <li>差分 → 积分可加性 → \(\int_x^{x+\Delta x} f\,dt\)</li>
+            <li>中值定理 → 存在 \(\xi\) 使 \(= f(\xi)\,\Delta x\)</li>
+            <li>取极限（夹逼 + 连续性）→ \(S'(x) = f(x)\)</li>
+            <li>"导数相等差常数" → \(S = F + C\)；用 \(S(a) = 0\) 定 \(C\)；令 \(x = b\) → 结论</li>
+          </ol>
+          <p class="reflect-q">在下方空白处写：哪一步最让你感到"灵光一现"？哪一步最难？你打算如何加固那一步？</p>
+          <textarea class="reflect-area" data-key="c5-A"></textarea>
+        </div>
+      </div>
+
+      <!-- B 反思 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">B</span>
+          <span class="step-title">数学 vs 物理身份<br>
+            <span class="step-sub">4-6 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p class="reflect-q">牛莱公式属于<strong>数学分析</strong>的定理，但你今天在<strong>物理课</strong>里学了它。请在下方写下：</p>
+          <ol>
+            <li>这条公式对物理而言最重要的<strong>一件事</strong>（一句话）</li>
+            <li>这条公式对数学而言最重要的<strong>一件事</strong>（一句话）</li>
+            <li>如果让你给一个只学过物理、没学过严格数学分析的同学讲"为什么微分和积分互为逆运算"，你会怎么开头？</li>
+          </ol>
+          <textarea class="reflect-area" data-key="c5-B"></textarea>
+        </div>
+      </div>
+
+      <!-- C 反思 -->
+      <div class="step">
+        <div class="step-header">
+          <span class="step-badge">C</span>
+          <span class="step-title">边界与诚实<br>
+            <span class="step-sub">4-6 分钟</span>
+          </span>
+        </div>
+        <div class="step-content">
+          <p class="reflect-q">本课的推导依赖"\(f\) 在 \([a, b]\) 上连续"这个假设。请回答：</p>
+          <ol>
+            <li>如果 \(f\) 不连续（比如在某点有跳跃），公式还能用吗？为什么？</li>
+            <li>如果原函数 \(F\) 没有初等表达式（比如 \(\int e^{-x^2}\,dx\)），公式还在吗？此时定积分能不能算？怎么算？</li>
+            <li>你现在<strong>不放心</strong>的环节是什么？写一行诚实的卡点。下次课或下一份 mock-check 时优先回到这一点。</li>
+          </ol>
+          <textarea class="reflect-area" data-key="c5-C"></textarea>
+
+          <div class="checkpoint">
+            <div class="checkpoint-title">Card 5 自查 · 综合反思</div>
+            <label data-key="c5-c1"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能口述本课 5 段推导的完整流程图，不需要看页面</span></label>
+            <label data-key="c5-c2"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能用 1-2 句话向只学过物理的同学讲清"微分与积分互为逆运算"的直觉</span></label>
+            <label data-key="c5-c3"><input type="checkbox" onchange="saveCheckbox(this)"><span>我能指出本课公式的失效条件（连续性 + 原函数存在）至少一个反例</span></label>
+            <label data-key="c5-c4"><input type="checkbox" onchange="saveCheckbox(this)"><span>我诚实记下了至少一个"还没想透"的环节，便于下次回头补</span></label>
+          </div>
+
+          <div class="literacy-tag">
+            素养标签：元认知（知道自己哪里没懂）/ 数学品味（看见定理之美）/ 学科融合（数学与物理的同一对象）
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 学习产出要求 ==================== -->
+  <div class="card">
+    <h2 class="section-title">学习产出要求</h2>
+    <table class="compare-table" style="--step-bg: var(--blue-050); --step-rich: var(--blue-700); --step-mid: var(--blue-700);">
+      <tr>
+        <th>产出</th><th>形式</th><th>判定标准</th>
+      </tr>
+      <tr>
+        <td>5 段推导手写稿</td>
+        <td>2-3 张 A4 纸，完整写出"差分 → 中值定理 → 极限 → 配 S=F+C → 定 C"5 段，每段都注明用到的工具</td>
+        <td>5 段齐备 + 每段标明依赖工具（自我检查能不能"溯源"）</td>
+      </tr>
+      <tr>
+        <td>三方法对比反思日志</td>
+        <td>200-400 字，对比"面积法 / 不定积分法 / 牛莱公式法"在算同一组匀变速积分时的优劣</td>
+        <td>能讲出每种方法的舒适圈与风险点；能给出适合自己思维风格的优先选择</td>
+      </tr>
+      <tr>
+        <td>"还没想透"卡点清单</td>
+        <td>1-3 行，列出本课中你诚实承认的薄弱环节（不必长）</td>
+        <td>有诚实卡点（"全部都懂"通常不真）；下次复习或 mock-check 时优先回到这些点</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ==================== Bottom Navigation ==================== -->
+  <nav class="bottom-nav">
+    <a href="../../../index.html">⬅ 返回主页</a>
+    <a href="04_牛莱公式_mock-check.html">📝 基础检测</a>
+  </nav>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 牛顿-莱布尼茨公式 · 牛顿-莱布尼茨公式 · task-cards Skill v0.1.29
+  </footer>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError: false
+      });
+    }
+  });
+
+  const STORAGE_KEY = "newton-leibniz-checkpoints";
+  function saveCheckbox(checkbox) {
+    var label = checkbox.closest("label[data-key]");
+    if (!label) return;
+    var key = label.getAttribute("data-key");
+    if (!key) return;
+    var state;
+    try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { state = {}; }
+    state[key] = checkbox.checked;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    if (checkbox.checked) { label.classList.add("checked"); } else { label.classList.remove("checked"); }
+  }
+
+  function toggleCard(header) {
+    var body = header.parentElement.querySelector(".task-card-body");
+    if (!body) return;
+    header.classList.toggle("collapsed");
+    body.classList.toggle("collapsed");
+  }
+
+  function getCheckboxState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { return {}; }
+  }
+  function restoreCheckboxes() {
+    var state = getCheckboxState();
+    var labels = document.querySelectorAll(".checkpoint label[data-key]");
+    labels.forEach(function(label) {
+      var key = label.getAttribute("data-key");
+      if (state[key]) {
+        var cb = label.querySelector("input[type=checkbox]");
+        if (cb) { cb.checked = true; label.classList.add("checked"); }
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+    restoreCheckboxes();
+  });
+
+  const REFLECT_KEY = "newton-leibniz-reflections";
+  function getReflectState() {
+    try { return JSON.parse(localStorage.getItem(REFLECT_KEY) || "{}"); } catch (e) { return {}; }
+  }
+  function persistReflection(textarea) {
+    var key = textarea.getAttribute("data-key");
+    if (!key) return;
+    var state = getReflectState();
+    state[key] = textarea.value;
+    try { localStorage.setItem(REFLECT_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function restoreReflections() {
+    var state = getReflectState();
+    document.querySelectorAll(".reflect-area").forEach(function(ta) {
+      var key = ta.getAttribute("data-key");
+      if (key && state[key]) ta.value = state[key];
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+    restoreReflections();
+    document.querySelectorAll(".reflect-area").forEach(function(ta) {
+      ta.addEventListener("input", function() { persistReflection(ta); });
+    });
+  });
+</script>
+
+</body>
+</html>

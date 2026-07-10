@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典力学 1 · 深度口试 · A 基础组 · 教师工具页</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+<style>
+  :root {
+    --blue-900:#002F73; --blue-700:#00409A; --blue-500:#0055B8; --blue-100:#E8EEF9; --blue-050:#F3F6FC;
+    --gold-900:#8E6E2E; --gold-700:#B8924A; --gold-500:#C9A961; --gold-100:#F4ECD6; --gold-050:#FBF7EC;
+    --silver-900:#5C6370; --silver-700:#7B8290; --silver-500:#A8AEBC; --silver-100:#E5E7EC; --silver-050:#F3F4F7;
+    --text-primary:#1d1d1f; --text-secondary:#6e6e73; --text-light:#86868b;
+    --bg-primary:#ffffff; --bg-secondary:#FAFAFB; --border-color:#ECEDF0;
+    --radius:24px; --radius-sm:14px; --radius-btn:16px;
+    --shadow-sm:0 1px 2px rgba(20,30,60,0.04), 0 4px 16px rgba(20,30,60,0.04);
+    --shadow-md:0 2px 8px rgba(20,30,60,0.06), 0 12px 32px rgba(20,30,60,0.06);
+    --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg-secondary); color:var(--text-primary); line-height:1.85; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .container { max-width:820px; margin:0 auto; padding:32px 24px 64px; }
+
+  /* 面包屑 */
+  .breadcrumb { font-size:0.82rem; color:var(--text-secondary); margin-bottom:24px; letter-spacing:0.02em; }
+  .breadcrumb a { color:var(--blue-700); text-decoration:none; }
+  .breadcrumb a:hover { text-decoration:underline; }
+  .breadcrumb .sep { margin:0 8px; color:var(--silver-500); }
+
+  /* 教师页红色警示 banner */
+  .teacher-banner {
+    background:#fff; border:2px solid #B91C1C; border-left:6px solid #B91C1C;
+    border-radius:var(--radius-sm); padding:20px 24px; margin-bottom:32px;
+    color:#7B1818; font-weight:600; font-size:0.95rem; line-height:1.7;
+    box-shadow:0 2px 12px rgba(185,28,28,0.08);
+  }
+  .teacher-banner strong { color:#7B1818; display:block; margin-bottom:6px; font-size:1.02rem; }
+  .teacher-banner .tb-sub { font-weight:500; color:#5C2424; font-size:0.86rem; }
+
+  /* Header */
+  .page-header {
+    text-align:center; padding:64px 32px 56px; background:#fff; color:var(--text-primary);
+    border-radius:var(--radius); margin-bottom:48px; position:relative; overflow:hidden;
+    box-shadow:var(--shadow-sm); border:1px solid var(--border-color);
+  }
+  .page-header::before {
+    content:""; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+    width:180px; height:180px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--gold-500), var(--gold-700)); opacity:0.12; z-index:0;
+  }
+  .page-header::after {
+    content:""; position:absolute; bottom:-40px; right:-40px; width:140px; height:140px;
+    border-radius:50%; border:1px solid var(--silver-500); opacity:0.35; z-index:0;
+  }
+  .page-header h1 {
+    font-size:1.55rem; margin-bottom:14px; font-weight:700; color:var(--blue-700);
+    letter-spacing:-0.01em; line-height:1.6; position:relative; z-index:1;
+  }
+  .page-header h1 .h1-sub {
+    display:inline-block; font-size:0.85rem; font-weight:500; color:var(--silver-700);
+    letter-spacing:0.04em; margin-top:10px; padding-top:10px;
+    border-top:1px solid var(--silver-500); opacity:0.9;
+  }
+  .page-header .subtitle { font-size:0.92rem; color:var(--silver-700); line-height:1.7; position:relative; z-index:1; }
+
+  /* 章节标题 */
+  .section-title {
+    font-size:1.2rem; font-weight:700; color:var(--blue-700); margin-bottom:28px;
+    padding-bottom:18px; border-bottom:1px solid var(--silver-100);
+    display:flex; align-items:center; gap:14px;
+  }
+  .section-title::before {
+    content:""; width:14px; height:14px; border-radius:50%;
+    background:var(--blue-700); flex-shrink:0; box-shadow:0 0 0 4px var(--blue-100);
+  }
+
+  /* 引导卡 */
+  .section-card {
+    background:#fff; border:1px solid var(--border-color); border-left:3px solid var(--blue-700);
+    border-radius:var(--radius); padding:36px; margin-bottom:36px; box-shadow:var(--shadow-sm);
+  }
+  .intro-card {
+    background:var(--blue-050); border-left:3px solid var(--blue-700);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:24px 28px; margin-bottom:32px; font-size:0.92rem; line-height:1.85;
+  }
+  .intro-card strong { color:var(--blue-700); }
+
+  /* 信息表 */
+  .info-table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+  .info-table td { padding:14px 16px; border-bottom:1px solid var(--border-color); vertical-align:top; line-height:1.75; }
+  .info-table td:first-child { font-weight:600; color:var(--blue-700); white-space:nowrap; width:130px; }
+  .info-table tr:last-child td { border-bottom:none; }
+
+  /* flow-step 4 阶段 pill 行 */
+  .flow-row { display:flex; flex-direction:column; gap:12px; margin-top:8px; }
+  .flow-step {
+    background:#fff; border:1px solid var(--border-color); border-left:3px solid var(--blue-700);
+    border-radius:var(--radius-sm); padding:18px 22px; display:flex; align-items:center; gap:14px;
+    font-size:0.92rem; line-height:1.7; flex-wrap:wrap;
+  }
+  .flow-step .ft { font-weight:700; color:var(--blue-700); flex-shrink:0; }
+  .flow-step .fm {
+    display:inline-block; background:var(--silver-050); color:var(--silver-700);
+    border-radius:999px; padding:4px 12px; font-size:0.78rem; font-weight:600;
+    border:1px solid var(--silver-100); flex-shrink:0;
+  }
+  .flow-step .fd { color:var(--text-primary); flex:1; min-width:200px; }
+
+  /* 选题器 */
+  .picker {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:28px 32px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+  }
+  .picker h3 { font-size:1.05rem; color:var(--blue-700); margin-bottom:16px; font-weight:700; }
+  .picker-actions { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:18px; }
+  .cta-btn {
+    background:var(--blue-700); color:#fff; border:none; border-radius:var(--radius-btn);
+    padding:12px 24px; font-size:0.92rem; font-weight:600; cursor:pointer;
+    transition:var(--transition); font-family:inherit;
+  }
+  .cta-btn:hover { background:var(--blue-900); box-shadow:0 4px 14px rgba(0,64,154,0.18); }
+  .cta-btn.secondary { background:var(--silver-050); color:var(--silver-900); border:1px solid var(--silver-100); }
+  .cta-btn.secondary:hover { background:var(--silver-100); }
+  .picker-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; }
+  .picker-grid label {
+    display:flex; align-items:center; gap:10px; padding:10px 14px;
+    background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    cursor:pointer; font-size:0.88rem; transition:var(--transition);
+  }
+  .picker-grid label:hover { background:var(--blue-050); border-color:var(--blue-700); }
+  .picker-grid label.checked { background:var(--blue-050); border-color:var(--blue-700); }
+  .picker-grid input[type="checkbox"] { accent-color:var(--blue-700); }
+
+  /* actions-bar */
+  .actions-bar {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:24px 28px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+    display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+  }
+  .actions-bar label { font-size:0.88rem; color:var(--silver-900); font-weight:600; }
+  .actions-bar input[type="text"] {
+    padding:10px 14px; border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    font-size:0.9rem; font-family:inherit; min-width:200px;
+  }
+  .actions-bar input[type="text"]:focus { outline:none; border-color:var(--blue-700); box-shadow:0 0 0 3px var(--blue-050); }
+
+  /* qline · 主问题块 · 循环色 + 大圆标题 */
+  .qline {
+    --q-rich:var(--blue-900);
+    --q-mid:var(--blue-700);
+    --q-bg:var(--blue-050);
+    --q-tint:var(--blue-100);
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:40px 36px; margin-bottom:48px; box-shadow:var(--shadow-sm);
+    border-left:3px solid var(--q-mid);
+  }
+  .qline.q-blue   { --q-rich:var(--blue-900);   --q-mid:var(--blue-700);   --q-bg:var(--blue-050);   --q-tint:var(--blue-100);   }
+  .qline.q-gold   { --q-rich:var(--gold-900);   --q-mid:var(--gold-700);   --q-bg:var(--gold-050);   --q-tint:var(--gold-100);   }
+  .qline.q-silver { --q-rich:var(--silver-900); --q-mid:var(--silver-700); --q-bg:var(--silver-050); --q-tint:var(--silver-100); }
+
+  .qline-header {
+    width:240px; height:240px; border-radius:50%;
+    background:var(--q-bg); border:2px solid var(--q-mid);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:28px; margin:0 auto 36px; text-align:center;
+    box-shadow:0 4px 18px rgba(20,30,60,0.06);
+  }
+  .qline-num {
+    font-size:0.74rem; font-weight:700; color:var(--q-mid);
+    letter-spacing:0.22em; padding-bottom:8px; margin-bottom:10px;
+    border-bottom:1.5px solid var(--q-mid);
+  }
+  .qline-header h3 {
+    font-size:1rem; font-weight:700; color:var(--q-rich); line-height:1.55;
+    max-width:100%; word-break:break-word;
+  }
+  .qline-time { font-size:0.74rem; color:var(--q-mid); opacity:0.85; margin-top:8px; letter-spacing:0.02em; }
+
+  /* 开放主问 */
+  .main-q {
+    background:var(--q-bg); border-left:3px solid var(--q-mid);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:22px 26px; margin-bottom:28px;
+  }
+  .main-q .mq-tag {
+    display:inline-block; color:var(--q-mid); font-size:0.74rem; font-weight:700;
+    letter-spacing:0.18em; margin-bottom:8px;
+  }
+  .main-q p { font-size:0.95rem; line-height:1.85; color:var(--text-primary); }
+
+  /* 追问树 (教师独有) */
+  .followups { margin-bottom:28px; }
+  .followups h4 {
+    font-size:0.92rem; font-weight:700; color:var(--q-rich); margin-bottom:14px;
+  }
+  .branch {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    padding:16px 20px; margin-bottom:12px; font-size:0.9rem; line-height:1.8;
+  }
+  .branch.ok    { border-left:3px solid var(--q-mid); }
+  .branch.stuck { border-left:3px solid var(--silver-700); background:var(--silver-050); }
+  .branch .b-tag {
+    display:inline-block; font-size:0.72rem; font-weight:700;
+    letter-spacing:0.14em; margin-right:10px; padding:2px 10px;
+    border-radius:999px;
+  }
+  .branch.ok .b-tag    { background:var(--q-tint); color:var(--q-rich); }
+  .branch.stuck .b-tag { background:var(--silver-100); color:var(--silver-900); }
+  .branch ul { padding-left:24px; margin-top:8px; }
+  .branch li { margin-bottom:6px; }
+
+  /* listen-table 听点表 */
+  .listen-table { margin-bottom:24px; }
+  .listen-table h4 { font-size:0.92rem; font-weight:700; color:var(--q-rich); margin-bottom:12px; }
+  .lp {
+    display:flex; gap:14px; align-items:flex-start; padding:12px 16px;
+    background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm);
+    margin-bottom:8px; font-size:0.9rem; line-height:1.75;
+  }
+  .lp .core-star {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; flex-shrink:0;
+    font-size:0.6rem; color:#fff; font-weight:700;
+  }
+  .lp.core .core-star        { background:var(--gold-700);   box-shadow:0 0 0 2px var(--gold-100);   }
+  .lp.boundary-lp .core-star { background:var(--silver-700); box-shadow:0 0 0 2px var(--silver-100); }
+  .lp.boundary-lp { border-style:dashed; }
+  .lp-anchor {
+    display:inline-block; background:var(--q-tint); color:var(--q-rich);
+    border-radius:999px; padding:2px 10px; font-size:0.74rem; font-weight:600;
+    margin-right:8px; white-space:nowrap;
+  }
+  .lp-text { flex:1; }
+
+  /* 误区信号 (教师独有 · 橙底) */
+  .signals { margin-bottom:24px; }
+  .signals h4 { font-size:0.92rem; font-weight:700; color:#B8924A; margin-bottom:12px; }
+  .signal {
+    background:var(--gold-050); border:1px solid var(--gold-100); border-left:3px solid var(--gold-700);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+    padding:14px 18px; margin-bottom:10px; font-size:0.88rem; line-height:1.8;
+  }
+  .signal strong { color:var(--gold-900); }
+  .signal .sig-chain { display:block; margin-top:6px; color:var(--silver-900); font-size:0.84rem; }
+
+  /* 救场话术 (教师独有 · 灰底) */
+  .rescue { margin-bottom:24px; }
+  .rescue h4 { font-size:0.92rem; font-weight:700; color:var(--silver-900); margin-bottom:12px; }
+  .rescue-card {
+    background:var(--silver-050); border:1px solid var(--silver-100);
+    border-radius:var(--radius-sm); padding:14px 18px; margin-bottom:10px;
+    font-size:0.88rem; line-height:1.8; color:var(--silver-900);
+  }
+  .rescue-card em { color:var(--silver-900); font-style:normal; font-weight:600; }
+
+  /* 记录区 (教师独有) */
+  .record-block { margin-top:24px; padding-top:24px; border-top:1px dashed var(--silver-100); }
+  .record-block h4 { font-size:0.88rem; font-weight:700; color:var(--silver-900); margin-bottom:12px; }
+  .record-checks { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+  .record-checks label {
+    display:flex; align-items:flex-start; gap:10px; font-size:0.88rem; line-height:1.7;
+    padding:6px 10px; border-radius:8px; cursor:pointer; transition:var(--transition);
+  }
+  .record-checks label:hover { background:var(--bg-secondary); }
+  .record-checks label.checked { background:var(--q-bg); }
+  .record-checks input[type="checkbox"] { accent-color:var(--q-mid); margin-top:5px; }
+  .record-block textarea {
+    width:100%; min-height:80px; padding:12px 14px; border:1px solid var(--border-color);
+    border-radius:var(--radius-sm); font-family:inherit; font-size:0.88rem; line-height:1.7;
+    resize:vertical; background:var(--bg-primary); color:var(--text-primary);
+  }
+  .record-block textarea:focus { outline:none; border-color:var(--q-mid); box-shadow:0 0 0 3px var(--q-bg); }
+
+  /* linked-output 联动环节 */
+  .linked-output {
+    background:#fff; border:1px solid var(--border-color); border-left:3px solid var(--gold-700);
+    border-radius:var(--radius); padding:32px 36px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+  }
+  .linked-output h2 {
+    font-size:1.15rem; color:var(--gold-900); margin-bottom:18px; font-weight:700;
+    display:flex; align-items:center; gap:12px;
+  }
+  .linked-output h2::before {
+    content:""; width:14px; height:14px; border-radius:50%; background:var(--gold-700);
+    box-shadow:0 0 0 4px var(--gold-100);
+  }
+  .linked-output p { font-size:0.92rem; line-height:1.85; margin-bottom:10px; }
+  .linked-output ul { padding-left:24px; font-size:0.92rem; line-height:1.85; }
+  .linked-output li { margin-bottom:8px; }
+
+  /* rubric 判定区 */
+  .rubric {
+    background:#fff; border:1px solid var(--border-color); border-radius:var(--radius);
+    padding:36px; margin-bottom:40px; box-shadow:var(--shadow-sm);
+    border-top:3px solid var(--blue-700);
+  }
+  .rubric h2 {
+    font-size:1.2rem; color:var(--blue-700); font-weight:700; margin-bottom:24px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .rubric h2::before {
+    content:""; width:14px; height:14px; border-radius:50%; background:var(--blue-700);
+    box-shadow:0 0 0 4px var(--blue-100);
+  }
+  .rubric-grid { display:flex; flex-direction:column; gap:14px; }
+  .rubric-row {
+    padding:18px 22px; border-radius:var(--radius-sm); border:1px solid var(--border-color);
+    font-size:0.9rem; line-height:1.8;
+  }
+  .rubric-row.pass { background:var(--blue-050);   border-left:3px solid var(--blue-700);   }
+  .rubric-row.hold { background:var(--gold-050);   border-left:3px solid var(--gold-700);   }
+  .rubric-row.fail { background:var(--silver-050); border-left:3px solid var(--silver-700); }
+  .rubric-row strong { display:block; margin-bottom:6px; font-size:0.96rem; }
+  .rubric-row.pass strong { color:var(--blue-900); }
+  .rubric-row.hold strong { color:var(--gold-900); }
+  .rubric-row.fail strong { color:var(--silver-900); }
+  .sign-note {
+    margin-top:22px; padding:18px 22px; background:var(--blue-050);
+    border-radius:var(--radius-sm); font-size:0.88rem; line-height:1.85; color:var(--blue-900);
+    border-left:3px solid var(--blue-700);
+  }
+
+  /* coverage-table 锚点覆盖速查 */
+  .coverage-table { width:100%; border-collapse:collapse; font-size:0.88rem; margin-top:18px; }
+  .coverage-table th, .coverage-table td {
+    padding:10px 14px; border-bottom:1px solid var(--border-color); vertical-align:top;
+    text-align:left; line-height:1.7;
+  }
+  .coverage-table th { font-weight:700; color:var(--blue-700); background:var(--blue-050); }
+  .coverage-table td:first-child { font-weight:600; color:var(--silver-900); width:140px; }
+
+  /* footer */
+  .footer { text-align:center; padding:32px 16px 8px; font-size:0.82rem; color:var(--silver-700); letter-spacing:0.04em; }
+
+  /* 打印 */
+  @media print {
+    .teacher-banner { border:1px solid #B91C1C; box-shadow:none; }
+    .picker-actions { display:none; }
+    .actions-bar .cta-btn { display:none; }
+    .qline { break-inside:avoid; box-shadow:none; }
+    .page-header::before, .page-header::after { display:none; }
+  }
+
+  @media (max-width: 640px) {
+    .container { padding:24px 16px 48px; }
+    .page-header { padding:44px 22px 36px; }
+    .page-header h1 { font-size:1.3rem; }
+    .qline { padding:28px 22px; }
+    .qline-header { width:200px; height:200px; padding:22px; }
+    .qline-header h3 { font-size:0.92rem; }
+    .flow-step { padding:14px 16px; font-size:0.86rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="breadcrumb">
+    <a href="#">星图物理</a><span class="sep">/</span>
+    <a href="#">经典力学 1</a><span class="sep">/</span>
+    
+    <span>深度口试 · 教师工具页</span>
+  </nav>
+
+  <!-- 教师页红色警示 banner -->
+  <div class="teacher-banner">
+    <strong>⚠️ 教师工具页 · 请勿向学生展示或投屏题库区</strong>
+    <span class="tb-sub">本页含追问树 / 误区信号 / 救场话术 / 判定 rubric / 记录区，仅供口试组织教师使用。学生题库页（开放主问 + 考查锚点）另有单独文件：<code>A_基础口试_运动描述_极限_幂函数微积分-oral-exam.html</code>。</span>
+  </div>
+
+  <!-- 头部 -->
+  <header class="page-header">
+    <h1>深度口试 · A 基础组 · 运动的描述 · 极限 · 幂函数微积分<br><span class="h1-sub">物理 · 经典力学 1 · basic · 教师工具页</span></h1>
+    <p class="subtitle">建议时长 ≤ 12 分钟 · 主问题任选 3 条 · 二试必须换未用主问题</p>
+  </header>
+
+  <!-- 适用与流程 -->
+  <section class="section-card">
+    <h2 class="section-title">口试定位与覆盖说明</h2>
+    <div class="intro-card">
+      <strong>覆盖范围</strong>：本页一次性覆盖 <strong>运动的描述, 极限（物理引入）, 幂函数微积分与直线运动公式</strong> 三个原子知识点。三者为同一学习链：从「描述运动需要哪些概念」到「用极限把平均量推到瞬时量」再到「用微积分推出三公式」。<br>
+      <strong>前提</strong>：学生对应 task-cards（<a href="../运动学的描述/01_运动的描述.html">01_运动的描述.html</a> · <a href="../极限/02_极限_物理引入.html">02_极限_物理引入.html</a> · <a href="../幂函数的微积分/03_幂函数微积分_直线运动公式.html">03_幂函数微积分_直线运动公式.html</a>）已完成且自查表全打勾；带本人推导手稿 / 错题入场。
+    </div>
+
+    <table class="info-table">
+      <tr><td>口试时长</td><td>≤ 12 分钟（暖场 1 min · 主问题 ×3 共 9 min · 收尾判定 2 min）</td></tr>
+      <tr><td>主问题选择</td><td>5 条主问题线中现场抽 3 条（或教师按学生薄弱面手动勾选）；二试换未用主问题，防背题</td></tr>
+      <tr><td>判定方式</td><td>无机器判分；教师按 rubric 与听点勾选下结论（✅ 通过 / ⏸ 暂缓 / ❌ 不通过）</td></tr>
+      <tr><td>对接教师</td><td>蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 深度口试 · A 基础组 教师</td></tr>
+    </table>
+
+    <h3 style="font-size:1rem; font-weight:700; color:var(--blue-700); margin:32px 0 14px;">流程条</h3>
+    <div class="flow-row">
+      <div class="flow-step"><span class="ft">① 暖场 · 自述</span><span class="fm">0 – 1 min</span><span class="fd">学生自述本三课最大收获 / 最初最绕的概念——开口热身，教师听口语流畅度与自我评估。</span></div>
+      <div class="flow-step"><span class="ft">② 主问题 ×3</span><span class="fm">1 – 10 min</span><span class="fd">每条 3 分钟。教师按抽签或勾选启动；答到位走深追 L1/L2，卡壳走台阶 1/2，仍不行记录后转下一条。</span></div>
+      <div class="flow-step"><span class="ft">③ 错题/手稿联动</span><span class="fm">10 – 11 min</span><span class="fd">学生展示 mock-check 错题或推导手稿，挑一处问「这一步你当时怎么想 / 现在怎么写」。</span></div>
+      <div class="flow-step"><span class="ft">④ 收尾判定 · 签字</span><span class="fm">11 – 12 min</span><span class="fd">教师按 rubric 下结论；通过当场签字，暂缓打印记录区作补学清单。</span></div>
+    </div>
+  </section>
+
+  <!-- 锚覆盖速查 -->
+  <section class="section-card">
+    <h2 class="section-title">三课锚点覆盖速查</h2>
+    <p style="font-size:0.92rem; line-height:1.85; color:var(--silver-900); margin-bottom:14px;">
+      下表给出本页 5 条主问题线对三个原子知识点关键锚点的覆盖关系（★ = 该主问题的核心听点 · ○ = 追问或联动覆盖）。任意 3 条组合都能覆盖至少一条来自每个原子知识点的核心听点。
+    </p>
+    <table class="coverage-table">
+      <thead>
+        <tr><th>来源 · 锚点</th><th>Q1 概念束</th><th>Q2 平均→瞬时</th><th>Q3 割线→切线</th><th>Q4 (x<sup>n</sup>)′</th><th>Q5 三公式推导</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>运动的描述 · 参考系 / 质点</td><td>★</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>运动的描述 · 位移 / 路程</td><td>★</td><td>○</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>运动的描述 · 速度 / 速率</td><td>★</td><td>○</td><td>○</td><td>—</td><td>○</td></tr>
+        <tr><td>运动的描述 · 加速度 a 的定义</td><td>★</td><td>—</td><td>—</td><td>○</td><td>★</td></tr>
+        <tr><td>运动的描述 · v-t 图读法</td><td>○</td><td>—</td><td>○</td><td>—</td><td>★</td></tr>
+        <tr><td>极限（物理引入） · 平均速度的局限</td><td>○</td><td>★</td><td>○</td><td>—</td><td>—</td></tr>
+        <tr><td>极限（物理引入） · Δt → 0 数表直觉</td><td>—</td><td>★</td><td>○</td><td>★</td><td>—</td></tr>
+        <tr><td>极限（物理引入） · 0/0 困惑与解套</td><td>—</td><td>★</td><td>—</td><td>○</td><td>—</td></tr>
+        <tr><td>极限（物理引入） · 割线 → 切线几何</td><td>—</td><td>○</td><td>★</td><td>—</td><td>○</td></tr>
+        <tr><td>幂函数微积分与直线运动公式 · (x<sup>n</sup>)′ = n x<sup>n−1</sup></td><td>—</td><td>—</td><td>—</td><td>★</td><td>★</td></tr>
+        <tr><td>幂函数微积分与直线运动公式 · ∫ x<sup>n</sup> dx 反求导</td><td>—</td><td>—</td><td>—</td><td>★</td><td>★</td></tr>
+        <tr><td>幂函数微积分与直线运动公式 · v = v<sub>0</sub> + at 推导</td><td>—</td><td>—</td><td>—</td><td>○</td><td>★</td></tr>
+        <tr><td>幂函数微积分与直线运动公式 · x = v<sub>0</sub>t + ½at<sup>2</sup> 推导</td><td>—</td><td>—</td><td>○</td><td>—</td><td>★</td></tr>
+        <tr><td>幂函数微积分与直线运动公式 · v<sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2ax 两路径</td><td>—</td><td>—</td><td>—</td><td>○</td><td>★</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 学生姓名 + 记录管理 -->
+  <div class="actions-bar">
+    <label for="studentName">学生姓名：</label>
+    <input type="text" id="studentName" placeholder="输入学生姓名以载入/保存记录">
+    <button type="button" class="cta-btn" onclick="loadRecord()">📂 载入记录</button>
+    <button type="button" class="cta-btn secondary" onclick="clearRecord()">🧹 清空本生记录</button>
+    <button type="button" class="cta-btn secondary" onclick="window.print()">🖨️ 打印</button>
+  </div>
+
+  <!-- 选题器 -->
+  <div class="picker">
+    <h3>选题器（5 选 3）</h3>
+    <div class="picker-actions">
+      <button type="button" class="cta-btn" onclick="randomPick()">🎲 随机抽 3 条</button>
+      <button type="button" class="cta-btn secondary" onclick="clearPick()">取消全选</button>
+    </div>
+    <div class="picker-grid" id="pickerGrid">
+      <label data-q="q1"><input type="checkbox" onchange="togglePick(this)"> Q1 · 五概念束区分</label>
+      <label data-q="q2"><input type="checkbox" onchange="togglePick(this)"> Q2 · 平均速度为何答不了瞬时</label>
+      <label data-q="q3"><input type="checkbox" onchange="togglePick(this)"> Q3 · 割线 → 切线的几何对应</label>
+      <label data-q="q4"><input type="checkbox" onchange="togglePick(this)"> Q4 · (x<sup>n</sup>)′ 的推导与含义</label>
+      <label data-q="q5"><input type="checkbox" onchange="togglePick(this)"> Q5 · 三公式独立推导</label>
+    </div>
+  </div>
+
+  <!-- ===== MAIN_QUESTIONS INJECTION POINT ===== -->
+
+  <!-- ============ Q1 · 概念束 · 蓝 ============ -->
+  <section class="qline q-blue" id="q1">
+    <div class="qline-header">
+      <div style="font-size:0.74rem; font-weight:700; color:var(--q-mid); letter-spacing:0.22em; padding-bottom:8px; margin-bottom:10px; border-bottom:1.5px solid var(--q-mid);">主问题 1</div>
+      <h3>五概念束区分<br>哪些是矢量 · 哪些是标量</h3>
+      <div style="font-size:0.74rem; color:var(--q-mid); opacity:0.85; margin-top:8px; letter-spacing:0.02em;">约 3 分钟</div>
+    </div>
+
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>描述一个物体的运动，我们需要的最少概念是哪几个？为什么仅凭「路程和速率」不够？请你举一个例子说明<strong>位移和路程会得到完全不同的数</strong>，并指出在这个例子里「加速度」是否一定为零。</p>
+    </div>
+
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok">
+        <span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「参考系」和「质点」两个词，你刚才用到了吗？如果让你研究地球绕太阳的周期，可以把地球看成质点吗？研究地球上不同纬度白昼长短呢？</li>
+          <li>同一个物体，两个不同参考系会描述出两种不同的运动——这件事在你刚才的例子里能不能也演示一下？</li>
+        </ul>
+      </div>
+      <div class="branch ok">
+        <span class="b-tag">深追 L2</span>
+        <ul>
+          <li>把你的例子改成「往返一次回到起点」：位移、路程、平均速度、平均速率四个量分别等于多少？哪两个可能为 0？</li>
+          <li>一辆车匀速 100 km/h，它的加速度是多少？现在给它一个 0.1 m/s<sup>2</sup> 的加速度，它的速度还是不是 100 km/h？「加速度大」和「速度大」是同一件事吗？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 1</span>
+        <ul>
+          <li>「先选一个参考系，再把研究对象抽象成一个点」——这两句话你认得吗？想想 01 课 Card 1 那张高铁里乘客喝水的图。</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 2</span>
+        <ul>
+          <li>给你半个例子：你从教室门口走到讲台再走回门口。「实际走过的总长」是路程，「起点指向终点的有向线段」是位移——这趟来回，两个数各是多少？把它们写在纸上。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="listen-table">
+      <h4>听点（学生说到位时话里应包含）</h4>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">参考系</span>运动的描述必须先选参考系；同一物体在不同参考系下可呈现不同运动</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">质点</span>当物体大小相对研究问题可以忽略 / 或物体上各点运动状态相同时才能抽象为质点</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">位移 vs 路程</span>位移是矢量（起点→终点有向线段）/ 路程是标量（实际轨迹总长）；往返时位移可为 0 而路程不为 0</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">速度 vs 速率</span>平均速度 = 位移 / 时间 / 矢量；平均速率 = 路程 / 时间 / 标量</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">加速度独立性</span>加速度大小与速度大小无关；匀速运动 a = 0；静止物体也可有大 a（如刚启动的火箭瞬间）</span></div>
+      <div class="lp boundary-lp"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">v-t 图直觉</span>能口头描述「v-t 图斜率就是加速度」，但本主问不强求</span></div>
+    </div>
+
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal">
+        <strong>信号 A · 概念混用</strong>：把「位移」和「路程」两个词当同义词随手互换。
+        <span class="sig-chain">→ 说明 矢量 / 标量 的根本区分没通；救场：「你刚才说的『走了 10 米』是位移还是路程？请用『起点指向终点』这个判据再说一遍。」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 B · 速度=加速度</strong>：说「匀速 100 km/h 加速度也大」或「静止加速度一定为 0」。
+        <span class="sig-chain">→ 说明 a 的定义「速度的变化率」没通；救场：「a 描述的是<em>速度怎么变</em>，不是<em>速度本身</em>。一辆停在红灯前的车，绿灯起步那一瞬间速度还是 0，但 a 是 0 吗？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 C · 背诵型</strong>：照本宣科「位移是矢量、路程是标量、平均速度是矢量、平均速率是标量」，问「为什么」立刻崩——指不出例子里哪个数对应哪个量。
+        <span class="sig-chain">→ 说明 概念只停在术语层；救场：「你能不能不用『矢量』这个词重新讲一遍位移和路程的区别？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 D · 忽略参考系</strong>：直接讲速度位移而完全不提「相对谁」。
+        <span class="sig-chain">→ 说明 第一层「运动是相对的」没建立；救场：「你刚才说车开了 30 m/s，是相对谁说的？换成车上的乘客来看呢？」</span>
+      </div>
+    </div>
+
+    <div class="rescue">
+      <h4>救场话术（给台阶不给答案）</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「01 课 Card 1 有一张高铁场景图，主语是『坐着喝水的乘客』，你回忆一下那张图想说明什么——再回到我们这道题。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「你刚才举的例子是直线一次走 10 米。我把它改一下：走 10 米再走回原地。这时哪些数变、哪些数不变？」</div>
+      <div class="rescue-card"><em>指路型 3：</em>「先别管『矢量』两个字。我换个问法——你最终人在哪里？走了多远的路？这两件事可以同时回答出来吗？」</div>
+    </div>
+
+    <div class="record-block">
+      <h4>📝 记录区 · Q1</h4>
+      <div class="record-checks">
+        <label data-key="q1-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 参考系核心听点命中</label>
+        <label data-key="q1-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 质点抽象准则命中</label>
+        <label data-key="q1-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 位移/路程矢量标量命中</label>
+        <label data-key="q1-lp4"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 速度/速率区分命中</label>
+        <label data-key="q1-lp5"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 加速度独立于速度命中</label>
+        <label data-key="q1-sig"><input type="checkbox" onchange="saveCheckbox(this)"> ⚠️ 触发背诵型/概念混用信号</label>
+      </div>
+      <textarea data-key="q1-note" placeholder="备注：学生具体表述 / 卡点 / 救场后是否化解……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+
+  <!-- ============ Q2 · 平均→瞬时 · 金 ============ -->
+  <section class="qline q-gold" id="q2">
+    <div class="qline-header">
+      <div style="font-size:0.74rem; font-weight:700; color:var(--q-mid); letter-spacing:0.22em; padding-bottom:8px; margin-bottom:10px; border-bottom:1.5px solid var(--q-mid);">主问题 2</div>
+      <h3>平均速度为什么<br>答不了「此刻多快」</h3>
+      <div style="font-size:0.74rem; color:var(--q-mid); opacity:0.85; margin-top:8px; letter-spacing:0.02em;">约 3 分钟</div>
+    </div>
+
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>一辆小车从 \(t = 0\) 到 \(t = 4\) s 走了 80 m，平均速度是 20 m/s。现在问你：在 \(t = 2\) s 这一<strong>瞬间</strong>，它的速度是多少？为什么平均速度的 20 m/s 不能直接当作答案？你打算怎么把「一段时间的平均」变成「某一时刻的瞬时」？</p>
+    </div>
+
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok">
+        <span class="b-tag">深追 L1</span>
+        <ul>
+          <li>你说「让 Δt 越来越小」——那能不能直接令 Δt = 0？这样做会得到什么表达式？这个表达式有意义吗？</li>
+          <li>「无限接近」和「等于」是不是一回事？数学上用什么记号表示这种「无限接近」？</li>
+        </ul>
+      </div>
+      <div class="branch ok">
+        <span class="b-tag">深追 L2</span>
+        <ul>
+          <li>假设这辆车的位置满足 \(x(t) = 5 t^2\)。在 \(t = 2\) s 的瞬时速度你能口头估计吗？告诉我你的步骤——不用算到底，把<strong>怎么算</strong>讲清楚就行。</li>
+          <li>如果题目换成 \(x(t) = 5 t^2 + 3 t\)，你的步骤要不要改？哪一步会不同？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 1</span>
+        <ul>
+          <li>「平均」和「瞬时」两个词的区别——平均描述<strong>一段</strong>时间内的整体快慢；瞬时描述<strong>某一时刻</strong>的快慢。你能不能用你身边的例子（如自己跑步）举一个对比？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 2</span>
+        <ul>
+          <li>给你半个步骤：先算 \([2, 2.1]\) 这 0.1 秒内的平均速度，再算 \([2, 2.01]\) 这 0.01 秒内的平均速度，再算 \([2, 2.001]\) 的平均速度。把它们写出来你会看到什么趋势？</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">平均的局限</span>平均速度只描述一段时间内的整体快慢 / 不描述某一瞬间</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">数表法直觉</span>取 Δt 越来越小的几组数值，观察 \(\Delta x / \Delta t\) 趋近某个确定值，这个值就是瞬时速度</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">0/0 困惑解套</span>不能令 Δt = 0（会得到无意义的 0/0），但能让 Δt「无限接近 0」——这正是<strong>极限</strong>的核心</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">极限记号</span>\(\displaystyle v(t) = \lim_{\Delta t \to 0} \dfrac{\Delta x}{\Delta t}\) · 能口头读出 / 不必书面默写整套</span></div>
+      <div class="lp boundary-lp"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">不展开严格定义</span>本课不要求 ε-δ 严格定义；学生若主动谈「无限接近≠等于」是亮点但不强求</span></div>
+    </div>
+
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal">
+        <strong>信号 A · 直接代 0</strong>：说「把 Δt 当 0 代进去 \(\Delta x / \Delta t\) 就得到瞬时速度」。
+        <span class="sig-chain">→ 说明 极限「无限接近≠等于」没通；救场：「你把 Δt 代成 0，分子分母分别是什么？这个分式有意义吗？现在换『让 Δt 不断变小但不为 0』再说一次。」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 B · 用小段平均冒充瞬时</strong>：随手算一个 \([2, 2.1]\) 的平均速度就报作瞬时速度。
+        <span class="sig-chain">→ 说明 没建立「取极限」这一步；救场：「这个 0.1 秒的平均，是<strong>瞬时</strong>吗，还是<strong>逼近瞬时的一个候选值</strong>？你还要做哪一步才能拿到瞬时？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 C · 背诵型</strong>：能背「瞬时速度等于位移对时间的极限」但问「为什么不能令 Δt = 0」立刻崩。
+        <span class="sig-chain">→ 说明 只记符号没通含义；救场：「抛开 lim 这个符号，你用『我让 Δt 越来越小』这种白话讲一遍这个过程。」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 D · 把 lim 当函数算</strong>：写出 \(\lim\) 后直接当函数操作，不解释它的含义。
+        <span class="sig-chain">→ 说明 lim 只是被当作「一个套子」，不知其物理意义；救场：「这个 lim 在描述<strong>哪一个过程</strong>？指着它跟我讲一遍。」</span>
+      </div>
+    </div>
+
+    <div class="rescue">
+      <h4>救场话术</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「02 课 Card 2 有一张 Δt 数表（0.1, 0.01, 0.001, …），让你看 \(\Delta x / \Delta t\) 的数值变化。回忆一下那张表想说明什么。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「先别管 lim 符号。用大白话讲：什么叫『让一段时间不断缩短，但永远不变成 0』？」</div>
+      <div class="rescue-card"><em>指路型 3：</em>「我给你一个具体函数 \(x = 5 t^2\)。请你<strong>不要直接套公式</strong>——从 \([2, 2.1]\) 和 \([2, 2.01]\) 两次平均速度开始算给我看。」</div>
+    </div>
+
+    <div class="record-block">
+      <h4>📝 记录区 · Q2</h4>
+      <div class="record-checks">
+        <label data-key="q2-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 平均/瞬时区分讲清</label>
+        <label data-key="q2-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 数表法直觉到位</label>
+        <label data-key="q2-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 0/0 困惑能口头解套</label>
+        <label data-key="q2-lp4"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 能读出 lim 记号含义</label>
+        <label data-key="q2-sig"><input type="checkbox" onchange="saveCheckbox(this)"> ⚠️ 触发「直接代 0」或「小段冒充瞬时」误区</label>
+      </div>
+      <textarea data-key="q2-note" placeholder="备注……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+
+  <!-- ============ Q3 · 割线→切线 · 银 ============ -->
+  <section class="qline q-silver" id="q3">
+    <div class="qline-header">
+      <div style="font-size:0.74rem; font-weight:700; color:var(--q-mid); letter-spacing:0.22em; padding-bottom:8px; margin-bottom:10px; border-bottom:1.5px solid var(--q-mid);">主问题 3</div>
+      <h3>x-t 图上<br>割线如何变成切线</h3>
+      <div style="font-size:0.74rem; color:var(--q-mid); opacity:0.85; margin-top:8px; letter-spacing:0.02em;">约 3 分钟</div>
+    </div>
+
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>你画一张 x-t 图（曲线随便画一条向上凸的）。在图上取两点 \(P_1\) 和 \(P_2\)，连成一条<strong>割线</strong>——这条割线的斜率在物理上等于什么？现在你让 \(P_2\) 沿曲线<strong>向 P<sub>1</sub> 逼近</strong>，这条割线会变成什么？它的斜率又等于什么？请你边在纸上画边讲。</p>
+    </div>
+
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok">
+        <span class="b-tag">深追 L1</span>
+        <ul>
+          <li>「割线斜率 = 平均速度」——这句话里的「平均」对应几何上的什么？为什么 \(P_2 \to P_1\) 之后，「平均」就变成了「瞬时」？</li>
+          <li>切线只有一条吗？如果换 P<sub>1</sub> 的位置，切线会跟着变吗？</li>
+        </ul>
+      </div>
+      <div class="branch ok">
+        <span class="b-tag">深追 L2</span>
+        <ul>
+          <li>同一个物体，如果它做<strong>匀速直线运动</strong>，x-t 图是什么样？这时割线和切线有什么关系？</li>
+          <li>如果是匀加速直线运动呢？x-t 图是抛物线——切线斜率怎么变？这件事和 Q1 里「加速度方向」如何对应？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 1</span>
+        <ul>
+          <li>02 课 Card 3 那张「割线 → 切线」的几何图你还记得吗？两点连成的线叫什么？两点重合后剩下的那条切于曲线的线叫什么？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 2</span>
+        <ul>
+          <li>先回到代数：割线的斜率写成分式是 \(\dfrac{x_2 - x_1}{t_2 - t_1}\)。这个分式你认识吗？它对应物理上哪一个量？</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">割线斜率=平均速度</span>x-t 图两点连成的割线，其斜率 \(\dfrac{x_2 - x_1}{t_2 - t_1} = \bar v\)</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">切线斜率=瞬时速度</span>当 \(P_2 \to P_1\) 时，割线的极限位置就是切线；切线斜率等于瞬时速度</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">几何与代数对应</span>能口头讲「逼近过程」在代数上对应 \(\lim_{\Delta t \to 0}\)，在几何上对应割线压向切线</span></div>
+      <div class="lp boundary-lp"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">特殊情形</span>匀速时 x-t 是直线 / 割线即切线 / 全程斜率相同（可主动提到，不强求）</span></div>
+    </div>
+
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal">
+        <strong>信号 A · 割线/切线混淆</strong>：把「两点连线」叫切线，或者把「过一点的某条直线」叫割线。
+        <span class="sig-chain">→ 说明 几何术语未与曲线行为挂钩；救场：「割线交曲线于 2 点；切线在该点『贴住』曲线（极限位置）。你刚才画的那条线，它和曲线交了几次？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 B · 反向类推 v-t</strong>：把「x-t 图斜率 = 速度」错说成「v-t 图斜率 = 速度」。
+        <span class="sig-chain">→ 说明 两种图像区分未通；救场：「x-t 图纵轴是<em>位移</em>，所以斜率是 Δx/Δt——速度。v-t 图纵轴是<em>速度</em>，斜率是 Δv/Δt——那是什么？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 C · 背诵型</strong>：能背「割线 → 切线 → 瞬时速度」但拿张图让他指出割线 / 切线立刻指错。
+        <span class="sig-chain">→ 说明 概念未与图像绑定；救场：「请你边画边讲，不准用『割线』『切线』这两个词，用自己的话描述这个过程。」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 D · 只讲代数不讲几何</strong>：能写出 \(\dfrac{x_2 - x_1}{t_2 - t_1}\) 但被问「在图上指出这条线」立刻卡。
+        <span class="sig-chain">→ 说明 代数与几何两层未打通；救场：「你现在在草稿上画两个坐标点 P<sub>1</sub>、P<sub>2</sub>——用尺连起来，这条实线就是你写的那个分式的几何形象。」</span>
+      </div>
+    </div>
+
+    <div class="rescue">
+      <h4>救场话术</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「02 课 Card 3 的几何图——你能从书包里翻出当时的草稿吗？指着图讲。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「先把割线的代数表达式 \(\dfrac{x_2 - x_1}{t_2 - t_1}\) 写出来。这是物理上的什么？现在让 \(t_2\) 越来越接近 \(t_1\)——分式会变成什么样？」</div>
+    </div>
+
+    <div class="record-block">
+      <h4>📝 记录区 · Q3</h4>
+      <div class="record-checks">
+        <label data-key="q3-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 割线斜率 = 平均速度</label>
+        <label data-key="q3-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 切线斜率 = 瞬时速度</label>
+        <label data-key="q3-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 几何与极限的对应</label>
+        <label data-key="q3-sig"><input type="checkbox" onchange="saveCheckbox(this)"> ⚠️ 触发割线/切线混淆</label>
+      </div>
+      <textarea data-key="q3-note" placeholder="备注……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+
+  <!-- ============ Q4 · (x^n)' · 蓝 ============ -->
+  <section class="qline q-blue" id="q4">
+    <div class="qline-header">
+      <div style="font-size:0.74rem; font-weight:700; color:var(--q-mid); letter-spacing:0.22em; padding-bottom:8px; margin-bottom:10px; border-bottom:1.5px solid var(--q-mid);">主问题 4</div>
+      <h3>幂函数求导<br>从极限定义推 (x<sup>n</sup>)′</h3>
+      <div style="font-size:0.74rem; color:var(--q-mid); opacity:0.85; margin-top:8px; letter-spacing:0.02em;">约 3 分钟</div>
+    </div>
+
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>请你<strong>不要直接报结论</strong>。从极限定义出发，推一遍 \((x^2)' = 2x\)——讲思路就行，关键代数步骤口头说，纸上写 1–2 行最关键的展开式。推完后告诉我：这个结论怎么从 \(n = 2\) 推广到一般的 \(x^n\)？</p>
+    </div>
+
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok">
+        <span class="b-tag">深追 L1</span>
+        <ul>
+          <li>你展开 \((x + \Delta x)^2 = x^2 + 2 x \Delta x + (\Delta x)^2\)——为什么最后只剩 \(2x\)？\((\Delta x)^2\) 那一项哪去了？</li>
+          <li>把 \(n = 2\) 换成 \(n = 3\) 再来一次，你的步骤会变吗？关键代数动作是什么？</li>
+        </ul>
+      </div>
+      <div class="branch ok">
+        <span class="b-tag">深追 L2</span>
+        <ul>
+          <li>反过来：如果给你 \(\int x^n \, dx = \dfrac{x^{n+1}}{n+1} + C\)（\(n \neq -1\)），你能用「反求导直觉」解释这条公式吗？为什么要排除 \(n = -1\)？</li>
+          <li>取一个特例 \(n = 0\)（即 \(x^0 = 1\)）。\(\int 1 \, dx = ?\)，和你公式得到的结果对得上吗？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 1</span>
+        <ul>
+          <li>导数的定义是什么？写出 \(f'(x) = \lim_{\Delta x \to 0} \dfrac{f(x + \Delta x) - f(x)}{\Delta x}\) 这个式子，然后让 \(f(x) = x^2\) 代进去看看。</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 2</span>
+        <ul>
+          <li>展开 \((x + \Delta x)^2\) 后，分子是 \(2 x \Delta x + (\Delta x)^2\)。这个分子的每一项除以分母 \(\Delta x\) 各是什么？现在让 \(\Delta x \to 0\)——哪一项留下、哪一项消失？</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">导数定义</span>能口头说出 \(f'(x) = \lim_{\Delta x \to 0} \dfrac{f(x + \Delta x) - f(x)}{\Delta x}\) 的物理与几何含义</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">代数展开</span>能口头讲清 \((x + \Delta x)^2 = x^2 + 2 x \Delta x + (\Delta x)^2\) 的展开 / 抵消 \(x^2\) / 除 \(\Delta x\) / 取极限四步</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">(x<sup>n</sup>)′ 结论</span>(x<sup>n</sup>)′ = n x<sup>n−1</sup> · 至少对 n = 2 能现场重推</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">∫ x<sup>n</sup> dx 反求导</span>能用「求导的反过程」解释 \(\int x^n dx = \dfrac{x^{n+1}}{n+1} + C\)；知道 n = −1 要排除</span></div>
+      <div class="lp boundary-lp"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">二项式直觉</span>能口头点出「高阶项 \((\Delta x)^k\) 在 Δx→0 时被吃掉」 / 不强求</span></div>
+    </div>
+
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal">
+        <strong>信号 A · 跳过推导直接报结论</strong>：被问「推一遍」立刻报 \((x^n)' = n x^{n-1}\)，没有过程。
+        <span class="sig-chain">→ 说明 公式只在记忆层；救场：「我不是要你告诉我答案。请你从极限定义那一行开始写——不展开就讲不清。」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 B · (Δx)<sup>2</sup> 项处理错</strong>：保留 \((\Delta x)^2 / \Delta x = \Delta x\) 这一项作为最终答案的一部分。
+        <span class="sig-chain">→ 说明 极限过程未到位；救场：「你写完 \(2x + \Delta x\) 之后，要做的最后一步是什么？让 Δx 怎么样？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 C · 反求导与求导混淆</strong>：把 \(\int x^n dx\) 直接写成 \(n x^{n-1}\) 或类似形式。
+        <span class="sig-chain">→ 说明 求导 / 积分两个动作没区分；救场：「积分是求导的反过程。\(\dfrac{d}{dx}\bigl(\dfrac{x^{n+1}}{n+1}\bigr) = ?\) 你算一下，能不能得回 \(x^n\)？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 D · 背诵型</strong>：能背公式但要求「用自己的话解释为什么不能 n = −1」立刻卡。
+        <span class="sig-chain">→ 说明 公式适用条件未理解；救场：「把 n = −1 代到 \(\dfrac{x^{n+1}}{n+1}\) 里看看分母是几？这个表达式还有意义吗？」</span>
+      </div>
+    </div>
+
+    <div class="rescue">
+      <h4>救场话术</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「03 课 Card 1 STEP 3 让你亲手推过 (x<sup>2</sup>)′——回忆当时你写的展开式是哪 3 行。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「先写定义那一行：\(f'(x) = \lim_{\Delta x \to 0} \dots\)。把 \(f(x) = x^2\) 代进去——分子能展开成什么样？」</div>
+      <div class="rescue-card"><em>指路型 3：</em>「反求导只问一件事：哪个函数对 x 求导后得到 \(x^n\)？你猜一个，再求导验证。」</div>
+    </div>
+
+    <div class="record-block">
+      <h4>📝 记录区 · Q4</h4>
+      <div class="record-checks">
+        <label data-key="q4-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 能复述导数极限定义</label>
+        <label data-key="q4-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 完整四步推 (x²)′ = 2x</label>
+        <label data-key="q4-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 推广到 (x<sup>n</sup>)′</label>
+        <label data-key="q4-lp4"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ ∫ x<sup>n</sup> dx 反求导解释 + 排除 n = −1</label>
+        <label data-key="q4-sig"><input type="checkbox" onchange="saveCheckbox(this)"> ⚠️ 跳过推导 / (Δx)² 项处理错 / 求导积分混淆</label>
+      </div>
+      <textarea data-key="q4-note" placeholder="备注……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+
+  <!-- ============ Q5 · 三公式独立推导 · 金 ============ -->
+  <section class="qline q-gold" id="q5">
+    <div class="qline-header">
+      <div style="font-size:0.74rem; font-weight:700; color:var(--q-mid); letter-spacing:0.22em; padding-bottom:8px; margin-bottom:10px; border-bottom:1.5px solid var(--q-mid);">主问题 5</div>
+      <h3>三公式独立推导<br>v = v<sub>0</sub> + at · x = v<sub>0</sub>t + ½at<sup>2</sup> · v<sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2ax</h3>
+      <div style="font-size:0.74rem; color:var(--q-mid); opacity:0.85; margin-top:8px; letter-spacing:0.02em;">约 3 分钟</div>
+    </div>
+
+    <div class="main-q">
+      <span class="mq-tag">开放主问</span>
+      <p>请你从<strong>加速度的定义</strong> \(a = \dfrac{dv}{dt}\) 出发（\(a\) 为常数），<strong>不用记忆中的成品</strong>，独立推导匀加速直线运动的三个公式：先推 \(v\)，再推 \(x\)，最后推不显含 \(t\) 的公式。每一步告诉我「为什么能这么写」。</p>
+    </div>
+
+    <div class="followups">
+      <h4>追问树</h4>
+      <div class="branch ok">
+        <span class="b-tag">深追 L1</span>
+        <ul>
+          <li>推 \(x = v_0 t + \dfrac{1}{2} a t^2\) 时，那个 \(\dfrac{1}{2}\) 是怎么来的？它对应 v-t 图上的什么几何量？</li>
+          <li>第三公式 \(v^2 = v_0^2 + 2 a x\) 你用的是代数消 \(t\)，还是 \(a \, dx = v \, dv\) 直接积分？两条路径都试试。</li>
+        </ul>
+      </div>
+      <div class="branch ok">
+        <span class="b-tag">深追 L2</span>
+        <ul>
+          <li>当 \(a\) <strong>不是常数</strong>（如弹簧、阻力）时，三公式还能用吗？你的推导哪一步会出问题？</li>
+          <li>自由下落 / 刹车这类问题里，「正方向」怎么定？\(a\) 与 \(v_0\) 的正负号会变吗？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 1</span>
+        <ul>
+          <li>加速度的定义 \(a = \dfrac{dv}{dt}\) 你认得吧。把它两边对时间积分——左边是什么？右边是什么？</li>
+        </ul>
+      </div>
+      <div class="branch stuck">
+        <span class="b-tag">卡壳 · 台阶 2</span>
+        <ul>
+          <li>给你半个推导：\(\int_0^t a \, dt' = a t\)（因为 a 是常数），所以 \(v(t) - v_0 = a t\) → \(v = v_0 + a t\)。下一步你想用 \(v = \dfrac{dx}{dt}\) 还是 v-t 图的面积？</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="listen-table">
+      <h4>听点</h4>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">v 的推导</span>由 \(a = dv/dt\) 对 \(t\) 积分 / \(a\) 是常数提出 / 得 \(v = v_0 + a t\)</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">x 的推导</span>由 \(v = dx/dt\) 代入上式再对 \(t\) 积分 / 得 \(x = v_0 t + \dfrac{1}{2} a t^2\) / 能口头解释 ½ 的几何来源（v-t 图三角形面积）</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">v² 公式两路径</span>能讲清「代数消 t」或「\(a \, dx = v \, dv\) 直接积分」两条路径之一（任一即可）</span></div>
+      <div class="lp core"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">适用前提</span>三公式仅对 \(a\) = 常数（匀加速直线运动）成立；变力 / 变 a 不再适用</span></div>
+      <div class="lp boundary-lp"><span class="core-star">⭐</span><span class="lp-text"><span class="lp-anchor">正方向与符号</span>一维问题先定正方向 / \(v_0, v, a, x\) 按矢量代正负 / 刹车时 \(a < 0\)（可主动谈到，不强求）</span></div>
+    </div>
+
+    <div class="signals">
+      <h4>误区信号</h4>
+      <div class="signal">
+        <strong>信号 A · 默写式套用</strong>：直接报「v 等于 v0 加 at」再「x 等于 v0t 加二分之一 at 平方」，不讲来源。
+        <span class="sig-chain">→ 说明 公式停在记忆层；救场：「我不是问公式长什么样。请你从 \(a = dv/dt\) 这一行开始——下一步是积分还是别的？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 B · ½ 来源说不清</strong>：能写出 \(x = v_0 t + \dfrac{1}{2} a t^2\)，但被问「½ 是怎么出来的」立刻卡。
+        <span class="sig-chain">→ 说明 积分过程未消化；救场：「\(\int_0^t (v_0 + a t') \, dt' = v_0 t + ?\)——把第二项积出来你看。或者画 v-t 图：v 从 v<sub>0</sub> 直线增长到 v<sub>0</sub>+at，下面那个梯形面积怎么算？」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 C · 适用条件忽略</strong>：被问「a 是变化的怎么办」答「也能用」。
+        <span class="sig-chain">→ 说明 推导前提没意识；救场：「你刚才在哪一步用了『a 是常数』？把 a 换成 a(t) 看看那一步还能不能做。」</span>
+      </div>
+      <div class="signal">
+        <strong>信号 D · 三公式当三件独立东西背</strong>：能背出三公式但说不出它们之间是「由 a 一步步积出来」的推导链。
+        <span class="sig-chain">→ 说明 链路断开 / 背诵型；救场：「这三个公式不是三件事。第一个推第二个，第一个第二个共推第三个——画一张你脑中的推导路线图给我看。」</span>
+      </div>
+    </div>
+
+    <div class="rescue">
+      <h4>救场话术</h4>
+      <div class="rescue-card"><em>指路型 1：</em>「03 课 Card 3、Card 4、Card 5 各推一公式——回忆 Card 3 那张『从 a 积到 v』的两行式子。」</div>
+      <div class="rescue-card"><em>指路型 2：</em>「先把『\(a\) 是常数』四个字写在纸上当条件。然后写 \(a = dv/dt\)。两边对 \(t\) 积分——左边是什么，右边是什么？」</div>
+      <div class="rescue-card"><em>指路型 3：</em>「画一张 v-t 图：横轴 t、纵轴 v；从 v<sub>0</sub> 起，斜率 a 的直线。你画完后，『位移』对应图上哪个量？面积怎么算？」</div>
+    </div>
+
+    <div class="record-block">
+      <h4>📝 记录区 · Q5</h4>
+      <div class="record-checks">
+        <label data-key="q5-lp1"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 独立推 v = v<sub>0</sub> + at</label>
+        <label data-key="q5-lp2"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 独立推 x = v<sub>0</sub>t + ½at<sup>2</sup> + 能解释 ½</label>
+        <label data-key="q5-lp3"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 推 v<sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2ax（任一路径）</label>
+        <label data-key="q5-lp4"><input type="checkbox" onchange="saveCheckbox(this)"> ⭐ 能讲清「a 是常数」前提</label>
+        <label data-key="q5-sig"><input type="checkbox" onchange="saveCheckbox(this)"> ⚠️ 默写式套用 / ½ 来源说不清 / 链路断开</label>
+      </div>
+      <textarea data-key="q5-note" placeholder="备注……" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- 错题/手稿联动 -->
+  <section class="linked-output">
+    <h2>📎 产出物联动环节（基础组：错题 + 推导手稿）</h2>
+    <p>基础板块的联动是「<strong>讲自己的工作</strong>」——学生从书包里掏出实物，教师挑一处问「当时为什么这么写 / 现在怎么想」。</p>
+    <ul>
+      <li><strong>运动的描述 mock-check 错题</strong>（如有）：让学生指出错在哪个概念（位移≠路程 / 速度≠速率 / 加速度方向…），并用自己的话讲一遍正确推理。</li>
+      <li><strong>幂函数微积分与直线运动公式 推导手稿</strong>：翻到 Card 3、4、5 中任一张的推导。教师指其中一行问：「这一行你为什么能这么写？上一行到这一行用了什么定义或步骤？」</li>
+      <li><strong>极限（物理引入） 数表草稿</strong>（如有）：翻到 Δt 数表那一页——让学生指着数表口述「这一列数字逼近的是哪一个量」。</li>
+    </ul>
+    <div class="record-block">
+      <h4>📝 联动环节记录</h4>
+      <div class="record-checks">
+        <label data-key="link-mock"><input type="checkbox" onchange="saveCheckbox(this)"> 学生能讲清 mock-check 错题的概念错位</label>
+        <label data-key="link-deriv"><input type="checkbox" onchange="saveCheckbox(this)"> 学生能在推导手稿上指着任一行讲来源</label>
+        <label data-key="link-table"><input type="checkbox" onchange="saveCheckbox(this)"> 学生能用数表草稿口述极限直觉</label>
+      </div>
+      <textarea data-key="link-note" placeholder="联动环节备注（学生展示了什么 / 讲清了什么 / 卡在哪一步）" oninput="saveNote(this)"></textarea>
+    </div>
+  </section>
+
+  <!-- rubric 判定 -->
+  <section class="rubric">
+    <h2>判定 rubric（教师拥有最终判断权）</h2>
+    <div class="rubric-grid">
+      <div class="rubric-row pass">
+        <strong>✅ 通过</strong>
+        所抽 3 条主问题线中至少 2 条满足：<strong>核心听点全中 + 深追 L1 接得住</strong>；且<strong>联动环节</strong>能在错题或手稿上现场指出一处「当时怎么想」。本基础组的<strong>不可缺核心听点</strong>：
+        <br>• Q1 命中：位移/路程矢量标量区分 + 加速度独立于速度
+        <br>• Q2 命中：能口头讲清「为什么不能令 Δt = 0」
+        <br>• Q3 命中：割线斜率 = 平均速度 / 切线斜率 = 瞬时速度
+        <br>• Q4 命中：能现场重推 (x<sup>2</sup>)′ 至少到 \(2x + \Delta x \to 2x\) 这一步
+        <br>• Q5 命中：能从 \(a = dv/dt\) 起步推出 v 公式；½ 的几何或代数来源任答一种
+      </div>
+      <div class="rubric-row hold">
+        <strong>⏸ 暂缓</strong>
+        1 条主问题线核心听点缺失，或两级台阶后仍卡壳。<strong>补学清单（按命中失败的主问题指向）</strong>：
+        <br>• Q1 不过 → 回 01 课 Card 1-4 自查表 + 重做 运动的描述 mock-check 概念辨析题
+        <br>• Q2 不过 → 回 02 课 Card 2（Δt 数表实验亲手填一遍）+ Card 1 STEP 3
+        <br>• Q3 不过 → 回 02 课 Card 3（割线 → 切线几何图重画一次）
+        <br>• Q4 不过 → 回 03 课 Card 1 STEP 3（亲手推一次 (x<sup>2</sup>)′）
+        <br>• Q5 不过 → 回 03 课 Card 3-5（按代数 + 几何两路径各重推一次）
+        <br>预约二试时间；二试<strong>必须换未用过的主问题线</strong>。
+      </div>
+      <div class="rubric-row fail">
+        <strong>❌ 不通过</strong>
+        ≥2 条主问题线核心听点混乱，或<strong>背诵型信号贯穿 ≥2 条主问题</strong>（术语全对但被换情境立刻崩 / 推导只能从记忆中报答案）。回学习阶段：与学生约定先重学 运动的描述 全部 5 张 Card + 幂函数微积分与直线运动公式 全部 5 张 Card，再约口试。
+      </div>
+    </div>
+    <div class="sign-note">
+      <strong>签字说明</strong>：通过档当场签字（日期 + 教师姓名）；暂缓 / 不通过不签字，仅留本页「📝 记录区」勾选与备注作补学清单（建议打印一份给学生）。真实签字在纸面口试单上，本页只做提示文案。
+    </div>
+  </section>
+
+  <footer class="footer">
+    蓝色诺瓦学院 · 星图物理 · 经典力学 1 · 深度口试 · A 基础组 · 教师工具页 · oral-exam Skill v0.1.0
+  </footer>
+
+</div>
+
+<script>
+  // KaTeX auto-render
+  document.addEventListener("DOMContentLoaded", function() {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false
+      });
+    }
+    restoreState();
+  });
+
+  // ---------- 选题器 ----------
+  function togglePick(cb) {
+    cb.parentElement.classList.toggle('checked', cb.checked);
+  }
+  function randomPick() {
+    var all = document.querySelectorAll('#pickerGrid label');
+    var ids = Array.from(all);
+    ids.forEach(function(lb){ var c = lb.querySelector('input'); c.checked = false; lb.classList.remove('checked'); });
+    var shuffled = ids.sort(function(){ return Math.random() - 0.5; });
+    for (var i = 0; i < 3 && i < shuffled.length; i++) {
+      var c = shuffled[i].querySelector('input');
+      c.checked = true;
+      shuffled[i].classList.add('checked');
+    }
+    var first = document.querySelectorAll('#pickerGrid label.checked')[0];
+    if (first) {
+      var q = first.getAttribute('data-q');
+      var target = document.getElementById(q);
+      if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+  function clearPick() {
+    document.querySelectorAll('#pickerGrid label').forEach(function(lb){
+      var c = lb.querySelector('input');
+      c.checked = false; lb.classList.remove('checked');
+    });
+  }
+
+  // ---------- 记录区 localStorage ----------
+  function recordKey() {
+    var name = (document.getElementById('studentName').value || '').trim();
+    if (!name) return null;
+    return 'oral-exam-basic-A-yundong-jixian-mifen-' + name;
+  }
+  function saveCheckbox(cb) {
+    cb.parentElement.classList.toggle('checked', cb.checked);
+    var key = recordKey();
+    if (!key) return;
+    var data = JSON.parse(localStorage.getItem(key) || '{}');
+    data[cb.parentElement.getAttribute('data-key')] = cb.checked ? '1' : '0';
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  function saveNote(ta) {
+    var key = recordKey();
+    if (!key) return;
+    var data = JSON.parse(localStorage.getItem(key) || '{}');
+    data[ta.getAttribute('data-key')] = ta.value;
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  function loadRecord() {
+    var key = recordKey();
+    if (!key) { alert('请先输入学生姓名'); return; }
+    var data = JSON.parse(localStorage.getItem(key) || '{}');
+    document.querySelectorAll('.record-checks input[type="checkbox"]').forEach(function(cb){
+      var k = cb.parentElement.getAttribute('data-key');
+      var v = data[k] === '1';
+      cb.checked = v;
+      cb.parentElement.classList.toggle('checked', v);
+    });
+    document.querySelectorAll('.record-block textarea').forEach(function(ta){
+      var k = ta.getAttribute('data-key');
+      ta.value = data[k] || '';
+    });
+  }
+  function clearRecord() {
+    var key = recordKey();
+    if (!key) { alert('请先输入学生姓名'); return; }
+    if (!confirm('确认清空本生的本次口试记录？')) return;
+    localStorage.removeItem(key);
+    document.querySelectorAll('.record-checks input[type="checkbox"]').forEach(function(cb){
+      cb.checked = false;
+      cb.parentElement.classList.remove('checked');
+    });
+    document.querySelectorAll('.record-block textarea').forEach(function(ta){
+      ta.value = '';
+    });
+  }
+  function restoreState() {
+    // 仅初始化 picker 视觉, 不主动 load 学生记录
+  }
+</script>
+</body>
+</html>
